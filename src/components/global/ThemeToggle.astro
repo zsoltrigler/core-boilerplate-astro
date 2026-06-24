@@ -1,0 +1,96 @@
+---
+// ThemeToggle — manages dark/light mode with localStorage persistence.
+// Works across View Transitions via the astro:after-swap event.
+---
+
+<button
+  data-theme-toggle
+  type="button"
+  aria-label="Toggle dark/light mode"
+  class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) hover:bg-(--color-bg-elevated) transition-colors duration-200 cursor-pointer"
+>
+  <!-- Sun icon (shown in dark mode) -->
+  <svg
+    data-icon-sun
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    class="hidden"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path
+      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+    ></path>
+  </svg>
+
+  <!-- Moon icon (shown in light mode) -->
+  <svg
+    data-icon-moon
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+</button>
+
+<script>
+  function syncIcons(btn: HTMLElement, isDark: boolean) {
+    btn.querySelector("[data-icon-sun]")?.classList.toggle("hidden", !isDark);
+    btn.querySelector("[data-icon-moon]")?.classList.toggle("hidden", isDark);
+  }
+
+  function applyTheme(theme: "dark" | "light") {
+    const isDark = theme === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+    localStorage.setItem("theme", theme);
+    // Sync all toggle instances on the page
+    document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
+      syncIcons(btn, isDark);
+    });
+  }
+
+  const controllers = new WeakMap<HTMLElement, AbortController>();
+
+  function initToggle() {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
+      // Cancel previous listener for this specific button
+      controllers.get(btn)?.abort();
+      const controller = new AbortController();
+      controllers.set(btn, controller);
+
+      syncIcons(btn, isDark);
+
+      btn.addEventListener(
+        "click",
+        () => {
+          const nextTheme = document.documentElement.classList.contains("dark")
+            ? "light"
+            : "dark";
+          applyTheme(nextTheme);
+        },
+        { signal: controller.signal },
+      );
+    });
+  }
+
+  // Initial setup + re-init after View Transitions
+  initToggle();
+  document.addEventListener("astro:after-swap", initToggle);
+</script>
