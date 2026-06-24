@@ -1,6 +1,7 @@
 ---
 import ClientRouter from "astro/components/ClientRouter.astro";
 import "../styles/global.css";
+import { SITE } from "../config";
 
 interface Props {
   /** Page title — appended with site name. Omit to show site name only. */
@@ -31,24 +32,26 @@ interface Props {
 
 const {
   title = "",
-  description = "A modern, accessible, and performant web experience.",
+  description = SITE.description,
   canonicalUrl = Astro.url.href,
-  ogImage,
+  ogImage = SITE.ogImage,
   ogType = "website",
   publishedDate,
   modifiedDate,
   author,
   keywords,
   noindex = false,
-  lang = "en",
-  siteName = "Core Boilerplate",
+  lang = SITE.lang,
+  siteName = SITE.name,
 } = Astro.props;
+
 const fullTitle = title ? `${title} | ${siteName}` : siteName;
 const resolvedOgImage = ogImage ?? new URL("/og-default.jpg", Astro.url).href;
 
-if (description === "A modern, accessible, and performant web experience.") {
+if (description === SITE.description) {
   console.warn(`[BaseLayout] No custom description set for "${fullTitle}". Using placeholder — this hurts SEO.`);
 }
+
 ---
 
 <!doctype html>
@@ -90,10 +93,7 @@ if (description === "A modern, accessible, and performant web experience.") {
     <meta property="og:image:height" content="630" />
     {
       ogType === "article" && publishedDate && (
-        <meta
-          property="article:published_time"
-          content={publishedDate}
-        />
+        <meta property="article:published_time" content={publishedDate} />
       )
     }
     {
@@ -113,6 +113,9 @@ if (description === "A modern, accessible, and performant web experience.") {
 
     <!-- View Transitions (Astro 7+ ClientRouter) -->
     <ClientRouter />
+
+    <!-- Per-page head injection (extra <link>, <script>, JSON-LD, etc.) -->
+    <slot name="head" />
   </head>
 
   <body>
