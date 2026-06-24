@@ -1,0 +1,35 @@
+---
+import { SITE, SOCIAL_LINKS } from "../../config";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full border-t border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200">
+  <div class="mx-auto flex flex-col items-center justify-between gap-4 px-6 py-8 max-w-7xl md:flex-row">
+
+    <!-- Copyright -->
+    <p class="text-sm text-(--color-text-muted)">
+      &copy; {currentYear} {SITE.name}. All rights reserved.
+    </p>
+
+    <!-- Social Links -->
+    {SOCIAL_LINKS.length > 0 && (
+      <ul class="flex items-center gap-4">
+        {SOCIAL_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.label}
+              class="text-sm text-(--color-text-muted) hover:text-(--color-text-base) transition-colors"
+            >
+              {link.platform}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+
+  </div>
+</footer>
