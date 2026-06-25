@@ -38,7 +38,7 @@ const pulseColor: Record<string, string> = {
 };
 ---
 
-<span class={`inline-flex self-start items-center font-medium rounded-full ${variants[variant]} ${sizes[size]} ${className}`}>
+<span class={`inline-flex items-center font-medium rounded-full ${variants[variant]} ${sizes[size]} ${className}`}>
   {pulse && (
     <span class={`w-1.5 h-1.5 rounded-full animate-pulse ${pulseColor[variant]}`} aria-hidden="true"></span>
   )}
