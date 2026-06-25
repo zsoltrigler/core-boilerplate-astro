@@ -1,48 +1,61 @@
 ---
 export interface Props {
   variant?: "info" | "success" | "warning" | "error";
+  /** Alert heading. Use <slot name="title"> for custom markup. */
   title?: string;
   class?: string;
 }
 
 const { variant = "info", title, class: className = "" } = Astro.props;
 
-const variants = {
+const styles = {
   info:    { border: "border-(--color-status-info)",    text: "text-(--color-status-info)",    bg: "bg-(--color-status-info)/10"    },
   success: { border: "border-(--color-status-success)", text: "text-(--color-status-success)", bg: "bg-(--color-status-success)/10" },
   warning: { border: "border-(--color-status-warning)", text: "text-(--color-status-warning)", bg: "bg-(--color-status-warning)/10" },
   error:   { border: "border-(--color-status-error)",   text: "text-(--color-status-error)",   bg: "bg-(--color-status-error)/10"   },
 };
 
-const icons = {
+const defaultIcons = {
   info:    `<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>`,
   success: `<polyline points="20 6 9 17 4 12"/>`,
   warning: `<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>`,
   error:   `<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>`,
 };
 
-const { border, text, bg } = variants[variant];
+const { border, text, bg } = styles[variant];
 ---
 
 <div role="alert" class={`flex gap-3 p-4 rounded-lg border ${border} ${bg} ${className}`}>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    class={`shrink-0 mt-0.5 ${text}`}
-    aria-hidden="true"
-    set:html={icons[variant]}
-  />
+
+  <!-- Icon: use <slot name="icon"> to override the default -->
+  {Astro.slots.has("icon") ? (
+    <slot name="icon" />
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class={`shrink-0 mt-0.5 ${text}`}
+      aria-hidden="true"
+      set:html={defaultIcons[variant]}
+    />
+  )}
+
   <div class="flex flex-col gap-1">
-    {title && <p class={`font-semibold text-sm ${text}`}>{title}</p>}
+    {(Astro.slots.has("title") || title) && (
+      <p class={`font-semibold text-sm ${text}`}>
+        {Astro.slots.has("title") ? <slot name="title" /> : title}
+      </p>
+    )}
     <div class="text-sm text-(--color-text-base)">
       <slot />
     </div>
   </div>
+
 </div>

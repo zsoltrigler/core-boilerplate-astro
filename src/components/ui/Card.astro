@@ -1,7 +1,10 @@
 ---
 export interface Props {
+  /** Shorthand string icon (e.g. emoji). Use <slot name="icon"> for SVG or custom elements. */
   icon?: string;
+  /** Card heading text. Use <slot name="title"> for custom markup. */
   title?: string;
+  /** Card body text. Use <slot name="desc"> for custom markup. */
   desc?: string;
   hover?: boolean;
   class?: string;
@@ -11,8 +14,24 @@ const { icon, title, desc, hover = true, class: className = "" } = Astro.props;
 ---
 
 <div class={`p-5 rounded-xl border border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200 ${hover ? "hover:border-(--color-border-strong)" : ""} ${className}`}>
-  {icon && <div class="text-2xl mb-3" aria-hidden="true">{icon}</div>}
-  {title && <h3 class="font-semibold text-(--color-text-base) mb-1">{title}</h3>}
-  {desc && <p class="text-sm text-(--color-text-muted) leading-relaxed">{desc}</p>}
+
+  {(Astro.slots.has("icon") || icon) && (
+    <div class="text-2xl mb-3" aria-hidden="true">
+      {Astro.slots.has("icon") ? <slot name="icon" /> : icon}
+    </div>
+  )}
+
+  {(Astro.slots.has("title") || title) && (
+    <div class="font-semibold text-(--color-text-base) mb-1">
+      {Astro.slots.has("title") ? <slot name="title" /> : title}
+    </div>
+  )}
+
+  {(Astro.slots.has("desc") || desc) && (
+    <div class="text-sm text-(--color-text-muted) leading-relaxed">
+      {Astro.slots.has("desc") ? <slot name="desc" /> : desc}
+    </div>
+  )}
+
   <slot />
 </div>
