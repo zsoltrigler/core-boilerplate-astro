@@ -1,67 +1,22 @@
 ---
-import Badge from "../ui/Badge.astro";
-import Button from "../ui/Button.astro";
 import Section from "../layout/Section.astro";
 import Container from "../layout/Container.astro";
 
-export interface Cta {
-  label: string;
-  href: string;
-  external?: boolean;
-}
-
 export interface Props {
-  badge?: string;
-  heading: string;
-  headingAccent?: string;
-  subheading: string;
-  primaryCta: Cta;
-  secondaryCta?: Cta;
+  class?: string;
 }
 
-const { badge, heading, headingAccent, subheading, primaryCta, secondaryCta } = Astro.props;
-
-function isExternal(cta: Cta): boolean {
-  if (cta.external !== undefined) return cta.external;
-  return cta.href.startsWith("http") || cta.href.startsWith("//");
-}
+const { class: className = "" } = Astro.props;
 ---
 
-<Section class="flex flex-col items-center justify-center text-center">
+<Section class={`flex flex-col items-center justify-center text-center ${className}`}>
   <Container>
     <div class="flex flex-col items-center gap-8">
-
-      {badge && <Badge pulse>{badge}</Badge>}
-
-      <h1 class="text-5xl font-bold tracking-tight text-(--color-text-base) max-w-3xl md:text-6xl lg:text-7xl">
-        {heading}
-        {headingAccent && <span class="text-(--color-brand-primary)"> {headingAccent}</span>}
-      </h1>
-
-      <p class="text-xl text-(--color-text-muted) max-w-xl leading-relaxed">
-        {subheading}
-      </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-4">
-        <Button href={primaryCta.href} variant="primary" external={isExternal(primaryCta)}>
-          {primaryCta.label}
-          <!-- Override with <slot name="primary-icon"> if needed -->
-          {!Astro.slots.has("primary-icon") ? (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          ) : (
-            <slot name="primary-icon" />
-          )}
-        </Button>
-
-        {secondaryCta && (
-          <Button href={secondaryCta.href} variant="secondary" external={isExternal(secondaryCta)}>
-            {secondaryCta.label}
-          </Button>
-        )}
-      </div>
-
+      <slot name="badge" />
+      <slot name="heading" />
+      <slot name="subheading" />
+      <slot name="cta" />
+      <slot />
     </div>
   </Container>
 </Section>

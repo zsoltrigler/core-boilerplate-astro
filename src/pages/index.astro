@@ -4,16 +4,9 @@ import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
 import HeroSection from "../components/sections/HeroSection.astro";
 import CardGridSection from "../components/sections/CardGridSection.astro";
-import type { CardItem } from "../components/sections/CardGridSection.astro";
-
-const cards: CardItem[] = [
-  { icon: "🎨", title: "Semantic Design System", desc: "Tailwind v4 @theme tokens — re-skin any project by changing hex values." },
-  { icon: "🌙", title: "Dark Mode Ready", desc: "FOUC-free theme toggle with localStorage + system preference detection." },
-  { icon: "⚡", title: "View Transitions", desc: "Silky page transitions built on the native browser API via Astro." },
-  { icon: "🔍", title: "SEO Maximized", desc: "Dynamic meta, Open Graph, Twitter Card, and canonical URLs out of the box." },
-  { icon: "♿", title: "Accessible", desc: "Focus-visible styles, aria-labels, and semantic HTML throughout." },
-  { icon: "📐", title: "Strict TypeScript", desc: "Astro strict mode — catch errors at build time, not in production." },
-];
+import Badge from "../components/ui/Badge.astro";
+import Button from "../components/ui/Button.astro";
+import Card from "../components/ui/Card.astro";
 ---
 
 <BaseLayout
@@ -23,15 +16,44 @@ const cards: CardItem[] = [
   <Header />
 
   <main class="flex flex-col gap-16 py-16 flex-1 bg-(--color-bg-base) transition-colors duration-200">
-    <HeroSection
-      badge="Core Boilerplate v1.0"
-      heading="Build Faster,"
-      headingAccent="Ship Better"
-      subheading="A service-agnostic Astro + Tailwind CSS master template with a semantic design system, dark mode, SEO, and View Transitions baked in."
-      primaryCta={{ label: "Get Started", href: "#features" }}
-      secondaryCta={{ label: "Docs", href: "https://astro.build/docs" }}
-    />
-    <CardGridSection id="features" title="Features" items={cards} />
+
+    <HeroSection>
+      <Badge slot="badge" pulse>Core Boilerplate v1.0</Badge>
+
+      <h1 slot="heading" class="text-5xl font-bold tracking-tight text-(--color-text-base) max-w-3xl md:text-6xl lg:text-7xl">
+        Build Faster,
+        <span class="text-(--color-brand-primary)"> Ship Better</span>
+      </h1>
+
+      <p slot="subheading" class="text-xl text-(--color-text-muted) max-w-xl leading-relaxed">
+        A service-agnostic Astro + Tailwind CSS master template with a semantic
+        design system, dark mode, SEO, and View Transitions baked in.
+      </p>
+
+      <div slot="cta" class="flex flex-wrap items-center justify-center gap-4">
+        <Button href="#features" variant="primary">
+          Get Started
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </Button>
+        <Button href="https://astro.build/docs" variant="secondary" external>
+          Docs
+        </Button>
+      </div>
+    </HeroSection>
+
+    <CardGridSection id="features" columns={3}>
+      <h2 slot="title" class="text-2xl font-bold text-(--color-text-base) text-center mb-8">Features</h2>
+
+      <Card icon="🎨" title="Semantic Design System" desc="Tailwind v4 @theme tokens — re-skin any project by changing hex values." />
+      <Card icon="🌙" title="Dark Mode Ready" desc="FOUC-free theme toggle with localStorage + system preference detection." />
+      <Card icon="⚡" title="View Transitions" desc="Silky page transitions built on the native browser API via Astro." />
+      <Card icon="🔍" title="SEO Maximized" desc="Dynamic meta, Open Graph, Twitter Card, and canonical URLs out of the box." />
+      <Card icon="♿" title="Accessible" desc="Focus-visible styles, aria-labels, and semantic HTML throughout." />
+      <Card icon="📐" title="Strict TypeScript" desc="Astro strict mode — catch errors at build time, not in production." />
+    </CardGridSection>
+
   </main>
 
   <Footer />

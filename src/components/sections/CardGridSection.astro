@@ -1,24 +1,14 @@
 ---
-import Card from "../ui/Card.astro";
 import Section from "../layout/Section.astro";
 import Container from "../layout/Container.astro";
 
-export interface CardItem {
-  icon?: string;
-  title?: string;
-  desc?: string;
-}
-
 export interface Props {
   id?: string;
-  title?: string;
   columns?: 1 | 2 | 3 | 4;
-  /** Structured items — use this OR <slot> for custom card markup, not both. */
-  items?: CardItem[];
   class?: string;
 }
 
-const { id, title, columns = 3, items, class: className = "" } = Astro.props;
+const { id, columns = 3, class: className = "" } = Astro.props;
 
 const cols: Record<number, string> = {
   1: "grid-cols-1",
@@ -30,15 +20,9 @@ const cols: Record<number, string> = {
 
 <Section id={id} class={className}>
   <Container>
-    {title && <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8">{title}</h2>}
+    <slot name="title" />
     <div class={`grid gap-4 ${cols[columns]}`}>
-      {Astro.slots.has("default") ? (
-        <slot />
-      ) : (
-        items?.map((item) => (
-          <Card icon={item.icon} title={item.title} desc={item.desc} />
-        ))
-      )}
+      <slot />
     </div>
   </Container>
 </Section>
