@@ -90,6 +90,13 @@
     });
   }
 
+  // Persist dark class across View Transition page swaps
+  document.addEventListener("astro:before-swap", (e) => {
+    if (document.documentElement.classList.contains("dark")) {
+      (e as TransitionBeforeSwapEvent).newDocument.documentElement.classList.add("dark");
+    }
+  });
+
   // Initial setup + re-init after View Transitions
   initToggle();
   document.addEventListener("astro:after-swap", initToggle);
