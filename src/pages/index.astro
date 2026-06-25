@@ -73,12 +73,24 @@ import Card from "../components/ui/Card.astro";
         <p class="mt-3 text-(--color-text-muted) max-w-xl mx-auto">Every decision is already made — colors, typography, spacing, dark mode, SEO. You focus on the product.</p>
       </div>
 
-      <Card icon="🎨" title="Semantic Design System" desc="Tailwind v4 @theme tokens generated from a single config file. Re-skin any project by changing hex values." shadow />
-      <Card icon="🌙" title="Dark Mode" desc="FOUC-free theme toggle with localStorage and system preference detection built in." shadow />
-      <Card icon="⚡" title="View Transitions" desc="Silky smooth page transitions powered by the native browser API via Astro's ClientRouter." shadow />
-      <Card icon="🔍" title="SEO Ready" desc="Dynamic meta tags, Open Graph, Twitter Card, canonical URLs, and robots.txt out of the box." shadow />
-      <Card icon="♿" title="Accessible" desc="Focus-visible styles, semantic HTML, aria-labels, and WCAG AA contrast ratios throughout." shadow />
-      <Card icon="📐" title="Strict TypeScript" desc="Astro strict mode catches errors at build time. Every component is fully typed with interfaces." shadow />
+      <Card title="Semantic Design System" desc="Tailwind v4 @theme tokens generated from a single config file. Re-skin any project by changing hex values." shadow>
+        <span slot="icon">🎨</span>
+      </Card>
+      <Card title="Dark Mode" desc="FOUC-free theme toggle with localStorage and system preference detection built in." shadow>
+        <span slot="icon">🌙</span>
+      </Card>
+      <Card title="View Transitions" desc="Silky smooth page transitions powered by the native browser API via Astro's ClientRouter." shadow>
+        <span slot="icon">⚡</span>
+      </Card>
+      <Card title="SEO Ready" desc="Dynamic meta tags, Open Graph, Twitter Card, canonical URLs, and robots.txt out of the box." shadow>
+        <span slot="icon">🔍</span>
+      </Card>
+      <Card title="Accessible" desc="Focus-visible styles, semantic HTML, aria-labels, and WCAG AA contrast ratios throughout." shadow>
+        <span slot="icon">♿</span>
+      </Card>
+      <Card title="Strict TypeScript" desc="Astro strict mode catches errors at build time. Every component is fully typed with interfaces." shadow>
+        <span slot="icon">📐</span>
+      </Card>
     </CardGridSection>
 
     <!-- ── How it works ───────────────────────────────────────── -->

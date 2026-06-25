@@ -166,15 +166,25 @@ import Alert from "../components/ui/Alert.astro";
     <Section id="card">
       <Container>
         <h2 class="text-2xl font-bold text-(--color-text-base) mb-1">Card</h2>
-        <p class="text-sm text-(--color-text-muted) mb-8">Flexible content container. <code class="bg-(--color-bg-surface) px-1 rounded">icon</code>, <code class="bg-(--color-bg-surface) px-1 rounded">title</code>, <code class="bg-(--color-bg-surface) px-1 rounded">desc</code> accept props or named slots.</p>
+        <p class="text-sm text-(--color-text-muted) mb-8">Flexible content container. <code class="bg-(--color-bg-surface) px-1 rounded">title</code> and <code class="bg-(--color-bg-surface) px-1 rounded">desc</code> accept props or named slots. Icon always via <code class="bg-(--color-bg-surface) px-1 rounded">slot="icon"</code>.</p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Card icon="🎨" title="Default" desc="icon, title, desc props. Hover border enabled." />
-          <Card icon="⚡" title="With shadow" desc="shadow prop adds a subtle drop shadow." shadow />
-          <Card title="No icon" desc="Icon is optional — omit for a cleaner look." />
-          <Card icon="📦" title="Large padding" desc="padding=lg gives more breathing room." padding="lg" />
-          <Card icon="🔵" title="Rounded 2xl" desc="rounded prop controls border radius." rounded="2xl" />
-          <Card icon="🌙" title="No hover" desc="hover=false disables border highlight." hover={false} />
+          <Card title="Default" desc="Hover border enabled by default.">
+            <span slot="icon">🎨</span>
+          </Card>
+          <Card title="With shadow" desc="shadow prop adds a subtle drop shadow." shadow>
+            <span slot="icon">⚡</span>
+          </Card>
+          <Card title="No icon" desc="Icon slot is optional — omit for a cleaner look." />
+          <Card title="Large padding" desc="padding=lg gives more breathing room." padding="lg">
+            <span slot="icon">📦</span>
+          </Card>
+          <Card title="Rounded 2xl" desc="rounded prop controls border radius." rounded="2xl">
+            <span slot="icon">🔵</span>
+          </Card>
+          <Card title="No hover" desc="hover=false disables border highlight." hover={false}>
+            <span slot="icon">🌙</span>
+          </Card>
           <Card padding="md">
             <p class="text-sm text-(--color-text-muted)">Card with only a <strong class="text-(--color-text-base)">default slot</strong> — fully custom content, no props needed.</p>
             <Button variant="primary" size="sm" class="mt-4">Action</Button>
