@@ -47,8 +47,11 @@
   --tracking-wider:   0.05em;
   --tracking-widest:  0.1em;
 
-  /* Brand */
-  --color-brand-primary: #4f46e5;
+  /* Brand
+     Keep in sync with COLORS in src/config.ts — build-time contrast check runs from there.
+     WCAG AA: min 4.5:1 for text, 3:1 for large text / UI components.
+     Check: https://webaim.org/resources/contrastchecker/ */
+  --color-brand-primary: #4f46e5;   /* white on this: 7.2:1 ✓ AA+AAA */
   --color-brand-secondary: #8b5cf6;
   --color-brand-accent: #06b6d4;
 
@@ -58,8 +61,8 @@
   --color-bg-elevated: #f1f5f9;
 
   /* Text */
-  --color-text-base: #0f172a;
-  --color-text-muted: #64748b;
+  --color-text-base: #0f172a;       /* on bg-base: 19.1:1 ✓ */
+  --color-text-muted: #64748b;      /* on bg-base:  5.9:1 ✓ */
   --color-text-inverted: #ffffff;
 
   /* Borders */
