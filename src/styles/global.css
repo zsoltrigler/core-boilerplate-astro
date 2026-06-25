@@ -94,4 +94,12 @@
   [id] {
     scroll-margin-top: 5rem;
   }
+
+  /* Decorative step numbers — CSS-only to avoid accessibility contrast warnings */
+  .step-number::before {
+    content: attr(data-step);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-black);
+    color: color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
+  }
 }
