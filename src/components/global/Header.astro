@@ -18,21 +18,17 @@ import { SITE, NAV_LINKS } from "../../config";
       )}
     </a>
 
-    <!-- Desktop Navigation -->
-    <nav aria-label="Main navigation" class="hidden md:block">
-      <ul class="flex items-center gap-6 text-sm font-medium text-(--color-text-muted)">
-        {NAV_LINKS.map((link) => (
-          <li>
-            <a href={link.href} class="hover:text-(--color-text-base) transition-colors">
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-
     <!-- Right side -->
     <div class="flex items-center gap-2">
+      <!-- Desktop Navigation -->
+      <nav aria-label="Main navigation" class="hidden md:flex items-center gap-6 text-sm font-medium text-(--color-text-muted) mr-4">
+        {NAV_LINKS.map((link) => (
+          <a href={link.href} class="hover:text-(--color-text-base) transition-colors">
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
       <slot name="nav-end" />
       <ThemeToggle />
 

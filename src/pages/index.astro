@@ -4,32 +4,101 @@ import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
 import Section from "../components/layout/Section.astro";
 import Container from "../components/layout/Container.astro";
+import Badge from "../components/ui/Badge.astro";
 import Button from "../components/ui/Button.astro";
+import IconButton from "../components/ui/IconButton.astro";
+import Card from "../components/ui/Card.astro";
+import Alert from "../components/ui/Alert.astro";
 ---
 
-<BaseLayout
-  title="Home"
-  description="Replace this with your site description."
->
+<BaseLayout title="Home" description="Replace this with your site description.">
   <Header />
 
-  <main class="flex-1 flex flex-col items-center justify-center">
+  <main class="flex-1 flex flex-col gap-16 py-16">
+
+    <!-- Hero -->
     <Section>
-      <Container size="md">
+      <Container size="sm">
         <div class="flex flex-col items-center text-center gap-6">
-          <h1 class="text-4xl font-bold text-(--color-text-base)">
+
+          <Badge variant="info" pulse>Astro 7 · Tailwind 4</Badge>
+
+          <h1 class="text-4xl font-medium text-(--color-text-base)">
             You're ready to build.
           </h1>
+
           <p class="text-(--color-text-muted) max-w-md leading-relaxed">
-            Edit <code class="text-(--color-brand-primary) font-mono text-sm">src/config.ts</code> to set your brand colors, site name, and social links. Then start building your pages using the components below.
+            A minimal, production-ready Astro starter. Edit <code class="font-mono text-sm bg-(--color-bg-surface) px-1.5 rounded">src/config.ts</code> and start building.
           </p>
-          <div class="flex flex-wrap justify-center gap-3">
-            <Button href="/ui" variant="primary" size="md">Browse components</Button>
-            <Button href="https://docs.astro.build" variant="secondary" size="md" external>Astro docs</Button>
+
+          <div class="flex flex-wrap justify-center items-center gap-3 mt-2">
+            <Button href="/ui" variant="primary" size="md">
+              Browse components
+              <svg slot="icon-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </Button>
+            <Button href="https://docs.astro.build" variant="secondary" size="md" external>
+              Astro docs
+              <svg slot="icon-right" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </Button>
+            <IconButton href="https://github.com" variant="secondary" size="md" label="GitHub" external>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </IconButton>
+          </div>
+
+        </div>
+      </Container>
+    </Section>
+
+    <!-- What's included -->
+    <Section id="features" class="scroll-mt-20">
+      <Container>
+        <div class="flex flex-col gap-8">
+
+          <div class="flex flex-col gap-1">
+            <h2 class="text-2xl font-medium text-(--color-text-base)">What's included</h2>
+            <p class="text-(--color-text-muted)">Everything you need — nothing you don't.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+            <Card title="UI Components" desc="Button, Card, Badge, Alert, IconButton — ready to use.">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M13 5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"/><path d="M3 15a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M13 15a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"/></svg>
+            </Card>
+
+            <Card title="Dark mode" desc="System preference + manual toggle, persisted in localStorage.">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+            </Card>
+
+            <Card title="Design tokens" desc="Brand colors, typography and spacing via CSS variables.">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="17" r="2.5"/><circle cx="6.5" cy="17" r="2.5"/><path d="M14.5 8.5 19 14.5M12 9l-5.5 6M6.5 14.5l6-9"/></svg>
+            </Card>
+
+            <Card title="TypeScript" desc="Strict mode, typed component props, zero config needed.">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 17.5c.32.32.754.5 1.207.5h.543c.69 0 1.25-.56 1.25-1.25v-.25a1.5 1.5 0 0 0-1.5-1.5 1.5 1.5 0 0 1-1.5-1.5v-.25C15 12.56 15.56 12 16.25 12h.543c.453 0 .887.18 1.207.5"/><path d="M9 12h4m-2 0v5.5"/><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+            </Card>
+
+            <Card title="Layout primitives" desc="Section and Container components with sensible defaults.">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </Card>
+
+            <Card title="SEO ready" desc="BaseLayout with meta tags, OG image and robots.txt.">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </Card>
+
           </div>
         </div>
       </Container>
     </Section>
+
+    <!-- Quick start -->
+    <Section>
+      <Container size="sm">
+        <Alert variant="info" title="Next step">
+          Open <code class="font-mono text-sm bg-black/8 px-1.5 py-0.5 rounded">src/config.ts</code> to set your brand name, colors, and social links — then delete this page and start building yours.
+        </Alert>
+      </Container>
+    </Section>
+
   </main>
 
   <Footer />
