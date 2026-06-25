@@ -28,9 +28,11 @@ const currentYear = new Date().getFullYear();
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.label}
-              class="text-sm text-(--color-text-muted) hover:text-(--color-text-base) transition-colors"
+              class="text-(--color-text-muted) hover:text-(--color-text-base) transition-colors"
             >
-              {link.platform}
+              {link.icon
+                ? <Fragment set:html={link.icon} />
+                : <span class="text-sm">{link.platform}</span>}
             </a>
           </li>
         ))}
