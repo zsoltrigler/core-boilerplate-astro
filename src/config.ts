@@ -27,13 +27,14 @@ export const COLORS = {
   borderStrong:  "#cbd5e1",
   // Dark mode overrides — omit a key to inherit the light-mode value
   dark: {
-    bgBase:       "#0f172a",
-    bgSurface:    "#1e293b",
-    bgElevated:   "#334155",
-    textBase:     "#f8fafc",
-    textMuted:    "#94a3b8",
-    borderBase:   "#334155",
-    borderStrong: "#475569",
+    bgBase:        "#0f172a",
+    bgSurface:     "#1e293b",
+    bgElevated:    "#334155",
+    textBase:      "#f8fafc",
+    textMuted:     "#94a3b8",
+    borderBase:    "#334155",
+    borderStrong:  "#475569",
+    brandPrimary:  "#6366f1",
   },
 } as const;
 

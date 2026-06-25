@@ -1,7 +1,7 @@
 ---
 import ClientRouter from "astro/components/ClientRouter.astro";
 import "../styles/global.css";
-import { SITE, SITE_DEFAULTS } from "../config";
+import { SITE, SITE_DEFAULTS, COLORS } from "../config";
 
 interface Props {
   /** Page title — appended with site name. Omit to show site name only. */
@@ -120,6 +120,8 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
 
     <!-- Icons & Manifest -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={COLORS.dark.bgBase} />
 
     <!-- View Transitions (Astro 7+ ClientRouter) -->
     <ClientRouter />

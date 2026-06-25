@@ -35,6 +35,8 @@ import { SITE, NAV_LINKS } from "../../config";
         aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
+        data-label-open="Open navigation menu"
+        data-label-close="Close navigation menu"
         class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) hover:bg-(--color-bg-elevated) transition-colors duration-200 cursor-pointer md:hidden"
       >
         <!-- Hamburger icon -->
@@ -94,6 +96,7 @@ import { SITE, NAV_LINKS } from "../../config";
       function setOpen(open: boolean) {
         menu!.hidden = !open;
         btn.setAttribute("aria-expanded", String(open));
+        btn.setAttribute("aria-label", open ? btn.dataset.labelClose! : btn.dataset.labelOpen!);
         btn.querySelector("[data-icon-menu]")?.classList.toggle("hidden", open);
         btn.querySelector("[data-icon-close]")?.classList.toggle("hidden", !open);
       }
