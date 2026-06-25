@@ -62,7 +62,7 @@ const roundeds: Record<string, string> = {
   )}
 
   {Astro.slots.has("default") && (
-    <div class="w-full">
+    <div class="flex flex-col w-full">
       <slot />
     </div>
   )}
