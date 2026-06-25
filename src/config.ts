@@ -74,17 +74,3 @@ export const SOCIAL_LINKS: SocialLink[] = [
   // { platform: "LinkedIn", href: "https://linkedin.com/company/yourcompany", label: "Connect on LinkedIn" },
 ];
 
-export interface CardItem {
-  icon?: string;
-  title?: string;
-  desc?: string;
-}
-
-export const FEATURES: CardItem[] = [
-  { icon: "🎨", title: "Semantic Design System", desc: "Tailwind v4 @theme tokens — re-skin any project by changing hex values." },
-  { icon: "🌙", title: "Dark Mode Ready", desc: "FOUC-free theme toggle with localStorage + system preference detection." },
-  { icon: "⚡", title: "View Transitions", desc: "Silky page transitions built on the native browser API via Astro." },
-  { icon: "🔍", title: "SEO Maximized", desc: "Dynamic meta, Open Graph, Twitter Card, and canonical URLs out of the box." },
-  { icon: "♿", title: "Accessible", desc: "Focus-visible styles, aria-labels, and semantic HTML throughout." },
-  { icon: "📐", title: "Strict TypeScript", desc: "Astro strict mode — catch errors at build time, not in production." },
-];
