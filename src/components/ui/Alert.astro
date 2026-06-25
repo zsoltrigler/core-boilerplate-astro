@@ -3,19 +3,20 @@ export interface Props {
   variant?: "info" | "success" | "warning" | "error";
   /** Alert heading. Use <slot name="title"> for custom markup. */
   title?: string;
+  dismissible?: boolean;
   class?: string;
 }
 
-const { variant = "info", title, class: className = "" } = Astro.props;
+const { variant = "info", title, dismissible = false, class: className = "" } = Astro.props;
 
-const styles = {
+const styles: Record<string, { border: string; text: string; bg: string }> = {
   info:    { border: "border-(--color-status-info)",    text: "text-(--color-status-info)",    bg: "bg-(--color-status-info)/10"    },
   success: { border: "border-(--color-status-success)", text: "text-(--color-status-success)", bg: "bg-(--color-status-success)/10" },
   warning: { border: "border-(--color-status-warning)", text: "text-(--color-status-warning)", bg: "bg-(--color-status-warning)/10" },
   error:   { border: "border-(--color-status-error)",   text: "text-(--color-status-error)",   bg: "bg-(--color-status-error)/10"   },
 };
 
-const defaultIcons = {
+const defaultIcons: Record<string, string> = {
   info:    `<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>`,
   success: `<polyline points="20 6 9 17 4 12"/>`,
   warning: `<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>`,
@@ -25,16 +26,18 @@ const defaultIcons = {
 const { border, text, bg } = styles[variant];
 ---
 
-<div role="alert" class={`flex gap-3 p-4 rounded-lg border ${border} ${bg} ${className}`}>
-
-  <!-- Icon: use <slot name="icon"> to override the default -->
+<div
+  role="alert"
+  data-alert
+  class={`flex items-start gap-3 p-4 rounded-lg border ${border} ${bg} ${className}`}
+>
+  <!-- Icon: override with <slot name="icon"> -->
   {Astro.slots.has("icon") ? (
     <slot name="icon" />
   ) : (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
+      width="20" height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -47,7 +50,7 @@ const { border, text, bg } = styles[variant];
     />
   )}
 
-  <div class="flex flex-col gap-1">
+  <div class="flex-1 flex flex-col gap-1">
     {(Astro.slots.has("title") || title) && (
       <p class={`font-semibold text-sm ${text}`}>
         {Astro.slots.has("title") ? <slot name="title" /> : title}
@@ -58,4 +61,26 @@ const { border, text, bg } = styles[variant];
     </div>
   </div>
 
+  {dismissible && (
+    <button
+      data-alert-dismiss
+      type="button"
+      aria-label="Dismiss"
+      class={`shrink-0 ${text} hover:opacity-70 transition-opacity cursor-pointer`}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  )}
 </div>
+
+{dismissible && (
+  <script>
+    document.querySelectorAll<HTMLElement>("[data-alert-dismiss]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btn.closest("[data-alert]")?.remove();
+      });
+    });
+  </script>
+)}

@@ -1,19 +1,51 @@
 ---
 export interface Props {
-  /** Shorthand string icon (e.g. emoji). Use <slot name="icon"> for SVG or custom elements. */
+  /** Shorthand string icon (emoji). Use <slot name="icon"> for SVG or custom elements. */
   icon?: string;
-  /** Card heading text. Use <slot name="title"> for custom markup. */
+  /** Card heading. Use <slot name="title"> for custom markup. */
   title?: string;
   /** Card body text. Use <slot name="desc"> for custom markup. */
   desc?: string;
+  padding?: "sm" | "md" | "lg";
+  rounded?: "md" | "lg" | "xl" | "2xl";
   hover?: boolean;
+  shadow?: boolean;
   class?: string;
 }
 
-const { icon, title, desc, hover = true, class: className = "" } = Astro.props;
+const {
+  icon,
+  title,
+  desc,
+  padding = "md",
+  rounded = "xl",
+  hover = true,
+  shadow = false,
+  class: className = "",
+} = Astro.props;
+
+const paddings: Record<string, string> = {
+  sm: "p-3",
+  md: "p-5",
+  lg: "p-8",
+};
+
+const roundeds: Record<string, string> = {
+  md:  "rounded-md",
+  lg:  "rounded-lg",
+  xl:  "rounded-xl",
+  "2xl": "rounded-2xl",
+};
 ---
 
-<div class={`p-5 rounded-xl border border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200 ${hover ? "hover:border-(--color-border-strong)" : ""} ${className}`}>
+<div class={[
+  "border border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200",
+  paddings[padding],
+  roundeds[rounded],
+  hover ? "hover:border-(--color-border-strong)" : "",
+  shadow ? "shadow-sm" : "",
+  className,
+].join(" ")}>
 
   {(Astro.slots.has("icon") || icon) && (
     <div class="text-2xl mb-3" aria-hidden="true">

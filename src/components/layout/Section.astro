@@ -1,12 +1,13 @@
 ---
 export interface Props {
   id?: string;
+  as?: "section" | "article" | "aside" | "div";
   class?: string;
 }
 
-const { id, class: className = "" } = Astro.props;
+const { id, as: Tag = "section", class: className = "" } = Astro.props;
 ---
 
-<section id={id} class={`w-full ${className}`}>
+<Tag id={id} class={`w-full ${className}`}>
   <slot />
-</section>
+</Tag>
