@@ -46,7 +46,8 @@ export const SITE = {
   name: "Core Boilerplate",
   url: SITE_DEFAULTS.URL,
   description: SITE_DEFAULTS.DESCRIPTION,
-  logo: "",   // set to "/logo.png" (or .svg/.jpg/etc.) to show an image beside the site name
+  logo: "",        // image path (any format); leave empty for text-only
+  showName: true,  // show site name text next to logo
   ogImage: "/og-default.jpg",
   lang: "en",
   allRightsReserved: "All rights reserved.",

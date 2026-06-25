@@ -12,8 +12,8 @@ import { SITE, NAV_LINKS } from "../../config";
         <slot name="logo" />
       ) : (
         <>
-          {SITE.logo && <img src={SITE.logo} alt="" class="h-8 w-auto" aria-hidden="true" />}
-          {SITE.name}
+          {SITE.logo && <img src={SITE.logo} alt={SITE.name} class="h-8 w-auto" />}
+          {SITE.showName && SITE.name}
         </>
       )}
     </a>
