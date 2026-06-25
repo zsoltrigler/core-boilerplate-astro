@@ -13,35 +13,32 @@ import Card from "../components/ui/Card.astro";
 
 <BaseLayout
   title="Home"
-  description="Core Boilerplate — a service-agnostic Astro + Tailwind CSS master template."
+  description="Replace this with your site description."
 >
-  <Header>
-    <Button slot="nav-end" href="/ui" variant="primary" size="md">Components →</Button>
-  </Header>
+  <Header />
 
   <main class="flex flex-col gap-32 py-16 flex-1">
 
     <!-- ── Hero ───────────────────────────────────────────────── -->
     <HeroSection>
-      <Badge variant="primary" pulse>Astro 7 + Tailwind v4</Badge>
+      <Badge variant="primary" pulse>Your tagline here</Badge>
 
       <h1 class="text-5xl font-bold tracking-tight text-(--color-text-base) max-w-3xl md:text-6xl lg:text-7xl">
-        The last boilerplate
-        <span class="text-(--color-brand-primary)"> you'll ever need</span>
+        Your headline
+        <span class="text-(--color-brand-primary)">goes here</span>
       </h1>
 
       <p class="text-xl text-(--color-text-muted) max-w-2xl leading-relaxed">
-        A production-ready Astro master template with a semantic design system,
-        dark mode, SEO, View Transitions, and a full UI component library — ready to ship in minutes.
+        Describe your product or service in one or two sentences. What problem does it solve? Who is it for?
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4">
-        <Button href="/ui" variant="primary" size="lg">
-          Browse components
+        <Button href="#features" variant="primary" size="lg">
+          Get started
           <svg slot="icon-right" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </Button>
-        <Button href="https://github.com" variant="secondary" size="lg" external>
-          View on GitHub
+        <Button href="/ui" variant="secondary" size="lg">
+          View components
         </Button>
       </div>
     </HeroSection>
@@ -51,10 +48,10 @@ import Card from "../components/ui/Card.astro";
       <Container>
         <dl class="grid grid-cols-2 gap-8 md:grid-cols-4 text-center">
           {[
-            { value: "5 min", label: "Setup time" },
-            { value: "100%", label: "TypeScript strict" },
-            { value: "A+",   label: "Lighthouse score" },
-            { value: "WCAG", label: "AA accessible" },
+            { value: "—",   label: "Stat one" },
+            { value: "—",   label: "Stat two" },
+            { value: "—",   label: "Stat three" },
+            { value: "—",   label: "Stat four" },
           ].map(({ value, label }) => (
             <div class="flex flex-col gap-1">
               <dt class="text-4xl font-black text-(--color-brand-primary)">{value}</dt>
@@ -67,45 +64,45 @@ import Card from "../components/ui/Card.astro";
 
     <!-- ── Features ───────────────────────────────────────────── -->
     <CardGridSection id="features" columns={3}>
-      <div class="col-span-full text-center flex flex-col gap-3">
-        <Badge variant="default" class="mx-auto">What's included</Badge>
-        <h2 class="text-3xl font-bold text-(--color-text-base)">Everything you need, nothing you don't</h2>
-        <p class="text-(--color-text-muted) max-w-xl mx-auto">Every decision is already made — colors, typography, spacing, dark mode, SEO. You focus on the product.</p>
+      <div class="col-span-full text-center flex flex-col gap-3 items-center">
+        <Badge variant="default">Features</Badge>
+        <h2 class="text-3xl font-bold text-(--color-text-base)">Everything you need</h2>
+        <p class="text-(--color-text-muted) max-w-xl">Replace this with a short description of your key features or benefits.</p>
       </div>
 
-      <Card title="Semantic Design System" desc="Tailwind v4 @theme tokens generated from a single config file. Re-skin any project by changing hex values." shadow>
-        <span slot="icon">🎨</span>
+      <Card title="Feature one" desc="Describe this feature in one or two sentences. What does it do and why does it matter?" shadow>
+        <span slot="icon">✦</span>
       </Card>
-      <Card title="Dark Mode" desc="FOUC-free theme toggle with localStorage and system preference detection built in." shadow>
-        <span slot="icon">🌙</span>
+      <Card title="Feature two" desc="Describe this feature in one or two sentences. What does it do and why does it matter?" shadow>
+        <span slot="icon">✦</span>
       </Card>
-      <Card title="View Transitions" desc="Silky smooth page transitions powered by the native browser API via Astro's ClientRouter." shadow>
-        <span slot="icon">⚡</span>
+      <Card title="Feature three" desc="Describe this feature in one or two sentences. What does it do and why does it matter?" shadow>
+        <span slot="icon">✦</span>
       </Card>
-      <Card title="SEO Ready" desc="Dynamic meta tags, Open Graph, Twitter Card, canonical URLs, and robots.txt out of the box." shadow>
-        <span slot="icon">🔍</span>
+      <Card title="Feature four" desc="Describe this feature in one or two sentences. What does it do and why does it matter?" shadow>
+        <span slot="icon">✦</span>
       </Card>
-      <Card title="Accessible" desc="Focus-visible styles, semantic HTML, aria-labels, and WCAG AA contrast ratios throughout." shadow>
-        <span slot="icon">♿</span>
+      <Card title="Feature five" desc="Describe this feature in one or two sentences. What does it do and why does it matter?" shadow>
+        <span slot="icon">✦</span>
       </Card>
-      <Card title="Strict TypeScript" desc="Astro strict mode catches errors at build time. Every component is fully typed with interfaces." shadow>
-        <span slot="icon">📐</span>
+      <Card title="Feature six" desc="Describe this feature in one or two sentences. What does it do and why does it matter?" shadow>
+        <span slot="icon">✦</span>
       </Card>
     </CardGridSection>
 
     <!-- ── How it works ───────────────────────────────────────── -->
     <Section id="how-it-works">
       <Container size="lg">
-        <div class="text-center flex flex-col gap-3">
-          <Badge variant="default" class="mx-auto">Get started</Badge>
+        <div class="text-center flex flex-col gap-3 items-center">
+          <Badge variant="default">How it works</Badge>
           <h2 class="text-3xl font-bold text-(--color-text-base)">Up and running in 3 steps</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { step: "01", title: "Clone the repo", desc: "Use this template as your GitHub starting point. One click and it's yours.", icon: "📦" },
-            { step: "02", title: "Configure once", desc: "Edit src/config.ts — set your brand colors, site name, nav links, social profiles.", icon: "⚙️" },
-            { step: "03", title: "Build and ship", desc: "Run pnpm dev, build your pages with ready-made components, and deploy to Vercel.", icon: "🚀" },
+            { step: "01", title: "Step one", desc: "Describe the first step your user needs to take.", icon: "→" },
+            { step: "02", title: "Step two", desc: "Describe the second step your user needs to take.", icon: "→" },
+            { step: "03", title: "Step three", desc: "Describe the third step your user needs to take.", icon: "→" },
           ].map(({ step, title, desc, icon }) => (
             <div class="flex flex-col gap-4">
               <div class="flex items-center gap-3">
@@ -124,14 +121,14 @@ import Card from "../components/ui/Card.astro";
     <Section>
       <Container size="md">
         <div class="rounded-2xl bg-(--color-bg-surface) border border-(--color-border-base) p-12 text-center flex flex-col items-center gap-6">
-          <Badge variant="primary" pulse>Open source</Badge>
-          <h2 class="text-3xl font-bold text-(--color-text-base)">Start building today</h2>
+          <Badge variant="primary" pulse>Get started</Badge>
+          <h2 class="text-3xl font-bold text-(--color-text-base)">Your call to action</h2>
           <p class="text-(--color-text-muted) max-w-md leading-relaxed">
-            Free to use, free to modify. Clone it, break it, make it yours.
+            One compelling sentence that makes the user want to click the button below.
           </p>
           <div class="flex flex-wrap justify-center gap-4">
-            <Button href="/ui" variant="primary" size="lg">Browse components</Button>
-            <Button href="https://github.com" variant="secondary" size="lg" external>GitHub →</Button>
+            <Button href="#" variant="primary" size="lg">Primary action</Button>
+            <Button href="#" variant="secondary" size="lg">Secondary action</Button>
           </div>
         </div>
       </Container>
