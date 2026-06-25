@@ -1,13 +1,12 @@
 ---
 export interface Props {
   id?: string;
-  padded?: boolean;
   class?: string;
 }
 
-const { id, padded = true, class: className = "" } = Astro.props;
+const { id, class: className = "" } = Astro.props;
 ---
 
-<section id={id} class={`w-full ${padded ? "py-24" : ""} ${className}`}>
+<section id={id} class={`w-full ${className}`}>
   <slot />
 </section>
