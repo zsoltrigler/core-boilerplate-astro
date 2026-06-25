@@ -1,5 +1,5 @@
 ---
-import FeatureCard from "../ui/FeatureCard.astro";
+import Card from "../ui/Card.astro";
 import Section from "../layout/Section.astro";
 import Container from "../layout/Container.astro";
 
@@ -21,7 +21,7 @@ const { features } = Astro.props;
     <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8">Features</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {features.map((card) => (
-        <FeatureCard icon={card.icon} title={card.title} desc={card.desc} />
+        <Card icon={card.icon} title={card.title} desc={card.desc} />
       ))}
     </div>
   </Container>
