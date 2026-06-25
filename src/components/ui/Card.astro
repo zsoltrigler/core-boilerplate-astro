@@ -34,7 +34,7 @@ const roundeds: Record<string, string> = {
 ---
 
 <div class={[
-  "flex flex-col gap-2 items-start",
+  "flex flex-col gap-2",
   "border border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200",
   paddings[padding],
   roundeds[rounded],
@@ -44,26 +44,22 @@ const roundeds: Record<string, string> = {
 ].join(" ")}>
 
   {Astro.slots.has("icon") && (
-    <div class="text-2xl" aria-hidden="true">
+    <div class="self-start text-2xl" aria-hidden="true">
       <slot name="icon" />
     </div>
   )}
 
   {(Astro.slots.has("title") || title) && (
-    <div class="font-semibold text-(--color-text-base)">
+    <div class="self-start font-semibold text-(--color-text-base)">
       {Astro.slots.has("title") ? <slot name="title" /> : title}
     </div>
   )}
 
   {(Astro.slots.has("desc") || desc) && (
-    <div class="text-sm text-(--color-text-muted) leading-relaxed">
+    <div class="self-start text-sm text-(--color-text-muted) leading-relaxed">
       {Astro.slots.has("desc") ? <slot name="desc" /> : desc}
     </div>
   )}
 
-  {Astro.slots.has("default") && (
-    <div class="flex flex-col w-full">
-      <slot />
-    </div>
-  )}
+  <slot />
 </div>
