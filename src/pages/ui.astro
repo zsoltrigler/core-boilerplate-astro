@@ -1,0 +1,199 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/global/Header.astro";
+import Footer from "../components/global/Footer.astro";
+import Section from "../components/layout/Section.astro";
+import Container from "../components/layout/Container.astro";
+import Badge from "../components/ui/Badge.astro";
+import Button from "../components/ui/Button.astro";
+import IconButton from "../components/ui/IconButton.astro";
+import Card from "../components/ui/Card.astro";
+import Alert from "../components/ui/Alert.astro";
+---
+
+<BaseLayout title="UI Components" description="All available UI components in Core Boilerplate.">
+  <Header>
+    <Button slot="nav-end" href="/" variant="ghost" size="md">← Back to home</Button>
+  </Header>
+
+  <main class="flex flex-col gap-24 py-16 flex-1">
+
+    <Section>
+      <Container>
+        <div class="mb-4">
+          <Badge variant="default">Component library</Badge>
+        </div>
+        <h1 class="text-4xl font-bold text-(--color-text-base) mb-3">UI Components</h1>
+        <p class="text-(--color-text-muted) max-w-xl">Every component available in this boilerplate. Copy, paste, customise.</p>
+      </Container>
+    </Section>
+
+    <!-- ── Button ─────────────────────────────────────────────── -->
+    <Section id="button">
+      <Container>
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-1">Button</h2>
+        <p class="text-sm text-(--color-text-muted) mb-8">Renders as <code class="bg-(--color-bg-surface) px-1 rounded">&lt;a&gt;</code> when <code class="bg-(--color-bg-surface) px-1 rounded">href</code> is set, otherwise <code class="bg-(--color-bg-surface) px-1 rounded">&lt;button&gt;</code>.</p>
+
+        <div class="flex flex-col gap-8">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) mb-3">Variants</p>
+            <div class="flex flex-wrap gap-3">
+              <Button variant="primary">Primary</Button>
+              <Button variant="secondary">Secondary</Button>
+              <Button variant="ghost">Ghost</Button>
+              <Button variant="danger">Danger</Button>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) mb-3">Sizes</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <Button variant="primary" size="sm">Small</Button>
+              <Button variant="primary" size="md">Medium</Button>
+              <Button variant="primary" size="lg">Large</Button>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) mb-3">States</p>
+            <div class="flex flex-wrap gap-3">
+              <Button variant="primary" disabled>Disabled</Button>
+              <Button variant="primary" href="https://astro.build" external>External link ↗</Button>
+              <Button variant="secondary" fullWidth>Full width</Button>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── IconButton ──────────────────────────────────────────── -->
+    <Section id="icon-button">
+      <Container>
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-1">IconButton</h2>
+        <p class="text-sm text-(--color-text-muted) mb-8">Square icon-only button. <code class="bg-(--color-bg-surface) px-1 rounded">label</code> is required for accessibility.</p>
+
+        <div class="flex flex-col gap-8">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) mb-3">Variants</p>
+            <div class="flex flex-wrap gap-3">
+              <IconButton label="Primary" variant="primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </IconButton>
+              <IconButton label="Secondary" variant="secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </IconButton>
+              <IconButton label="Ghost" variant="ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </IconButton>
+              <IconButton label="Delete" variant="danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              </IconButton>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) mb-3">Sizes</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <IconButton label="Small" variant="ghost" size="sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </IconButton>
+              <IconButton label="Medium" variant="ghost" size="md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </IconButton>
+              <IconButton label="Large" variant="ghost" size="lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </IconButton>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Badge ───────────────────────────────────────────────── -->
+    <Section id="badge">
+      <Container>
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-1">Badge</h2>
+        <p class="text-sm text-(--color-text-muted) mb-8">Inline label for status, category, or emphasis.</p>
+
+        <div class="flex flex-col gap-8">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) mb-3">Variants</p>
+            <div class="flex flex-wrap gap-3">
+              <Badge variant="default">Default</Badge>
+              <Badge variant="primary">Primary</Badge>
+              <Badge variant="success">Success</Badge>
+              <Badge variant="warning">Warning</Badge>
+              <Badge variant="error">Error</Badge>
+              <Badge variant="info">Info</Badge>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) mb-3">Sizes</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <Badge size="sm">Small</Badge>
+              <Badge size="md">Medium</Badge>
+              <Badge size="lg">Large</Badge>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted) mb-3">With pulse indicator</p>
+            <div class="flex flex-wrap gap-3">
+              <Badge variant="primary" pulse>Live</Badge>
+              <Badge variant="success" pulse>Online</Badge>
+              <Badge variant="error" pulse>Alert</Badge>
+              <Badge variant="warning" pulse>Pending</Badge>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Alert ───────────────────────────────────────────────── -->
+    <Section id="alert">
+      <Container size="md">
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-1">Alert</h2>
+        <p class="text-sm text-(--color-text-muted) mb-8">Contextual feedback messages. Supports custom icon and title via named slots.</p>
+
+        <div class="flex flex-col gap-4">
+          <Alert variant="info" title="Information">This is an informational message with some useful context for the user.</Alert>
+          <Alert variant="success" title="Success">Your changes have been saved successfully.</Alert>
+          <Alert variant="warning" title="Warning">Please review your input before continuing.</Alert>
+          <Alert variant="error" title="Error">Something went wrong. Please try again.</Alert>
+          <Alert variant="info" title="Dismissible" dismissible>Click the × to dismiss this alert.</Alert>
+          <Alert variant="success">Alert without a title — just body text.</Alert>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Card ────────────────────────────────────────────────── -->
+    <Section id="card">
+      <Container>
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-1">Card</h2>
+        <p class="text-sm text-(--color-text-muted) mb-8">Flexible content container. <code class="bg-(--color-bg-surface) px-1 rounded">title</code> and <code class="bg-(--color-bg-surface) px-1 rounded">desc</code> accept props or named slots. Icon always via <code class="bg-(--color-bg-surface) px-1 rounded">slot="icon"</code>.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Card title="Default" desc="Hover border enabled by default.">
+            <span slot="icon">🎨</span>
+          </Card>
+          <Card title="With shadow" desc="shadow prop adds a subtle drop shadow." shadow>
+            <span slot="icon">⚡</span>
+          </Card>
+          <Card title="No icon" desc="Icon slot is optional — omit for a cleaner look." />
+          <Card title="Large padding" desc="padding=lg gives more breathing room." padding="lg">
+            <span slot="icon">📦</span>
+          </Card>
+          <Card title="Rounded 2xl" desc="rounded prop controls border radius." rounded="2xl">
+            <span slot="icon">🔵</span>
+          </Card>
+          <Card title="No hover" desc="hover=false disables border highlight." hover={false}>
+            <span slot="icon">🌙</span>
+          </Card>
+          <Card padding="md">
+            <p class="text-sm text-(--color-text-muted)">Card with only a <strong class="text-(--color-text-base)">default slot</strong> — fully custom content, no props needed.</p>
+            <Button variant="primary" size="sm" >Action</Button>
+          </Card>
+        </div>
+      </Container>
+    </Section>
+
+  </main>
+
+  <Footer />
+</BaseLayout>
