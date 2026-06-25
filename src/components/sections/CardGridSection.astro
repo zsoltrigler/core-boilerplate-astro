@@ -20,7 +20,6 @@ const cols: Record<number, string> = {
 
 <Section id={id} class={className}>
   <Container>
-    <slot name="title" />
     <div class={`grid gap-4 ${cols[columns]}`}>
       <slot />
     </div>
