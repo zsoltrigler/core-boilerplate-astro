@@ -109,7 +109,7 @@ import Card from "../components/ui/Card.astro";
           ].map(({ step, title, desc, icon }) => (
             <div class="flex flex-col gap-4">
               <div class="flex items-center gap-3">
-                <span class="text-3xl font-black text-(--color-brand-primary)/20" aria-hidden="true">{step}</span>
+                <span class="step-number" data-step={step}></span>
                 <span class="text-2xl">{icon}</span>
               </div>
               <h3 class="text-lg font-semibold text-(--color-text-base)">{title}</h3>
