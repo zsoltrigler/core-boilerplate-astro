@@ -7,7 +7,7 @@ import Container from "../layout/Container.astro";
 export interface Props {
   badge?: string;
   heading: string;
-  headingAccent: string;
+  headingAccent?: string;
   subheading: string;
   primaryCta: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
@@ -24,7 +24,7 @@ const { badge, heading, headingAccent, subheading, primaryCta, secondaryCta } = 
 
       <h1 class="text-5xl font-bold tracking-tight text-(--color-text-base) max-w-3xl md:text-6xl lg:text-7xl">
         {heading}
-        <span class="text-(--color-brand-primary)"> {headingAccent}</span>
+        {headingAccent && <span class="text-(--color-brand-primary)"> {headingAccent}</span>}
       </h1>
 
       <p class="text-xl text-(--color-text-muted) max-w-xl leading-relaxed">

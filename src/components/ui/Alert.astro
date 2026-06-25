@@ -77,10 +77,9 @@ const { border, text, bg } = styles[variant];
 
 {dismissible && (
   <script>
-    document.querySelectorAll<HTMLElement>("[data-alert-dismiss]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        btn.closest("[data-alert]")?.remove();
-      });
-    });
+    document.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-alert-dismiss]");
+      if (btn) btn.closest("[data-alert]")?.remove();
+    }, { once: false });
   </script>
 )}

@@ -10,15 +10,16 @@ export interface Feature {
 }
 
 export interface Props {
+  title?: string;
   features: Feature[];
 }
 
-const { features } = Astro.props;
+const { title = "Features", features } = Astro.props;
 ---
 
 <Section id="features">
   <Container>
-    <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8">Features</h2>
+    <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8">{title}</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {features.map((card) => (
         <Card icon={card.icon} title={card.title} desc={card.desc} />
