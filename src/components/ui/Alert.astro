@@ -75,11 +75,12 @@ const { border, text, bg } = styles[variant];
   )}
 </div>
 
-{dismissible && (
-  <script>
+<script>
+  if (!(window as any).__alertDismissRegistered) {
+    (window as any).__alertDismissRegistered = true;
     document.addEventListener("click", (e) => {
       const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-alert-dismiss]");
       if (btn) btn.closest("[data-alert]")?.remove();
-    }, { once: false });
-  </script>
-)}
+    });
+  }
+</script>

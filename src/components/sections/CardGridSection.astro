@@ -13,7 +13,8 @@ export interface Props {
   id?: string;
   title?: string;
   columns?: 1 | 2 | 3 | 4;
-  items: CardItem[];
+  /** Structured items — use this OR <slot> for custom card markup, not both. */
+  items?: CardItem[];
   class?: string;
 }
 
@@ -31,9 +32,13 @@ const cols: Record<number, string> = {
   <Container>
     {title && <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8">{title}</h2>}
     <div class={`grid gap-4 ${cols[columns]}`}>
-      {items.map((item) => (
-        <Card icon={item.icon} title={item.title} desc={item.desc} />
-      ))}
+      {Astro.slots.has("default") ? (
+        <slot />
+      ) : (
+        items?.map((item) => (
+          <Card icon={item.icon} title={item.title} desc={item.desc} />
+        ))
+      )}
     </div>
   </Container>
 </Section>

@@ -4,16 +4,27 @@ import Button from "../ui/Button.astro";
 import Section from "../layout/Section.astro";
 import Container from "../layout/Container.astro";
 
+export interface Cta {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
 export interface Props {
   badge?: string;
   heading: string;
   headingAccent?: string;
   subheading: string;
-  primaryCta: { label: string; href: string };
-  secondaryCta?: { label: string; href: string };
+  primaryCta: Cta;
+  secondaryCta?: Cta;
 }
 
 const { badge, heading, headingAccent, subheading, primaryCta, secondaryCta } = Astro.props;
+
+function isExternal(cta: Cta): boolean {
+  if (cta.external !== undefined) return cta.external;
+  return cta.href.startsWith("http") || cta.href.startsWith("//");
+}
 ---
 
 <Section class="flex flex-col items-center justify-center text-center">
@@ -32,14 +43,20 @@ const { badge, heading, headingAccent, subheading, primaryCta, secondaryCta } = 
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4">
-        <Button href={primaryCta.href} variant="primary">
+        <Button href={primaryCta.href} variant="primary" external={isExternal(primaryCta)}>
           {primaryCta.label}
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
+          <!-- Override with <slot name="primary-icon"> if needed -->
+          {!Astro.slots.has("primary-icon") ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          ) : (
+            <slot name="primary-icon" />
+          )}
         </Button>
+
         {secondaryCta && (
-          <Button href={secondaryCta.href} variant="secondary" external={secondaryCta.href.startsWith("http")}>
+          <Button href={secondaryCta.href} variant="secondary" external={isExternal(secondaryCta)}>
             {secondaryCta.label}
           </Button>
         )}
