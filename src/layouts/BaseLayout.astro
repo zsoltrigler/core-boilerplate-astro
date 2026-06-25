@@ -1,7 +1,7 @@
 ---
 import ClientRouter from "astro/components/ClientRouter.astro";
 import "../styles/global.css";
-import { SITE } from "../config";
+import { SITE, SITE_DEFAULTS } from "../config";
 
 interface Props {
   /** Page title — appended with site name. Omit to show site name only. */
@@ -46,12 +46,13 @@ const {
 } = Astro.props;
 
 const fullTitle = title ? `${title} | ${siteName}` : siteName;
-const resolvedOgImage = ogImage ?? new URL("/og-default.jpg", Astro.url).href;
+const resolvedOgImage = ogImage.startsWith("http")
+  ? ogImage
+  : new URL(ogImage, SITE.url).href;
 
-if (description === SITE.description) {
+if (description === SITE_DEFAULTS.DESCRIPTION) {
   console.warn(`[BaseLayout] No custom description set for "${fullTitle}". Using placeholder — this hurts SEO.`);
 }
-
 ---
 
 <!doctype html>

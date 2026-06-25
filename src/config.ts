@@ -4,13 +4,19 @@
 // Template-specific configs (contact, pricing, etc.) extend this file.
 // ============================================================
 
+export const SITE_DEFAULTS = {
+  DESCRIPTION: "REPLACE_WITH_YOUR_DESCRIPTION",
+  URL: "https://example.com",
+} as const;
+
 export const SITE = {
   name: "Core Boilerplate",
-  url: "https://example.com",
-  description: "A modern, accessible, and performant web experience.",
+  url: SITE_DEFAULTS.URL,
+  description: SITE_DEFAULTS.DESCRIPTION,
   logo: "/logo.svg",
   ogImage: "/og-default.jpg",
   lang: "en",
+  allRightsReserved: "All rights reserved.",
 } as const;
 
 export interface NavLink {
