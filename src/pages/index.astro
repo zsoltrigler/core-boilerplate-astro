@@ -2,141 +2,34 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
-import HeroSection from "../components/sections/HeroSection.astro";
-import CardGridSection from "../components/sections/CardGridSection.astro";
 import Section from "../components/layout/Section.astro";
 import Container from "../components/layout/Container.astro";
-import Badge from "../components/ui/Badge.astro";
 import Button from "../components/ui/Button.astro";
-import Card from "../components/ui/Card.astro";
 ---
 
 <BaseLayout
   title="Home"
-  description="Core Boilerplate — a service-agnostic Astro + Tailwind CSS master template."
+  description="Replace this with your site description."
 >
-  <Header>
-    <Button slot="nav-end" href="/ui" variant="primary" size="md">Components →</Button>
-  </Header>
+  <Header />
 
-  <main class="flex flex-col gap-32 py-16 flex-1">
-
-    <!-- ── Hero ───────────────────────────────────────────────── -->
-    <HeroSection>
-      <Badge variant="primary" pulse>Astro 7 + Tailwind v4</Badge>
-
-      <h1 class="text-5xl font-bold tracking-tight text-(--color-text-base) max-w-3xl md:text-6xl lg:text-7xl">
-        The last boilerplate
-        <span class="text-(--color-brand-primary)"> you'll ever need</span>
-      </h1>
-
-      <p class="text-xl text-(--color-text-muted) max-w-2xl leading-relaxed">
-        A production-ready Astro master template with a semantic design system,
-        dark mode, SEO, View Transitions, and a full UI component library — ready to ship in minutes.
-      </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-4">
-        <Button href="/ui" variant="primary" size="lg">
-          Browse components
-          <svg slot="icon-right" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </Button>
-        <Button href="https://github.com" variant="secondary" size="lg" external>
-          View on GitHub
-        </Button>
-      </div>
-    </HeroSection>
-
-    <!-- ── Stats ──────────────────────────────────────────────── -->
-    <Section>
-      <Container>
-        <dl class="grid grid-cols-2 gap-8 md:grid-cols-4 text-center">
-          {[
-            { value: "5 min", label: "Setup time" },
-            { value: "100%", label: "TypeScript strict" },
-            { value: "A+",   label: "Lighthouse score" },
-            { value: "WCAG", label: "AA accessible" },
-          ].map(({ value, label }) => (
-            <div class="flex flex-col gap-1">
-              <dt class="text-4xl font-black text-(--color-brand-primary)">{value}</dt>
-              <dd class="text-sm text-(--color-text-muted)">{label}</dd>
-            </div>
-          ))}
-        </dl>
-      </Container>
-    </Section>
-
-    <!-- ── Features ───────────────────────────────────────────── -->
-    <CardGridSection id="features" columns={3}>
-      <div class="col-span-full text-center flex flex-col gap-3">
-        <Badge variant="default" class="mx-auto">What's included</Badge>
-        <h2 class="text-3xl font-bold text-(--color-text-base)">Everything you need, nothing you don't</h2>
-        <p class="text-(--color-text-muted) max-w-xl mx-auto">Every decision is already made — colors, typography, spacing, dark mode, SEO. You focus on the product.</p>
-      </div>
-
-      <Card title="Semantic Design System" desc="Tailwind v4 @theme tokens generated from a single config file. Re-skin any project by changing hex values." shadow>
-        <span slot="icon">🎨</span>
-      </Card>
-      <Card title="Dark Mode" desc="FOUC-free theme toggle with localStorage and system preference detection built in." shadow>
-        <span slot="icon">🌙</span>
-      </Card>
-      <Card title="View Transitions" desc="Silky smooth page transitions powered by the native browser API via Astro's ClientRouter." shadow>
-        <span slot="icon">⚡</span>
-      </Card>
-      <Card title="SEO Ready" desc="Dynamic meta tags, Open Graph, Twitter Card, canonical URLs, and robots.txt out of the box." shadow>
-        <span slot="icon">🔍</span>
-      </Card>
-      <Card title="Accessible" desc="Focus-visible styles, semantic HTML, aria-labels, and WCAG AA contrast ratios throughout." shadow>
-        <span slot="icon">♿</span>
-      </Card>
-      <Card title="Strict TypeScript" desc="Astro strict mode catches errors at build time. Every component is fully typed with interfaces." shadow>
-        <span slot="icon">📐</span>
-      </Card>
-    </CardGridSection>
-
-    <!-- ── How it works ───────────────────────────────────────── -->
-    <Section id="how-it-works">
-      <Container size="lg">
-        <div class="text-center flex flex-col gap-3">
-          <Badge variant="default" class="mx-auto">Get started</Badge>
-          <h2 class="text-3xl font-bold text-(--color-text-base)">Up and running in 3 steps</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { step: "01", title: "Clone the repo", desc: "Use this template as your GitHub starting point. One click and it's yours.", icon: "📦" },
-            { step: "02", title: "Configure once", desc: "Edit src/config.ts — set your brand colors, site name, nav links, social profiles.", icon: "⚙️" },
-            { step: "03", title: "Build and ship", desc: "Run pnpm dev, build your pages with ready-made components, and deploy to Vercel.", icon: "🚀" },
-          ].map(({ step, title, desc, icon }) => (
-            <div class="flex flex-col gap-4">
-              <div class="flex items-center gap-3">
-                <span class="step-number" data-step={step}></span>
-                <span class="text-2xl">{icon}</span>
-              </div>
-              <h3 class="text-lg font-semibold text-(--color-text-base)">{title}</h3>
-              <p class="text-sm text-(--color-text-muted) leading-relaxed">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </Section>
-
-    <!-- ── CTA ────────────────────────────────────────────────── -->
+  <main class="flex-1 flex flex-col items-center justify-center">
     <Section>
       <Container size="md">
-        <div class="rounded-2xl bg-(--color-bg-surface) border border-(--color-border-base) p-12 text-center flex flex-col items-center gap-6">
-          <Badge variant="primary" pulse>Open source</Badge>
-          <h2 class="text-3xl font-bold text-(--color-text-base)">Start building today</h2>
+        <div class="flex flex-col items-center text-center gap-6">
+          <h1 class="text-4xl font-bold text-(--color-text-base)">
+            You're ready to build.
+          </h1>
           <p class="text-(--color-text-muted) max-w-md leading-relaxed">
-            Free to use, free to modify. Clone it, break it, make it yours.
+            Edit <code class="text-(--color-brand-primary) font-mono text-sm">src/config.ts</code> to set your brand colors, site name, and social links. Then start building your pages using the components below.
           </p>
-          <div class="flex flex-wrap justify-center gap-4">
-            <Button href="/ui" variant="primary" size="lg">Browse components</Button>
-            <Button href="https://github.com" variant="secondary" size="lg" external>GitHub →</Button>
+          <div class="flex flex-wrap justify-center gap-3">
+            <Button href="/ui" variant="primary" size="md">Browse components</Button>
+            <Button href="https://docs.astro.build" variant="secondary" size="md" external>Astro docs</Button>
           </div>
         </div>
       </Container>
     </Section>
-
   </main>
 
   <Footer />
