@@ -6,9 +6,11 @@ import { SITE, NAV_LINKS } from "../../config";
 <header class="sticky top-0 z-50 w-full border-b border-(--color-border-base) bg-(--color-bg-base)/80 backdrop-blur-sm transition-colors duration-200">
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
 
-    <!-- Logo -->
+    <!-- Logo: replace /public/logo.svg to show an image, or set SITE.logo: "" in config for text-only -->
     <a href="/" class="text-lg font-bold tracking-tight text-(--color-text-base) hover:text-(--color-brand-primary) transition-colors">
-      {SITE.name}
+      {SITE.logo
+        ? <img src={SITE.logo} alt={SITE.name} class="h-8 w-auto" />
+        : SITE.name}
     </a>
 
     <!-- Desktop Navigation -->
@@ -26,6 +28,7 @@ import { SITE, NAV_LINKS } from "../../config";
 
     <!-- Right side -->
     <div class="flex items-center gap-2">
+      <slot name="nav-end" />
       <ThemeToggle />
 
       <!-- Mobile menu button -->

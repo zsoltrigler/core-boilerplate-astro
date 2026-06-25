@@ -66,6 +66,8 @@ export interface SocialLink {
   platform: string;
   href: string;
   label: string;
+  /** Optional inline SVG string for an icon */
+  icon?: string;
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [
