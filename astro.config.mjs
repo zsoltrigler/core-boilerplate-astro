@@ -8,12 +8,18 @@ import { SITE, SITE_DEFAULTS, COLORS } from './src/config.ts';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-/** Convert camelCase to kebab-case: bgBase → bg-base */
+/** Convert camelCase to kebab-case: bgBase → bg-base
+ * @param {string} str
+ * @returns {string}
+ */
 function toKebab(str) {
   return str.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`);
 }
 
-/** Generate @theme and .dark CSS blocks from COLORS */
+/** Generate @theme and .dark CSS blocks from COLORS
+ * @param {typeof import('./src/config.ts').COLORS} colors
+ * @returns {string}
+ */
 function generateColorTokens(colors) {
   const { dark, ...light } = colors;
 

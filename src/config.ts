@@ -24,14 +24,16 @@ export const COLORS = {
   brandSecondary:"#8b5cf6",
   brandAccent:   "#06b6d4",
   borderBase:    "#e2e8f0",
-  // Dark mode
+  borderStrong:  "#cbd5e1",
+  // Dark mode overrides — omit a key to inherit the light-mode value
   dark: {
-    bgBase:      "#0f172a",
-    bgSurface:   "#1e293b",
-    bgElevated:  "#334155",
-    textBase:    "#f8fafc",
-    textMuted:   "#94a3b8",
-    borderBase:  "#334155",
+    bgBase:       "#0f172a",
+    bgSurface:    "#1e293b",
+    bgElevated:   "#334155",
+    textBase:     "#f8fafc",
+    textMuted:    "#94a3b8",
+    borderBase:   "#334155",
+    borderStrong: "#475569",
   },
 } as const;
 
