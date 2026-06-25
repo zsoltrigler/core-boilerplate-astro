@@ -61,5 +61,9 @@ const roundeds: Record<string, string> = {
     </div>
   )}
 
-  <slot />
+  {Astro.slots.has("default") && (
+    <div class="w-full">
+      <slot />
+    </div>
+  )}
 </div>
