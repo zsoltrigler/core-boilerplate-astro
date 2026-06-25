@@ -75,6 +75,15 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
       })();
     </script>
 
+    <!-- Persist dark class across View Transitions on every page -->
+    <script>
+      document.addEventListener("astro:before-swap", (e) => {
+        if (document.documentElement.classList.contains("dark")) {
+          (e as TransitionBeforeSwapEvent).newDocument.documentElement.classList.add("dark");
+        }
+      });
+    </script>
+
     <!-- Primary Meta -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
