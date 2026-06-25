@@ -1,10 +1,6 @@
 ---
 export interface Props {
-  /** Shorthand string icon (emoji). Use <slot name="icon"> for SVG or custom elements. */
-  icon?: string;
-  /** Card heading. Use <slot name="title"> for custom markup. */
   title?: string;
-  /** Card body text. Use <slot name="desc"> for custom markup. */
   desc?: string;
   padding?: "sm" | "md" | "lg";
   rounded?: "md" | "lg" | "xl" | "2xl";
@@ -14,7 +10,6 @@ export interface Props {
 }
 
 const {
-  icon,
   title,
   desc,
   padding = "md",
@@ -31,9 +26,9 @@ const paddings: Record<string, string> = {
 };
 
 const roundeds: Record<string, string> = {
-  md:  "rounded-md",
-  lg:  "rounded-lg",
-  xl:  "rounded-xl",
+  md:    "rounded-md",
+  lg:    "rounded-lg",
+  xl:    "rounded-xl",
   "2xl": "rounded-2xl",
 };
 ---
@@ -47,9 +42,9 @@ const roundeds: Record<string, string> = {
   className,
 ].join(" ")}>
 
-  {(Astro.slots.has("icon") || icon) && (
+  {Astro.slots.has("icon") && (
     <div class="text-2xl mb-3" aria-hidden="true">
-      {Astro.slots.has("icon") ? <slot name="icon" /> : icon}
+      <slot name="icon" />
     </div>
   )}
 
