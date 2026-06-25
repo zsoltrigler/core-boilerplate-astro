@@ -89,4 +89,9 @@
     outline: 2px solid var(--color-brand-primary);
     outline-offset: 2px;
   }
+
+  /* Offset anchor targets so sticky header doesn't cover them */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
 }

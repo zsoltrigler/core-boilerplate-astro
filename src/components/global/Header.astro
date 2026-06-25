@@ -11,9 +11,9 @@ import { SITE, NAV_LINKS } from "../../config";
       {SITE.name}
     </a>
 
-    <!-- Navigation -->
-    <nav aria-label="Main navigation">
-      <ul class="hidden md:flex items-center gap-6 text-sm font-medium text-(--color-text-muted)">
+    <!-- Desktop Navigation -->
+    <nav aria-label="Main navigation" class="hidden md:block">
+      <ul class="flex items-center gap-6 text-sm font-medium text-(--color-text-muted)">
         {NAV_LINKS.map((link) => (
           <li>
             <a href={link.href} class="hover:text-(--color-text-base) transition-colors">
@@ -25,7 +25,95 @@ import { SITE, NAV_LINKS } from "../../config";
     </nav>
 
     <!-- Right side -->
-    <ThemeToggle />
+    <div class="flex items-center gap-2">
+      <ThemeToggle />
+
+      <!-- Mobile menu button -->
+      <button
+        data-mobile-menu-toggle
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) hover:bg-(--color-bg-elevated) transition-colors duration-200 cursor-pointer md:hidden"
+      >
+        <!-- Hamburger icon -->
+        <svg data-icon-menu xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="18" x2="20" y2="18" />
+        </svg>
+        <!-- Close icon -->
+        <svg data-icon-close xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="hidden">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
 
   </div>
+
+  <!-- Mobile Navigation -->
+  <div
+    id="mobile-menu"
+    data-mobile-menu
+    hidden
+    class="border-t border-(--color-border-base) bg-(--color-bg-base) md:hidden"
+  >
+    <nav aria-label="Mobile navigation">
+      <ul class="flex flex-col px-6 py-4 gap-4 text-sm font-medium text-(--color-text-muted)">
+        {NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              data-mobile-nav-link
+              class="block hover:text-(--color-text-base) transition-colors"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
 </header>
+
+<script>
+  const controllers = new WeakMap<HTMLElement, AbortController>();
+
+  function initMobileMenu() {
+    document.querySelectorAll<HTMLElement>("[data-mobile-menu-toggle]").forEach((btn) => {
+      controllers.get(btn)?.abort();
+      const controller = new AbortController();
+      controllers.set(btn, controller);
+      const { signal } = controller;
+
+      const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+      if (!menu) return;
+
+      function setOpen(open: boolean) {
+        menu!.hidden = !open;
+        btn.setAttribute("aria-expanded", String(open));
+        btn.querySelector("[data-icon-menu]")?.classList.toggle("hidden", open);
+        btn.querySelector("[data-icon-close]")?.classList.toggle("hidden", !open);
+      }
+
+      btn.addEventListener("click", () => setOpen(menu.hidden), { signal });
+
+      // Close on nav link click (hash navigation)
+      menu.querySelectorAll<HTMLElement>("[data-mobile-nav-link]").forEach((link) => {
+        link.addEventListener("click", () => setOpen(false), { signal });
+      });
+
+      // Close on outside click
+      document.addEventListener("click", (e) => {
+        if (!btn.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+          setOpen(false);
+        }
+      }, { signal });
+    });
+  }
+
+  initMobileMenu();
+  document.addEventListener("astro:after-swap", initMobileMenu);
+</script>
