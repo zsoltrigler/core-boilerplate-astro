@@ -1,0 +1,65 @@
+---
+export interface Props {
+  title?: string;
+  desc?: string;
+  padding?: "sm" | "md" | "lg";
+  rounded?: "md" | "lg" | "xl" | "2xl";
+  hover?: boolean;
+  shadow?: boolean;
+  class?: string;
+}
+
+const {
+  title,
+  desc,
+  padding = "md",
+  rounded = "xl",
+  hover = true,
+  shadow = false,
+  class: className = "",
+} = Astro.props;
+
+const paddings: Record<string, string> = {
+  sm: "p-3",
+  md: "p-5",
+  lg: "p-8",
+};
+
+const roundeds: Record<string, string> = {
+  md:    "rounded-md",
+  lg:    "rounded-lg",
+  xl:    "rounded-xl",
+  "2xl": "rounded-2xl",
+};
+---
+
+<div class={[
+  "flex flex-col gap-2",
+  "border border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200",
+  paddings[padding],
+  roundeds[rounded],
+  hover ? "hover:border-(--color-border-strong)" : "",
+  shadow ? "shadow-sm" : "",
+  className,
+].join(" ")}>
+
+  {Astro.slots.has("icon") && (
+    <div class="text-2xl" aria-hidden="true">
+      <slot name="icon" />
+    </div>
+  )}
+
+  {(Astro.slots.has("title") || title) && (
+    <div class="font-semibold text-(--color-text-base)">
+      {Astro.slots.has("title") ? <slot name="title" /> : title}
+    </div>
+  )}
+
+  {(Astro.slots.has("desc") || desc) && (
+    <div class="text-sm text-(--color-text-muted) leading-relaxed">
+      {Astro.slots.has("desc") ? <slot name="desc" /> : desc}
+    </div>
+  )}
+
+  <slot />
+</div>

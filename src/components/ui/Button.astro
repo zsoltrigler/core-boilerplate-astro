@@ -1,0 +1,62 @@
+---
+export interface Props {
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "ghost" | "danger";
+  size?: "sm" | "md" | "lg";
+  fullWidth?: boolean;
+  external?: boolean;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  fullWidth = false,
+  external = false,
+  disabled = false,
+  class: className = "",
+} = Astro.props;
+
+const variants: Record<string, string> = {
+  primary:   "bg-(--color-brand-primary) text-white hover:opacity-90 transition-opacity",
+  secondary: "border border-(--color-border-base) text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
+  ghost:     "text-(--color-text-muted) hover:text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
+  danger:    "bg-(--color-status-error) text-white hover:opacity-90 transition-opacity",
+};
+
+const sizes: Record<string, string> = {
+  sm: "px-4 py-2 text-sm gap-1.5 rounded-md",
+  md: "px-6 py-3 text-base gap-2 rounded-lg",
+  lg: "px-8 py-4 text-lg gap-2.5 rounded-xl",
+};
+
+const base = [
+  "inline-flex items-center justify-center font-semibold cursor-pointer",
+  "disabled:opacity-50 disabled:pointer-events-none",
+  "duration-200",
+  fullWidth ? "w-full" : "",
+  variants[variant],
+  sizes[size],
+  className,
+].join(" ");
+
+const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+{href ? (
+  <a href={href} class={base} {...externalProps}>
+    <slot name="icon-left" />
+    <slot />
+    <slot name="icon-right" />
+  </a>
+) : (
+  <button type={type} class={base} disabled={disabled}>
+    <slot name="icon-left" />
+    <slot />
+    <slot name="icon-right" />
+  </button>
+)}

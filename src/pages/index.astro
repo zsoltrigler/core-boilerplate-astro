@@ -2,21 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
-
-interface FeatureCard {
-  icon: string;
-  title: string;
-  desc: string;
-}
-
-const features: FeatureCard[] = [
-  { icon: "🎨", title: "Semantic Design System", desc: "Tailwind v4 @theme tokens — re-skin any project by changing hex values." },
-  { icon: "🌙", title: "Dark Mode Ready", desc: "FOUC-free theme toggle with localStorage + system preference detection." },
-  { icon: "⚡", title: "View Transitions", desc: "Silky page transitions built on the native browser API via Astro." },
-  { icon: "🔍", title: "SEO Maximized", desc: "Dynamic meta, Open Graph, Twitter Card, and canonical URLs out of the box." },
-  { icon: "♿", title: "Accessible", desc: "Focus-visible styles, aria-labels, and semantic HTML throughout." },
-  { icon: "📐", title: "Strict TypeScript", desc: "Astro strict mode — catch errors at build time, not in production." },
-];
+import HeroSection from "../components/sections/HeroSection.astro";
+import CardGridSection from "../components/sections/CardGridSection.astro";
+import Badge from "../components/ui/Badge.astro";
+import Button from "../components/ui/Button.astro";
+import Card from "../components/ui/Card.astro";
 ---
 
 <BaseLayout
@@ -25,62 +15,53 @@ const features: FeatureCard[] = [
 >
   <Header />
 
-  <main class="bg-(--color-bg-base) transition-colors duration-200">
-    <!-- Hero Section -->
-    <section class="flex flex-col items-center justify-center min-h-screen px-6 py-24 text-center gap-8">
+  <main class="flex flex-col gap-16 py-16 flex-1 bg-(--color-bg-base) transition-colors duration-200">
 
-      <!-- Badge -->
-      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-(--color-bg-surface) border border-(--color-border-base) text-(--color-text-muted)">
-        <span class="w-2 h-2 rounded-full bg-(--color-brand-primary) animate-pulse"></span>
-        Core Boilerplate v1.0
-      </span>
+    <HeroSection>
+      <Badge pulse>Core Boilerplate v1.0</Badge>
 
-      <!-- Heading -->
       <h1 class="text-5xl font-bold tracking-tight text-(--color-text-base) max-w-3xl md:text-6xl lg:text-7xl">
         Build Faster,
         <span class="text-(--color-brand-primary)"> Ship Better</span>
       </h1>
 
-      <!-- Subheading -->
       <p class="text-xl text-(--color-text-muted) max-w-xl leading-relaxed">
         A service-agnostic Astro + Tailwind CSS master template with a semantic
         design system, dark mode, SEO, and View Transitions baked in.
       </p>
 
-      <!-- CTA Buttons -->
       <div class="flex flex-wrap items-center justify-center gap-4">
-        <a
-          href="#features"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-(--color-brand-primary) text-white font-semibold hover:opacity-90 transition-opacity"
-        >
+        <Button href="#features" variant="primary">
           Get Started
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg slot="icon-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
-        </a>
-        <a
-          href="https://astro.build/docs"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-(--color-border-base) text-(--color-text-base) font-semibold hover:bg-(--color-bg-surface) transition-colors"
-        >
-          Docs
-        </a>
+        </Button>
+        <Button href="https://astro.build/docs" variant="secondary" external>Docs</Button>
       </div>
+    </HeroSection>
 
-      <!-- Feature cards -->
-      <h2 class="text-2xl font-bold text-(--color-text-base)">Features</h2>
-      <div id="features" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 w-full max-w-4xl text-left">
-        {features.map((card) => (
-          <div class="p-5 rounded-xl border border-(--color-border-base) bg-(--color-bg-surface) hover:border-(--color-border-strong) transition-colors">
-            <div class="text-2xl mb-3">{card.icon}</div>
-            <h3 class="font-semibold text-(--color-text-base) mb-1">{card.title}</h3>
-            <p class="text-sm text-(--color-text-muted) leading-relaxed">{card.desc}</p>
-          </div>
-        ))}
-      </div>
+    <CardGridSection id="features" columns={3}>
+      <Card title="Semantic Design System" desc="Tailwind v4 @theme tokens — re-skin any project by changing hex values.">
+        <span slot="icon">🎨</span>
+      </Card>
+      <Card title="Dark Mode Ready" desc="FOUC-free theme toggle with localStorage + system preference detection.">
+        <span slot="icon">🌙</span>
+      </Card>
+      <Card title="View Transitions" desc="Silky page transitions built on the native browser API via Astro.">
+        <span slot="icon">⚡</span>
+      </Card>
+      <Card title="SEO Maximized" desc="Dynamic meta, Open Graph, Twitter Card, and canonical URLs out of the box.">
+        <span slot="icon">🔍</span>
+      </Card>
+      <Card title="Accessible" desc="Focus-visible styles, aria-labels, and semantic HTML throughout.">
+        <span slot="icon">♿</span>
+      </Card>
+      <Card title="Strict TypeScript" desc="Astro strict mode — catch errors at build time, not in production.">
+        <span slot="icon">📐</span>
+      </Card>
+    </CardGridSection>
 
-    </section>
   </main>
 
   <Footer />
