@@ -4,9 +4,13 @@ import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
 import HeroSection from "../components/sections/HeroSection.astro";
 import CardGridSection from "../components/sections/CardGridSection.astro";
+import Section from "../components/layout/Section.astro";
+import Container from "../components/layout/Container.astro";
 import Badge from "../components/ui/Badge.astro";
 import Button from "../components/ui/Button.astro";
+import IconButton from "../components/ui/IconButton.astro";
 import Card from "../components/ui/Card.astro";
+import Alert from "../components/ui/Alert.astro";
 ---
 
 <BaseLayout
@@ -15,8 +19,9 @@ import Card from "../components/ui/Card.astro";
 >
   <Header />
 
-  <main class="flex flex-col gap-16 py-16 flex-1 bg-(--color-bg-base) transition-colors duration-200">
+  <main class="flex flex-col gap-24 py-16 flex-1">
 
+    <!-- ── Hero ───────────────────────────────────────────────── -->
     <HeroSection>
       <Badge pulse>Core Boilerplate v1.0</Badge>
 
@@ -31,20 +36,177 @@ import Card from "../components/ui/Card.astro";
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4">
-        <Button href="#features" variant="primary">
-          Get Started
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
+        <Button href="#buttons" variant="primary">
+          Explore components
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </Button>
-        <Button href="https://astro.build/docs" variant="secondary" external>
-          Docs
-        </Button>
+        <Button href="https://astro.build/docs" variant="secondary" external>Docs</Button>
       </div>
     </HeroSection>
 
+    <!-- ── Buttons ─────────────────────────────────────────────── -->
+    <Section id="buttons">
+      <Container>
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-8">Button</h2>
+
+        <div class="flex flex-col gap-6">
+          <div>
+            <p class="text-sm text-(--color-text-muted) mb-3">Variants</p>
+            <div class="flex flex-wrap gap-3">
+              <Button variant="primary">Primary</Button>
+              <Button variant="secondary">Secondary</Button>
+              <Button variant="ghost">Ghost</Button>
+              <Button variant="danger">Danger</Button>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-sm text-(--color-text-muted) mb-3">Sizes</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <Button variant="primary" size="sm">Small</Button>
+              <Button variant="primary" size="md">Medium</Button>
+              <Button variant="primary" size="lg">Large</Button>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-sm text-(--color-text-muted) mb-3">States</p>
+            <div class="flex flex-wrap gap-3">
+              <Button variant="primary" disabled>Disabled</Button>
+              <Button variant="primary" href="https://astro.build" external>External link</Button>
+              <Button variant="secondary" fullWidth>Full width</Button>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Icon Buttons ────────────────────────────────────────── -->
+    <Section id="icon-buttons">
+      <Container>
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-8">IconButton</h2>
+
+        <div class="flex flex-col gap-6">
+          <div>
+            <p class="text-sm text-(--color-text-muted) mb-3">Variants</p>
+            <div class="flex flex-wrap gap-3">
+              <IconButton label="Primary action" variant="primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </IconButton>
+              <IconButton label="Secondary action" variant="secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </IconButton>
+              <IconButton label="Ghost action" variant="ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </IconButton>
+              <IconButton label="Delete" variant="danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              </IconButton>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-sm text-(--color-text-muted) mb-3">Sizes</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <IconButton label="Small" variant="ghost" size="sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/></svg>
+              </IconButton>
+              <IconButton label="Medium" variant="ghost" size="md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/></svg>
+              </IconButton>
+              <IconButton label="Large" variant="ghost" size="lg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/></svg>
+              </IconButton>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Badges ──────────────────────────────────────────────── -->
+    <Section id="badges">
+      <Container>
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-8">Badge</h2>
+
+        <div class="flex flex-col gap-6">
+          <div>
+            <p class="text-sm text-(--color-text-muted) mb-3">Variants</p>
+            <div class="flex flex-wrap gap-3">
+              <Badge variant="default">Default</Badge>
+              <Badge variant="primary">Primary</Badge>
+              <Badge variant="success">Success</Badge>
+              <Badge variant="warning">Warning</Badge>
+              <Badge variant="error">Error</Badge>
+              <Badge variant="info">Info</Badge>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-sm text-(--color-text-muted) mb-3">Sizes</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <Badge size="sm">Small</Badge>
+              <Badge size="md">Medium</Badge>
+              <Badge size="lg">Large</Badge>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-sm text-(--color-text-muted) mb-3">With pulse</p>
+            <div class="flex flex-wrap gap-3">
+              <Badge variant="primary" pulse>Live</Badge>
+              <Badge variant="success" pulse>Online</Badge>
+              <Badge variant="error" pulse>Alert</Badge>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Alerts ──────────────────────────────────────────────── -->
+    <Section id="alerts">
+      <Container size="md">
+        <h2 class="text-2xl font-bold text-(--color-text-base) mb-8">Alert</h2>
+
+        <div class="flex flex-col gap-4">
+          <Alert variant="info" title="Information">
+            This is an informational message with some useful context for the user.
+          </Alert>
+          <Alert variant="success" title="Success">
+            Your changes have been saved successfully.
+          </Alert>
+          <Alert variant="warning" title="Warning">
+            Please review your input before continuing.
+          </Alert>
+          <Alert variant="error" title="Error">
+            Something went wrong. Please try again.
+          </Alert>
+          <Alert variant="info" title="Dismissible alert" dismissible>
+            Click the × button to dismiss this alert.
+          </Alert>
+          <Alert variant="success">
+            Alert without a title — just body text.
+          </Alert>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Cards ──────────────────────────────────────────────── -->
+    <CardGridSection id="cards" columns={3}>
+      <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8 col-span-full">Card</h2>
+
+      <Card icon="🎨" title="Default card" desc="With icon, title, and description props. Hover border enabled by default." />
+      <Card icon="⚡" title="With shadow" desc="shadow prop adds a subtle drop shadow." shadow />
+      <Card title="No icon" desc="Icon is optional — omit it for a cleaner look." />
+      <Card icon="🔍" title="Large padding" desc="padding=lg gives more breathing room inside the card." padding="lg" />
+      <Card icon="📐" title="Rounded 2xl" desc="rounded prop controls the border radius." rounded="2xl" />
+      <Card icon="🌙" title="No hover" desc="hover=false disables the border highlight on hover." hover={false} />
+    </CardGridSection>
+
+    <!-- ── Features ───────────────────────────────────────────── -->
     <CardGridSection id="features" columns={3}>
-      <Card icon="🎨" title="Semantic Design System" desc="Tailwind v4 @theme tokens — re-skin any project by changing hex values." />
+      <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8 col-span-full">What's included</h2>
+
+      <Card icon="🎨" title="Semantic Design System" desc="Tailwind v4 @theme tokens — re-skin any project by changing hex values in config.ts." />
       <Card icon="🌙" title="Dark Mode Ready" desc="FOUC-free theme toggle with localStorage + system preference detection." />
       <Card icon="⚡" title="View Transitions" desc="Silky page transitions built on the native browser API via Astro." />
       <Card icon="🔍" title="SEO Maximized" desc="Dynamic meta, Open Graph, Twitter Card, and canonical URLs out of the box." />
