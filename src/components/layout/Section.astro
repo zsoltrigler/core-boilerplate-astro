@@ -1,0 +1,12 @@
+---
+export interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id, class: className = "" } = Astro.props;
+---
+
+<section id={id} class={`w-full py-24 ${className}`}>
+  <slot />
+</section>

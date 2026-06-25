@@ -1,0 +1,12 @@
+---
+export interface Props {
+  hover?: boolean;
+  class?: string;
+}
+
+const { hover = true, class: className = "" } = Astro.props;
+---
+
+<div class={`p-5 rounded-xl border border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200 ${hover ? "hover:border-(--color-border-strong)" : ""} ${className}`}>
+  <slot />
+</div>

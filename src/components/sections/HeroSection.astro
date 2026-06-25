@@ -1,4 +1,9 @@
 ---
+import Badge from "../ui/Badge.astro";
+import Button from "../ui/Button.astro";
+import Section from "../layout/Section.astro";
+import Container from "../layout/Container.astro";
+
 export interface Props {
   badge?: string;
   heading: string;
@@ -11,43 +16,35 @@ export interface Props {
 const { badge, heading, headingAccent, subheading, primaryCta, secondaryCta } = Astro.props;
 ---
 
-<section class="flex flex-col items-center justify-center min-h-screen px-6 py-24 text-center gap-8">
+<Section class="flex flex-col items-center justify-center min-h-screen text-center gap-8">
+  <Container>
+    <div class="flex flex-col items-center gap-8">
 
-  {badge && (
-    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-(--color-bg-surface) border border-(--color-border-base) text-(--color-text-muted)">
-      <span class="w-2 h-2 rounded-full bg-(--color-brand-primary) animate-pulse" aria-hidden="true"></span>
-      {badge}
-    </span>
-  )}
+      {badge && <Badge pulse>{badge}</Badge>}
 
-  <h1 class="text-5xl font-bold tracking-tight text-(--color-text-base) max-w-3xl md:text-6xl lg:text-7xl">
-    {heading}
-    <span class="text-(--color-brand-primary)"> {headingAccent}</span>
-  </h1>
+      <h1 class="text-5xl font-bold tracking-tight text-(--color-text-base) max-w-3xl md:text-6xl lg:text-7xl">
+        {heading}
+        <span class="text-(--color-brand-primary)"> {headingAccent}</span>
+      </h1>
 
-  <p class="text-xl text-(--color-text-muted) max-w-xl leading-relaxed">
-    {subheading}
-  </p>
+      <p class="text-xl text-(--color-text-muted) max-w-xl leading-relaxed">
+        {subheading}
+      </p>
 
-  <div class="flex flex-wrap items-center justify-center gap-4">
-    <a
-      href={primaryCta.href}
-      class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-(--color-brand-primary) text-white font-semibold hover:opacity-90 transition-opacity"
-    >
-      {primaryCta.label}
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </a>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <Button href={primaryCta.href} variant="primary">
+          {primaryCta.label}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </Button>
+        {secondaryCta && (
+          <Button href={secondaryCta.href} variant="secondary" external={secondaryCta.href.startsWith("http")}>
+            {secondaryCta.label}
+          </Button>
+        )}
+      </div>
 
-    {secondaryCta && (
-      <a
-        href={secondaryCta.href}
-        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-(--color-border-base) text-(--color-text-base) font-semibold hover:bg-(--color-bg-surface) transition-colors"
-      >
-        {secondaryCta.label}
-      </a>
-    )}
-  </div>
-
-</section>
+    </div>
+  </Container>
+</Section>

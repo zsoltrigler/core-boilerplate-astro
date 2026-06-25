@@ -25,6 +25,10 @@ export const COLORS = {
   brandAccent:   "#06b6d4",
   borderBase:    "#e2e8f0",
   borderStrong:  "#cbd5e1",
+  statusSuccess: "#22c55e",
+  statusWarning: "#f59e0b",
+  statusError:   "#ef4444",
+  statusInfo:    "#3b82f6",
   // Dark mode overrides — omit a key to inherit the light-mode value
   dark: {
     bgBase:        "#0f172a",

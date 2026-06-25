@@ -1,5 +1,7 @@
 ---
 import FeatureCard from "../ui/FeatureCard.astro";
+import Section from "../layout/Section.astro";
+import Container from "../layout/Container.astro";
 
 export interface Feature {
   icon: string;
@@ -14,11 +16,13 @@ export interface Props {
 const { features } = Astro.props;
 ---
 
-<section id="features" class="w-full max-w-4xl mx-auto px-6 pb-24">
-  <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8">Features</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    {features.map((card) => (
-      <FeatureCard icon={card.icon} title={card.title} desc={card.desc} />
-    ))}
-  </div>
-</section>
+<Section id="features">
+  <Container>
+    <h2 class="text-2xl font-bold text-(--color-text-base) text-center mb-8">Features</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {features.map((card) => (
+        <FeatureCard icon={card.icon} title={card.title} desc={card.desc} />
+      ))}
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,48 @@
+---
+export interface Props {
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "sm" | "md" | "lg";
+  external?: boolean;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  external = false,
+  disabled = false,
+  class: className = "",
+} = Astro.props;
+
+const variants = {
+  primary: "bg-(--color-brand-primary) text-white hover:opacity-90",
+  secondary: "border border-(--color-border-base) text-(--color-text-base) hover:bg-(--color-bg-surface)",
+  ghost: "text-(--color-text-muted) hover:text-(--color-text-base) hover:bg-(--color-bg-surface)",
+};
+
+const sizes = {
+  sm: "px-4 py-2 text-sm",
+  md: "px-6 py-3 text-base",
+  lg: "px-8 py-4 text-lg",
+};
+
+const base = "inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:pointer-events-none";
+const classes = [base, variants[variant], sizes[size], className].join(" ");
+
+const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+{href ? (
+  <a href={href} class={classes} {...externalProps}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes} disabled={disabled}>
+    <slot />
+  </button>
+)}
