@@ -3,17 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
 import HeroSection from "../components/sections/HeroSection.astro";
-import FeaturesSection from "../components/sections/FeaturesSection.astro";
-import type { Feature } from "../components/sections/FeaturesSection.astro";
-
-const features: Feature[] = [
-  { icon: "🎨", title: "Semantic Design System", desc: "Tailwind v4 @theme tokens — re-skin any project by changing hex values." },
-  { icon: "🌙", title: "Dark Mode Ready", desc: "FOUC-free theme toggle with localStorage + system preference detection." },
-  { icon: "⚡", title: "View Transitions", desc: "Silky page transitions built on the native browser API via Astro." },
-  { icon: "🔍", title: "SEO Maximized", desc: "Dynamic meta, Open Graph, Twitter Card, and canonical URLs out of the box." },
-  { icon: "♿", title: "Accessible", desc: "Focus-visible styles, aria-labels, and semantic HTML throughout." },
-  { icon: "📐", title: "Strict TypeScript", desc: "Astro strict mode — catch errors at build time, not in production." },
-];
+import CardGridSection from "../components/sections/CardGridSection.astro";
+import { FEATURES } from "../config";
 ---
 
 <BaseLayout
@@ -31,7 +22,11 @@ const features: Feature[] = [
       primaryCta={{ label: "Get Started", href: "#features" }}
       secondaryCta={{ label: "Docs", href: "https://astro.build/docs" }}
     />
-    <FeaturesSection features={features} />
+    <CardGridSection
+      id="features"
+      title="Features"
+      items={FEATURES}
+    />
   </main>
 
   <Footer />
