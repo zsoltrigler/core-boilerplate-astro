@@ -404,19 +404,15 @@ import Modal from "../components/ui/Modal.astro"
         Are you sure you want to continue? This action cannot be undone.
       </p>
 
-      <div slot="footer">
-        <Button variant="ghost" data-modal-close>Cancel</Button>
+      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
 
-        <Button variant="danger">Delete</Button>
-      </div>
+      <Button slot="footer" variant="danger">Delete</Button>
     </Modal>
 
     <Modal id="modal-sm" title="Quick note" size="sm">
       <p class="text-(--color-text-muted)">A compact modal for short confirmations or notices.</p>
 
-      <div slot="footer">
-        <Button variant="primary" data-modal-close>Got it</Button>
-      </div>
+      <Button slot="footer" variant="primary" data-modal-close>Got it</Button>
     </Modal>
 
     <Modal id="modal-lg" title="Edit profile" size="lg">
@@ -428,11 +424,9 @@ import Modal from "../components/ui/Modal.astro"
         <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
       </div>
 
-      <div slot="footer">
-        <Button variant="ghost" data-modal-close>Cancel</Button>
+      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
 
-        <Button variant="primary">Save changes</Button>
-      </div>
+      <Button slot="footer" variant="primary">Save changes</Button>
     </Modal>
 
     <Modal id="modal-no-footer" title="Information">
