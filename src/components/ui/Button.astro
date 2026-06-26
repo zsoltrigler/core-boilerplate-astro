@@ -20,6 +20,7 @@ const {
   external = false,
   disabled = false,
   class: className = "",
+  ...rest
 } = Astro.props
 
 const variants: Record<string, string> = {
@@ -54,14 +55,14 @@ const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" 
 
 {
   href ? (
-    <a href={href} class={base} {...externalProps}>
+    <a href={href} class={base} {...externalProps} {...rest}>
       <!-- icon-left and icon-right slots accept any inline SVG or element -->
       <slot name="icon-left" />
       <slot />
       <slot name="icon-right" />
     </a>
   ) : (
-    <button type={type} class={base} disabled={disabled}>
+    <button type={type} class={base} disabled={disabled} {...rest}>
       <slot name="icon-left" />
       <slot />
       <slot name="icon-right" />
