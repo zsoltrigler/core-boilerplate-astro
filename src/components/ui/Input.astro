@@ -1,0 +1,94 @@
+---
+export interface Props {
+  /** Input type — covers the most common use cases. */
+  type?: "text" | "email" | "password" | "search" | "url" | "tel" | "number"
+  name: string
+  id?: string
+  label?: string
+  placeholder?: string
+  value?: string
+  /** Hint text displayed below the input. */
+  hint?: string
+  /** Error message — switches the input to error state when set. */
+  error?: string
+  size?: "sm" | "md" | "lg"
+  disabled?: boolean
+  required?: boolean
+  fullWidth?: boolean
+  class?: string
+}
+
+const {
+  type = "text",
+  name,
+  id,
+  label,
+  placeholder,
+  value,
+  hint,
+  error,
+  size = "md",
+  disabled = false,
+  required = false,
+  fullWidth = false,
+  class: className = "",
+} = Astro.props
+
+// * id falls back to name so label[for] always resolves even when id is omitted.
+const inputId = id ?? name
+
+const sizes: Record<string, string> = {
+  sm: "h-8  px-3 text-sm  rounded-md",
+  md: "h-10 px-4 text-base rounded-lg",
+  lg: "h-12 px-5 text-lg  rounded-xl",
+}
+
+const base = [
+  "w-full border bg-(--color-bg-base) text-(--color-text-base) placeholder:text-(--color-text-muted)",
+  "outline-none transition-colors duration-200",
+  "focus:ring-2 focus:ring-(--color-brand-primary)/40 focus:border-(--color-brand-primary)",
+  "disabled:opacity-50 disabled:cursor-not-allowed",
+  error
+    ? "border-(--color-status-error) focus:ring-(--color-status-error)/40 focus:border-(--color-status-error)"
+    : "border-(--color-border-base) hover:border-(--color-border-strong)",
+  sizes[size],
+].join(" ")
+---
+
+<div class={`flex flex-col gap-1.5 ${fullWidth ? "w-full" : "w-fit"} ${className}`}>
+  {
+    label && (
+      <label
+        for={inputId}
+        class={`text-sm font-medium text-(--color-text-base) ${required ? "after:ml-0.5 after:text-(--color-status-error) after:content-['*']" : ""}`}
+      >
+        {label}
+      </label>
+    )
+  }
+
+  <input
+    type={type}
+    id={inputId}
+    name={name}
+    placeholder={placeholder}
+    value={value}
+    disabled={disabled}
+    required={required}
+    aria-invalid={error ? "true" : undefined}
+    aria-describedby={error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined}
+    class={base}
+  />
+
+  {
+    error ? (
+      <p id={`${inputId}-error`} class="text-sm text-(--color-status-error)" role="alert">
+        {error}
+      </p>
+    ) : hint ? (
+      <p id={`${inputId}-hint`} class="text-sm text-(--color-text-muted)">
+        {hint}
+      </p>
+    ) : null
+  }
+</div>
