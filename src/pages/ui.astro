@@ -9,6 +9,7 @@ import Button from "../components/ui/Button.astro"
 import IconButton from "../components/ui/IconButton.astro"
 import Card from "../components/ui/Card.astro"
 import Alert from "../components/ui/Alert.astro"
+import Input from "../components/ui/Input.astro"
 ---
 
 <BaseLayout title="UI Components" description="All available UI components in Core Boilerplate.">
@@ -314,6 +315,55 @@ import Alert from "../components/ui/Alert.astro"
             >
 
             <Alert variant="success">Alert without a title — just body text.</Alert>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Input ───────────────────────────────────────────────── -->
+    <Section id="input">
+      <Container>
+        <div class="flex flex-col gap-8">
+          <div class="flex flex-col gap-1">
+            <h2 class="text-2xl font-bold text-(--color-text-base)">Input</h2>
+
+            <p class="text-sm text-(--color-text-muted)">
+              Text input with label, hint, error state and size variants. The <code
+                class="rounded bg-(--color-bg-surface) px-1">name</code
+              > prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls
+              back to <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-6">
+            <!-- Sizes -->
+            <div class="flex flex-wrap items-end gap-4">
+              <Input name="size-sm" size="sm" placeholder="Small" />
+
+              <Input name="size-md" size="md" placeholder="Medium (default)" />
+
+              <Input name="size-lg" size="lg" placeholder="Large" />
+            </div>
+
+            <!-- With label and hint -->
+            <div class="flex flex-wrap gap-4">
+              <Input name="email" type="email" label="Email address" placeholder="you@example.com" hint="We'll never share your email." />
+
+              <Input name="password" type="password" label="Password" placeholder="••••••••" required />
+            </div>
+
+            <!-- Error state -->
+            <div class="flex flex-wrap gap-4">
+              <Input name="email-error" type="email" label="Email address" value="not-an-email" error="Please enter a valid email address." />
+            </div>
+
+            <!-- Disabled -->
+            <div class="flex flex-wrap gap-4">
+              <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
+            </div>
+
+            <!-- Full width -->
+            <Input name="fullwidth" label="Full width" placeholder="Stretches to fill its container" fullWidth />
           </div>
         </div>
       </Container>
