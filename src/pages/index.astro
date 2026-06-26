@@ -15,8 +15,11 @@ import Alert from "../components/ui/Alert.astro"
   <Header />
 
   <main class="flex flex-1 flex-col gap-16">
-    <!-- Hero — OG-inspired dark section -->
-    <Section class="relative overflow-hidden bg-[#0f172a]">
+    <!-- Hero — OG-inspired dark section with grid pattern -->
+    <Section
+      class="relative overflow-hidden"
+      style="background-color: #0f172a; background-image: linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px); background-size: 60px 60px;"
+    >
       <!-- Top accent line -->
       <div class="absolute inset-x-0 top-0 h-1 bg-(--color-brand-primary)"></div>
 
