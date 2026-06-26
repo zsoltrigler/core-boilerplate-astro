@@ -14,22 +14,63 @@ import Alert from "../components/ui/Alert.astro"
 <BaseLayout title="Home" description="Replace this with your site description.">
   <Header />
 
-  <main class="flex flex-1 flex-col gap-16 py-16">
-    <!-- Hero -->
-    <Section>
-      <Container size="sm">
-        <div class="flex flex-col items-center gap-6 text-center">
-          <Badge variant="info" pulse>Astro 7 · Tailwind 4</Badge>
+  <main class="flex flex-1 flex-col gap-16">
+    <!-- Hero — OG-inspired dark section -->
+    <Section class="relative overflow-hidden bg-[#0f172a]">
+      <!-- Top accent line -->
+      <div class="absolute inset-x-0 top-0 h-1 bg-(--color-brand-primary)"></div>
 
-          <h1 class="text-4xl font-medium text-(--color-text-base)">You're ready to build.</h1>
+      <!-- CSS grid pattern overlay -->
+      <div
+        class="absolute inset-0"
+        style="background-image: linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px); background-size: 60px 60px;"
+      >
+      </div>
 
-          <p class="max-w-md leading-relaxed text-(--color-text-muted)">
+      <!-- Right-side radial glow -->
+      <div
+        class="absolute inset-0"
+        style="background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(99,102,241,0.12) 0%, transparent 70%);"
+      >
+      </div>
+
+      <!-- Content -->
+      <Container class="relative z-10 py-24">
+        <div class="flex max-w-2xl flex-col gap-6">
+          <!-- Badge -->
+          <div>
+            <Badge variant="info" pulse>Astro 7 · Tailwind 4</Badge>
+          </div>
+
+          <!-- Heading -->
+          <h1 class="text-5xl font-bold leading-tight text-[#f8fafc]">
+            You're ready to build.
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="max-w-lg text-lg leading-relaxed text-[#94a3b8]">
             A minimal, production-ready Astro starter. Edit <code
-              class="rounded bg-(--color-bg-surface) px-1.5 font-mono text-sm">src/config.ts</code
+              class="rounded bg-[#1e293b] px-1.5 font-mono text-sm text-[#f8fafc]"
+              >src/config.ts</code
             > and start building.
           </p>
 
-          <div class="mt-2 flex flex-wrap items-center justify-center gap-3">
+          <!-- Accent divider -->
+          <div class="h-0.5 w-14 rounded bg-(--color-brand-primary)"></div>
+
+          <!-- Stack pills -->
+          <div class="flex flex-wrap gap-2">
+            {
+              ["TypeScript", "Dark mode", "WCAG AA", "SEO ready"].map((label) => (
+                <span class="rounded-lg border border-[#334155] bg-[#1e293b] px-3 py-1.5 text-sm font-medium text-[#94a3b8]">
+                  {label}
+                </span>
+              ))
+            }
+          </div>
+
+          <!-- CTA buttons -->
+          <div class="mt-2 flex flex-wrap gap-3">
             <Button href="/ui" variant="primary" size="md">
               Browse components
               <svg
@@ -90,6 +131,8 @@ import Alert from "../components/ui/Alert.astro"
         </div>
       </Container>
     </Section>
+
+    <div class="flex flex-col gap-16 py-16">
 
     <!-- What's included -->
     <Section id="features" class="scroll-mt-20">
@@ -245,6 +288,7 @@ import Alert from "../components/ui/Alert.astro"
         </Alert>
       </Container>
     </Section>
+    </div>
   </main>
 
   <Footer />
