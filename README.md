@@ -1,5 +1,7 @@
 # Core Boilerplate
 
+![CI](https://github.com/zsoltrigler/core-boilerplate-astro/actions/workflows/ci.yml/badge.svg)
+
 A minimal, production-ready starter built with **Astro 7** and **Tailwind CSS 4**. Everything you need to start a new project — nothing you don't.
 
 ## Stack
@@ -43,7 +45,7 @@ export const SITE = {
   description: "Your description",
   logo: "", // path to logo image, or leave empty for text-only
   showName: true,
-  ogImage: "/og-default.jpg",
+  ogImage: "/og-default.svg", // default Open Graph image for social sharing
   lang: "en",
   allRightsReserved: "All rights reserved.",
 }
@@ -258,6 +260,31 @@ dark: {
 ```
 
 Any key omitted from `dark` inherits its light-mode value.
+
+---
+
+## OG image
+
+The default Open Graph image is at `public/og-default.svg`. It is shown when sharing links on social media (Twitter/X, Slack, LinkedIn, etc.) and is referenced from `SITE.ogImage` in `src/config.ts`.
+
+Replace it with your own image (SVG or PNG, 1200×630px recommended) and update the path in `config.ts`.
+
+---
+
+## CI
+
+Every push and pull request targeting `main` runs the CI pipeline automatically:
+
+1. Type check — `pnpm exec astro check`
+2. Build — `pnpm build`
+
+The `main` branch is protected — merging requires a passing CI run and an open pull request.
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup instructions, branch naming conventions, code standards, and the PR process.
 
 ---
 
