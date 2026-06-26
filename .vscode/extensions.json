@@ -4,7 +4,8 @@
     "bradlc.vscode-tailwindcss",
     "usernamehw.errorlens",
     "eamodio.gitlens",
-    "christian-kohler.path-intellisense"
+    "christian-kohler.path-intellisense",
+    "aaron-bond.better-comments"
   ],
   "unwantedRecommendations": []
 }
