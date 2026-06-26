@@ -4,6 +4,7 @@ export interface Props {
   desc?: string
   padding?: "sm" | "md" | "lg"
   rounded?: "md" | "lg" | "xl" | "2xl"
+  /** Highlight the border on hover — enabled by default. */
   hover?: boolean
   shadow?: boolean
   class?: string
@@ -44,6 +45,7 @@ const roundeds: Record<string, string> = {
     className,
   ].join(" ")}
 >
+  <!-- * Named slot takes priority over the prop — use slot="icon" for custom markup. -->
   {
     Astro.slots.has("icon") && (
       <div class="self-start text-2xl" aria-hidden="true">
@@ -52,6 +54,7 @@ const roundeds: Record<string, string> = {
     )
   }
 
+  <!-- * Named slot takes priority over the title prop. -->
   {
     (Astro.slots.has("title") || title) && (
       <div class="self-start font-semibold text-(--color-text-base)">
@@ -60,6 +63,7 @@ const roundeds: Record<string, string> = {
     )
   }
 
+  <!-- * Named slot takes priority over the desc prop. -->
   {
     (Astro.slots.has("desc") || desc) && (
       <div class="self-start text-sm leading-relaxed text-(--color-text-muted)">
@@ -68,5 +72,6 @@ const roundeds: Record<string, string> = {
     )
   }
 
+  <!-- Default slot for fully custom card content -->
   <slot />
 </div>

@@ -1,6 +1,7 @@
 ---
-// ThemeToggle — manages dark/light mode with localStorage persistence.
-// Works across View Transitions via the astro:after-swap event.
+// * Manages dark/light mode with localStorage persistence.
+// * Works across View Transitions via the astro:after-swap event.
+// * The sun icon is shown in dark mode; the moon icon is shown in light mode.
 ---
 
 <button
@@ -9,7 +10,7 @@
   aria-label="Toggle dark/light mode"
   class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) transition-colors duration-200 hover:bg-(--color-bg-elevated)"
 >
-  <!-- Sun icon (shown in dark mode) -->
+  <!-- Sun icon — visible in dark mode -->
   <svg
     data-icon-sun
     xmlns="http://www.w3.org/2000/svg"
@@ -25,12 +26,13 @@
     class="hidden"
   >
     <circle cx="12" cy="12" r="4"></circle>
+
     <path
       d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
     ></path>
   </svg>
 
-  <!-- Moon icon (shown in light mode) -->
+  <!-- Moon icon — visible in light mode -->
   <svg
     data-icon-moon
     xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +51,7 @@
 </button>
 
 <script>
+  // * Syncs both icon states for every toggle instance on the page.
   function syncIcons(btn: HTMLElement, isDark: boolean) {
     btn.querySelector("[data-icon-sun]")?.classList.toggle("hidden", !isDark)
     btn.querySelector("[data-icon-moon]")?.classList.toggle("hidden", isDark)
@@ -58,19 +61,21 @@
     const isDark = theme === "dark"
     document.documentElement.classList.toggle("dark", isDark)
     localStorage.setItem("theme", theme)
-    // Sync all toggle instances on the page
+
+    // * Sync all toggle instances on the page (e.g. mobile + desktop header).
     document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
       syncIcons(btn, isDark)
     })
   }
 
+  // * WeakMap ensures AbortControllers are GC'd when buttons are removed from the DOM.
   const controllers = new WeakMap<HTMLElement, AbortController>()
 
   function initToggle() {
     const isDark = document.documentElement.classList.contains("dark")
 
     document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
-      // Cancel previous listener for this specific button
+      // * Abort the previous listener before adding a new one to avoid duplicates.
       controllers.get(btn)?.abort()
       const controller = new AbortController()
       controllers.set(btn, controller)
@@ -88,7 +93,7 @@
     })
   }
 
-  // Initial setup + re-init after View Transitions
+  // * Re-init after every View Transition to re-attach listeners to new DOM nodes.
   initToggle()
   document.addEventListener("astro:after-swap", initToggle)
 </script>

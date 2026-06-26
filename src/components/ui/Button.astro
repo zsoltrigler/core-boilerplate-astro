@@ -5,6 +5,7 @@ export interface Props {
   variant?: "primary" | "secondary" | "ghost" | "danger"
   size?: "sm" | "md" | "lg"
   fullWidth?: boolean
+  /** Opens the link in a new tab with rel="noopener noreferrer". */
   external?: boolean
   disabled?: boolean
   class?: string
@@ -46,12 +47,15 @@ const base = [
   className,
 ].join(" ")
 
+// * Renders as <a> when href is provided, <button> otherwise.
+// ! Never pass both href and type together — type is ignored on anchor elements.
 const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
 ---
 
 {
   href ? (
     <a href={href} class={base} {...externalProps}>
+      <!-- icon-left and icon-right slots accept any inline SVG or element -->
       <slot name="icon-left" />
       <slot />
       <slot name="icon-right" />

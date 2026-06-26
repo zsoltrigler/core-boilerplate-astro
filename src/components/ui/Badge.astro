@@ -2,6 +2,7 @@
 export interface Props {
   variant?: "default" | "primary" | "success" | "warning" | "error" | "info"
   size?: "sm" | "md" | "lg"
+  /** Show a pulsing dot before the label — useful for live / status indicators. */
   pulse?: boolean
   class?: string
 }
@@ -27,6 +28,7 @@ const sizes: Record<string, string> = {
   lg: "px-4 py-1.5 text-base gap-2",
 }
 
+// * Pulse dot color matches the variant so it always passes contrast on its own background.
 const pulseColor: Record<string, string> = {
   default: "bg-(--color-brand-primary)",
   primary: "bg-(--color-brand-primary)",
@@ -42,11 +44,13 @@ const pulseColor: Record<string, string> = {
 >
   {
     pulse && (
+      <!-- Decorative indicator — aria-hidden keeps it out of screen readers -->
       <span
         class={`h-1.5 w-1.5 animate-pulse rounded-full ${pulseColor[variant]}`}
         aria-hidden="true"
       />
     )
   }
+
   <slot />
 </span>

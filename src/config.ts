@@ -1,25 +1,28 @@
 // ============================================================
-// Site Configuration
-// Replace all values before deploying.
-// Template-specific configs (contact, pricing, etc.) extend this file.
+// * Site Configuration — your single source of truth.
+// * Edit this file to configure branding, colors, and navigation.
+// ! Replace all placeholder values before deploying.
 // ============================================================
 
 export const SITE_DEFAULTS = {
+  // ! Intentional placeholders — the build will warn if these remain unchanged.
   DESCRIPTION: "REPLACE_WITH_YOUR_DESCRIPTION",
   URL: "https://example.com",
 } as const
 
-// ── Color tokens ──────────────────────────────────────────────────────────────
-// Minimum WCAG AA: 4.5:1 for normal text, 3:1 for large text / UI components
-// Check contrast: https://webaim.org/resources/contrastchecker/
+// ── Color Tokens ──────────────────────────────────────────────────────────────
+// * Colors are injected into CSS automatically via the Vite plugin in astro.config.mjs.
+// ! Edit colors here only — never touch the generated @theme block in global.css.
+// * WCAG AA minimums: 4.5:1 for body text, 3:1 for large text and UI components.
+// ? Check contrast ratios: https://webaim.org/resources/contrastchecker/
 export const COLORS = {
   // Light mode
-  bgBase: "#ffffff",
-  bgSurface: "#f8fafc",
-  bgElevated: "#f1f5f9",
-  textBase: "#0f172a",
-  textMuted: "#64748b",
-  textInverted: "#ffffff",
+  bgBase: "#ffffff", // page background
+  bgSurface: "#f8fafc", // card and input background
+  bgElevated: "#f1f5f9", // hover states, dropdowns
+  textBase: "#0f172a", // primary text
+  textMuted: "#64748b", // secondary / helper text
+  textInverted: "#ffffff", // text on brand-colored backgrounds
   brandPrimary: "#4f46e5",
   brandSecondary: "#8b5cf6",
   brandAccent: "#06b6d4",
@@ -29,7 +32,8 @@ export const COLORS = {
   statusWarning: "#f59e0b",
   statusError: "#ef4444",
   statusInfo: "#3b82f6",
-  // Dark mode overrides — omit a key to inherit the light-mode value
+
+  // * Dark mode overrides — omit a key to inherit its light-mode value.
   dark: {
     bgBase: "#0f172a",
     bgSurface: "#1e293b",
@@ -42,18 +46,21 @@ export const COLORS = {
   },
 } as const
 
+// ── Site Metadata ─────────────────────────────────────────────────────────────
 export const SITE = {
   name: "Core Boilerplate",
   url: SITE_DEFAULTS.URL,
   description: SITE_DEFAULTS.DESCRIPTION,
-  logo: "", // image path (any format); leave empty for text-only
-  showName: true, // show site name text next to logo
+  logo: "", // path to logo image (SVG, PNG, etc.); leave empty for text-only
+  showName: true, // show site name text next to the logo
   favicon: "/favicon.svg",
-  ogImage: "/og-default.jpg",
+  ogImage: "/og-default.jpg", // default Open Graph image for social sharing
   lang: "en",
   allRightsReserved: "All rights reserved.",
 } as const
 
+// ── Navigation ────────────────────────────────────────────────────────────────
+// * Rendered in the Header. Supports internal paths and external URLs.
 export interface NavLink {
   label: string
   href: string
@@ -64,12 +71,15 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Docs", href: "https://astro.build/docs" },
 ]
 
+// ── Social Links ──────────────────────────────────────────────────────────────
+// * Rendered in the Footer. Remove entries you don't need.
+// * The icon field accepts an inline SVG string; omit it to show the platform name as text.
 export interface SocialLink {
   platform: string
   href: string
+  // ! Always provide a descriptive label — it is used as the aria-label for screen readers.
   label: string
-  /** Optional inline SVG string for an icon */
-  icon?: string
+  icon?: string // inline SVG string
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [

@@ -4,15 +4,19 @@
 @variant dark (&:where(.dark, .dark *));
 
 /* ============================================================
-   Design System — Color tokens are injected here automatically
-   from src/config.ts COLORS by the Vite plugin in astro.config.mjs.
-   Edit colors ONLY in src/config.ts.
+   Design System — Color Tokens
+   ! Do not edit this section manually.
+   * Colors are injected here at build time by the Vite plugin
+     in astro.config.mjs, sourced from src/config.ts COLORS.
+   * To change a color, edit src/config.ts and rebuild.
    ============================================================ */
 
 /* @inject-color-tokens */
 
 /* ============================================================
    Design System — Typography Tokens
+   * All values are registered as Tailwind CSS theme variables
+     so they can be used directly in utility classes.
    ============================================================ */
 
 @theme {
@@ -23,7 +27,7 @@
   --font-serif: Georgia, "Times New Roman", Times, serif;
   --font-mono: "Fira Code", "Cascadia Code", Consolas, "Courier New", monospace;
 
-  /* Font Sizes (Major Third scale: ×1.250) */
+  /* Font Sizes — Major Third scale (×1.250) */
   --text-xs: 0.64rem; /* ~10px */
   --text-sm: 0.8rem; /* ~13px */
   --text-base: 1rem; /* 16px  */
@@ -71,6 +75,7 @@
     color: var(--color-text-base);
     font-family: var(--font-sans);
     line-height: 1.6;
+    /* * Animate bg/color on theme switch without a layout flash */
     transition:
       background-color 0.2s ease,
       color 0.2s ease;
@@ -88,17 +93,19 @@
     height: auto;
   }
 
+  /* Use brand primary as the global focus ring color */
   :focus-visible {
     outline: 2px solid var(--color-brand-primary);
     outline-offset: 2px;
   }
 
-  /* Offset anchor targets so sticky header doesn't cover them */
+  /* Offset anchor targets so the sticky header does not cover them */
   [id] {
     scroll-margin-top: 5rem;
   }
 
-  /* Decorative step numbers — CSS-only to avoid accessibility contrast warnings */
+  /* * Step numbers are purely decorative — rendered via CSS to keep them
+     out of the accessibility tree and avoid contrast checker warnings. */
   .step-number::before {
     content: attr(data-step);
     font-size: var(--text-3xl);
