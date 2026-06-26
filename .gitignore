@@ -21,8 +21,13 @@ pnpm-debug.log*
 # macOS
 .DS_Store
 
+# TypeScript
+*.tsbuildinfo
+
 # Editor
 .idea/
-.vscode/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
 *.suo
 *.sw?
