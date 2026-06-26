@@ -48,6 +48,7 @@ export const SITE = {
   description: SITE_DEFAULTS.DESCRIPTION,
   logo: "",        // image path (any format); leave empty for text-only
   showName: true,  // show site name text next to logo
+  favicon: "/favicon.svg",
   ogImage: "/og-default.jpg",
   lang: "en",
   allRightsReserved: "All rights reserved.",
