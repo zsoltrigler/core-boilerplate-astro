@@ -109,6 +109,14 @@
     scroll-margin-top: 5rem;
   }
 
+  /* * Center <dialog> in the viewport — browsers don't do this automatically */
+  dialog {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+  }
+
   /* * Step numbers are purely decorative — rendered via CSS to keep them
      out of the accessibility tree and avoid contrast checker warnings. */
   .step-number::before {
