@@ -16,7 +16,7 @@ function toKebab(str) {
   return str.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`)
 }
 
-/** Generate @theme and .dark CSS blocks from COLORS
+/** Generate @theme and .dark CSS blocks from the COLORS object.
  * @param {typeof import('./src/config.ts').COLORS} colors
  * @returns {string}
  */
@@ -31,6 +31,7 @@ function generateColorTokens(colors) {
     .map(([k, v]) => `  --color-${toKebab(k)}: ${v};`)
     .join("\n")
 
+  // * Header comment is intentional — warns anyone who opens the compiled CSS.
   return [
     `/* Auto-generated from COLORS in src/config.ts — do not edit here */`,
     `/* WCAG AA: min 4.5:1 for text, 3:1 for UI components */`,
@@ -45,7 +46,9 @@ function generateColorTokens(colors) {
   ].join("\n")
 }
 
-/** Vite plugin: inject generated color tokens into global.css */
+/** Vite plugin: replaces the /* @inject-color-tokens *\/ marker in global.css
+ *  with the generated @theme and .dark blocks at build time.
+ */
 function colorTokensPlugin() {
   const tokens = generateColorTokens(COLORS)
   return {
@@ -60,6 +63,7 @@ function colorTokensPlugin() {
 }
 
 // ── Placeholder checks ────────────────────────────────────────────────────────
+// ! These warn at build time if the default values in config.ts were not replaced.
 
 if (SITE.url === SITE_DEFAULTS.URL) {
   console.warn(
@@ -68,6 +72,9 @@ if (SITE.url === SITE_DEFAULTS.URL) {
 }
 
 // ── WCAG contrast checks ──────────────────────────────────────────────────────
+// * Runs at build time. Logs a warning — does NOT fail the build — so you can
+//   iterate on colors without being blocked.
+// TODO: Consider throwing an error in CI environments for stricter enforcement.
 
 const contrastPairs = [
   { name: "textBase on bgBase (light)", fg: COLORS.textBase, bg: COLORS.bgBase, min: 4.5 },
@@ -108,6 +115,8 @@ export default defineConfig({
   site: SITE.url,
 
   vite: {
+    // * Order matters: colorTokensPlugin must run before tailwindcss
+    //   so the generated @theme block is visible to Tailwind at build time.
     plugins: [colorTokensPlugin(), tailwindcss()],
   },
 

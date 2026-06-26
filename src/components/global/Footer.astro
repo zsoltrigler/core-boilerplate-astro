@@ -10,7 +10,7 @@ const currentYear = new Date().getFullYear()
   <div
     class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row"
   >
-    <!-- Copyright: override with <slot name="copyright"> -->
+    <!-- Copyright: override with <slot name="copyright"> for custom markup -->
     {
       Astro.slots.has("copyright") ? (
         <slot name="copyright" />
@@ -26,6 +26,7 @@ const currentYear = new Date().getFullYear()
       Astro.slots.has("social") ? (
         <slot name="social" />
       ) : (
+        // * Only renders the list when SOCIAL_LINKS is not empty.
         SOCIAL_LINKS.length > 0 && (
           <ul class="flex items-center gap-4">
             {SOCIAL_LINKS.map((link) => (
@@ -50,6 +51,7 @@ const currentYear = new Date().getFullYear()
       )
     }
 
+    <!-- Default slot for any additional footer content -->
     <slot />
   </div>
 </footer>

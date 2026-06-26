@@ -3,30 +3,32 @@ import ClientRouter from "astro/components/ClientRouter.astro"
 import "../styles/global.css"
 import { SITE, SITE_DEFAULTS, COLORS } from "../config"
 
+// * All props have sensible defaults sourced from src/config.ts.
+// * Override per-page by passing props directly to <BaseLayout>.
 interface Props {
   /** Page title — appended with site name. Omit to show site name only. */
   title?: string
-  /** Meta description (max ~160 chars) */
+  /** Meta description — max ~160 chars for optimal SEO display. */
   description?: string
-  /** Canonical URL; defaults to current page URL */
+  /** Canonical URL; defaults to the current page URL. */
   canonicalUrl?: string
-  /** OG/Twitter image URL (absolute) */
+  /** Absolute URL for the OG / Twitter card image. */
   ogImage?: string
-  /** Page type for Open Graph */
+  /** Open Graph page type. */
   ogType?: "website" | "article"
-  /** Article published date (ISO 8601) */
+  /** Article published date (ISO 8601) — only used when ogType is "article". */
   publishedDate?: string
-  /** Article modified date (ISO 8601) */
+  /** Article modified date (ISO 8601) — only used when ogType is "article". */
   modifiedDate?: string
-  /** Author name */
+  /** Author name injected into the <meta name="author"> tag. */
   author?: string
-  /** Comma-separated keywords */
+  /** Comma-separated keywords for the <meta name="keywords"> tag. */
   keywords?: string
-  /** Prevent search engine indexing */
+  /** Set to true to add <meta name="robots" content="noindex, nofollow">. */
   noindex?: boolean
-  /** BCP 47 language tag for the <html lang> attribute */
+  /** BCP 47 language tag for the <html lang> attribute. */
   lang?: string
-  /** Site name appended to page title and used in OG tags */
+  /** Site name appended to the page title and used in OG tags. */
   siteName?: string
 }
 
@@ -46,8 +48,11 @@ const {
 } = Astro.props
 
 const fullTitle = title ? `${title} | ${siteName}` : siteName
+
+// * Relative og images are resolved against SITE.url so they become absolute.
 const resolvedOgImage = ogImage.startsWith("http") ? ogImage : new URL(ogImage, SITE.url).href
 
+// ! Warn at runtime when the placeholder description is still in use — it hurts SEO.
 if (description === SITE_DEFAULTS.DESCRIPTION) {
   console.warn(
     `[BaseLayout] No custom description set for "${fullTitle}". Using placeholder — this hurts SEO.`

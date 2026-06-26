@@ -1,10 +1,12 @@
 ---
 export interface Props {
+  // ! label is required — it becomes the aria-label for screen readers.
   label: string
   href?: string
   type?: "button" | "submit" | "reset"
   variant?: "primary" | "secondary" | "ghost" | "danger"
   size?: "sm" | "md" | "lg"
+  /** Opens the link in a new tab with rel="noopener noreferrer". */
   external?: boolean
   disabled?: boolean
   class?: string
@@ -30,6 +32,7 @@ const variants: Record<string, string> = {
   danger: "bg-(--color-status-error) text-white hover:opacity-90 transition-opacity",
 }
 
+// * Fixed square dimensions — use the slot to pass an appropriately sized icon.
 const sizes: Record<string, string> = {
   sm: "w-8 h-8 rounded-md",
   md: "w-10 h-10 rounded-lg",
@@ -44,6 +47,7 @@ const base = [
   className,
 ].join(" ")
 
+// * Renders as <a> when href is provided, <button> otherwise.
 const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
 ---
 
