@@ -1,33 +1,33 @@
 ---
-import ClientRouter from "astro/components/ClientRouter.astro";
-import "../styles/global.css";
-import { SITE, SITE_DEFAULTS, COLORS } from "../config";
+import ClientRouter from "astro/components/ClientRouter.astro"
+import "../styles/global.css"
+import { SITE, SITE_DEFAULTS, COLORS } from "../config"
 
 interface Props {
   /** Page title — appended with site name. Omit to show site name only. */
-  title?: string;
+  title?: string
   /** Meta description (max ~160 chars) */
-  description?: string;
+  description?: string
   /** Canonical URL; defaults to current page URL */
-  canonicalUrl?: string;
+  canonicalUrl?: string
   /** OG/Twitter image URL (absolute) */
-  ogImage?: string;
+  ogImage?: string
   /** Page type for Open Graph */
-  ogType?: "website" | "article";
+  ogType?: "website" | "article"
   /** Article published date (ISO 8601) */
-  publishedDate?: string;
+  publishedDate?: string
   /** Article modified date (ISO 8601) */
-  modifiedDate?: string;
+  modifiedDate?: string
   /** Author name */
-  author?: string;
+  author?: string
   /** Comma-separated keywords */
-  keywords?: string;
+  keywords?: string
   /** Prevent search engine indexing */
-  noindex?: boolean;
+  noindex?: boolean
   /** BCP 47 language tag for the <html lang> attribute */
-  lang?: string;
+  lang?: string
   /** Site name appended to page title and used in OG tags */
-  siteName?: string;
+  siteName?: string
 }
 
 const {
@@ -43,15 +43,15 @@ const {
   noindex = false,
   lang = SITE.lang,
   siteName = SITE.name,
-} = Astro.props;
+} = Astro.props
 
-const fullTitle = title ? `${title} | ${siteName}` : siteName;
-const resolvedOgImage = ogImage.startsWith("http")
-  ? ogImage
-  : new URL(ogImage, SITE.url).href;
+const fullTitle = title ? `${title} | ${siteName}` : siteName
+const resolvedOgImage = ogImage.startsWith("http") ? ogImage : new URL(ogImage, SITE.url).href
 
 if (description === SITE_DEFAULTS.DESCRIPTION) {
-  console.warn(`[BaseLayout] No custom description set for "${fullTitle}". Using placeholder — this hurts SEO.`);
+  console.warn(
+    `[BaseLayout] No custom description set for "${fullTitle}". Using placeholder — this hurts SEO.`
+  )
 }
 ---
 
@@ -63,25 +63,23 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
 
     <!-- FOUC prevention: read theme before first paint -->
     <script is:inline>
-      (function () {
+      ;(function () {
         try {
-          var stored = localStorage.getItem("theme");
-          var prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-          ).matches;
-          var dark = stored === "dark" || (!stored && prefersDark);
-          if (dark) document.documentElement.classList.add("dark");
+          var stored = localStorage.getItem("theme")
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+          var dark = stored === "dark" || (!stored && prefersDark)
+          if (dark) document.documentElement.classList.add("dark")
         } catch (_) {}
-      })();
+      })()
     </script>
 
     <!-- Persist dark class across View Transitions on every page -->
     <script>
       document.addEventListener("astro:before-swap", (e) => {
         if (document.documentElement.classList.contains("dark")) {
-          (e as TransitionBeforeSwapEvent).newDocument.documentElement.classList.add("dark");
+          ;(e as TransitionBeforeSwapEvent).newDocument.documentElement.classList.add("dark")
         }
-      });
+      })
     </script>
 
     <!-- Primary Meta -->
@@ -120,7 +118,9 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
 
     <!-- Icons & Manifest -->
     <link rel="icon" type="image/svg+xml" href={SITE.favicon} />
+
     <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
+
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content={COLORS.dark.bgBase} />
 
     <!-- View Transitions (Astro 7+ ClientRouter) -->
@@ -130,7 +130,7 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
     <slot name="head" />
   </head>
 
-  <body class="min-h-screen flex flex-col">
+  <body class="flex min-h-screen flex-col">
     <slot />
   </body>
 </html>
