@@ -1,13 +1,13 @@
 ---
 export interface Props {
-  href?: string;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "ghost" | "danger";
-  size?: "sm" | "md" | "lg";
-  fullWidth?: boolean;
-  external?: boolean;
-  disabled?: boolean;
-  class?: string;
+  href?: string
+  type?: "button" | "submit" | "reset"
+  variant?: "primary" | "secondary" | "ghost" | "danger"
+  size?: "sm" | "md" | "lg"
+  fullWidth?: boolean
+  external?: boolean
+  disabled?: boolean
+  class?: string
 }
 
 const {
@@ -19,20 +19,22 @@ const {
   external = false,
   disabled = false,
   class: className = "",
-} = Astro.props;
+} = Astro.props
 
 const variants: Record<string, string> = {
-  primary:   "bg-(--color-brand-primary) text-white hover:opacity-90 transition-opacity",
-  secondary: "border border-(--color-border-base) text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
-  ghost:     "text-(--color-text-muted) hover:text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
-  danger:    "bg-(--color-status-error) text-white hover:opacity-90 transition-opacity",
-};
+  primary: "bg-(--color-brand-primary) text-white hover:opacity-90 transition-opacity",
+  secondary:
+    "border border-(--color-border-base) text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
+  ghost:
+    "text-(--color-text-muted) hover:text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
+  danger: "bg-(--color-status-error) text-white hover:opacity-90 transition-opacity",
+}
 
 const sizes: Record<string, string> = {
   sm: "h-8  px-3 text-sm  gap-1.5 rounded-md",
   md: "h-10 px-5 text-base gap-2  rounded-lg",
   lg: "h-12 px-7 text-lg  gap-2.5 rounded-xl",
-};
+}
 
 const base = [
   "inline-flex items-center justify-center font-semibold cursor-pointer",
@@ -42,21 +44,23 @@ const base = [
   variants[variant],
   sizes[size],
   className,
-].join(" ");
+].join(" ")
 
-const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
 ---
 
-{href ? (
-  <a href={href} class={base} {...externalProps}>
-    <slot name="icon-left" />
-    <slot />
-    <slot name="icon-right" />
-  </a>
-) : (
-  <button type={type} class={base} disabled={disabled}>
-    <slot name="icon-left" />
-    <slot />
-    <slot name="icon-right" />
-  </button>
-)}
+{
+  href ? (
+    <a href={href} class={base} {...externalProps}>
+      <slot name="icon-left" />
+      <slot />
+      <slot name="icon-right" />
+    </a>
+  ) : (
+    <button type={type} class={base} disabled={disabled}>
+      <slot name="icon-left" />
+      <slot />
+      <slot name="icon-right" />
+    </button>
+  )
+}

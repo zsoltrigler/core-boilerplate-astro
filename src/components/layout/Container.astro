@@ -1,18 +1,18 @@
 ---
 export interface Props {
-  size?: "sm" | "md" | "lg" | "xl" | "full";
-  class?: string;
+  size?: "sm" | "md" | "lg" | "xl" | "full"
+  class?: string
 }
 
-const { size = "xl", class: className = "" } = Astro.props;
+const { size = "xl", class: className = "" } = Astro.props
 
 const sizes: Record<string, string> = {
-  sm:   "max-w-3xl",
-  md:   "max-w-4xl",
-  lg:   "max-w-5xl",
-  xl:   "max-w-7xl",
+  sm: "max-w-3xl",
+  md: "max-w-4xl",
+  lg: "max-w-5xl",
+  xl: "max-w-7xl",
   full: "max-w-full",
-};
+}
 ---
 
 <div class={`mx-auto w-full px-6 ${sizes[size]} ${className}`}>

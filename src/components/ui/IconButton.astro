@@ -1,13 +1,13 @@
 ---
 export interface Props {
-  label: string;
-  href?: string;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "ghost" | "danger";
-  size?: "sm" | "md" | "lg";
-  external?: boolean;
-  disabled?: boolean;
-  class?: string;
+  label: string
+  href?: string
+  type?: "button" | "submit" | "reset"
+  variant?: "primary" | "secondary" | "ghost" | "danger"
+  size?: "sm" | "md" | "lg"
+  external?: boolean
+  disabled?: boolean
+  class?: string
 }
 
 const {
@@ -19,20 +19,22 @@ const {
   external = false,
   disabled = false,
   class: className = "",
-} = Astro.props;
+} = Astro.props
 
 const variants: Record<string, string> = {
-  primary:   "bg-(--color-brand-primary) text-white hover:opacity-90 transition-opacity",
-  secondary: "border border-(--color-border-base) text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
-  ghost:     "text-(--color-text-muted) hover:text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
-  danger:    "bg-(--color-status-error) text-white hover:opacity-90 transition-opacity",
-};
+  primary: "bg-(--color-brand-primary) text-white hover:opacity-90 transition-opacity",
+  secondary:
+    "border border-(--color-border-base) text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
+  ghost:
+    "text-(--color-text-muted) hover:text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
+  danger: "bg-(--color-status-error) text-white hover:opacity-90 transition-opacity",
+}
 
 const sizes: Record<string, string> = {
   sm: "w-8 h-8 rounded-md",
   md: "w-10 h-10 rounded-lg",
   lg: "w-12 h-12 rounded-xl",
-};
+}
 
 const base = [
   "inline-flex items-center justify-center cursor-pointer",
@@ -40,17 +42,19 @@ const base = [
   variants[variant],
   sizes[size],
   className,
-].join(" ");
+].join(" ")
 
-const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
 ---
 
-{href ? (
-  <a href={href} class={base} aria-label={label} {...externalProps}>
-    <slot />
-  </a>
-) : (
-  <button type={type} class={base} aria-label={label} disabled={disabled}>
-    <slot />
-  </button>
-)}
+{
+  href ? (
+    <a href={href} class={base} aria-label={label} {...externalProps}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={base} aria-label={label} disabled={disabled}>
+      <slot />
+    </button>
+  )
+}

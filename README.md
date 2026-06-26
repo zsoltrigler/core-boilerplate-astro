@@ -39,14 +39,14 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 ```ts
 export const SITE = {
   name: "Your Site Name",
-  url: "https://your-domain.com",   // used for sitemap and OG image URLs
+  url: "https://your-domain.com", // used for sitemap and OG image URLs
   description: "Your description",
-  logo: "",                          // path to logo image, or leave empty for text-only
+  logo: "", // path to logo image, or leave empty for text-only
   showName: true,
   ogImage: "/og-default.jpg",
   lang: "en",
   allRightsReserved: "All rights reserved.",
-};
+}
 ```
 
 ### Brand colors
@@ -55,13 +55,13 @@ Colors are defined once in `COLORS` and automatically injected as CSS custom pro
 
 ```ts
 export const COLORS = {
-  brandPrimary: "#4f46e5",   // change this to your brand color
+  brandPrimary: "#4f46e5", // change this to your brand color
   // ... light mode tokens
   dark: {
     brandPrimary: "#6366f1", // dark mode override
     // ...
   },
-};
+}
 ```
 
 > **WCAG contrast check** — the build automatically warns you if any color combination fails AA contrast requirements. Fix the colors in `config.ts` and the warning disappears.
@@ -72,7 +72,7 @@ export const COLORS = {
 export const NAV_LINKS = [
   { label: "Features", href: "#features" },
   { label: "Docs", href: "https://docs.astro.build" },
-];
+]
 ```
 
 ### Social links
@@ -80,7 +80,7 @@ export const NAV_LINKS = [
 ```ts
 export const SOCIAL_LINKS = [
   { platform: "GitHub", href: "https://github.com/you", label: "GitHub", icon: `<svg .../>` },
-];
+]
 ```
 
 Social links render automatically in the Footer. Each link accepts an optional inline SVG `icon`.
@@ -145,7 +145,7 @@ Square icon-only button. `label` is required for accessibility.
 
 ```astro
 <IconButton label="Close" variant="ghost" size="md">
-  <svg .../>
+  <svg ...></svg>
 </IconButton>
 ```
 
@@ -170,9 +170,7 @@ Inline label for status, category, or emphasis.
 Contextual feedback with optional title and dismiss button.
 
 ```astro
-<Alert variant="info" title="Heads up" dismissible>
-  Your message here.
-</Alert>
+<Alert variant="info" title="Heads up" dismissible> Your message here. </Alert>
 ```
 
 **Props:** `variant` (info | success | warning | error) · `title` · `dismissible`
@@ -226,7 +224,7 @@ Every page uses `BaseLayout`. It handles the HTML shell, all meta tags, and dark
 
 ```astro
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro"
 ---
 
 <BaseLayout

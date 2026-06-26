@@ -1,45 +1,55 @@
 ---
-import { SITE, SOCIAL_LINKS } from "../../config";
+import { SITE, SOCIAL_LINKS } from "../../config"
 
-const currentYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear()
 ---
 
-<footer class="w-full border-t border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200">
-  <div class="mx-auto flex flex-col items-center justify-between gap-4 px-6 py-8 max-w-7xl md:flex-row">
-
+<footer
+  class="w-full border-t border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200"
+>
+  <div
+    class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row"
+  >
     <!-- Copyright: override with <slot name="copyright"> -->
-    {Astro.slots.has("copyright") ? (
-      <slot name="copyright" />
-    ) : (
-      <p class="text-sm text-(--color-text-muted)">
-        &copy; {currentYear} {SITE.name}. {SITE.allRightsReserved}
-      </p>
-    )}
+    {
+      Astro.slots.has("copyright") ? (
+        <slot name="copyright" />
+      ) : (
+        <p class="text-sm text-(--color-text-muted)">
+          &copy; {currentYear} {SITE.name}. {SITE.allRightsReserved}
+        </p>
+      )
+    }
 
     <!-- Social links: override with <slot name="social"> for custom icons -->
-    {Astro.slots.has("social") ? (
-      <slot name="social" />
-    ) : SOCIAL_LINKS.length > 0 && (
-      <ul class="flex items-center gap-4">
-        {SOCIAL_LINKS.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={link.label}
-              class="text-(--color-text-muted) hover:text-(--color-text-base) transition-colors"
-            >
-              {link.icon
-                ? <Fragment set:html={link.icon} />
-                : <span class="text-sm">{link.platform}</span>}
-            </a>
-          </li>
-        ))}
-      </ul>
-    )}
+    {
+      Astro.slots.has("social") ? (
+        <slot name="social" />
+      ) : (
+        SOCIAL_LINKS.length > 0 && (
+          <ul class="flex items-center gap-4">
+            {SOCIAL_LINKS.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
+                  class="text-(--color-text-muted) transition-colors hover:text-(--color-text-base)"
+                >
+                  {link.icon ? (
+                    <Fragment set:html={link.icon} />
+                  ) : (
+                    <span class="text-sm">{link.platform}</span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      )
+    }
 
     <slot />
-
   </div>
 </footer>
