@@ -9,6 +9,7 @@ import Button from "../components/ui/Button.astro"
 import IconButton from "../components/ui/IconButton.astro"
 import Card from "../components/ui/Card.astro"
 import Alert from "../components/ui/Alert.astro"
+import Input from "../components/ui/Input.astro"
 import Modal from "../components/ui/Modal.astro"
 ---
 
@@ -370,9 +371,13 @@ import Modal from "../components/ui/Modal.astro"
     </Modal>
 
     <Modal id="modal-lg" title="Edit profile" size="lg">
-      <p class="text-(--color-text-muted)">
-        A large modal — useful for forms, settings panels, or detailed content.
-      </p>
+      <div class="flex flex-col gap-4">
+        <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
+
+        <Input name="modal-email" type="email" label="Email address" placeholder="jane@example.com" fullWidth />
+
+        <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
+      </div>
 
       <div slot="footer">
         <Button variant="ghost" data-modal-close>Cancel</Button>
