@@ -7,7 +7,7 @@
   data-theme-toggle
   type="button"
   aria-label="Toggle dark/light mode"
-  class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) hover:bg-(--color-bg-elevated) transition-colors duration-200 cursor-pointer"
+  class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) transition-colors duration-200 hover:bg-(--color-bg-elevated)"
 >
   <!-- Sun icon (shown in dark mode) -->
   <svg
@@ -50,47 +50,45 @@
 
 <script>
   function syncIcons(btn: HTMLElement, isDark: boolean) {
-    btn.querySelector("[data-icon-sun]")?.classList.toggle("hidden", !isDark);
-    btn.querySelector("[data-icon-moon]")?.classList.toggle("hidden", isDark);
+    btn.querySelector("[data-icon-sun]")?.classList.toggle("hidden", !isDark)
+    btn.querySelector("[data-icon-moon]")?.classList.toggle("hidden", isDark)
   }
 
   function applyTheme(theme: "dark" | "light") {
-    const isDark = theme === "dark";
-    document.documentElement.classList.toggle("dark", isDark);
-    localStorage.setItem("theme", theme);
+    const isDark = theme === "dark"
+    document.documentElement.classList.toggle("dark", isDark)
+    localStorage.setItem("theme", theme)
     // Sync all toggle instances on the page
     document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
-      syncIcons(btn, isDark);
-    });
+      syncIcons(btn, isDark)
+    })
   }
 
-  const controllers = new WeakMap<HTMLElement, AbortController>();
+  const controllers = new WeakMap<HTMLElement, AbortController>()
 
   function initToggle() {
-    const isDark = document.documentElement.classList.contains("dark");
+    const isDark = document.documentElement.classList.contains("dark")
 
     document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
       // Cancel previous listener for this specific button
-      controllers.get(btn)?.abort();
-      const controller = new AbortController();
-      controllers.set(btn, controller);
+      controllers.get(btn)?.abort()
+      const controller = new AbortController()
+      controllers.set(btn, controller)
 
-      syncIcons(btn, isDark);
+      syncIcons(btn, isDark)
 
       btn.addEventListener(
         "click",
         () => {
-          const nextTheme = document.documentElement.classList.contains("dark")
-            ? "light"
-            : "dark";
-          applyTheme(nextTheme);
+          const nextTheme = document.documentElement.classList.contains("dark") ? "light" : "dark"
+          applyTheme(nextTheme)
         },
-        { signal: controller.signal },
-      );
-    });
+        { signal: controller.signal }
+      )
+    })
   }
 
   // Initial setup + re-init after View Transitions
-  initToggle();
-  document.addEventListener("astro:after-swap", initToggle);
+  initToggle()
+  document.addEventListener("astro:after-swap", initToggle)
 </script>

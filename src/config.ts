@@ -7,69 +7,69 @@
 export const SITE_DEFAULTS = {
   DESCRIPTION: "REPLACE_WITH_YOUR_DESCRIPTION",
   URL: "https://example.com",
-} as const;
+} as const
 
 // ── Color tokens ──────────────────────────────────────────────────────────────
 // Minimum WCAG AA: 4.5:1 for normal text, 3:1 for large text / UI components
 // Check contrast: https://webaim.org/resources/contrastchecker/
 export const COLORS = {
   // Light mode
-  bgBase:        "#ffffff",
-  bgSurface:     "#f8fafc",
-  bgElevated:    "#f1f5f9",
-  textBase:      "#0f172a",
-  textMuted:     "#64748b",
-  textInverted:  "#ffffff",
-  brandPrimary:  "#4f46e5",
-  brandSecondary:"#8b5cf6",
-  brandAccent:   "#06b6d4",
-  borderBase:    "#e2e8f0",
-  borderStrong:  "#cbd5e1",
+  bgBase: "#ffffff",
+  bgSurface: "#f8fafc",
+  bgElevated: "#f1f5f9",
+  textBase: "#0f172a",
+  textMuted: "#64748b",
+  textInverted: "#ffffff",
+  brandPrimary: "#4f46e5",
+  brandSecondary: "#8b5cf6",
+  brandAccent: "#06b6d4",
+  borderBase: "#e2e8f0",
+  borderStrong: "#cbd5e1",
   statusSuccess: "#22c55e",
   statusWarning: "#f59e0b",
-  statusError:   "#ef4444",
-  statusInfo:    "#3b82f6",
+  statusError: "#ef4444",
+  statusInfo: "#3b82f6",
   // Dark mode overrides — omit a key to inherit the light-mode value
   dark: {
-    bgBase:        "#0f172a",
-    bgSurface:     "#1e293b",
-    bgElevated:    "#334155",
-    textBase:      "#f8fafc",
-    textMuted:     "#94a3b8",
-    borderBase:    "#334155",
-    borderStrong:  "#475569",
-    brandPrimary:  "#6366f1",
+    bgBase: "#0f172a",
+    bgSurface: "#1e293b",
+    bgElevated: "#334155",
+    textBase: "#f8fafc",
+    textMuted: "#94a3b8",
+    borderBase: "#334155",
+    borderStrong: "#475569",
+    brandPrimary: "#6366f1",
   },
-} as const;
+} as const
 
 export const SITE = {
   name: "Core Boilerplate",
   url: SITE_DEFAULTS.URL,
   description: SITE_DEFAULTS.DESCRIPTION,
-  logo: "",        // image path (any format); leave empty for text-only
-  showName: true,  // show site name text next to logo
+  logo: "", // image path (any format); leave empty for text-only
+  showName: true, // show site name text next to logo
   favicon: "/favicon.svg",
   ogImage: "/og-default.jpg",
   lang: "en",
   allRightsReserved: "All rights reserved.",
-} as const;
+} as const
 
 export interface NavLink {
-  label: string;
-  href: string;
+  label: string
+  href: string
 }
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Features", href: "#features" },
   { label: "Docs", href: "https://astro.build/docs" },
-];
+]
 
 export interface SocialLink {
-  platform: string;
-  href: string;
-  label: string;
+  platform: string
+  href: string
+  label: string
   /** Optional inline SVG string for an icon */
-  icon?: string;
+  icon?: string
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -97,5 +97,4 @@ export const SOCIAL_LINKS: SocialLink[] = [
     label: "Instagram",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>`,
   },
-];
-
+]
