@@ -19,6 +19,9 @@
     "tailwindcss": "^4.3.1"
   },
   "devDependencies": {
+    "prettier": "^3.8.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "wcag-contrast": "^3.0.0"
   }
 }
