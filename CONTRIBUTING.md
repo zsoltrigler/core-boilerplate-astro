@@ -18,14 +18,14 @@ pnpm dev
 
 ## Branch naming
 
-| Prefix | When to use |
-|--------|-------------|
-| `feat/` | New user-facing feature |
-| `fix/` | Bug fix |
-| `chore/` | Tooling, config, build, dependencies |
-| `docs/` | Documentation only |
-| `refactor/` | Code rewrite without functional change |
-| `style/` | Formatting or visual change without logic |
+| Prefix      | When to use                               |
+| ----------- | ----------------------------------------- |
+| `feat/`     | New user-facing feature                   |
+| `fix/`      | Bug fix                                   |
+| `chore/`    | Tooling, config, build, dependencies      |
+| `docs/`     | Documentation only                        |
+| `refactor/` | Code rewrite without functional change    |
+| `style/`    | Formatting or visual change without logic |
 
 **One topic per branch.** If a branch is still open, add related commits to it instead of opening a new one.
 

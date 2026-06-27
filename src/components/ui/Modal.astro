@@ -79,29 +79,44 @@ const sizes: Record<string, string> = {
 </dialog>
 
 <script>
+  // * AbortController per page load — aborts all listeners before re-init on View Transitions.
+  let controller: AbortController | null = null
+
   function initModals() {
+    controller?.abort()
+    controller = new AbortController()
+    const { signal } = controller
+
     // * Open: any element with [data-modal-open="<id>"] triggers the matching dialog.
     document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((trigger) => {
-      trigger.addEventListener("click", () => {
-        const modal = document.getElementById(
-          trigger.dataset.modalOpen!
-        ) as HTMLDialogElement | null
-        modal?.showModal()
-      })
+      trigger.addEventListener(
+        "click",
+        () => {
+          const modal = document.getElementById(
+            trigger.dataset.modalOpen!
+          ) as HTMLDialogElement | null
+          modal?.showModal()
+        },
+        { signal }
+      )
     })
 
     // * Close: the × button and backdrop clicks close the open dialog.
     document.querySelectorAll<HTMLDialogElement>("[data-modal]").forEach((modal) => {
       // Close buttons — × in header and any [data-modal-close] inside the modal
       modal.querySelectorAll("[data-modal-close]").forEach((btn) => {
-        btn.addEventListener("click", () => modal.close())
+        btn.addEventListener("click", () => modal.close(), { signal })
       })
 
       // ! Backdrop click — <dialog> fills the viewport when open; clicks outside
       //   the inner panel land on the <dialog> element itself, not its children.
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) modal.close()
-      })
+      modal.addEventListener(
+        "click",
+        (e) => {
+          if (e.target === modal) modal.close()
+        },
+        { signal }
+      )
 
       // ESC is handled natively by the browser for <dialog> — no extra code needed.
     })

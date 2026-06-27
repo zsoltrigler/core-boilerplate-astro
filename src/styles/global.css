@@ -74,8 +74,15 @@
     background-color: var(--color-bg-base);
     /* * Grid pattern — uses border color so it adapts automatically in dark mode */
     background-image:
-      linear-gradient(color-mix(in srgb, var(--color-border-base) 15%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, var(--color-border-base) 15%, transparent) 1px, transparent 1px);
+      linear-gradient(
+        color-mix(in srgb, var(--color-border-base) 15%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--color-border-base) 15%, transparent) 1px,
+        transparent 1px
+      );
     background-size: 60px 60px;
     color: var(--color-text-base);
     font-family: var(--font-sans);

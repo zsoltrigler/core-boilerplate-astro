@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Format check
+        run: pnpm prettier --check "**/*.{ts,js,json,css,md}" --ignore-path .prettierignore
+
       - name: Type check
         run: pnpm exec astro check
 

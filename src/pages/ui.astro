@@ -348,14 +348,32 @@ import Modal from "../components/ui/Modal.astro"
 
             <!-- With label and hint -->
             <div class="flex flex-wrap gap-4">
-              <Input name="email" type="email" label="Email address" placeholder="you@example.com" hint="We'll never share your email." />
+              <Input
+                name="email"
+                type="email"
+                label="Email address"
+                placeholder="you@example.com"
+                hint="We'll never share your email."
+              />
 
-              <Input name="password" type="password" label="Password" placeholder="••••••••" required />
+              <Input
+                name="password"
+                type="password"
+                label="Password"
+                placeholder="••••••••"
+                required
+              />
             </div>
 
             <!-- Error state -->
             <div class="flex flex-wrap gap-4">
-              <Input name="email-error" type="email" label="Email address" value="not-an-email" error="Please enter a valid email address." />
+              <Input
+                name="email-error"
+                type="email"
+                label="Email address"
+                value="not-an-email"
+                error="Please enter a valid email address."
+              />
             </div>
 
             <!-- Disabled -->
@@ -364,7 +382,12 @@ import Modal from "../components/ui/Modal.astro"
             </div>
 
             <!-- Full width -->
-            <Input name="fullwidth" label="Full width" placeholder="Stretches to fill its container" fullWidth />
+            <Input
+              name="fullwidth"
+              label="Full width"
+              placeholder="Stretches to fill its container"
+              fullWidth
+            />
           </div>
         </div>
       </Container>
@@ -419,7 +442,13 @@ import Modal from "../components/ui/Modal.astro"
       <div class="flex flex-col gap-4">
         <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
 
-        <Input name="modal-email" type="email" label="Email address" placeholder="jane@example.com" fullWidth />
+        <Input
+          name="modal-email"
+          type="email"
+          label="Email address"
+          placeholder="jane@example.com"
+          fullWidth
+        />
 
         <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
       </div>

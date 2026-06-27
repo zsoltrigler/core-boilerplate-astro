@@ -39,7 +39,7 @@ import Alert from "../components/ui/Alert.astro"
           </div>
 
           <!-- Heading -->
-          <h1 class="text-5xl font-bold leading-tight text-[#f8fafc]">Core Boilerplate</h1>
+          <h1 class="text-5xl leading-tight font-bold text-[#f8fafc]">Core Boilerplate</h1>
 
           <!-- Subtitle -->
           <p class="max-w-lg text-lg leading-relaxed text-[#94a3b8]">
@@ -124,161 +124,165 @@ import Alert from "../components/ui/Alert.astro"
     </Section>
 
     <div class="flex flex-col gap-16 py-16">
+      <!-- What's included -->
+      <Section id="features" class="scroll-mt-20">
+        <Container>
+          <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-1">
+              <h2 class="text-2xl font-medium text-(--color-text-base)">What's included</h2>
 
-    <!-- What's included -->
-    <Section id="features" class="scroll-mt-20">
-      <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-medium text-(--color-text-base)">What's included</h2>
+              <p class="text-(--color-text-muted)">Everything you need — nothing you don't.</p>
+            </div>
 
-            <p class="text-(--color-text-muted)">Everything you need — nothing you don't.</p>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <Card
+                title="UI Components"
+                desc="Button, Card, Badge, Alert, IconButton — ready to use."
+              >
+                <svg
+                  slot="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--color-brand-primary)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  ><path d="M3 5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path><path
+                    d="M13 5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"
+                  ></path><path
+                    d="M3 15a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path><path
+                    d="M13 15a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"
+                  ></path></svg
+                >
+              </Card>
+
+              <Card
+                title="Dark mode"
+                desc="System preference + manual toggle, persisted in localStorage."
+              >
+                <svg
+                  slot="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--color-brand-primary)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"></path></svg
+                >
+              </Card>
+
+              <Card
+                title="Design tokens"
+                desc="Brand colors, typography and spacing via CSS variables."
+              >
+                <svg
+                  slot="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--color-brand-primary)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  ><circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="19" cy="17" r="2.5"
+                  ></circle><circle cx="6.5" cy="17" r="2.5"></circle><path
+                    d="M14.5 8.5 19 14.5M12 9l-5.5 6M6.5 14.5l6-9"></path></svg
+                >
+              </Card>
+
+              <Card
+                title="TypeScript"
+                desc="Strict mode, typed component props, zero config needed."
+              >
+                <svg
+                  slot="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--color-brand-primary)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  ><path
+                    d="M15 17.5c.32.32.754.5 1.207.5h.543c.69 0 1.25-.56 1.25-1.25v-.25a1.5 1.5 0 0 0-1.5-1.5 1.5 1.5 0 0 1-1.5-1.5v-.25C15 12.56 15.56 12 16.25 12h.543c.453 0 .887.18 1.207.5"
+                  ></path><path d="M9 12h4m-2 0v5.5"></path><rect
+                    x="3"
+                    y="4"
+                    width="18"
+                    height="16"
+                    rx="2"></rect></svg
+                >
+              </Card>
+
+              <Card
+                title="Layout primitives"
+                desc="Section and Container components with sensible defaults."
+              >
+                <svg
+                  slot="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--color-brand-primary)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  ><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"
+                  ></path></svg
+                >
+              </Card>
+
+              <Card title="SEO ready" desc="BaseLayout with meta tags, OG image and robots.txt.">
+                <svg
+                  slot="icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--color-brand-primary)"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg
+                >
+              </Card>
+            </div>
           </div>
+        </Container>
+      </Section>
 
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Card
-              title="UI Components"
-              desc="Button, Card, Badge, Alert, IconButton — ready to use."
-            >
-              <svg
-                slot="icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--color-brand-primary)"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-                ><path d="M3 5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-                ></path><path
-                  d="M13 5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"
-                ></path><path
-                  d="M3 15a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-                ></path><path
-                  d="M13 15a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"
-                ></path></svg
-              >
-            </Card>
-
-            <Card
-              title="Dark mode"
-              desc="System preference + manual toggle, persisted in localStorage."
-            >
-              <svg
-                slot="icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--color-brand-primary)"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"></path></svg
-              >
-            </Card>
-
-            <Card
-              title="Design tokens"
-              desc="Brand colors, typography and spacing via CSS variables."
-            >
-              <svg
-                slot="icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--color-brand-primary)"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-                ><circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="19" cy="17" r="2.5"
-                ></circle><circle cx="6.5" cy="17" r="2.5"></circle><path
-                  d="M14.5 8.5 19 14.5M12 9l-5.5 6M6.5 14.5l6-9"></path></svg
-              >
-            </Card>
-
-            <Card title="TypeScript" desc="Strict mode, typed component props, zero config needed.">
-              <svg
-                slot="icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--color-brand-primary)"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-                ><path
-                  d="M15 17.5c.32.32.754.5 1.207.5h.543c.69 0 1.25-.56 1.25-1.25v-.25a1.5 1.5 0 0 0-1.5-1.5 1.5 1.5 0 0 1-1.5-1.5v-.25C15 12.56 15.56 12 16.25 12h.543c.453 0 .887.18 1.207.5"
-                ></path><path d="M9 12h4m-2 0v5.5"></path><rect
-                  x="3"
-                  y="4"
-                  width="18"
-                  height="16"
-                  rx="2"></rect></svg
-              >
-            </Card>
-
-            <Card
-              title="Layout primitives"
-              desc="Section and Container components with sensible defaults."
-            >
-              <svg
-                slot="icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--color-brand-primary)"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-                ><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"
-                ></path></svg
-              >
-            </Card>
-
-            <Card title="SEO ready" desc="BaseLayout with meta tags, OG image and robots.txt.">
-              <svg
-                slot="icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--color-brand-primary)"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-                ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg
-              >
-            </Card>
-          </div>
-        </div>
-      </Container>
-    </Section>
-
-    <!-- Quick start -->
-    <Section>
-      <Container size="sm">
-        <Alert variant="info" title="Next step">
-          Open <code class="rounded bg-black/8 px-1.5 py-0.5 font-mono text-sm">src/config.ts</code> to
-          set your brand name, colors, and social links — then delete this page and start building yours.
-        </Alert>
-      </Container>
-    </Section>
+      <!-- Quick start -->
+      <Section>
+        <Container size="sm">
+          <Alert variant="info" title="Next step">
+            Open <code class="rounded bg-black/8 px-1.5 py-0.5 font-mono text-sm"
+              >src/config.ts</code
+            > to set your brand name, colors, and social links — then delete this page and start building
+            yours.
+          </Alert>
+        </Container>
+      </Section>
     </div>
   </main>
 
