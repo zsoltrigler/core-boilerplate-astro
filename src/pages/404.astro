@@ -8,15 +8,36 @@ import Button from "../components/ui/Button.astro"
   description="The page you are looking for does not exist."
   noindex={true}
 >
-  <main class="flex min-h-screen flex-col items-center justify-center gap-6 px-6 text-center">
-    <p class="text-8xl font-black tracking-tight text-(--color-brand-primary)">404</p>
+  <main
+    id="main-content"
+    class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
+    style="background-color: #0f172a; background-image: linear-gradient(rgba(30,41,59,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(30,41,59,0.2) 1px, transparent 1px); background-size: 60px 60px;"
+  >
+    <!-- Top accent line -->
+    <div class="absolute inset-x-0 top-0 h-1 bg-(--color-brand-primary)"></div>
 
-    <h1 class="text-2xl font-bold text-(--color-text-base)">Page not found</h1>
+    <!-- Radial glow -->
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(99,102,241,0.1) 0%, transparent 70%);"
+    >
+    </div>
 
-    <p class="max-w-sm text-(--color-text-muted)">
-      The page you are looking for does not exist or has been moved.
-    </p>
+    <!-- Content -->
+    <div class="relative z-10 flex flex-col items-center gap-6">
+      <p class="text-8xl font-black tracking-tight text-(--color-brand-primary)">404</p>
 
-    <Button href="/" variant="primary">← Back to home</Button>
+      <h1 class="text-2xl font-bold text-[#f8fafc]">Page not found</h1>
+
+      <p class="max-w-sm text-[#94a3b8]">
+        The page you are looking for does not exist or has been moved.
+      </p>
+
+      <div class="mt-2 flex flex-wrap justify-center gap-3">
+        <Button href="/" variant="primary">← Back to home</Button>
+
+        <Button href="/ui" variant="secondary">Browse components</Button>
+      </div>
+    </div>
   </main>
 </BaseLayout>
