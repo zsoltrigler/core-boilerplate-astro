@@ -120,5 +120,6 @@ export default defineConfig({
     plugins: [colorTokensPlugin(), tailwindcss()],
   },
 
-  integrations: [sitemap()],
+  // * /ui is a developer-facing component showcase — exclude from sitemap and SEO.
+  integrations: [sitemap({ filter: (page) => !page.includes("/ui/") })],
 })
