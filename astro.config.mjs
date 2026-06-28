@@ -102,12 +102,13 @@ for (const { name, fg, bg, min } of contrastPairs) {
 }
 
 // * Resolve site URL dynamically — no hardcoded domain anywhere.
-//   Vercel sets these env vars automatically; locally falls back to dev server.
+//   Vercel sets these env vars automatically; locally reads PORT to match the dev server.
+const port = process.env.PORT ?? "4321"
 const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:4321"
+    : `http://localhost:${port}`
 
 // https://astro.build/config
 export default defineConfig({

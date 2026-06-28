@@ -170,5 +170,5 @@ import { SITE, NAV_LINKS } from "../../config"
 
   // * Re-init after every View Transition to re-attach listeners to new DOM nodes.
   initMobileMenu()
-  document.addEventListener("astro:after-swap", initMobileMenu)
+  document.addEventListener("astro:page-load", initMobileMenu)
 </script>

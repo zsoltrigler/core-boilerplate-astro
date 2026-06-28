@@ -39,6 +39,7 @@ const currentYear = new Date().getFullYear()
                   class="text-(--color-text-muted) transition-colors hover:text-(--color-text-base)"
                 >
                   {link.icon ? (
+                    // ! set:html renders raw SVG strings from config.ts — keep icon values as trusted inline SVG only, never user-supplied input.
                     <Fragment set:html={link.icon} />
                   ) : (
                     <span class="text-sm">{link.platform}</span>

@@ -50,12 +50,14 @@ const base = [
 
 // * Renders as <a> when href is provided, <button> otherwise.
 // ! Never pass both href and type together — type is ignored on anchor elements.
+// ! <a> does not support the disabled attribute — use aria-disabled + pointer-events-none instead.
 const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
+const disabledLinkProps = disabled ? { "aria-disabled": "true", tabindex: "-1" } : {}
 ---
 
 {
   href ? (
-    <a href={href} class={base} {...externalProps} {...rest}>
+    <a href={disabled ? undefined : href} class={`${base} ${disabled ? "opacity-50 pointer-events-none" : ""}`} {...externalProps} {...disabledLinkProps} {...rest}>
       <!-- icon-left and icon-right slots accept any inline SVG or element -->
       <slot name="icon-left" />
       <slot />
