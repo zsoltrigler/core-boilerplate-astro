@@ -5,9 +5,8 @@
 // ============================================================
 
 export const SITE_DEFAULTS = {
-  // ! Intentional placeholders — the build will warn if these remain unchanged.
+  // ! Intentional placeholder — the build will warn if this remains unchanged.
   DESCRIPTION: "REPLACE_WITH_YOUR_DESCRIPTION",
-  URL: "https://example.com",
 } as const
 
 // ── Color Tokens ──────────────────────────────────────────────────────────────
@@ -49,7 +48,6 @@ export const COLORS = {
 // ── Site Metadata ─────────────────────────────────────────────────────────────
 export const SITE = {
   name: "Core Boilerplate",
-  url: SITE_DEFAULTS.URL,
   description: SITE_DEFAULTS.DESCRIPTION,
   logo: "", // path to logo image (SVG, PNG, etc.); leave empty for text-only
   showName: true, // show site name text next to the logo

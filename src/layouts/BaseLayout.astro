@@ -49,8 +49,9 @@ const {
 
 const fullTitle = title ? `${title} | ${siteName}` : siteName
 
-// * Relative og images are resolved against SITE.url so they become absolute.
-const resolvedOgImage = ogImage.startsWith("http") ? ogImage : new URL(ogImage, SITE.url).href
+// * Relative og images are resolved against the current request origin so the URL
+//   is always correct regardless of environment (local, preview, production).
+const resolvedOgImage = ogImage.startsWith("http") ? ogImage : new URL(ogImage, Astro.url.origin).href
 
 // ! Warn at runtime when the placeholder description is still in use — it hurts SEO.
 if (description === SITE_DEFAULTS.DESCRIPTION) {
