@@ -215,7 +215,7 @@ Text input with label, hint text, and error state.
 
 ### Modal
 
-Native `<dialog>`-based modal. Open it by adding `data-modal-open="<id>"` to any trigger element.
+Native `<dialog>`-based modal. Open it by adding `data-modal-open="<id>"` to any trigger element. Close it with `data-modal-close` on any element inside the modal — including `<Button>`, since extra props pass through to the rendered element.
 
 ```astro
 <button data-modal-open="confirm-modal">Open modal</button>
