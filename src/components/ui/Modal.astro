@@ -25,57 +25,63 @@ const sizes: Record<string, string> = {
 <dialog
   id={id}
   data-modal
-  class={`w-full rounded-2xl border border-(--color-border-base) bg-(--color-bg-base) p-0 shadow-2xl mx-auto my-auto max-h-[90dvh] overflow-hidden backdrop:bg-black/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${sizes[size]} ${className}`}
+  class={`w-full rounded-2xl border border-(--color-border-base) bg-(--color-bg-base) p-0 shadow-2xl mx-auto my-auto max-h-[90dvh] backdrop:bg-black/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${sizes[size]} ${className}`}
 >
-  <!-- Header -->
-  {
-    (title || Astro.slots.has("title")) && (
-      <div class="flex items-center justify-between border-b border-(--color-border-base) px-6 py-4">
-        <h2 class="text-lg font-semibold text-(--color-text-base)">
-          {Astro.slots.has("title") ? <slot name="title" /> : title}
-        </h2>
+  <!-- * Inner wrapper handles flex layout and overflow clipping separately from
+       the dialog element — overflow-hidden on <dialog> would prevent body scroll. -->
+  <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
 
-        <button
-          data-modal-close
-          type="button"
-          aria-label="Close modal"
-          class="flex h-8 w-8 items-center justify-center rounded-lg text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+    <!-- Header -->
+    {
+      (title || Astro.slots.has("title")) && (
+        <div class="flex shrink-0 items-center justify-between border-b border-(--color-border-base) px-6 py-4">
+          <h2 class="text-lg font-semibold text-(--color-text-base)">
+            {Astro.slots.has("title") ? <slot name="title" /> : title}
+          </h2>
+
+          <button
+            data-modal-close
+            type="button"
+            aria-label="Close modal"
+            class="flex h-8 w-8 items-center justify-center rounded-lg text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
           >
-            <>
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </>
-          </svg>
-        </button>
-      </div>
-    )
-  }
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </>
+            </svg>
+          </button>
+        </div>
+      )
+    }
 
-  <!-- Body -->
-  <div class="flex-1 overflow-y-auto px-6 py-5 text-(--color-text-base)">
-    <slot />
+    <!-- Body -->
+    <div class="flex-1 overflow-y-auto px-6 py-5 text-(--color-text-base)">
+      <slot />
+    </div>
+
+    <!-- Footer -->
+    {
+      Astro.slots.has("footer") && (
+        <div class="flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) px-6 py-4">
+          <slot name="footer" />
+        </div>
+      )
+    }
+
   </div>
-
-  <!-- Footer -->
-  {
-    Astro.slots.has("footer") && (
-      <div class="flex items-center justify-end gap-3 border-t border-(--color-border-base) px-6 py-4">
-        <slot name="footer" />
-      </div>
-    )
-  }
 </dialog>
 
 <script>
