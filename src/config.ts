@@ -80,6 +80,7 @@ export interface SocialLink {
   icon?: string // inline SVG string
 }
 
+// ! Replace href values with your actual profile URLs before deploying.
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     platform: "GitHub",

@@ -124,6 +124,8 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
 
     <!-- Icons & Manifest -->
     <link rel="icon" type="image/svg+xml" href={SITE.favicon} />
+    <!-- * PNG fallback for browsers that do not support SVG favicons (~5% share). -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
 
     <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
 

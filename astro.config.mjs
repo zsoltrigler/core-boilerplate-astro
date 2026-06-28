@@ -77,6 +77,12 @@ const contrastPairs = [
     min: 4.5,
   },
   { name: "textBase on bgSurface (light)", fg: COLORS.textBase, bg: COLORS.bgSurface, min: 4.5 },
+  {
+    name: "textInverted on brandPrimary (dark)",
+    fg: COLORS.textInverted,
+    bg: COLORS.dark.brandPrimary,
+    min: 4.5,
+  },
   { name: "textBase on bgBase (dark)", fg: COLORS.dark.textBase, bg: COLORS.dark.bgBase, min: 4.5 },
   {
     name: "textMuted on bgBase (dark)",
