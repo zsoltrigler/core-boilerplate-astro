@@ -9,6 +9,7 @@ import Button from "../components/ui/Button.astro"
 import IconButton from "../components/ui/IconButton.astro"
 import Card from "../components/ui/Card.astro"
 import Alert from "../components/ui/Alert.astro"
+import Input from "../components/ui/Input.astro"
 import { SITE, SOCIAL_LINKS } from "../config"
 
 const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
@@ -268,6 +269,76 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
                   ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg
                 >
               </Card>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <!-- Component preview -->
+      <Section>
+        <Container>
+          <div class="flex flex-col gap-8">
+            <div class="flex items-end justify-between">
+              <div class="flex flex-col gap-1">
+                <h2 class="text-2xl font-medium text-(--color-text-base)">Components</h2>
+
+                <p class="text-(--color-text-muted)">A quick look at what's ready to use.</p>
+              </div>
+
+              <Button href="/ui" variant="ghost" size="sm">
+                See all →
+              </Button>
+            </div>
+
+            <!-- Buttons row -->
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Button</p>
+
+              <div class="flex flex-wrap gap-3">
+                <Button variant="primary">Primary</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button variant="danger">Danger</Button>
+                <Button variant="primary" disabled>Disabled</Button>
+              </div>
+            </div>
+
+            <!-- Badges row -->
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Badge</p>
+
+              <div class="flex flex-wrap gap-2">
+                <Badge variant="default">Default</Badge>
+                <Badge variant="primary">Primary</Badge>
+                <Badge variant="success">Success</Badge>
+                <Badge variant="warning">Warning</Badge>
+                <Badge variant="error">Error</Badge>
+                <Badge variant="info">Info</Badge>
+                <Badge variant="info" pulse>Live</Badge>
+              </div>
+            </div>
+
+            <!-- Alerts row -->
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Alert</p>
+
+              <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <Alert variant="info" title="Information">This is an info alert.</Alert>
+                <Alert variant="success" title="Success">Operation completed.</Alert>
+                <Alert variant="warning" title="Warning">Check your settings.</Alert>
+                <Alert variant="error" title="Error" dismissible>Something went wrong.</Alert>
+              </div>
+            </div>
+
+            <!-- Input row -->
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Input</p>
+
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <Input name="default" label="Default" placeholder="Enter value…" fullWidth />
+                <Input name="hint" label="With hint" placeholder="Enter email…" hint="We'll never share your email." fullWidth />
+                <Input name="error" label="With error" value="wrong@" error="Invalid email address." fullWidth />
+              </div>
             </div>
           </div>
         </Container>
