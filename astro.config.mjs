@@ -137,6 +137,12 @@ export default defineConfig({
     // * Order matters: colorTokensPlugin must run before tailwindcss
     //   so the generated @theme block is visible to Tailwind at build time.
     plugins: [colorTokensPlugin(), tailwindcss()],
+    build: {
+      // * Disable CSS code splitting so all Tailwind utilities land in a single
+      //   stylesheet — prevents component CSS chunks from becoming render-blocking
+      //   resources in the critical path.
+      cssCodeSplit: false,
+    },
   },
 
   // * /ui is a developer-facing component showcase — exclude from sitemap and SEO.
