@@ -64,7 +64,10 @@ export interface NavLink {
   href: string
 }
 
-export const NAV_LINKS: NavLink[] = [{ label: "Features", href: "#features" }]
+export const NAV_LINKS: NavLink[] = [
+  { label: "Features", href: "#features" },
+  { label: "GitHub", href: "https://github.com/zsoltrigler/core-boilerplate-astro" },
+]
 
 // ── Social Links ──────────────────────────────────────────────────────────────
 // * Rendered in the Footer. Remove entries you don't need.
