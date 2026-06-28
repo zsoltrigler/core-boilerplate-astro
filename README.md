@@ -41,11 +41,10 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 ```ts
 export const SITE = {
   name: "Your Site Name",
-  url: "https://your-domain.com", // used for sitemap and OG image URLs
   description: "Your description",
   logo: "", // path to logo image, or leave empty for text-only
   showName: true,
-  ogImage: "/og-default.svg", // default Open Graph image for social sharing
+  ogImage: "/og-default.jpg", // default Open Graph image — must be JPG/PNG
   lang: "en",
   allRightsReserved: "All rights reserved.",
 }
@@ -106,7 +105,9 @@ src/
 │       ├── Badge.astro        # Inline status labels
 │       ├── Button.astro       # Primary/secondary/ghost/danger, renders as <a> or <button>
 │       ├── Card.astro         # Content container with icon/title/desc slots
-│       └── IconButton.astro   # Square icon-only button
+│       ├── IconButton.astro   # Square icon-only button
+│       ├── Input.astro        # Text input with label, hint, error, and size variants
+│       └── Modal.astro        # Native <dialog>-based modal with backdrop and slots
 ├── layouts/
 │   └── BaseLayout.astro       # HTML shell: meta tags, OG, dark mode, View Transitions
 ├── pages/
@@ -198,6 +199,42 @@ Flexible content container.
 
 ---
 
+### Input
+
+Text input with label, hint text, and error state.
+
+```astro
+<Input name="email" type="email" label="Email" placeholder="you@example.com" required />
+<Input name="age" type="number" label="Age" value={30} hint="Must be 18 or older" />
+<Input name="username" label="Username" error="Username is already taken" />
+```
+
+**Props:** `type` (text | email | password | search | url | tel | number) · `name` · `id` · `label` · `placeholder` · `value` · `hint` · `error` · `size` (sm | md | lg) · `disabled` · `required` · `fullWidth`
+
+---
+
+### Modal
+
+Native `<dialog>`-based modal. Open it by adding `data-modal-open="<id>"` to any trigger element.
+
+```astro
+<button data-modal-open="confirm-modal">Open modal</button>
+
+<Modal id="confirm-modal" title="Confirm action" size="md">
+  <p>Are you sure you want to continue?</p>
+  <div slot="footer">
+    <Button data-modal-close variant="secondary">Cancel</Button>
+    <Button variant="primary">Confirm</Button>
+  </div>
+</Modal>
+```
+
+**Props:** `id` (required) · `title` · `size` (sm | md | lg | xl)
+
+**Slots:** `title` · default (body) · `footer`
+
+---
+
 ### Container
 
 Constrains content width and adds horizontal padding.
@@ -265,9 +302,9 @@ Any key omitted from `dark` inherits its light-mode value.
 
 ## OG image
 
-The default Open Graph image is at `public/og-default.svg`. It is shown when sharing links on social media (Twitter/X, Slack, LinkedIn, etc.) and is referenced from `SITE.ogImage` in `src/config.ts`.
+The default Open Graph image is at `public/og-default.jpg`. It is shown when sharing links on social media (Twitter/X, Slack, LinkedIn, etc.) and is referenced from `SITE.ogImage` in `src/config.ts`.
 
-Replace it with your own image (SVG or PNG, 1200×630px recommended) and update the path in `config.ts`.
+Replace it with your own image (JPG or PNG, 1200×630px recommended) and update the path in `config.ts`. SVG is not supported by most social platforms.
 
 ---
 
