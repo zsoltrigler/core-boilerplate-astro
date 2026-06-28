@@ -124,8 +124,29 @@ const components = [
 
                   <div class="flex flex-wrap gap-3">
                     <Button variant="primary" disabled>Disabled</Button>
-                    <Button variant="primary" href="https://astro.build" external>External ↗</Button>
+                    <Button variant="primary" href="/ui" external>External ↗</Button>
+                  </div>
+
+                  <div class="flex flex-wrap gap-3">
                     <Button variant="secondary" fullWidth>Full width</Button>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    With icons
+                  </p>
+
+                  <div class="flex flex-wrap gap-3">
+                    <Button variant="primary">
+                      <svg slot="icon-left" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                      Download
+                    </Button>
+
+                    <Button variant="secondary">
+                      Send
+                      <svg slot="icon-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </Button>
                   </div>
                 </div>
               </div>
