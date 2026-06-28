@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite"
 import sitemap from "@astrojs/sitemap"
 import { hex } from "wcag-contrast"
 
-import { SITE, SITE_DEFAULTS, COLORS } from "./src/config.ts"
+import { SITE, COLORS } from "./src/config.ts"
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -62,15 +62,6 @@ function colorTokensPlugin() {
   }
 }
 
-// ── Placeholder checks ────────────────────────────────────────────────────────
-// ! These warn at build time if the default values in config.ts were not replaced.
-
-if (SITE.url === SITE_DEFAULTS.URL) {
-  console.warn(
-    "[config] SITE.url is still set to the placeholder. Update it in src/config.ts before deploying."
-  )
-}
-
 // ── WCAG contrast checks ──────────────────────────────────────────────────────
 // * Runs at build time. Logs a warning — does NOT fail the build — so you can
 //   iterate on colors without being blocked.
@@ -110,12 +101,13 @@ for (const { name, fg, bg, min } of contrastPairs) {
   }
 }
 
-// * Resolve site URL: Vercel production → preview → fallback to config.ts value.
+// * Resolve site URL dynamically — no hardcoded domain anywhere.
+//   Vercel sets these env vars automatically; locally falls back to dev server.
 const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
-    : SITE.url
+    : "http://localhost:4321"
 
 // https://astro.build/config
 export default defineConfig({
