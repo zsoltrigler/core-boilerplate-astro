@@ -8,7 +8,6 @@ import Badge from "../components/ui/Badge.astro"
 import Button from "../components/ui/Button.astro"
 import IconButton from "../components/ui/IconButton.astro"
 import Card from "../components/ui/Card.astro"
-import Alert from "../components/ui/Alert.astro"
 import Input from "../components/ui/Input.astro"
 import { SITE, SOCIAL_LINKS } from "../config"
 
@@ -147,7 +146,7 @@ const stats = [
     </Section>
 
     <!-- ── Stats bar ─────────────────────────────────────────────────── -->
-    <Section class="border-t border-(--color-border-base) bg-(--color-bg-surface)">
+    <Section class="bg-(--color-bg-surface)">
       <Container>
         <div class="flex flex-wrap items-center justify-center gap-8 py-6">
           {
@@ -163,7 +162,7 @@ const stats = [
     </Section>
 
     <!-- ── What's included ──────────────────────────────────────────── -->
-    <Section id="features" class="scroll-mt-20 border-t border-(--color-border-base)">
+    <Section id="features" class="scroll-mt-20">
       <Container>
         <div class="flex flex-col gap-8 py-20">
           <div class="flex flex-col gap-2">
@@ -316,7 +315,7 @@ const stats = [
     </Section>
 
     <!-- ── Component preview ────────────────────────────────────────── -->
-    <Section class="border-t border-(--color-border-base)">
+    <Section>
       <Container>
         <div class="flex flex-col gap-8 py-20">
           <div class="flex items-end justify-between">
@@ -373,20 +372,6 @@ const stats = [
                 </div>
               </div>
 
-              <!-- Alerts -->
-              <div class="flex flex-col gap-3">
-                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
-                  Alert
-                </p>
-
-                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <Alert variant="info" title="Information">This is an info alert.</Alert>
-                  <Alert variant="success" title="Success">Operation completed.</Alert>
-                  <Alert variant="warning" title="Warning">Check your settings.</Alert>
-                  <Alert variant="error" title="Error" dismissible>Something went wrong.</Alert>
-                </div>
-              </div>
-
               <!-- Inputs -->
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
@@ -425,7 +410,7 @@ const stats = [
     </Section>
 
     <!-- ── Quick start ──────────────────────────────────────────────── -->
-    <Section class="border-t border-(--color-border-base)">
+    <Section>
       <Container size="md">
         <div class="flex flex-col gap-6 py-20">
           <div class="flex flex-col gap-2 text-center">
@@ -451,13 +436,6 @@ const stats = [
 
 <span class="text-(--color-text-muted)"># Start the dev server</span>
 <span class="text-(--color-brand-primary)">pnpm dev</span></code></pre>
-          </div>
-
-          <div class="flex justify-center">
-            <Alert variant="info" title="Next step">
-              Open <code class="rounded bg-black/8 px-1.5 py-0.5 font-mono text-sm">src/config.ts</code> to
-              set your brand name, colors, and social links.
-            </Alert>
           </div>
         </div>
       </Container>
