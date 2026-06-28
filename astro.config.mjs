@@ -107,15 +107,8 @@ for (const { name, fg, bg, min } of contrastPairs) {
   }
 }
 
-// * Set SITE_URL in your deployment environment — works on any platform.
-//   Falls back to localhost for local development.
-const port = process.env.PORT ?? "4321"
-const siteUrl = process.env.SITE_URL ?? `http://localhost:${port}`
-
 // https://astro.build/config
 export default defineConfig({
-  site: siteUrl,
-
   vite: {
     // * Order matters: colorTokensPlugin must run before tailwindcss
     //   so the generated @theme block is visible to Tailwind at build time.

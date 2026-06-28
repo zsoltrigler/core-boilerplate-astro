@@ -49,12 +49,11 @@ const {
 
 const fullTitle = title ? `${title} | ${siteName}` : siteName
 
-// * Relative OG images are resolved against SITE_URL (Astro.site) when set,
-//   so the canonical production domain is always used in social share previews.
-//   Falls back to the request origin for local development.
+// * Relative OG images are resolved against the current request origin —
+//   works on any platform without any environment variable configuration.
 const resolvedOgImage = ogImage.startsWith("http")
   ? ogImage
-  : new URL(ogImage, Astro.site ?? Astro.url.origin).href
+  : new URL(ogImage, Astro.url.origin).href
 
 // ! Warn at runtime when the placeholder description is still in use — it hurts SEO.
 if (description === SITE_DEFAULTS.DESCRIPTION) {
