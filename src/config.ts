@@ -41,7 +41,7 @@ export const COLORS = {
     textMuted: "#94a3b8",
     borderBase: "#334155",
     borderStrong: "#475569",
-    brandPrimary: "#6366f1",
+    brandPrimary: "#5b5fef",
   },
 } as const
 
