@@ -21,13 +21,8 @@ const stats = [
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
   },
   {
-    label: "Zero JS",
-    desc: "No client-side JS shipped by default",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
-  },
-  {
-    label: "No FOUC",
-    desc: "Dark mode loads before first paint",
+    label: "Dark mode",
+    desc: "System preference, toggle, persisted",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>`,
   },
   {
@@ -165,7 +160,7 @@ const stats = [
     <!-- ── Stats bar ─────────────────────────────────────────────────── -->
     <Section class="bg-(--color-bg-surface)">
       <Container>
-        <div class="grid grid-cols-2 gap-6 py-8 sm:grid-cols-4">
+        <div class="grid grid-cols-1 gap-6 py-8 sm:grid-cols-3">
           {
             stats.map((s) => (
               <div class="flex flex-col items-center gap-3 text-center">
