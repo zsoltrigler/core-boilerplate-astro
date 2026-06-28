@@ -54,7 +54,7 @@ export const SITE = {
   logo: "", // path to logo image (SVG, PNG, etc.); leave empty for text-only
   showName: true, // show site name text next to the logo
   favicon: "/favicon.svg",
-  ogImage: "/og-default.svg", // default Open Graph image for social sharing
+  ogImage: "/og-default.jpg", // default Open Graph image — must be JPG/PNG (SVG not supported by social platforms)
   lang: "en",
   allRightsReserved: "All rights reserved.",
 } as const
