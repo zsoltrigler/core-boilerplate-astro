@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
+import sitemap from "@astrojs/sitemap"
 import { hex } from "wcag-contrast"
 
 import { SITE, COLORS } from "./src/config.ts"
@@ -108,10 +109,14 @@ for (const { name, fg, bg, min } of contrastPairs) {
 
 // https://astro.build/config
 export default defineConfig({
+  site: SITE.url,
+
   vite: {
     // * Order matters: colorTokensPlugin must run before tailwindcss
     //   so the generated @theme block is visible to Tailwind at build time.
     plugins: [colorTokensPlugin(), tailwindcss()],
   },
 
+  // * /ui is a developer-facing component showcase — exclude from sitemap and SEO.
+  integrations: [sitemap({ filter: (page) => !page.includes("/ui/") })],
 })
