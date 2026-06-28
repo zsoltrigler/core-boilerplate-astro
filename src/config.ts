@@ -20,7 +20,7 @@ export const COLORS = {
   bgSurface: "#f8fafc", // card and input background
   bgElevated: "#f1f5f9", // hover states, dropdowns
   textBase: "#0f172a", // primary text
-  textMuted: "#64748b", // secondary / helper text
+  textMuted: "#5d6b7d", // secondary / helper text — darkened to pass 4.5:1 on bgElevated
   textInverted: "#ffffff", // text on brand-colored backgrounds
   brandPrimary: "#4f46e5",
   brandSecondary: "#8b5cf6",
@@ -40,7 +40,7 @@ export const COLORS = {
     bgSurface: "#1e293b",
     bgElevated: "#334155",
     textBase: "#f8fafc",
-    textMuted: "#94a3b8",
+    textMuted: "#a0aec0", // lightened to pass 4.5:1 on bgElevated dark (#334155)
     borderBase: "#334155",
     borderStrong: "#475569",
     brandPrimary: "#5b5fef",
