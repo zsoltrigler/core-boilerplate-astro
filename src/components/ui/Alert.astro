@@ -117,13 +117,24 @@ const { border, text, bg } = styles[variant]
 </div>
 
 <script>
-  // * A single delegated listener handles all dismiss buttons on the page.
-  // ! The guard prevents duplicate registration across View Transitions re-inits.
-  if (!(window as any).__alertDismissRegistered) {
-    ;(window as any).__alertDismissRegistered = true
-    document.addEventListener("click", (e) => {
-      const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-alert-dismiss]")
-      if (btn) btn.closest("[data-alert]")?.remove()
-    })
+  // * AbortController replaces the brittle window flag — tears down and re-registers
+  //   the delegated dismiss listener cleanly on every View Transition.
+  let controller: AbortController | null = null
+
+  function initAlerts() {
+    controller?.abort()
+    controller = new AbortController()
+
+    document.addEventListener(
+      "click",
+      (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-alert-dismiss]")
+        if (btn) btn.closest("[data-alert]")?.remove()
+      },
+      { signal: controller.signal }
+    )
   }
+
+  initAlerts()
+  document.addEventListener("astro:page-load", initAlerts)
 </script>
