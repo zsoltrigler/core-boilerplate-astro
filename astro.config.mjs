@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
-import sitemap from "@astrojs/sitemap"
 import { hex } from "wcag-contrast"
 
 import { SITE, COLORS } from "./src/config.ts"
@@ -115,6 +114,4 @@ export default defineConfig({
     plugins: [colorTokensPlugin(), tailwindcss()],
   },
 
-  // * /ui is a developer-facing component showcase — exclude from sitemap and SEO.
-  integrations: [sitemap({ filter: (page) => !page.includes("/ui/") })],
 })
