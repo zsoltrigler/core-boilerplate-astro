@@ -110,9 +110,16 @@ for (const { name, fg, bg, min } of contrastPairs) {
   }
 }
 
+// * Resolve site URL: Vercel production → preview → fallback to config.ts value.
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : SITE.url
+
 // https://astro.build/config
 export default defineConfig({
-  site: SITE.url,
+  site: siteUrl,
 
   vite: {
     // * Order matters: colorTokensPlugin must run before tailwindcss
