@@ -327,17 +327,15 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup instructions, branch naming c
 
 ## Deployment
 
-Set the `SITE_URL` environment variable to your production domain before deploying:
+Push to your repo — Vercel, Netlify, Cloudflare Pages, Railway and any other static host detect Astro automatically.
 
-```bash
+Set one environment variable in your platform's dashboard:
+
+```
 SITE_URL=https://your-domain.com
 ```
 
-This is the only required environment variable. The build uses it for the sitemap, canonical URLs, and Open Graph tags. Without it, the build falls back to `http://localhost:4321`.
-
-### Any platform
-
-Push to your repo — Vercel, Netlify, Cloudflare Pages and Railway all detect Astro automatically. Set `SITE_URL` in your platform's environment variables and you're done.
+This is used for the sitemap and robots.txt. Without it, those files fall back to `http://localhost:4321` — everything else (OG tags, canonical URLs) works correctly at runtime without it.
 
 ### Manual build
 

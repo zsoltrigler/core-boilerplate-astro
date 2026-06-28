@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite"
 import sitemap from "@astrojs/sitemap"
 import { hex } from "wcag-contrast"
 
-import { SITE, COLORS } from "./src/config.ts"
+import { COLORS } from "./src/config.ts"
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -107,14 +107,9 @@ for (const { name, fg, bg, min } of contrastPairs) {
   }
 }
 
-// * Set SITE_URL in your deployment environment — works on any platform.
-//   Falls back to localhost for local development.
-const port = process.env.PORT ?? "4321"
-const siteUrl = process.env.SITE_URL ?? `http://localhost:${port}`
-
 // https://astro.build/config
 export default defineConfig({
-  site: siteUrl,
+  site: process.env.SITE_URL ?? "http://localhost:4321",
 
   vite: {
     // * Order matters: colorTokensPlugin must run before tailwindcss
