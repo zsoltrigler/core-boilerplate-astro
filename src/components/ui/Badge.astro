@@ -12,14 +12,14 @@ const { variant = "default", size = "md", pulse = false, class: className = "" }
 const variants: Record<string, string> = {
   default: "bg-(--color-bg-surface) border border-(--color-border-base) text-(--color-text-muted)",
   primary:
-    "bg-(--color-brand-primary)/10 border border-(--color-brand-primary) text-(--color-brand-primary)",
+    "bg-(--color-bg-base) dark:bg-(--color-brand-primary)/10 border border-(--color-brand-primary) text-(--color-brand-primary)",
   success:
-    "bg-(--color-status-success)/10 border border-(--color-status-success) text-(--color-status-success)",
+    "bg-(--color-bg-base) dark:bg-(--color-status-success)/10 border border-(--color-status-success) text-(--color-status-success)",
   warning:
-    "bg-(--color-status-warning)/10 border border-(--color-status-warning) text-(--color-status-warning)",
+    "bg-(--color-bg-base) dark:bg-(--color-status-warning)/10 border border-(--color-status-warning) text-(--color-status-warning)",
   error:
-    "bg-(--color-status-error)/10 border border-(--color-status-error) text-(--color-status-error)",
-  info: "bg-(--color-status-info)/10 border border-(--color-status-info) text-(--color-status-info)",
+    "bg-(--color-bg-base) dark:bg-(--color-status-error)/10 border border-(--color-status-error) text-(--color-status-error)",
+  info: "bg-(--color-bg-base) dark:bg-(--color-status-info)/10 border border-(--color-status-info) text-(--color-status-info)",
 }
 
 const sizes: Record<string, string> = {
