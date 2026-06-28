@@ -6,7 +6,6 @@ import Section from "../components/layout/Section.astro"
 import Container from "../components/layout/Container.astro"
 import Badge from "../components/ui/Badge.astro"
 import Button from "../components/ui/Button.astro"
-import IconButton from "../components/ui/IconButton.astro"
 import Card from "../components/ui/Card.astro"
 import Alert from "../components/ui/Alert.astro"
 import Input from "../components/ui/Input.astro"
@@ -92,15 +91,10 @@ const stats = [
 
               {
                 github && (
-                  <IconButton
-                    href={github.href}
-                    variant="secondary"
-                    size="md"
-                    label={github.label}
-                    external
-                  >
-                    <Fragment set:html={github.icon} />
-                  </IconButton>
+                  <Button href={github.href} variant="secondary" size="md" external>
+                    <Fragment slot="icon-left" set:html={github.icon} />
+                    View on GitHub
+                  </Button>
                 )
               }
             </div>
