@@ -13,6 +13,13 @@ import Input from "../components/ui/Input.astro"
 import { SITE, SOCIAL_LINKS } from "../config"
 
 const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
+
+const stats = [
+  { value: "7", label: "components" },
+  { value: "TS", label: "strict mode" },
+  { value: "AA", label: "WCAG" },
+  { value: "MIT", label: "license" },
+]
 ---
 
 <BaseLayout title="Home" description={SITE.description}>
@@ -31,89 +38,126 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
       <!-- Top accent line -->
       <div class="absolute inset-x-0 top-0 h-1 bg-(--color-brand-primary)"></div>
 
-      <!-- Right-side radial glow -->
+      <!-- Radial glow -->
       <div
         class="pointer-events-none absolute inset-0"
-        style="background: radial-gradient(ellipse 60% 80% at 80% 50%, color-mix(in srgb, var(--color-brand-primary) 12%, transparent) 0%, transparent 70%);"
+        style="background: radial-gradient(ellipse 70% 70% at 70% 50%, color-mix(in srgb, var(--color-brand-primary) 10%, transparent) 0%, transparent 70%);"
       >
       </div>
 
       <Container class="relative z-10">
-        <div class="flex max-w-2xl flex-col gap-6 py-24">
-          <div>
-            <Badge variant="info" pulse>Astro 7 · Tailwind 4</Badge>
-          </div>
+        <div class="grid grid-cols-1 gap-12 py-24 lg:grid-cols-2 lg:items-center">
+          <!-- Left: text -->
+          <div class="flex flex-col gap-6">
+            <div>
+              <Badge variant="info" pulse>Astro 7 · Tailwind 4</Badge>
+            </div>
 
-          <h1 class="text-5xl font-bold leading-tight text-(--color-text-base)">{SITE.name}</h1>
+            <h1 class="text-5xl font-bold leading-tight text-(--color-text-base)">{SITE.name}</h1>
 
-          <p class="max-w-lg text-lg leading-relaxed text-(--color-text-muted)">
-            A minimal, production-ready Astro starter.
-          </p>
+            <p class="max-w-md text-lg leading-relaxed text-(--color-text-muted)">
+              A minimal, production-ready Astro starter. Everything you need — nothing you don't.
+            </p>
 
-          <div class="h-0.5 w-14 rounded bg-(--color-brand-primary)"></div>
+            <div class="h-0.5 w-14 rounded bg-(--color-brand-primary)"></div>
 
-          <div class="flex flex-wrap gap-2">
-            {
-              ["TypeScript", "Dark mode", "WCAG AA", "SEO ready"].map((label) => (
-                <span class="rounded-lg border border-(--color-border-strong) bg-(--color-bg-surface) px-3 py-1.5 text-sm font-medium text-(--color-text-muted)">
-                  {label}
-                </span>
-              ))
-            }
-          </div>
-
-          <div class="flex flex-wrap gap-3">
-            <Button href="/ui" variant="primary" size="md">
-              Browse components
-              <svg
-                slot="icon-right"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
-              >
-            </Button>
-
-            <Button href="https://docs.astro.build" variant="secondary" size="md" external>
-              Astro docs
-              <svg
-                slot="icon-right"
-                xmlns="http://www.w3.org/2000/svg"
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-                ><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline
-                  points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"
-                ></line></svg
-              >
-            </Button>
-
-            {
-              github && (
-                <IconButton
-                  href={github.href}
-                  variant="secondary"
-                  size="md"
-                  label={github.label}
-                  external
+            <div class="flex flex-wrap gap-3">
+              <Button href="/ui" variant="primary" size="md">
+                Browse components
+                <svg
+                  slot="icon-right"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
                 >
-                  <Fragment set:html={github.icon} />
-                </IconButton>
-              )
-            }
+              </Button>
+
+              <Button href="https://docs.astro.build" variant="secondary" size="md" external>
+                Astro docs
+                <svg
+                  slot="icon-right"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  ><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline
+                    points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"
+                  ></line></svg
+                >
+              </Button>
+
+              {
+                github && (
+                  <IconButton
+                    href={github.href}
+                    variant="secondary"
+                    size="md"
+                    label={github.label}
+                    external
+                  >
+                    <Fragment set:html={github.icon} />
+                  </IconButton>
+                )
+              }
+            </div>
           </div>
+
+          <!-- Right: code snippet -->
+          <div class="hidden lg:block">
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface) shadow-xl">
+              <!-- Window chrome -->
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">src/config.ts</span>
+              </div>
+
+              <!-- Code -->
+              <pre
+                class="overflow-x-auto p-5 text-sm leading-relaxed"><code><span class="text-(--color-text-muted)">// ← Your single source of truth</span>
+<span class="text-(--color-brand-secondary)">export const</span> <span class="text-(--color-text-base)">SITE</span> <span class="text-(--color-text-muted)">=</span> <span class="text-(--color-text-base)">{`{`}</span>
+  <span class="text-(--color-brand-accent)">name</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"Your Site"</span><span class="text-(--color-text-muted)">,</span>
+  <span class="text-(--color-brand-accent)">lang</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"en"</span><span class="text-(--color-text-muted)">,</span>
+<span class="text-(--color-text-base)">{`}`}</span>
+
+<span class="text-(--color-brand-secondary)">export const</span> <span class="text-(--color-text-base)">COLORS</span> <span class="text-(--color-text-muted)">=</span> <span class="text-(--color-text-base)">{`{`}</span>
+  <span class="text-(--color-brand-accent)">brandPrimary</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"#4f46e5"</span><span class="text-(--color-text-muted)">,</span>
+  <span class="text-(--color-brand-accent)">dark</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-text-base)">{`{`}</span>
+    <span class="text-(--color-brand-accent)">brandPrimary</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"#6366f1"</span><span class="text-(--color-text-muted)">,</span>
+  <span class="text-(--color-text-base)">{`}`}</span><span class="text-(--color-text-muted)">,</span>
+<span class="text-(--color-text-base)">{`}`}</span></code></pre>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ── Stats bar ─────────────────────────────────────────────────── -->
+    <Section class="border-t border-(--color-border-base) bg-(--color-bg-surface)">
+      <Container>
+        <div class="flex flex-wrap items-center justify-center gap-8 py-6">
+          {
+            stats.map((s) => (
+              <div class="flex items-center gap-2">
+                <span class="text-lg font-bold text-(--color-brand-primary)">{s.value}</span>
+                <span class="text-sm text-(--color-text-muted)">{s.label}</span>
+              </div>
+            ))
+          }
         </div>
       </Container>
     </Section>
@@ -132,6 +176,7 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
             <Card
               title="UI Components"
               desc="Button, Card, Badge, Alert, IconButton, Input, Modal — ready to use."
+              hover
             >
               <svg
                 slot="icon"
@@ -159,6 +204,7 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
             <Card
               title="Dark mode"
               desc="System preference + manual toggle, persisted in localStorage."
+              hover
             >
               <svg
                 slot="icon"
@@ -178,6 +224,7 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
             <Card
               title="Design tokens"
               desc="Brand colors, typography and spacing via CSS variables."
+              hover
             >
               <svg
                 slot="icon"
@@ -200,6 +247,7 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
             <Card
               title="TypeScript"
               desc="Strict mode, typed component props, zero config needed."
+              hover
             >
               <svg
                 slot="icon"
@@ -227,6 +275,7 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
             <Card
               title="Layout primitives"
               desc="Section and Container components with sensible defaults."
+              hover
             >
               <svg
                 slot="icon"
@@ -245,7 +294,7 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
               >
             </Card>
 
-            <Card title="SEO ready" desc="BaseLayout with meta tags, OG image and robots.txt.">
+            <Card title="SEO ready" desc="BaseLayout with meta tags, OG image and robots.txt." hover>
               <svg
                 slot="icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -280,77 +329,94 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
             <Button href="/ui" variant="ghost" size="sm">See all →</Button>
           </div>
 
-          <div class="flex flex-col gap-10">
-            <!-- Buttons -->
-            <div class="flex flex-col gap-3">
-              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
-                Button
-              </p>
-
-              <div class="flex flex-wrap gap-3">
-                <Button variant="primary">Primary</Button>
-                <Button variant="secondary">Secondary</Button>
-                <Button variant="ghost">Ghost</Button>
-                <Button variant="danger">Danger</Button>
-                <Button variant="primary" disabled>Disabled</Button>
-              </div>
+          <!-- Showcase frame -->
+          <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+            <!-- Frame chrome -->
+            <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+              <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+              <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+              <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+              <span class="ml-2 text-xs text-(--color-text-muted)">Component showcase</span>
             </div>
 
-            <!-- Badges -->
-            <div class="flex flex-col gap-3">
-              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
-                Badge
-              </p>
+            <!-- Frame content -->
+            <div class="flex flex-col gap-10 p-6">
+              <!-- Buttons -->
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                  Button
+                </p>
 
-              <div class="flex flex-wrap gap-2">
-                <Badge variant="default">Default</Badge>
-                <Badge variant="primary">Primary</Badge>
-                <Badge variant="success">Success</Badge>
-                <Badge variant="warning">Warning</Badge>
-                <Badge variant="error">Error</Badge>
-                <Badge variant="info">Info</Badge>
-                <Badge variant="info" pulse>Live</Badge>
+                <div class="flex flex-wrap gap-3">
+                  <Button variant="primary">Primary</Button>
+                  <Button variant="secondary">Secondary</Button>
+                  <Button variant="ghost">Ghost</Button>
+                  <Button variant="danger">Danger</Button>
+                  <Button variant="primary" disabled>Disabled</Button>
+                </div>
               </div>
-            </div>
 
-            <!-- Alerts -->
-            <div class="flex flex-col gap-3">
-              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
-                Alert
-              </p>
+              <!-- Badges -->
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                  Badge
+                </p>
 
-              <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <Alert variant="info" title="Information">This is an info alert.</Alert>
-                <Alert variant="success" title="Success">Operation completed.</Alert>
-                <Alert variant="warning" title="Warning">Check your settings.</Alert>
-                <Alert variant="error" title="Error" dismissible>Something went wrong.</Alert>
+                <div class="flex flex-wrap gap-2">
+                  <Badge variant="default">Default</Badge>
+                  <Badge variant="primary">Primary</Badge>
+                  <Badge variant="success">Success</Badge>
+                  <Badge variant="warning">Warning</Badge>
+                  <Badge variant="error">Error</Badge>
+                  <Badge variant="info">Info</Badge>
+                  <Badge variant="info" pulse>Live</Badge>
+                </div>
               </div>
-            </div>
 
-            <!-- Inputs -->
-            <div class="flex flex-col gap-3">
-              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
-                Input
-              </p>
+              <!-- Alerts -->
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                  Alert
+                </p>
 
-              <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <Input name="preview-default" label="Default" placeholder="Enter value…" fullWidth />
+                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <Alert variant="info" title="Information">This is an info alert.</Alert>
+                  <Alert variant="success" title="Success">Operation completed.</Alert>
+                  <Alert variant="warning" title="Warning">Check your settings.</Alert>
+                  <Alert variant="error" title="Error" dismissible>Something went wrong.</Alert>
+                </div>
+              </div>
 
-                <Input
-                  name="preview-hint"
-                  label="With hint"
-                  placeholder="Enter email…"
-                  hint="We'll never share your email."
-                  fullWidth
-                />
+              <!-- Inputs -->
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                  Input
+                </p>
 
-                <Input
-                  name="preview-error"
-                  label="With error"
-                  value="wrong@"
-                  error="Invalid email address."
-                  fullWidth
-                />
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <Input
+                    name="preview-default"
+                    label="Default"
+                    placeholder="Enter value…"
+                    fullWidth
+                  />
+
+                  <Input
+                    name="preview-hint"
+                    label="With hint"
+                    placeholder="Enter email…"
+                    hint="We'll never share your email."
+                    fullWidth
+                  />
+
+                  <Input
+                    name="preview-error"
+                    label="With error"
+                    value="wrong@"
+                    error="Invalid email address."
+                    fullWidth
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -360,12 +426,39 @@ const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
 
     <!-- ── Quick start ──────────────────────────────────────────────── -->
     <Section class="border-t border-(--color-border-base)">
-      <Container size="sm">
-        <div class="py-20">
-          <Alert variant="info" title="Next step">
-            Open <code class="rounded bg-black/8 px-1.5 py-0.5 font-mono text-sm">src/config.ts</code> to
-            set your brand name, colors, and social links — then delete this page and start building yours.
-          </Alert>
+      <Container size="md">
+        <div class="flex flex-col gap-6 py-20">
+          <div class="flex flex-col gap-2 text-center">
+            <h2 class="text-2xl font-bold text-(--color-text-base)">Get started in seconds</h2>
+
+            <p class="text-(--color-text-muted)">Clone, install, and start building.</p>
+          </div>
+
+          <!-- Code block -->
+          <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-elevated)">
+            <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+              <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+              <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+              <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+              <span class="ml-2 text-xs text-(--color-text-muted)">Terminal</span>
+            </div>
+
+            <pre class="overflow-x-auto p-5 text-sm leading-loose"><code><span class="text-(--color-text-muted)"># Clone the repo</span>
+<span class="text-(--color-brand-primary)">git clone</span> <span class="text-(--color-text-base)">https://github.com/zsoltrigler/core-boilerplate-astro.git my-project</span>
+
+<span class="text-(--color-text-muted)"># Install dependencies</span>
+<span class="text-(--color-brand-primary)">cd</span> <span class="text-(--color-text-base)">my-project</span> <span class="text-(--color-text-muted)">&amp;&amp;</span> <span class="text-(--color-brand-primary)">pnpm install</span>
+
+<span class="text-(--color-text-muted)"># Start the dev server</span>
+<span class="text-(--color-brand-primary)">pnpm dev</span></code></pre>
+          </div>
+
+          <div class="flex justify-center">
+            <Alert variant="info" title="Next step">
+              Open <code class="rounded bg-black/8 px-1.5 py-0.5 font-mono text-sm">src/config.ts</code> to
+              set your brand name, colors, and social links.
+            </Alert>
+          </div>
         </div>
       </Container>
     </Section>
