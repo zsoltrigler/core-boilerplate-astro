@@ -4,8 +4,8 @@ Thank you for your interest in contributing. This document covers everything you
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) 18+
-- [pnpm](https://pnpm.io/) 8+ (`npm install -g pnpm`)
+- [Node.js](https://nodejs.org/) 22+
+- [pnpm](https://pnpm.io/) 11+ (`npm install -g pnpm`)
 
 ## Setup
 
