@@ -18,10 +18,11 @@ import Modal from "../components/ui/Modal.astro"
     <Button slot="nav-end" href="/" variant="ghost" size="md">← Back to home</Button>
   </Header>
 
-  <main id="main-content" class="flex flex-1 flex-col gap-24 py-16">
-    <Section>
+  <main id="main-content" class="flex flex-1 flex-col">
+    <!-- ── Page header ───────────────────────────────────────────── -->
+    <Section class="bg-(--color-bg-surface)">
       <Container>
-        <div class="flex flex-col items-start gap-3">
+        <div class="flex flex-col gap-3 py-20">
           <Badge variant="default">Component library</Badge>
 
           <h1 class="text-4xl font-bold text-(--color-text-base)">UI Components</h1>
@@ -33,11 +34,11 @@ import Modal from "../components/ui/Modal.astro"
       </Container>
     </Section>
 
-    <!-- ── Button ─────────────────────────────────────────────── -->
-    <Section id="button">
+    <!-- ── Button ─────────────────────────────────────────────────── -->
+    <Section id="button" class="scroll-mt-20">
       <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-8 py-20">
+          <div class="flex flex-col gap-2">
             <h2 class="text-2xl font-bold text-(--color-text-base)">Button</h2>
 
             <p class="text-sm text-(--color-text-muted)">
@@ -50,7 +51,7 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               Variants
             </p>
 
@@ -63,7 +64,7 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               Sizes
             </p>
 
@@ -75,7 +76,7 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               States
             </p>
 
@@ -89,11 +90,11 @@ import Modal from "../components/ui/Modal.astro"
       </Container>
     </Section>
 
-    <!-- ── IconButton ──────────────────────────────────────────── -->
-    <Section id="icon-button">
+    <!-- ── IconButton ─────────────────────────────────────────────── -->
+    <Section id="icon-button" class="scroll-mt-20">
       <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-8 py-20">
+          <div class="flex flex-col gap-2">
             <h2 class="text-2xl font-bold text-(--color-text-base)">IconButton</h2>
 
             <p class="text-sm text-(--color-text-muted)">
@@ -104,7 +105,7 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               Variants
             </p>
 
@@ -174,7 +175,7 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               Sizes
             </p>
 
@@ -229,11 +230,11 @@ import Modal from "../components/ui/Modal.astro"
       </Container>
     </Section>
 
-    <!-- ── Badge ───────────────────────────────────────────────── -->
-    <Section id="badge">
+    <!-- ── Badge ──────────────────────────────────────────────────── -->
+    <Section id="badge" class="scroll-mt-20">
       <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-8 py-20">
+          <div class="flex flex-col gap-2">
             <h2 class="text-2xl font-bold text-(--color-text-base)">Badge</h2>
 
             <p class="text-sm text-(--color-text-muted)">
@@ -242,7 +243,7 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               Variants
             </p>
 
@@ -257,7 +258,7 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               Sizes
             </p>
 
@@ -269,7 +270,7 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+            <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
               With pulse indicator
             </p>
 
@@ -284,11 +285,11 @@ import Modal from "../components/ui/Modal.astro"
       </Container>
     </Section>
 
-    <!-- ── Alert ───────────────────────────────────────────────── -->
-    <Section id="alert">
+    <!-- ── Alert ──────────────────────────────────────────────────── -->
+    <Section id="alert" class="scroll-mt-20">
       <Container size="md">
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-8 py-20">
+          <div class="flex flex-col gap-2">
             <h2 class="text-2xl font-bold text-(--color-text-base)">Alert</h2>
 
             <p class="text-sm text-(--color-text-muted)">
@@ -297,23 +298,23 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-4">
-            <Alert variant="info" title="Information"
-              >This is an informational message with some useful context for the user.</Alert
-            >
+            <Alert variant="info" title="Information">
+              This is an informational message with some useful context for the user.
+            </Alert>
 
-            <Alert variant="success" title="Success"
-              >Your changes have been saved successfully.</Alert
-            >
+            <Alert variant="success" title="Success">
+              Your changes have been saved successfully.
+            </Alert>
 
-            <Alert variant="warning" title="Warning"
-              >Please review your input before continuing.</Alert
-            >
+            <Alert variant="warning" title="Warning">
+              Please review your input before continuing.
+            </Alert>
 
             <Alert variant="error" title="Error">Something went wrong. Please try again.</Alert>
 
-            <Alert variant="info" title="Dismissible" dismissible
-              >Click the × to dismiss this alert.</Alert
-            >
+            <Alert variant="info" title="Dismissible" dismissible>
+              Click the × to dismiss this alert.
+            </Alert>
 
             <Alert variant="success">Alert without a title — just body text.</Alert>
           </div>
@@ -321,11 +322,11 @@ import Modal from "../components/ui/Modal.astro"
       </Container>
     </Section>
 
-    <!-- ── Input ───────────────────────────────────────────────── -->
-    <Section id="input">
+    <!-- ── Input ──────────────────────────────────────────────────── -->
+    <Section id="input" class="scroll-mt-20">
       <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-8 py-20">
+          <div class="flex flex-col gap-2">
             <h2 class="text-2xl font-bold text-(--color-text-base)">Input</h2>
 
             <p class="text-sm text-(--color-text-muted)">
@@ -337,44 +338,90 @@ import Modal from "../components/ui/Modal.astro"
           </div>
 
           <div class="flex flex-col gap-6">
-            <!-- Sizes -->
-            <div class="flex flex-wrap items-end gap-4">
-              <Input name="size-sm" size="sm" placeholder="Small" />
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                Sizes
+              </p>
 
-              <Input name="size-md" size="md" placeholder="Medium (default)" />
-
-              <Input name="size-lg" size="lg" placeholder="Large" />
+              <div class="flex flex-wrap items-end gap-4">
+                <Input name="size-sm" size="sm" placeholder="Small" />
+                <Input name="size-md" size="md" placeholder="Medium (default)" />
+                <Input name="size-lg" size="lg" placeholder="Large" />
+              </div>
             </div>
 
-            <!-- With label and hint -->
-            <div class="flex flex-wrap gap-4">
-              <Input name="email" type="email" label="Email address" placeholder="you@example.com" hint="We'll never share your email." />
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                With label and hint
+              </p>
 
-              <Input name="password" type="password" label="Password" placeholder="••••••••" required />
+              <div class="flex flex-wrap gap-4">
+                <Input
+                  name="email"
+                  type="email"
+                  label="Email address"
+                  placeholder="you@example.com"
+                  hint="We'll never share your email."
+                />
+
+                <Input
+                  name="password"
+                  type="password"
+                  label="Password"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
             </div>
 
-            <!-- Error state -->
-            <div class="flex flex-wrap gap-4">
-              <Input name="email-error" type="email" label="Email address" value="not-an-email" error="Please enter a valid email address." />
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                Error state
+              </p>
+
+              <div class="flex flex-wrap gap-4">
+                <Input
+                  name="email-error"
+                  type="email"
+                  label="Email address"
+                  value="not-an-email"
+                  error="Please enter a valid email address."
+                />
+              </div>
             </div>
 
-            <!-- Disabled -->
-            <div class="flex flex-wrap gap-4">
-              <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                Disabled
+              </p>
+
+              <div class="flex flex-wrap gap-4">
+                <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
+              </div>
             </div>
 
-            <!-- Full width -->
-            <Input name="fullwidth" label="Full width" placeholder="Stretches to fill its container" fullWidth />
+            <div class="flex flex-col gap-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                Full width
+              </p>
+
+              <Input
+                name="fullwidth"
+                label="Full width"
+                placeholder="Stretches to fill its container"
+                fullWidth
+              />
+            </div>
           </div>
         </div>
       </Container>
     </Section>
 
-    <!-- ── Modal ───────────────────────────────────────────────── -->
-    <Section id="modal">
+    <!-- ── Modal ──────────────────────────────────────────────────── -->
+    <Section id="modal" class="scroll-mt-20">
       <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-8 py-20">
+          <div class="flex flex-col gap-2">
             <h2 class="text-2xl font-bold text-(--color-text-base)">Modal</h2>
 
             <p class="text-sm text-(--color-text-muted)">
@@ -387,60 +434,19 @@ import Modal from "../components/ui/Modal.astro"
 
           <div class="flex flex-wrap gap-3">
             <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
-
             <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
-
             <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
-
             <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
           </div>
         </div>
       </Container>
     </Section>
 
-    <!-- Modals are rendered outside the flow so they can cover the full viewport -->
-    <Modal id="modal-default" title="Confirm action" size="md">
-      <p class="text-(--color-text-muted)">
-        Are you sure you want to continue? This action cannot be undone.
-      </p>
-
-      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
-
-      <Button slot="footer" variant="danger">Delete</Button>
-    </Modal>
-
-    <Modal id="modal-sm" title="Quick note" size="sm">
-      <p class="text-(--color-text-muted)">A compact modal for short confirmations or notices.</p>
-
-      <Button slot="footer" variant="primary" data-modal-close>Got it</Button>
-    </Modal>
-
-    <Modal id="modal-lg" title="Edit profile" size="lg">
-      <div class="flex flex-col gap-4">
-        <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
-
-        <Input name="modal-email" type="email" label="Email address" placeholder="jane@example.com" fullWidth />
-
-        <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
-      </div>
-
-      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
-
-      <Button slot="footer" variant="primary">Save changes</Button>
-    </Modal>
-
-    <Modal id="modal-no-footer" title="Information">
-      <p class="text-(--color-text-muted)">
-        This modal has no footer slot — useful for informational content where no action is needed.
-        Close with the × button, the backdrop, or the ESC key.
-      </p>
-    </Modal>
-
-    <!-- ── Card ────────────────────────────────────────────────── -->
-    <Section id="card">
+    <!-- ── Card ───────────────────────────────────────────────────── -->
+    <Section id="card" class="scroll-mt-20">
       <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-8 py-20">
+          <div class="flex flex-col gap-2">
             <h2 class="text-2xl font-bold text-(--color-text-base)">Card</h2>
 
             <p class="text-sm text-(--color-text-muted)">
@@ -489,6 +495,46 @@ import Modal from "../components/ui/Modal.astro"
       </Container>
     </Section>
   </main>
+
+  <!-- Modals are rendered outside the flow so they can cover the full viewport -->
+  <Modal id="modal-default" title="Confirm action" size="md">
+    <p class="text-(--color-text-muted)">
+      Are you sure you want to continue? This action cannot be undone.
+    </p>
+
+    <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
+    <Button slot="footer" variant="danger">Delete</Button>
+  </Modal>
+
+  <Modal id="modal-sm" title="Quick note" size="sm">
+    <p class="text-(--color-text-muted)">A compact modal for short confirmations or notices.</p>
+
+    <Button slot="footer" variant="primary" data-modal-close>Got it</Button>
+  </Modal>
+
+  <Modal id="modal-lg" title="Edit profile" size="lg">
+    <div class="flex flex-col gap-4">
+      <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
+      <Input
+        name="modal-email"
+        type="email"
+        label="Email address"
+        placeholder="jane@example.com"
+        fullWidth
+      />
+      <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
+    </div>
+
+    <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
+    <Button slot="footer" variant="primary">Save changes</Button>
+  </Modal>
+
+  <Modal id="modal-no-footer" title="Information">
+    <p class="text-(--color-text-muted)">
+      This modal has no footer slot — useful for informational content where no action is needed.
+      Close with the × button, the backdrop, or the ESC key.
+    </p>
+  </Modal>
 
   <Footer />
 </BaseLayout>
