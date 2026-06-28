@@ -48,7 +48,6 @@ export const COLORS = {
 // ── Site Metadata ─────────────────────────────────────────────────────────────
 export const SITE = {
   name: "Core Boilerplate",
-  url: "https://your-domain.com", // ! Replace with your production URL — used for sitemap
   description: SITE_DEFAULTS.DESCRIPTION,
   logo: "", // path to logo image (SVG, PNG, etc.); leave empty for text-only
   showName: true, // show site name text next to the logo

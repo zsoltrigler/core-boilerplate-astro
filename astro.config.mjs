@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite"
 import sitemap from "@astrojs/sitemap"
 import { hex } from "wcag-contrast"
 
-import { SITE, COLORS } from "./src/config.ts"
+import { COLORS } from "./src/config.ts"
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -107,9 +107,21 @@ for (const { name, fg, bg, min } of contrastPairs) {
   }
 }
 
+// * Each major platform exposes the deployment URL as a build-time env var automatically.
+//   Read them in priority order so the sitemap always gets the correct origin
+//   without any manual configuration. Falls back to localhost for local dev.
+const siteUrl =
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`) ||
+  (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`) ||
+  process.env.URL || // Netlify
+  process.env.CF_PAGES_URL || // Cloudflare Pages
+  (process.env.RAILWAY_PUBLIC_DOMAIN && `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`) || // Railway
+  process.env.RENDER_EXTERNAL_URL || // Render
+  "http://localhost:4321"
+
 // https://astro.build/config
 export default defineConfig({
-  site: SITE.url,
+  site: siteUrl,
 
   vite: {
     // * Order matters: colorTokensPlugin must run before tailwindcss
