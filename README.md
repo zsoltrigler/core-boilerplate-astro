@@ -72,7 +72,7 @@ export const COLORS = {
 ```ts
 export const NAV_LINKS = [
   { label: "Features", href: "#features" },
-  { label: "Docs", href: "https://docs.astro.build" },
+  { label: "GitHub", href: "https://github.com/you/your-repo" },
 ]
 ```
 
@@ -327,9 +327,17 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup instructions, branch naming c
 
 ## Deployment
 
-### Vercel / Netlify
+Set the `SITE_URL` environment variable to your production domain before deploying:
 
-Push to your repo — both platforms detect Astro automatically. No extra configuration needed.
+```bash
+SITE_URL=https://your-domain.com
+```
+
+This is the only required environment variable. The build uses it for the sitemap, canonical URLs, and Open Graph tags. Without it, the build falls back to `http://localhost:4321`.
+
+### Any platform
+
+Push to your repo — Vercel, Netlify, Cloudflare Pages and Railway all detect Astro automatically. Set `SITE_URL` in your platform's environment variables and you're done.
 
 ### Manual build
 

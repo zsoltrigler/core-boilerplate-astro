@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro"
 import Header from "../components/global/Header.astro"
 import Footer from "../components/global/Footer.astro"
-import Section from "../components/layout/Section.astro"
 import Container from "../components/layout/Container.astro"
 import Badge from "../components/ui/Badge.astro"
 import Button from "../components/ui/Button.astro"
@@ -11,6 +10,16 @@ import Card from "../components/ui/Card.astro"
 import Alert from "../components/ui/Alert.astro"
 import Input from "../components/ui/Input.astro"
 import Modal from "../components/ui/Modal.astro"
+
+const components = [
+  { id: "button", label: "Button" },
+  { id: "icon-button", label: "IconButton" },
+  { id: "badge", label: "Badge" },
+  { id: "alert", label: "Alert" },
+  { id: "input", label: "Input" },
+  { id: "modal", label: "Modal" },
+  { id: "card", label: "Card" },
+]
 ---
 
 <BaseLayout title="UI Components" description="All available UI components in Core Boilerplate.">
@@ -18,477 +27,542 @@ import Modal from "../components/ui/Modal.astro"
     <Button slot="nav-end" href="/" variant="ghost" size="md">← Back to home</Button>
   </Header>
 
-  <main id="main-content" class="flex flex-1 flex-col gap-24 py-16">
-    <Section>
-      <Container>
-        <div class="flex flex-col items-start gap-3">
-          <Badge variant="default">Component library</Badge>
+  <main id="main-content" class="flex flex-1 flex-col">
+    <!-- ── Page header ───────────────────────────────────────────── -->
+    <div class="relative overflow-hidden border-b border-(--color-border-base) bg-(--color-bg-base)">
+      <!-- Grid pattern overlay -->
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background-image: linear-gradient(color-mix(in srgb, var(--color-border-base) 15%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--color-border-base) 15%, transparent) 1px, transparent 1px); background-size: 60px 60px;"
+      ></div>
 
-          <h1 class="text-4xl font-bold text-(--color-text-base)">UI Components</h1>
+      <!-- Top accent line -->
+      <div class="absolute inset-x-0 top-0 h-1 bg-(--color-brand-primary)"></div>
 
-          <p class="max-w-xl text-(--color-text-muted)">
-            Every component available in this boilerplate. Copy, paste, customise.
-          </p>
-        </div>
-      </Container>
-    </Section>
+      <!-- Radial glow -->
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background: radial-gradient(ellipse 60% 80% at 80% 50%, color-mix(in srgb, var(--color-brand-primary) 10%, transparent) 0%, transparent 70%);"
+      ></div>
 
-    <!-- ── Button ─────────────────────────────────────────────── -->
-    <Section id="button">
-      <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-bold text-(--color-text-base)">Button</h2>
-
-            <p class="text-sm text-(--color-text-muted)">
-              Renders as <code class="rounded bg-(--color-bg-surface) px-1">&lt;a&gt;</code> when <code
-                class="rounded bg-(--color-bg-surface) px-1">href</code
-              > is set, otherwise <code class="rounded bg-(--color-bg-surface) px-1"
-                >&lt;button&gt;</code
-              >.
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-              Variants
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-              <Button variant="primary">Primary</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="danger">Danger</Button>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-              Sizes
-            </p>
-
-            <div class="flex flex-wrap items-center gap-3">
-              <Button variant="primary" size="sm">Small</Button>
-              <Button variant="primary" size="md">Medium</Button>
-              <Button variant="primary" size="lg">Large</Button>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-              States
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-              <Button variant="primary" disabled>Disabled</Button>
-              <Button variant="primary" href="https://astro.build" external>External link ↗</Button>
-              <Button variant="secondary" fullWidth>Full width</Button>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </Section>
-
-    <!-- ── IconButton ──────────────────────────────────────────── -->
-    <Section id="icon-button">
-      <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-bold text-(--color-text-base)">IconButton</h2>
-
-            <p class="text-sm text-(--color-text-muted)">
-              Square icon-only button. <code class="rounded bg-(--color-bg-surface) px-1"
-                >label</code
-              > is required for accessibility.
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-              Variants
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-              <IconButton label="Primary" variant="primary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
-                >
-              </IconButton>
-
-              <IconButton label="Secondary" variant="secondary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  ><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg
-                >
-              </IconButton>
-
-              <IconButton label="Ghost" variant="ghost">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  ><path
-                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                  ></path></svg
-                >
-              </IconButton>
-
-              <IconButton label="Delete" variant="danger">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  ><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"
-                  ></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg
-                >
-              </IconButton>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-              Sizes
-            </p>
-
-            <div class="flex flex-wrap items-center gap-3">
-              <IconButton label="Small" variant="ghost" size="sm">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg
-                >
-              </IconButton>
-
-              <IconButton label="Medium" variant="ghost" size="md">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg
-                >
-              </IconButton>
-
-              <IconButton label="Large" variant="ghost" size="lg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg
-                >
-              </IconButton>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </Section>
-
-    <!-- ── Badge ───────────────────────────────────────────────── -->
-    <Section id="badge">
-      <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-bold text-(--color-text-base)">Badge</h2>
-
-            <p class="text-sm text-(--color-text-muted)">
-              Inline label for status, category, or emphasis.
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-              Variants
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-              <Badge variant="default">Default</Badge>
-              <Badge variant="primary">Primary</Badge>
-              <Badge variant="success">Success</Badge>
-              <Badge variant="warning">Warning</Badge>
-              <Badge variant="error">Error</Badge>
-              <Badge variant="info">Info</Badge>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-              Sizes
-            </p>
-
-            <div class="flex flex-wrap items-center gap-3">
-              <Badge size="sm">Small</Badge>
-              <Badge size="md">Medium</Badge>
-              <Badge size="lg">Large</Badge>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-3">
-            <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-              With pulse indicator
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-              <Badge variant="primary" pulse>Live</Badge>
-              <Badge variant="success" pulse>Online</Badge>
-              <Badge variant="error" pulse>Alert</Badge>
-              <Badge variant="warning" pulse>Pending</Badge>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </Section>
-
-    <!-- ── Alert ───────────────────────────────────────────────── -->
-    <Section id="alert">
-      <Container size="md">
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-bold text-(--color-text-base)">Alert</h2>
-
-            <p class="text-sm text-(--color-text-muted)">
-              Contextual feedback messages. Supports custom icon and title via named slots.
-            </p>
-          </div>
-
+      <Container class="relative z-10">
+        <div class="grid grid-cols-1 gap-10 py-16 lg:grid-cols-2 lg:items-center">
+          <!-- Left: title -->
           <div class="flex flex-col gap-4">
-            <Alert variant="info" title="Information"
-              >This is an informational message with some useful context for the user.</Alert
-            >
+            <div>
+              <Badge variant="default">Component library</Badge>
+            </div>
 
-            <Alert variant="success" title="Success"
-              >Your changes have been saved successfully.</Alert
-            >
+            <h1 class="text-4xl font-bold text-(--color-text-base)">UI Components</h1>
 
-            <Alert variant="warning" title="Warning"
-              >Please review your input before continuing.</Alert
-            >
-
-            <Alert variant="error" title="Error">Something went wrong. Please try again.</Alert>
-
-            <Alert variant="info" title="Dismissible" dismissible
-              >Click the × to dismiss this alert.</Alert
-            >
-
-            <Alert variant="success">Alert without a title — just body text.</Alert>
-          </div>
-        </div>
-      </Container>
-    </Section>
-
-    <!-- ── Input ───────────────────────────────────────────────── -->
-    <Section id="input">
-      <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-bold text-(--color-text-base)">Input</h2>
-
-            <p class="text-sm text-(--color-text-muted)">
-              Text input with label, hint, error state and size variants. The <code
-                class="rounded bg-(--color-bg-surface) px-1">name</code
-              > prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls
-              back to <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
+            <p class="max-w-md text-(--color-text-muted)">
+              Every component available in this boilerplate. Copy, paste, customise.
             </p>
           </div>
 
-          <div class="flex flex-col gap-6">
-            <!-- Sizes -->
-            <div class="flex flex-wrap items-end gap-4">
-              <Input name="size-sm" size="sm" placeholder="Small" />
+          <!-- Right: quick jump links -->
+          <div class="hidden lg:block">
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">Quick jump</span>
+              </div>
 
-              <Input name="size-md" size="md" placeholder="Medium (default)" />
-
-              <Input name="size-lg" size="lg" placeholder="Large" />
+              <div class="grid grid-cols-2 gap-2 p-4">
+                {
+                  components.map((c) => (
+                    <a
+                      href={`#${c.id}`}
+                      class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-muted) transition-colors hover:bg-(--color-bg-elevated) hover:text-(--color-text-base)"
+                    >
+                      <span class="h-1.5 w-1.5 rounded-full bg-(--color-brand-primary)"></span>
+                      {c.label}
+                    </a>
+                  ))
+                }
+              </div>
             </div>
-
-            <!-- With label and hint -->
-            <div class="flex flex-wrap gap-4">
-              <Input name="email" type="email" label="Email address" placeholder="you@example.com" hint="We'll never share your email." />
-
-              <Input name="password" type="password" label="Password" placeholder="••••••••" required />
-            </div>
-
-            <!-- Error state -->
-            <div class="flex flex-wrap gap-4">
-              <Input name="email-error" type="email" label="Email address" value="not-an-email" error="Please enter a valid email address." />
-            </div>
-
-            <!-- Disabled -->
-            <div class="flex flex-wrap gap-4">
-              <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
-            </div>
-
-            <!-- Full width -->
-            <Input name="fullwidth" label="Full width" placeholder="Stretches to fill its container" fullWidth />
           </div>
         </div>
       </Container>
-    </Section>
+    </div>
 
-    <!-- ── Modal ───────────────────────────────────────────────── -->
-    <Section id="modal">
-      <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-bold text-(--color-text-base)">Modal</h2>
-
-            <p class="text-sm text-(--color-text-muted)">
-              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> element
-              with backdrop, ESC to close, and backdrop-click to close. Open any modal with <code
-                class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code
-              > on any button or element.
+    <!-- ── Two-column layout ─────────────────────────────────────── -->
+    <Container>
+      <div class="flex gap-12 py-16">
+        <!-- Sidebar -->
+        <aside class="hidden w-44 shrink-0 lg:block">
+          <nav
+            aria-label="Component navigation"
+            class="sticky top-24 flex flex-col gap-1"
+          >
+            <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+              Components
             </p>
-          </div>
 
-          <div class="flex flex-wrap gap-3">
-            <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
+            {
+              components.map((c) => (
+                <a
+                  href={`#${c.id}`}
+                  class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
+                >
+                  {c.label}
+                </a>
+              ))
+            }
+          </nav>
+        </aside>
 
-            <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
+        <!-- Component sections -->
+        <div class="flex min-w-0 flex-1 flex-col gap-20">
+          <!-- ── Button ─────────────────────────────────────────── -->
+          <section id="button" class="scroll-mt-24 flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <h2 class="text-2xl font-bold text-(--color-text-base)">Button</h2>
 
-            <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
-
-            <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
-          </div>
-        </div>
-      </Container>
-    </Section>
-
-    <!-- Modals are rendered outside the flow so they can cover the full viewport -->
-    <Modal id="modal-default" title="Confirm action" size="md">
-      <p class="text-(--color-text-muted)">
-        Are you sure you want to continue? This action cannot be undone.
-      </p>
-
-      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
-
-      <Button slot="footer" variant="danger">Delete</Button>
-    </Modal>
-
-    <Modal id="modal-sm" title="Quick note" size="sm">
-      <p class="text-(--color-text-muted)">A compact modal for short confirmations or notices.</p>
-
-      <Button slot="footer" variant="primary" data-modal-close>Got it</Button>
-    </Modal>
-
-    <Modal id="modal-lg" title="Edit profile" size="lg">
-      <div class="flex flex-col gap-4">
-        <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
-
-        <Input name="modal-email" type="email" label="Email address" placeholder="jane@example.com" fullWidth />
-
-        <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
-      </div>
-
-      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
-
-      <Button slot="footer" variant="primary">Save changes</Button>
-    </Modal>
-
-    <Modal id="modal-no-footer" title="Information">
-      <p class="text-(--color-text-muted)">
-        This modal has no footer slot — useful for informational content where no action is needed.
-        Close with the × button, the backdrop, or the ESC key.
-      </p>
-    </Modal>
-
-    <!-- ── Card ────────────────────────────────────────────────── -->
-    <Section id="card">
-      <Container>
-        <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-1">
-            <h2 class="text-2xl font-bold text-(--color-text-base)">Card</h2>
-
-            <p class="text-sm text-(--color-text-muted)">
-              Flexible content container. <code class="rounded bg-(--color-bg-surface) px-1"
-                >title</code
-              > and <code class="rounded bg-(--color-bg-surface) px-1">desc</code> accept props or named
-              slots. Icon always via <code class="rounded bg-(--color-bg-surface) px-1"
-                >slot="icon"</code
-              >.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Card title="Default" desc="Hover border enabled by default.">
-              <span slot="icon">🎨</span>
-            </Card>
-
-            <Card title="With shadow" desc="shadow prop adds a subtle drop shadow." shadow>
-              <span slot="icon">⚡</span>
-            </Card>
-
-            <Card title="No icon" desc="Icon slot is optional — omit for a cleaner look." />
-
-            <Card title="Large padding" desc="padding=lg gives more breathing room." padding="lg">
-              <span slot="icon">📦</span>
-            </Card>
-
-            <Card title="Rounded 2xl" desc="rounded prop controls border radius." rounded="2xl">
-              <span slot="icon">🔵</span>
-            </Card>
-
-            <Card title="No hover" desc="hover=false disables border highlight." hover={false}>
-              <span slot="icon">🌙</span>
-            </Card>
-
-            <Card padding="md">
               <p class="text-sm text-(--color-text-muted)">
-                Card with only a <strong class="text-(--color-text-base)">default slot</strong> — fully
-                custom content, no props needed.
+                Renders as <code class="rounded bg-(--color-bg-surface) px-1">&lt;a&gt;</code> when
+                <code class="rounded bg-(--color-bg-surface) px-1">href</code> is set, otherwise
+                <code class="rounded bg-(--color-bg-surface) px-1">&lt;button&gt;</code>.
               </p>
+            </div>
 
-              <Button variant="primary" size="sm">Action</Button>
-            </Card>
-          </div>
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">Button.astro</span>
+              </div>
+
+              <div class="flex flex-col gap-8 p-6">
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    Variants
+                  </p>
+
+                  <div class="flex flex-wrap gap-3">
+                    <Button variant="primary">Primary</Button>
+                    <Button variant="secondary">Secondary</Button>
+                    <Button variant="ghost">Ghost</Button>
+                    <Button variant="danger">Danger</Button>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    Sizes
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-3">
+                    <Button variant="primary" size="sm">Small</Button>
+                    <Button variant="primary" size="md">Medium</Button>
+                    <Button variant="primary" size="lg">Large</Button>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    States
+                  </p>
+
+                  <div class="flex flex-wrap gap-3">
+                    <Button variant="primary" disabled>Disabled</Button>
+                    <Button variant="primary" href="/ui" external>External ↗</Button>
+                  </div>
+
+                  <div class="flex flex-wrap gap-3">
+                    <Button variant="secondary" fullWidth>Full width</Button>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    With icons
+                  </p>
+
+                  <div class="flex flex-wrap gap-3">
+                    <Button variant="primary">
+                      <svg slot="icon-left" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                      Download
+                    </Button>
+
+                    <Button variant="secondary">
+                      Send
+                      <svg slot="icon-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── IconButton ─────────────────────────────────────── -->
+          <section id="icon-button" class="scroll-mt-24 flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <h2 class="text-2xl font-bold text-(--color-text-base)">IconButton</h2>
+
+              <p class="text-sm text-(--color-text-muted)">
+                Square icon-only button. <code class="rounded bg-(--color-bg-surface) px-1">label</code> is required for accessibility.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">IconButton.astro</span>
+              </div>
+
+              <div class="flex flex-col gap-8 p-6">
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    Variants
+                  </p>
+
+                  <div class="flex flex-wrap gap-3">
+                    <IconButton label="Primary" variant="primary">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    </IconButton>
+
+                    <IconButton label="Secondary" variant="secondary">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+                    </IconButton>
+
+                    <IconButton label="Ghost" variant="ghost">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </IconButton>
+
+                    <IconButton label="Delete" variant="danger">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg>
+                    </IconButton>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    Sizes
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-3">
+                    <IconButton label="Small" variant="ghost" size="sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                    </IconButton>
+
+                    <IconButton label="Medium" variant="ghost" size="md">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                    </IconButton>
+
+                    <IconButton label="Large" variant="ghost" size="lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                    </IconButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Badge ──────────────────────────────────────────── -->
+          <section id="badge" class="scroll-mt-24 flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <h2 class="text-2xl font-bold text-(--color-text-base)">Badge</h2>
+
+              <p class="text-sm text-(--color-text-muted)">
+                Inline label for status, category, or emphasis.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">Badge.astro</span>
+              </div>
+
+              <div class="flex flex-col gap-8 p-6">
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    Variants
+                  </p>
+
+                  <div class="flex flex-wrap gap-2">
+                    <Badge variant="default">Default</Badge>
+                    <Badge variant="primary">Primary</Badge>
+                    <Badge variant="success">Success</Badge>
+                    <Badge variant="warning">Warning</Badge>
+                    <Badge variant="error">Error</Badge>
+                    <Badge variant="info">Info</Badge>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    Sizes
+                  </p>
+
+                  <div class="flex flex-wrap items-center gap-3">
+                    <Badge size="sm">Small</Badge>
+                    <Badge size="md">Medium</Badge>
+                    <Badge size="lg">Large</Badge>
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                    With pulse indicator
+                  </p>
+
+                  <div class="flex flex-wrap gap-3">
+                    <Badge variant="primary" pulse>Live</Badge>
+                    <Badge variant="success" pulse>Online</Badge>
+                    <Badge variant="error" pulse>Alert</Badge>
+                    <Badge variant="warning" pulse>Pending</Badge>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Alert ──────────────────────────────────────────── -->
+          <section id="alert" class="scroll-mt-24 flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <h2 class="text-2xl font-bold text-(--color-text-base)">Alert</h2>
+
+              <p class="text-sm text-(--color-text-muted)">
+                Contextual feedback messages. Supports custom icon and title via named slots.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">Alert.astro</span>
+              </div>
+
+              <div class="flex flex-col gap-4 p-6">
+                <Alert variant="info" title="Information">This is an informational message with some useful context for the user.</Alert>
+                <Alert variant="success" title="Success">Your changes have been saved successfully.</Alert>
+                <Alert variant="warning" title="Warning">Please review your input before continuing.</Alert>
+                <Alert variant="error" title="Error">Something went wrong. Please try again.</Alert>
+                <Alert variant="info" title="Dismissible" dismissible>Click the × to dismiss this alert.</Alert>
+                <Alert variant="success">Alert without a title — just body text.</Alert>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Input ──────────────────────────────────────────── -->
+          <section id="input" class="scroll-mt-24 flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <h2 class="text-2xl font-bold text-(--color-text-base)">Input</h2>
+
+              <p class="text-sm text-(--color-text-muted)">
+                Text input with label, hint, error state and size variants. The <code class="rounded bg-(--color-bg-surface) px-1">name</code> prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls back to <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">Input.astro</span>
+              </div>
+
+              <div class="flex flex-col gap-8 p-6">
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Sizes</p>
+                  <div class="flex flex-wrap items-end gap-4">
+                    <Input name="size-sm" size="sm" placeholder="Small" />
+                    <Input name="size-md" size="md" placeholder="Medium (default)" />
+                    <Input name="size-lg" size="lg" placeholder="Large" />
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">With label and hint</p>
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <Input name="email" type="email" label="Email address" placeholder="you@example.com" hint="We'll never share your email." fullWidth />
+                    <Input name="password" type="password" label="Password" placeholder="••••••••" required fullWidth />
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Error state</p>
+                  <Input name="email-error" type="email" label="Email address" value="not-an-email" error="Please enter a valid email address." />
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Disabled</p>
+                  <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
+                </div>
+
+                <div class="flex flex-col gap-3">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Full width</p>
+                  <Input name="fullwidth" label="Full width" placeholder="Stretches to fill its container" fullWidth />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Modal ──────────────────────────────────────────── -->
+          <section id="modal" class="scroll-mt-24 flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <h2 class="text-2xl font-bold text-(--color-text-base)">Modal</h2>
+
+              <p class="text-sm text-(--color-text-muted)">
+                Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop, ESC and backdrop-click to close. Open with <code class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code> on any element.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">Modal.astro</span>
+              </div>
+
+              <div class="flex flex-wrap gap-3 p-6">
+                <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
+                <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
+                <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
+                <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Card ───────────────────────────────────────────── -->
+          <section id="card" class="scroll-mt-24 flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+              <h2 class="text-2xl font-bold text-(--color-text-base)">Card</h2>
+
+              <p class="text-sm text-(--color-text-muted)">
+                Flexible content container. <code class="rounded bg-(--color-bg-surface) px-1">title</code> and <code class="rounded bg-(--color-bg-surface) px-1">desc</code> accept props or named slots. Icon always via <code class="rounded bg-(--color-bg-surface) px-1">slot="icon"</code>.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+                <span class="ml-2 text-xs text-(--color-text-muted)">Card.astro</span>
+              </div>
+
+              <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 lg:grid-cols-3">
+                <Card title="Default" desc="Hover border enabled by default.">
+                  <span slot="icon">🎨</span>
+                </Card>
+
+                <Card title="With shadow" desc="shadow prop adds a subtle drop shadow." shadow>
+                  <span slot="icon">⚡</span>
+                </Card>
+
+                <Card title="No icon" desc="Icon slot is optional — omit for a cleaner look." />
+
+                <Card title="Large padding" desc="padding=lg gives more breathing room." padding="lg">
+                  <span slot="icon">📦</span>
+                </Card>
+
+                <Card title="Rounded 2xl" desc="rounded prop controls border radius." rounded="2xl">
+                  <span slot="icon">🔵</span>
+                </Card>
+
+                <Card title="No hover" desc="hover=false disables border highlight." hover={false}>
+                  <span slot="icon">🌙</span>
+                </Card>
+
+                <Card padding="md">
+                  <p class="text-sm text-(--color-text-muted)">
+                    Card with only a <strong class="text-(--color-text-base)">default slot</strong> — fully custom content.
+                  </p>
+                  <Button variant="primary" size="sm">Action</Button>
+                </Card>
+              </div>
+            </div>
+          </section>
         </div>
-      </Container>
-    </Section>
+      </div>
+    </Container>
   </main>
+
+  <script>
+    // * Intersection Observer highlights the active sidebar link as the user scrolls.
+    //   AbortController ensures clean re-init after View Transitions.
+    let controller: AbortController | null = null
+
+    function initSidebarNav() {
+      controller?.abort()
+      controller = new AbortController()
+      const { signal } = controller
+
+      const links = document.querySelectorAll<HTMLAnchorElement>("aside nav a[href^='#']")
+      if (!links.length) return
+
+      const sections = Array.from(links)
+        .map((l) => document.querySelector<HTMLElement>(l.getAttribute("href")!))
+        .filter(Boolean) as HTMLElement[]
+
+      function setActive(id: string) {
+        links.forEach((l) => {
+          const active = l.getAttribute("href") === `#${id}`
+          l.classList.toggle("bg-(--color-bg-surface)", active)
+          l.classList.toggle("text-(--color-text-base)", active)
+          l.classList.toggle("text-(--color-text-muted)", !active)
+        })
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.find((e) => e.isIntersecting)
+          if (visible) setActive(visible.target.id)
+        },
+        { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+      )
+
+      sections.forEach((s) => observer.observe(s))
+
+      signal.addEventListener("abort", () => observer.disconnect())
+    }
+
+    initSidebarNav()
+    document.addEventListener("astro:page-load", initSidebarNav)
+  </script>
+
+  <!-- Modals outside flow so they can cover the full viewport -->
+  <Modal id="modal-default" title="Confirm action" size="md">
+    <p class="text-(--color-text-muted)">Are you sure you want to continue? This action cannot be undone.</p>
+    <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
+    <Button slot="footer" variant="danger">Delete</Button>
+  </Modal>
+
+  <Modal id="modal-sm" title="Quick note" size="sm">
+    <p class="text-(--color-text-muted)">A compact modal for short confirmations or notices.</p>
+    <Button slot="footer" variant="primary" data-modal-close>Got it</Button>
+  </Modal>
+
+  <Modal id="modal-lg" title="Edit profile" size="lg">
+    <div class="flex flex-col gap-4">
+      <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
+      <Input name="modal-email" type="email" label="Email address" placeholder="jane@example.com" fullWidth />
+      <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
+    </div>
+    <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
+    <Button slot="footer" variant="primary">Save changes</Button>
+  </Modal>
+
+  <Modal id="modal-no-footer" title="Information">
+    <p class="text-(--color-text-muted)">
+      This modal has no footer slot — useful for informational content where no action is needed.
+      Close with the × button, the backdrop, or the ESC key.
+    </p>
+  </Modal>
 
   <Footer />
 </BaseLayout>

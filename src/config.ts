@@ -66,7 +66,7 @@ export interface NavLink {
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Features", href: "#features" },
-  { label: "Docs", href: "https://astro.build/docs" },
+  { label: "GitHub", href: "https://github.com/zsoltrigler/core-boilerplate-astro" },
 ]
 
 // ── Social Links ──────────────────────────────────────────────────────────────

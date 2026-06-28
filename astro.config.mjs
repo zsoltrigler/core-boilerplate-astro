@@ -107,14 +107,10 @@ for (const { name, fg, bg, min } of contrastPairs) {
   }
 }
 
-// * Resolve site URL dynamically — no hardcoded domain anywhere.
-//   Vercel sets these env vars automatically; locally reads PORT to match the dev server.
+// * Set SITE_URL in your deployment environment — works on any platform.
+//   Falls back to localhost for local development.
 const port = process.env.PORT ?? "4321"
-const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-  : process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : `http://localhost:${port}`
+const siteUrl = process.env.SITE_URL ?? `http://localhost:${port}`
 
 // https://astro.build/config
 export default defineConfig({
