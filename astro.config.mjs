@@ -55,7 +55,7 @@ function colorTokensPlugin() {
     name: "color-tokens",
     enforce: "pre",
     transform(code, id) {
-      if (!id.includes("global.css")) return
+      if (!id.endsWith("/global.css")) return
       if (!code.includes("/* @inject-color-tokens */")) return
       return { code: code.replace("/* @inject-color-tokens */", tokens), map: null }
     },
@@ -65,7 +65,11 @@ function colorTokensPlugin() {
 // ── WCAG contrast checks ──────────────────────────────────────────────────────
 // * Runs at build time. Logs a warning — does NOT fail the build — so you can
 //   iterate on colors without being blocked.
-// TODO: Consider throwing an error in CI environments for stricter enforcement.
+// * In CI, contrast failures are hard errors to prevent regressions from shipping.
+function warnOrThrow(msg) {
+  if (process.env.CI) throw new Error(msg)
+  console.warn(msg)
+}
 
 const contrastPairs = [
   { name: "textBase on bgBase (light)", fg: COLORS.textBase, bg: COLORS.bgBase, min: 4.5 },
@@ -101,7 +105,7 @@ const contrastPairs = [
 for (const { name, fg, bg, min } of contrastPairs) {
   const ratio = hex(fg, bg)
   if (ratio < min) {
-    console.warn(
+    warnOrThrow(
       `[contrast] FAIL "${name}": ${ratio.toFixed(2)}:1 (min ${min}:1) — fix COLORS in src/config.ts`
     )
   }

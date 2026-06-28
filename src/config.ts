@@ -41,7 +41,7 @@ export const COLORS = {
     textMuted: "#94a3b8",
     borderBase: "#334155",
     borderStrong: "#475569",
-    brandPrimary: "#6366f1",
+    brandPrimary: "#5b5fef",
   },
 } as const
 
@@ -53,6 +53,7 @@ export const SITE = {
   showName: true, // show site name text next to the logo
   favicon: "/favicon.svg",
   ogImage: "/og-default.jpg", // default Open Graph image — must be JPG/PNG (SVG not supported by social platforms)
+  twitterHandle: "", // e.g. "@yourusername" — enables twitter:site meta tag when set
   lang: "en",
   allRightsReserved: "All rights reserved.",
 } as const
@@ -64,10 +65,10 @@ export interface NavLink {
   href: string
 }
 
-export const NAV_LINKS: NavLink[] = [
+export const NAV_LINKS = [
   { label: "Features", href: "#features" },
   { label: "GitHub", href: "https://github.com/zsoltrigler/core-boilerplate-astro" },
-]
+] as const satisfies NavLink[]
 
 // ── Social Links ──────────────────────────────────────────────────────────────
 // * Rendered in the Footer. Remove entries you don't need.

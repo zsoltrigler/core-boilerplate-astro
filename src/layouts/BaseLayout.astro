@@ -123,6 +123,7 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={resolvedOgImage} />
+    {SITE.twitterHandle && <meta name="twitter:site" content={SITE.twitterHandle} />}
 
     <!-- Icons & Manifest -->
     <link rel="icon" type="image/svg+xml" href={SITE.favicon} />

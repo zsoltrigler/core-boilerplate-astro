@@ -76,19 +76,19 @@ const base = [
     disabled={disabled}
     required={required}
     aria-invalid={error ? "true" : undefined}
-    aria-describedby={error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined}
+    aria-describedby={[error && `${inputId}-error`, hint && `${inputId}-hint`].filter((x): x is string => !!x).join(" ") || undefined}
     class={base}
   />
 
-  {
-    error ? (
-      <p id={`${inputId}-error`} class="text-sm text-(--color-status-error)" role="alert">
-        {error}
-      </p>
-    ) : hint ? (
-      <p id={`${inputId}-hint`} class="text-sm text-(--color-text-muted)">
-        {hint}
-      </p>
-    ) : null
-  }
+  {error && (
+    <p id={`${inputId}-error`} class="text-sm text-(--color-status-error)" role="alert">
+      {error}
+    </p>
+  )}
+
+  {hint && (
+    <p id={`${inputId}-hint`} class="text-sm text-(--color-text-muted)">
+      {hint}
+    </p>
+  )}
 </div>
