@@ -100,6 +100,18 @@ const contrastPairs = [
     bg: COLORS.dark.bgSurface,
     min: 4.5,
   },
+
+  // * Status colors as text on light bg (Badge, Alert) — symmetric: also validates white text on them (Danger button)
+  { name: "statusSuccess on bgBase (light)", fg: COLORS.statusSuccess, bg: COLORS.bgBase, min: 4.5 },
+  { name: "statusWarning on bgBase (light)", fg: COLORS.statusWarning, bg: COLORS.bgBase, min: 4.5 },
+  { name: "statusError on bgBase (light)", fg: COLORS.statusError, bg: COLORS.bgBase, min: 4.5 },
+  { name: "statusInfo on bgBase (light)", fg: COLORS.statusInfo, bg: COLORS.bgBase, min: 4.5 },
+
+  // * Status colors as text on dark bg (Badge, Alert in dark mode)
+  { name: "statusSuccess on bgBase (dark)", fg: COLORS.dark.statusSuccess, bg: COLORS.dark.bgBase, min: 4.5 },
+  { name: "statusWarning on bgBase (dark)", fg: COLORS.dark.statusWarning, bg: COLORS.dark.bgBase, min: 4.5 },
+  { name: "statusError on bgBase (dark)", fg: COLORS.dark.statusError, bg: COLORS.dark.bgBase, min: 4.5 },
+  { name: "statusInfo on bgBase (dark)", fg: COLORS.dark.statusInfo, bg: COLORS.dark.bgBase, min: 4.5 },
 ]
 
 for (const { name, fg, bg, min } of contrastPairs) {

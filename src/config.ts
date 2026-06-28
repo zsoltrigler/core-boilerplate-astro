@@ -27,10 +27,12 @@ export const COLORS = {
   brandAccent: "#06b6d4",
   borderBase: "#e2e8f0",
   borderStrong: "#cbd5e1",
-  statusSuccess: "#22c55e",
-  statusWarning: "#f59e0b",
-  statusError: "#ef4444",
-  statusInfo: "#3b82f6",
+  // * Darkened to pass WCAG AA (4.5:1) on white — math is symmetric, so these
+  //   also pass as backgrounds with white text (e.g. Danger button).
+  statusSuccess: "#15803d", // green-700  — 5.02:1 on white
+  statusWarning: "#b45309", // amber-700  — 5.02:1 on white
+  statusError: "#dc2626",   // red-600    — 4.83:1 on white
+  statusInfo: "#2563eb",    // blue-600   — 5.17:1 on white
 
   // * Dark mode overrides — omit a key to inherit its light-mode value.
   dark: {
@@ -42,6 +44,11 @@ export const COLORS = {
     borderBase: "#334155",
     borderStrong: "#475569",
     brandPrimary: "#5b5fef",
+    // * Bright status colors for dark mode — high contrast on dark backgrounds.
+    statusSuccess: "#22c55e", // green-500  — 7.83:1 on bgBase dark
+    statusWarning: "#f59e0b", // amber-400  — 8.31:1 on bgBase dark
+    statusError: "#f87171",   // red-400    — 6.21:1 on bgBase dark
+    statusInfo: "#60a5fa",    // blue-400   — 6.31:1 on bgBase dark
   },
 } as const
 
