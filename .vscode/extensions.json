@@ -7,7 +7,6 @@
     "christian-kohler.path-intellisense",
     "aaron-bond.better-comments",
     "esbenp.prettier-vscode"
-    "aaron-bond.better-comments"
   ],
   "unwantedRecommendations": []
 }
