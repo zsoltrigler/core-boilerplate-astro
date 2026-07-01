@@ -22,8 +22,6 @@ interface Props {
   modifiedDate?: string
   /** Author name injected into the <meta name="author"> tag. */
   author?: string
-  /** Comma-separated keywords for the <meta name="keywords"> tag. */
-  keywords?: string
   /** Set to true to add <meta name="robots" content="noindex, nofollow">. */
   noindex?: boolean
   /** BCP 47 language tag for the <html lang> attribute. */
@@ -41,7 +39,6 @@ const {
   publishedDate,
   modifiedDate,
   author = SITE.author || undefined,
-  keywords = SITE.keywords || undefined,
   noindex = false,
   lang = SITE.lang,
   siteName = SITE.name,
@@ -93,7 +90,6 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
     <!-- Primary Meta -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {keywords && <meta name="keywords" content={keywords} />}
     {author && <meta name="author" content={author} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
