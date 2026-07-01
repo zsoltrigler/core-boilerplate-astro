@@ -148,7 +148,7 @@ import { SITE, NAV_LINKS } from "../../config"
         btn.querySelector("[data-icon-close]")?.classList.toggle("hidden", !open)
       }
 
-      btn.addEventListener("click", () => setOpen(menu.hidden), { signal })
+      btn.addEventListener("click", () => setOpen(menu.hidden === true), { signal })
 
       // Close on nav link click (hash / same-page navigation)
       menu.querySelectorAll<HTMLElement>("[data-mobile-nav-link]").forEach((link) => {
