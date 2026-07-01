@@ -1,0 +1,60 @@
+---
+import Button from "../ui/Button.astro"
+import Input from "../ui/Input.astro"
+import Modal from "../ui/Modal.astro"
+---
+
+<section id="modal" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Modal</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop, ESC and backdrop-click to close. Open with <code class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code> on any element.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Modal.astro</span>
+    </div>
+
+    <div class="flex flex-wrap gap-3 p-6">
+      <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
+      <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
+      <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
+      <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
+    </div>
+  </div>
+</section>
+
+<!-- Modals outside flow so they can cover the full viewport -->
+<Modal id="modal-default" title="Confirm action" size="md">
+  <p class="text-(--color-text-muted)">Are you sure you want to continue? This action cannot be undone.</p>
+  <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
+  <Button slot="footer" variant="danger">Delete</Button>
+</Modal>
+
+<Modal id="modal-sm" title="Quick note" size="sm">
+  <p class="text-(--color-text-muted)">A compact modal for short confirmations or notices.</p>
+  <Button slot="footer" variant="primary" data-modal-close>Got it</Button>
+</Modal>
+
+<Modal id="modal-lg" title="Edit profile" size="lg">
+  <div class="flex flex-col gap-4">
+    <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
+    <Input name="modal-email" type="email" label="Email address" placeholder="jane@example.com" fullWidth />
+    <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
+  </div>
+  <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
+  <Button slot="footer" variant="primary">Save changes</Button>
+</Modal>
+
+<Modal id="modal-no-footer" title="Information">
+  <p class="text-(--color-text-muted)">
+    This modal has no footer slot — useful for informational content where no action is needed.
+    Close with the × button, the backdrop, or the ESC key.
+  </p>
+</Modal>

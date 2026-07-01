@@ -1,0 +1,54 @@
+---
+import Button from "../ui/Button.astro"
+import Card from "../ui/Card.astro"
+---
+
+<section id="card" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Card</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Flexible content container. <code class="rounded bg-(--color-bg-surface) px-1">title</code> and <code class="rounded bg-(--color-bg-surface) px-1">desc</code> accept props or named slots. Icon always via <code class="rounded bg-(--color-bg-surface) px-1">slot="icon"</code>.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Card.astro</span>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 lg:grid-cols-3">
+      <Card title="Default" desc="Hover border enabled by default.">
+        <span slot="icon">🎨</span>
+      </Card>
+
+      <Card title="With shadow" desc="shadow prop adds a subtle drop shadow." shadow>
+        <span slot="icon">⚡</span>
+      </Card>
+
+      <Card title="No icon" desc="Icon slot is optional — omit for a cleaner look." />
+
+      <Card title="Large padding" desc="padding=lg gives more breathing room." padding="lg">
+        <span slot="icon">📦</span>
+      </Card>
+
+      <Card title="Rounded 2xl" desc="rounded prop controls border radius." rounded="2xl">
+        <span slot="icon">🔵</span>
+      </Card>
+
+      <Card title="No hover" desc="hover=false disables border highlight." hover={false}>
+        <span slot="icon">🌙</span>
+      </Card>
+
+      <Card padding="md">
+        <p class="text-sm text-(--color-text-muted)">
+          Card with only a <strong class="text-(--color-text-base)">default slot</strong> — fully custom content.
+        </p>
+        <Button variant="primary" size="sm">Action</Button>
+      </Card>
+    </div>
+  </div>
+</section>
