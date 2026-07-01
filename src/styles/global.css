@@ -95,6 +95,13 @@
       stroke 0.2s ease;
   }
 
+  /* * background-image with color-mix() cannot be transitioned via element-level transition.
+     Registering --color-border-base with @property makes color-mix() recompute on every
+     animation frame, so the body grid pattern fades with the background. */
+  :root {
+    transition: --color-border-base 0.2s ease;
+  }
+
   img,
   video {
     max-width: 100%;
