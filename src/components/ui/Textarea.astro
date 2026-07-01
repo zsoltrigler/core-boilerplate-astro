@@ -1,4 +1,6 @@
 ---
+import { ariaDescribedBy } from "../../utils/aria"
+
 export interface Props {
   name: string
   id?: string
@@ -67,7 +69,7 @@ const base = [
     disabled={disabled}
     required={required}
     aria-invalid={error ? "true" : undefined}
-    aria-describedby={[error && `${textareaId}-error`, hint && `${textareaId}-hint`].filter((x): x is string => !!x).join(" ") || undefined}
+    aria-describedby={ariaDescribedBy(textareaId, { error, hint })}
     class={base}
   >{value}</textarea>
 

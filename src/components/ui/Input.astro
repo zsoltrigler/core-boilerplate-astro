@@ -1,4 +1,6 @@
 ---
+import { ariaDescribedBy } from "../../utils/aria"
+
 export interface Props {
   /** Input type — covers the most common use cases. */
   type?: "text" | "email" | "password" | "search" | "url" | "tel" | "number"
@@ -76,7 +78,7 @@ const base = [
     disabled={disabled}
     required={required}
     aria-invalid={error ? "true" : undefined}
-    aria-describedby={[error && `${inputId}-error`, hint && `${inputId}-hint`].filter((x): x is string => !!x).join(" ") || undefined}
+    aria-describedby={ariaDescribedBy(inputId, { error, hint })}
     class={base}
   />
 
