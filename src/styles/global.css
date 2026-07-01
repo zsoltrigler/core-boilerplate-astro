@@ -3,6 +3,16 @@
 /* Use class-based dark mode strategy (toggled via <html class="dark">) */
 @variant dark (&:where(.dark, .dark *));
 
+/* * --grid-line is defined here (not via the Vite plugin) so it is always
+   available in dev and build. @property makes it typed so :root can
+   transition it — the ONLY use of this variable is body background-image,
+   so there is no double-transition risk with border or text animations. */
+@property --grid-line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(226, 232, 240, 0.3);
+}
+
 /* ============================================================
    Design System — Color Tokens
    ! Do not edit this section manually.
@@ -72,10 +82,11 @@
 
   body {
     background-color: var(--color-bg-base);
-    /* * Grid pattern — hardcoded rgba, single definition, no CSS variable dependency */
+    /* * Grid uses --grid-line which is registered above with @property so
+       :root can transition it independently of border/text animations */
     background-image:
-      linear-gradient(rgba(226, 232, 240, 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(226, 232, 240, 0.3) 1px, transparent 1px);
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 60px 60px;
     color: var(--color-text-base);
     font-family: var(--font-sans);
@@ -103,11 +114,15 @@
     }
   }
 
-  /* * Dark mode grid — override body background-image with dark-appropriate rgba */
-  .dark body {
-    background-image:
-      linear-gradient(rgba(51, 65, 85, 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(51, 65, 85, 0.3) 1px, transparent 1px);
+  /* * :root transition animates --grid-line so background-image recomputes
+     each frame — the only way to animate a CSS gradient. */
+  :root {
+    --grid-line: rgba(226, 232, 240, 0.3);
+    transition: --grid-line 0.2s ease;
+  }
+
+  .dark {
+    --grid-line: rgba(51, 65, 85, 0.3);
   }
 
   img,
