@@ -72,10 +72,10 @@
 
   body {
     background-color: var(--color-bg-base);
-    /* * Grid pattern — single source of truth; defined only here on body */
+    /* * Grid pattern — hardcoded rgba, single definition, no CSS variable dependency */
     background-image:
-      linear-gradient(var(--color-grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+      linear-gradient(rgba(226, 232, 240, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(226, 232, 240, 0.3) 1px, transparent 1px);
     background-size: 60px 60px;
     color: var(--color-text-base);
     font-family: var(--font-sans);
@@ -96,24 +96,18 @@
       stroke 0.2s ease;
   }
 
-  /* * background-image color-mix() cannot animate via element-level transition.
-     --color-grid-line is a dedicated token used ONLY here, so :root can transition
-     it without interfering with border-color animations on interactive elements. */
-  :root {
-    transition: --color-grid-line 0.2s ease;
-  }
-
   /* * Respect user's motion preference — disable all transitions */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       transition-duration: 0.01ms !important;
     }
+  }
 
-    /* ! transition: none required (not just duration) — Safari ignores
-       transition-duration overrides on @property custom-property transitions */
-    :root {
-      transition: none !important;
-    }
+  /* * Dark mode grid — override body background-image with dark-appropriate rgba */
+  .dark body {
+    background-image:
+      linear-gradient(rgba(51, 65, 85, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(51, 65, 85, 0.3) 1px, transparent 1px);
   }
 
   img,
