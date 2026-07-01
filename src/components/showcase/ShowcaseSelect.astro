@@ -24,17 +24,17 @@ import Select from "../ui/Select.astro"
         <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Sizes</p>
 
         <div class="flex flex-wrap items-end gap-4">
-          <Select name="select-sm" size="sm" placeholder="Small">
+          <Select name="select-sm" size="sm" aria-label="Small select" placeholder="Small">
             <option value="a">Option A</option>
             <option value="b">Option B</option>
           </Select>
 
-          <Select name="select-md" size="md" placeholder="Medium (default)">
+          <Select name="select-md" size="md" aria-label="Medium select" placeholder="Medium (default)">
             <option value="a">Option A</option>
             <option value="b">Option B</option>
           </Select>
 
-          <Select name="select-lg" size="lg" placeholder="Large">
+          <Select name="select-lg" size="lg" aria-label="Large select" placeholder="Large">
             <option value="a">Option A</option>
             <option value="b">Option B</option>
           </Select>

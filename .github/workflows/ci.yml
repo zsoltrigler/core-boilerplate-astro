@@ -1,6 +1,6 @@
 # CI pipeline — runs on every push and pull request targeting main.
-# Installs dependencies, type-checks, and builds the project.
-# A failing build blocks the PR from being merged.
+# Installs dependencies, lints, type-checks, builds, and runs Lighthouse CI.
+# Any failing step blocks the PR from being merged.
 
 name: CI
 
@@ -41,3 +41,8 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Lighthouse CI
+        run: pnpm exec lhci autorun
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
