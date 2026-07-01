@@ -11,6 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "format": "prettier --write .",
+    "type-check": "astro check",
     "check:contrast": "node scripts/contrast-check.mjs"
   },
   "dependencies": {
