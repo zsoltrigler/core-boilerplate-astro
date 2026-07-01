@@ -67,30 +67,14 @@
     })
   }
 
-  // * WeakMap ensures AbortControllers are GC'd when buttons are removed from the DOM.
-  const controllers = new WeakMap<HTMLElement, AbortController>()
+  const isDark = document.documentElement.classList.contains("dark")
 
-  function initToggle() {
-    const isDark = document.documentElement.classList.contains("dark")
+  document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
+    syncIcons(btn, isDark)
 
-    document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
-      // * Abort the previous listener before adding a new one to avoid duplicates.
-      controllers.get(btn)?.abort()
-      const controller = new AbortController()
-      controllers.set(btn, controller)
-
-      syncIcons(btn, isDark)
-
-      btn.addEventListener(
-        "click",
-        () => {
-          const nextTheme = document.documentElement.classList.contains("dark") ? "light" : "dark"
-          applyTheme(nextTheme)
-        },
-        { signal: controller.signal }
-      )
+    btn.addEventListener("click", () => {
+      const nextTheme = document.documentElement.classList.contains("dark") ? "light" : "dark"
+      applyTheme(nextTheme)
     })
-  }
-
-  initToggle()
+  })
 </script>

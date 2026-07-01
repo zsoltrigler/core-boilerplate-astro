@@ -15,10 +15,11 @@ function toKebab(str) {
   return str.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`)
 }
 
-/** Generate @property, @theme, .dark, and :root transition blocks from the COLORS object.
- * @property registration makes CSS color tokens typed so the browser can interpolate
- * them. Toggling .dark on <html> then smoothly transitions every var(--color-*) user
- * simultaneously — with zero JS timing hacks.
+/** Generate @property, @theme, and .dark blocks from the COLORS object.
+ * @property registration makes CSS color tokens typed (<color>) so the browser can
+ * interpolate between light and dark values. Combined with the universal
+ * * { transition: color, background-color, ... } rule in global.css, toggling
+ * .dark on <html> triggers smooth, synchronized transitions on every element.
  * @param {typeof import('./src/config.ts').COLORS} colors
  * @returns {string}
  */

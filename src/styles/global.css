@@ -91,15 +91,28 @@
       color 0.2s ease,
       background-color 0.2s ease,
       border-color 0.2s ease,
+      outline-color 0.2s ease,
+      box-shadow 0.2s ease,
       fill 0.2s ease,
       stroke 0.2s ease;
   }
 
-  /* * background-image with color-mix() cannot be transitioned via element-level transition.
-     Registering --color-border-base with @property makes color-mix() recompute on every
-     animation frame, so the body grid pattern fades with the background. */
+  /* * Transitions --color-border-base so that body's background-image grid
+     (which uses color-mix(var(--color-border-base))) recomputes each frame.
+     ! Update this if the body background-image references a different token. */
   :root {
     transition: --color-border-base 0.2s ease;
+  }
+
+  /* * Respect user's motion preference — collapse all transitions to near-instant */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+    }
+
+    :root {
+      transition-duration: 0.01ms !important;
+    }
   }
 
   img,
