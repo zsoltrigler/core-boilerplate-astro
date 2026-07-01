@@ -80,10 +80,6 @@
     color: var(--color-text-base);
     font-family: var(--font-sans);
     line-height: 1.6;
-    /* * Animate bg/color on theme switch without a layout flash */
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
   }
 
   *,

@@ -15,12 +15,27 @@ function toKebab(str) {
   return str.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`)
 }
 
-/** Generate @theme and .dark CSS blocks from the COLORS object.
+/** Generate @property, @theme, .dark, and :root transition blocks from the COLORS object.
+ * @property registration makes CSS color tokens typed so the browser can interpolate
+ * them. Toggling .dark on <html> then smoothly transitions every var(--color-*) user
+ * simultaneously — with zero JS timing hacks.
  * @param {typeof import('./src/config.ts').COLORS} colors
  * @returns {string}
  */
 function generateColorTokens(colors) {
   const { dark, ...light } = colors
+
+  // * @property must list light-mode values as initial-value (the baseline before .dark).
+  const propertyDeclarations = Object.entries(light)
+    .map(
+      ([k, v]) =>
+        `@property --color-${toKebab(k)} { syntax: '<color>'; inherits: true; initial-value: ${v}; }`
+    )
+    .join("\n")
+
+  const transitionList = Object.keys(light)
+    .map((k) => `--color-${toKebab(k)} 0.2s ease`)
+    .join(",\n    ")
 
   const themeVars = Object.entries(light)
     .map(([k, v]) => `  --color-${toKebab(k)}: ${v};`)
@@ -35,12 +50,22 @@ function generateColorTokens(colors) {
     `/* Auto-generated from COLORS in src/config.ts — do not edit here */`,
     `/* WCAG AA: min 4.5:1 for text, 3:1 for UI components */`,
     `/* Check: https://webaim.org/resources/contrastchecker/ */`,
+    ``,
+    `/* @property makes color tokens typed so the browser can interpolate them */`,
+    propertyDeclarations,
+    ``,
     `@theme {`,
     themeVars,
     `}`,
     ``,
     `.dark {`,
     darkVars,
+    `}`,
+    ``,
+    `/* Transition on :root (= <html>) fires when .dark toggles token values */`,
+    `:root {`,
+    `  transition:`,
+    `    ${transitionList};`,
     `}`,
   ].join("\n")
 }
