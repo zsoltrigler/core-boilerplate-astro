@@ -1,0 +1,101 @@
+---
+export interface Tab {
+  id: string
+  label: string
+}
+
+export interface Props {
+  tabs: Tab[]
+  /** ID of the tab that is active on first render. Defaults to the first tab. */
+  defaultTab?: string
+  class?: string
+}
+
+const { tabs, defaultTab, class: className = "" } = Astro.props
+
+const activeId = defaultTab ?? tabs[0]?.id
+---
+
+<div class={`w-full ${className}`}>
+  <!-- Tab list -->
+  <div
+    role="tablist"
+    class="flex gap-1 border-b border-(--color-border-base)"
+  >
+    {
+      tabs.map((tab) => (
+        <button
+          role="tab"
+          id={`tab-${tab.id}`}
+          aria-controls={`panel-${tab.id}`}
+          aria-selected={tab.id === activeId ? "true" : "false"}
+          data-tab={tab.id}
+          class={[
+            "px-4 py-2 text-sm font-medium transition-colors duration-200 -mb-px border-b-2 outline-none",
+            "focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40 rounded-t-md",
+            tab.id === activeId
+              ? "border-(--color-brand-primary) text-(--color-brand-primary)"
+              : "border-transparent text-(--color-text-muted) hover:text-(--color-text-base)",
+          ].join(" ")}
+        >
+          {tab.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Tab panels -->
+  {
+    tabs.map((tab) => (
+      <div
+        role="tabpanel"
+        id={`panel-${tab.id}`}
+        aria-labelledby={`tab-${tab.id}`}
+        hidden={tab.id !== activeId}
+        class="pt-4"
+      >
+        <slot name={tab.id} />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  function initTabs(root: Document | HTMLElement = document) {
+    root.querySelectorAll<HTMLElement>("[role='tablist']").forEach((tablist) => {
+      const tabs = Array.from(tablist.querySelectorAll<HTMLElement>("[role='tab']"))
+      const panels = tabs.map((t) =>
+        document.getElementById(t.getAttribute("aria-controls")!)
+      )
+
+      function activate(tab: HTMLElement) {
+        tabs.forEach((t, i) => {
+          const active = t === tab
+          t.setAttribute("aria-selected", active ? "true" : "false")
+          t.classList.toggle("border-(--color-brand-primary)", active)
+          t.classList.toggle("text-(--color-brand-primary)", active)
+          t.classList.toggle("border-transparent", !active)
+          t.classList.toggle("text-(--color-text-muted)", !active)
+          if (panels[i]) panels[i]!.hidden = !active
+        })
+        tab.focus()
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => activate(tab))
+
+        // * Arrow key navigation per WAI-ARIA tabs pattern.
+        tab.addEventListener("keydown", (e) => {
+          const idx = tabs.indexOf(tab)
+          if (e.key === "ArrowRight") activate(tabs[(idx + 1) % tabs.length])
+          if (e.key === "ArrowLeft") activate(tabs[(idx - 1 + tabs.length) % tabs.length])
+          if (e.key === "Home") activate(tabs[0])
+          if (e.key === "End") activate(tabs[tabs.length - 1])
+        })
+      })
+    })
+  }
+
+  initTabs()
+  document.addEventListener("astro:page-load", () => initTabs())
+</script>

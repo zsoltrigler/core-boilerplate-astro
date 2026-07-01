@@ -1,0 +1,52 @@
+---
+import Button from "../ui/Button.astro"
+---
+
+<section id="toast" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Toast</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Non-blocking notification. Add <code class="rounded bg-(--color-bg-surface) px-1">&lt;Toast /&gt;</code> once to your layout, then call <code class="rounded bg-(--color-bg-surface) px-1">window.toast("message", {"{ variant }"} )</code> from any script. Auto-dismisses after 4 seconds.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Toast.astro</span>
+    </div>
+
+    <div class="flex flex-col gap-3 p-6">
+      <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Variants</p>
+
+      <div class="flex flex-wrap gap-3">
+        <Button variant="secondary" data-toast="info">Info toast</Button>
+        <Button variant="secondary" data-toast="success">Success toast</Button>
+        <Button variant="secondary" data-toast="warning">Warning toast</Button>
+        <Button variant="secondary" data-toast="error">Error toast</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const messages: Record<string, string> = {
+    info: "Here is some useful information.",
+    success: "Your changes have been saved.",
+    warning: "Please review before continuing.",
+    error: "Something went wrong. Try again.",
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-toast]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const variant = btn.dataset.toast as "info" | "success" | "warning" | "error"
+      ;(window as unknown as Record<string, (msg: string, opts: object) => void>).toast?.(
+        messages[variant],
+        { variant }
+      )
+    })
+  })
+</script>

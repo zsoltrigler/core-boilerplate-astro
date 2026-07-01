@@ -1,0 +1,48 @@
+---
+import Textarea from "../ui/Textarea.astro"
+---
+
+<section id="textarea" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Textarea</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Multiline text input with label, hint, and error state. Vertically resizable by default.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Textarea.astro</span>
+    </div>
+
+    <div class="flex flex-col gap-8 p-6">
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Default</p>
+
+        <Textarea name="message" label="Message" placeholder="Write your message here…" fullWidth />
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">With hint</p>
+
+        <Textarea name="bio" label="Bio" placeholder="Tell us about yourself…" hint="Maximum 200 characters." rows={3} fullWidth />
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Error state</p>
+
+        <Textarea name="textarea-error" label="Description" error="Description is required." fullWidth />
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Disabled</p>
+
+        <Textarea name="textarea-disabled" label="Disabled textarea" value="This content cannot be edited." disabled fullWidth />
+      </div>
+    </div>
+  </div>
+</section>

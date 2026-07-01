@@ -10,8 +10,15 @@ import ShowcaseIconButton from "../components/showcase/ShowcaseIconButton.astro"
 import ShowcaseBadge from "../components/showcase/ShowcaseBadge.astro"
 import ShowcaseAlert from "../components/showcase/ShowcaseAlert.astro"
 import ShowcaseInput from "../components/showcase/ShowcaseInput.astro"
+import ShowcaseSelect from "../components/showcase/ShowcaseSelect.astro"
+import ShowcaseCheckbox from "../components/showcase/ShowcaseCheckbox.astro"
+import ShowcaseTextarea from "../components/showcase/ShowcaseTextarea.astro"
 import ShowcaseModal from "../components/showcase/ShowcaseModal.astro"
+import ShowcaseTabs from "../components/showcase/ShowcaseTabs.astro"
+import ShowcaseToast from "../components/showcase/ShowcaseToast.astro"
 import ShowcaseCard from "../components/showcase/ShowcaseCard.astro"
+import ShowcaseBreadcrumb from "../components/showcase/ShowcaseBreadcrumb.astro"
+import Toast from "../components/ui/Toast.astro"
 
 const components = [
   { id: "button", label: "Button" },
@@ -19,8 +26,14 @@ const components = [
   { id: "badge", label: "Badge" },
   { id: "alert", label: "Alert" },
   { id: "input", label: "Input" },
+  { id: "select", label: "Select" },
+  { id: "checkbox", label: "Checkbox" },
+  { id: "textarea", label: "Textarea" },
   { id: "modal", label: "Modal" },
+  { id: "tabs", label: "Tabs" },
+  { id: "toast", label: "Toast" },
   { id: "card", label: "Card" },
+  { id: "breadcrumb", label: "Breadcrumb" },
 ]
 ---
 
@@ -121,8 +134,14 @@ const components = [
           <ShowcaseBadge />
           <ShowcaseAlert />
           <ShowcaseInput />
+          <ShowcaseSelect />
+          <ShowcaseCheckbox />
+          <ShowcaseTextarea />
           <ShowcaseModal />
+          <ShowcaseTabs />
+          <ShowcaseToast />
           <ShowcaseCard />
+          <ShowcaseBreadcrumb />
         </div>
       </div>
     </Container>

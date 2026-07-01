@@ -1,0 +1,74 @@
+---
+import Select from "../ui/Select.astro"
+---
+
+<section id="select" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Select</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Dropdown select with label, hint, and error state. Uses the same size and styling system as <code class="rounded bg-(--color-bg-surface) px-1">Input</code>.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Select.astro</span>
+    </div>
+
+    <div class="flex flex-col gap-8 p-6">
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Sizes</p>
+
+        <div class="flex flex-wrap items-end gap-4">
+          <Select name="select-sm" size="sm" placeholder="Small">
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+          </Select>
+
+          <Select name="select-md" size="md" placeholder="Medium (default)">
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+          </Select>
+
+          <Select name="select-lg" size="lg" placeholder="Large">
+            <option value="a">Option A</option>
+            <option value="b">Option B</option>
+          </Select>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">With label and hint</p>
+
+        <Select name="country" label="Country" hint="Select the country where you are based." fullWidth>
+          <option value="">Choose a country…</option>
+          <option value="de">Germany</option>
+          <option value="hu">Hungary</option>
+          <option value="at">Austria</option>
+        </Select>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Error state</p>
+
+        <Select name="select-error" label="Role" error="Please select a role.">
+          <option value="">Choose a role…</option>
+          <option value="dev">Developer</option>
+          <option value="design">Designer</option>
+        </Select>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Disabled</p>
+
+        <Select name="select-disabled" label="Disabled select" disabled>
+          <option value="a">Not selectable</option>
+        </Select>
+      </div>
+    </div>
+  </div>
+</section>

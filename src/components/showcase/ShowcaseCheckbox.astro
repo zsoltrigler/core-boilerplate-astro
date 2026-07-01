@@ -1,0 +1,42 @@
+---
+import Checkbox from "../ui/Checkbox.astro"
+---
+
+<section id="checkbox" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Checkbox</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Accessible checkbox with label, error state, and disabled support.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Checkbox.astro</span>
+    </div>
+
+    <div class="flex flex-col gap-8 p-6">
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">States</p>
+
+        <div class="flex flex-col gap-3">
+          <Checkbox name="check-default" label="Unchecked" />
+          <Checkbox name="check-checked" label="Checked" checked />
+          <Checkbox name="check-required" label="Required field" required />
+          <Checkbox name="check-disabled" label="Disabled" disabled />
+          <Checkbox name="check-disabled-checked" label="Disabled and checked" disabled checked />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Error state</p>
+
+        <Checkbox name="check-error" label="I agree to the terms and conditions" error="You must accept the terms to continue." />
+      </div>
+    </div>
+  </div>
+</section>

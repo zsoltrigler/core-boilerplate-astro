@@ -1,0 +1,57 @@
+---
+export interface Props {
+  name: string
+  id?: string
+  /** Label text rendered next to the checkbox. */
+  label?: string
+  /** Pre-checks the checkbox. */
+  checked?: boolean
+  disabled?: boolean
+  required?: boolean
+  /** Error message shown below the checkbox. */
+  error?: string
+  class?: string
+}
+
+const {
+  name,
+  id,
+  label,
+  checked = false,
+  disabled = false,
+  required = false,
+  error,
+  class: className = "",
+} = Astro.props
+
+const checkboxId = id ?? name
+---
+
+<div class={`flex flex-col gap-1.5 ${className}`}>
+  <label class={`flex cursor-pointer items-center gap-2.5 ${disabled ? "cursor-not-allowed opacity-50" : ""}`}>
+    <input
+      type="checkbox"
+      id={checkboxId}
+      name={name}
+      checked={checked}
+      disabled={disabled}
+      required={required}
+      aria-invalid={error ? "true" : undefined}
+      aria-describedby={error ? `${checkboxId}-error` : undefined}
+      class="h-4 w-4 cursor-pointer rounded border-(--color-border-base) bg-(--color-bg-base) accent-(--color-brand-primary) disabled:cursor-not-allowed"
+    />
+
+    {label && (
+      <span class="text-sm font-medium text-(--color-text-base)">
+        {label}
+        {required && <span class="ml-0.5 text-(--color-status-error)">*</span>}
+      </span>
+    )}
+  </label>
+
+  {error && (
+    <p id={`${checkboxId}-error`} class="text-sm text-(--color-status-error)" role="alert">
+      {error}
+    </p>
+  )}
+</div>
