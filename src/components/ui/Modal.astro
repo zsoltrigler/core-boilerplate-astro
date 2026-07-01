@@ -30,7 +30,6 @@ const sizes: Record<string, string> = {
   <!-- * Inner wrapper handles flex layout and overflow clipping separately from
        the dialog element — overflow-hidden on <dialog> would prevent body scroll. -->
   <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
-
     <!-- Header -->
     {
       (title || Astro.slots.has("title")) && (
@@ -57,8 +56,8 @@ const sizes: Record<string, string> = {
               stroke-linejoin="round"
               aria-hidden="true"
             >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
@@ -78,7 +77,6 @@ const sizes: Record<string, string> = {
         </div>
       )
     }
-
   </div>
 </dialog>
 
@@ -86,9 +84,7 @@ const sizes: Record<string, string> = {
   // * Open: any element with [data-modal-open="<id>"] triggers the matching dialog.
   document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
-      const modal = document.getElementById(
-        trigger.dataset.modalOpen!
-      ) as HTMLDialogElement | null
+      const modal = document.getElementById(trigger.dataset.modalOpen!) as HTMLDialogElement | null
       modal?.showModal()
     })
   })
@@ -101,7 +97,9 @@ const sizes: Record<string, string> = {
 
     // ! Backdrop click — <dialog> fills the viewport when open; clicks outside
     //   the inner panel land on the <dialog> element itself, not its children.
-    modal.addEventListener("click", (e) => { if (e.target === modal) modal.close() })
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.close()
+    })
 
     // ESC is handled natively by the browser for <dialog> — no extra code needed.
   })

@@ -70,18 +70,22 @@ const base = [
     required={required}
     aria-invalid={error ? "true" : undefined}
     aria-describedby={ariaDescribedBy(textareaId, { error, hint })}
-    class={base}
-  >{value}</textarea>
+    class={base}>{value}</textarea
+  >
 
-  {error && (
-    <p id={`${textareaId}-error`} class="text-sm text-(--color-status-error)" role="alert">
-      {error}
-    </p>
-  )}
+  {
+    error && (
+      <p id={`${textareaId}-error`} class="text-sm text-(--color-status-error)" role="alert">
+        {error}
+      </p>
+    )
+  }
 
-  {hint && (
-    <p id={`${textareaId}-hint`} class="text-sm text-(--color-text-muted)">
-      {hint}
-    </p>
-  )}
+  {
+    hint && (
+      <p id={`${textareaId}-hint`} class="text-sm text-(--color-text-muted)">
+        {hint}
+      </p>
+    )
+  }
 </div>

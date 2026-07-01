@@ -79,19 +79,29 @@ const base = [
     aria-describedby={ariaDescribedBy(selectId, { error, hint })}
     class={base}
   >
-    {placeholder && <option value="" disabled selected>{placeholder}</option>}
+    {
+      placeholder && (
+        <option value="" disabled selected>
+          {placeholder}
+        </option>
+      )
+    }
     <slot />
   </select>
 
-  {error && (
-    <p id={`${selectId}-error`} class="text-sm text-(--color-status-error)" role="alert">
-      {error}
-    </p>
-  )}
+  {
+    error && (
+      <p id={`${selectId}-error`} class="text-sm text-(--color-status-error)" role="alert">
+        {error}
+      </p>
+    )
+  }
 
-  {hint && (
-    <p id={`${selectId}-hint`} class="text-sm text-(--color-text-muted)">
-      {hint}
-    </p>
-  )}
+  {
+    hint && (
+      <p id={`${selectId}-hint`} class="text-sm text-(--color-text-muted)">
+        {hint}
+      </p>
+    )
+  }
 </div>

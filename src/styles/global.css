@@ -109,7 +109,9 @@
 
   /* * Respect user's motion preference — disable all transitions */
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       transition-duration: 0.01ms !important;
     }
 
@@ -178,5 +180,4 @@
     font-weight: var(--font-weight-black);
     color: color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
   }
-
 }

@@ -5,31 +5,53 @@ import ShowcaseSection from "./ShowcaseSection.astro"
 
 <ShowcaseSection id="tabs" title="Tabs">
   <Fragment slot="description">
-      Accessible tabbed interface. Supports arrow-key navigation per the WAI-ARIA tabs pattern. Each tab panel is a named slot matching the tab <code class="rounded bg-(--color-bg-surface) px-1">id</code>.
+    Accessible tabbed interface. Supports arrow-key navigation per the WAI-ARIA tabs pattern. Each
+    tab panel is a named slot matching the tab <code class="rounded bg-(--color-bg-surface) px-1"
+      >id</code
+    >.
   </Fragment>
 
-    <div class="p-6">
-      <Tabs tabs={[{ id: "overview", label: "Overview" }, { id: "usage", label: "Usage" }, { id: "props", label: "Props" }]}>
-        <div slot="overview" class="text-sm text-(--color-text-muted)">
-          <p>The <strong class="text-(--color-text-base)">Tabs</strong> component renders an accessible tab list and matching panels. Pass an array of <code class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code> objects and provide a named slot for each tab ID.</p>
-        </div>
+  <div class="p-6">
+    <Tabs
+      tabs={[
+        { id: "overview", label: "Overview" },
+        { id: "usage", label: "Usage" },
+        { id: "props", label: "Props" },
+      ]}
+    >
+      <div slot="overview" class="text-sm text-(--color-text-muted)">
+        <p>
+          The <strong class="text-(--color-text-base)">Tabs</strong> component renders an accessible tab
+          list and matching panels. Pass an array of <code
+            class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code
+          > objects and provide a named slot for each tab ID.
+        </p>
+      </div>
 
-        <div slot="usage" class="text-sm text-(--color-text-muted)">
-          <pre class="overflow-x-auto rounded-lg bg-(--color-bg-elevated) p-4 text-xs"><code>{`<Tabs tabs={[
+      <div slot="usage" class="text-sm text-(--color-text-muted)">
+        <pre
+          class="overflow-x-auto rounded-lg bg-(--color-bg-elevated) p-4 text-xs"><code>{`<Tabs tabs={[
   { id: "tab1", label: "Tab 1" },
   { id: "tab2", label: "Tab 2" },
 ]}>
   <div slot="tab1">Content for tab 1</div>
   <div slot="tab2">Content for tab 2</div>
 </Tabs>`}</code></pre>
-        </div>
+      </div>
 
-        <div slot="props" class="text-sm text-(--color-text-muted)">
-          <ul class="flex flex-col gap-1">
-            <li><code class="rounded bg-(--color-bg-surface) px-1">tabs</code> — array of <code class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code> objects (required)</li>
-            <li><code class="rounded bg-(--color-bg-surface) px-1">defaultTab</code> — ID of the initially active tab (defaults to first)</li>
-          </ul>
-        </div>
-      </Tabs>
-    </div>
+      <div slot="props" class="text-sm text-(--color-text-muted)">
+        <ul class="flex flex-col gap-1">
+          <li>
+            <code class="rounded bg-(--color-bg-surface) px-1">tabs</code> — array of <code
+              class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code
+            > objects (required)
+          </li>
+          <li>
+            <code class="rounded bg-(--color-bg-surface) px-1">defaultTab</code> — ID of the initially
+            active tab (defaults to first)
+          </li>
+        </ul>
+      </div>
+    </Tabs>
+  </div>
 </ShowcaseSection>

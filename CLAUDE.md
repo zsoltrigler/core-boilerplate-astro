@@ -14,12 +14,15 @@ Production-ready Astro 7 + Tailwind 4 boilerplate. Free marketing tool for a pre
 ## Key architecture decisions
 
 ### Color tokens
+
 All colors live in `src/config.ts` → `COLORS`. A Vite plugin in `astro.config.mjs` injects them into `global.css` at build time as CSS custom properties. **Never hardcode colors anywhere else.**
 
 ### WCAG AA enforcement
+
 `scripts/contrast-check.mjs` checks 24 color pairs at build time. Locally: warns. In CI (`CI=true`): throws and blocks the build. Run standalone with `pnpm check:contrast`.
 
 ### CSS strategy
+
 `cssCodeSplit: false` in Vite config — all CSS lands in one file, preventing render-blocking component CSS chunks.
 
 ## Commands

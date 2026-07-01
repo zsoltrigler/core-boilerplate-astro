@@ -5,19 +5,23 @@ import ShowcaseSection from "./ShowcaseSection.astro"
 
 <ShowcaseSection id="toast" title="Toast">
   <Fragment slot="description">
-      Non-blocking notification. Add <code class="rounded bg-(--color-bg-surface) px-1">&lt;Toast /&gt;</code> once to your layout, then call <code class="rounded bg-(--color-bg-surface) px-1">window.toast("message", {"{ variant }"} )</code> from any script. Auto-dismisses after 4 seconds.
+    Non-blocking notification. Add <code class="rounded bg-(--color-bg-surface) px-1"
+      >&lt;Toast /&gt;</code
+    > once to your layout, then call <code class="rounded bg-(--color-bg-surface) px-1"
+      >window.toast("message", {"{ variant }"} )</code
+    > from any script. Auto-dismisses after 4 seconds.
   </Fragment>
 
-    <div class="flex flex-col gap-3 p-6">
-      <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Variants</p>
+  <div class="flex flex-col gap-3 p-6">
+    <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">Variants</p>
 
-      <div class="flex flex-wrap gap-3">
-        <Button variant="secondary" data-toast="info">Info toast</Button>
-        <Button variant="secondary" data-toast="success">Success toast</Button>
-        <Button variant="secondary" data-toast="warning">Warning toast</Button>
-        <Button variant="secondary" data-toast="error">Error toast</Button>
-      </div>
+    <div class="flex flex-wrap gap-3">
+      <Button variant="secondary" data-toast="info">Info toast</Button>
+      <Button variant="secondary" data-toast="success">Success toast</Button>
+      <Button variant="secondary" data-toast="warning">Warning toast</Button>
+      <Button variant="secondary" data-toast="error">Error toast</Button>
     </div>
+  </div>
 </ShowcaseSection>
 
 <script>

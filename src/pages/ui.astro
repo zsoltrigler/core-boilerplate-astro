@@ -38,7 +38,11 @@ const components = [
 ]
 ---
 
-<BaseLayout title="UI Components" description="All available UI components in Core Boilerplate." noindex={true}>
+<BaseLayout
+  title="UI Components"
+  description="All available UI components in Core Boilerplate."
+  noindex={true}
+>
   <Header>
     <Button slot="nav-end" href="/" variant="ghost" size="md">← Back to home</Button>
   </Header>
@@ -53,7 +57,8 @@ const components = [
       <div
         class="pointer-events-none absolute inset-0"
         style="background: radial-gradient(ellipse 60% 80% at 80% 50%, color-mix(in srgb, var(--color-brand-primary) 10%, transparent) 0%, transparent 70%);"
-      ></div>
+      >
+      </div>
 
       <Container class="relative z-10">
         <div class="grid grid-cols-1 gap-10 py-16 lg:grid-cols-2 lg:items-center">
@@ -80,7 +85,7 @@ const components = [
                       href={`#${c.id}`}
                       class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-muted) transition-colors hover:bg-(--color-bg-elevated) hover:text-(--color-text-base)"
                     >
-                      <span class="h-1.5 w-1.5 rounded-full bg-(--color-brand-primary)"></span>
+                      <span class="h-1.5 w-1.5 rounded-full bg-(--color-brand-primary)" />
                       {c.label}
                     </a>
                   ))
@@ -98,7 +103,9 @@ const components = [
         <!-- Sidebar -->
         <aside class="hidden w-44 shrink-0 lg:block">
           <nav aria-label="Component navigation" class="sticky top-24 flex flex-col gap-1">
-            <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+            <p
+              class="mb-2 text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+            >
               Components
             </p>
 
