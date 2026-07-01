@@ -2,6 +2,7 @@
 import Button from "../ui/Button.astro"
 import Input from "../ui/Input.astro"
 import Modal from "../ui/Modal.astro"
+import CodeWindow from "../ui/CodeWindow.astro"
 ---
 
 <section id="modal" class="scroll-mt-24 flex flex-col gap-6">
@@ -13,13 +14,7 @@ import Modal from "../ui/Modal.astro"
     </p>
   </div>
 
-  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
-    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
-      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
-      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
-      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
-      <span class="ml-2 text-xs text-(--color-text-muted)">Modal.astro</span>
-    </div>
+  <CodeWindow label="Modal.astro">
 
     <div class="flex flex-wrap gap-3 p-6">
       <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
@@ -27,7 +22,7 @@ import Modal from "../ui/Modal.astro"
       <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
       <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
     </div>
-  </div>
+</CodeWindow>
 </section>
 
 <!-- Modals outside flow so they can cover the full viewport -->

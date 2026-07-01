@@ -9,6 +9,7 @@ import Button from "../components/ui/Button.astro"
 import Card from "../components/ui/Card.astro"
 import Alert from "../components/ui/Alert.astro"
 import Input from "../components/ui/Input.astro"
+import CodeWindow from "../components/ui/CodeWindow.astro"
 import { SITE, SOCIAL_LINKS } from "../config"
 
 const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
@@ -98,15 +99,7 @@ const stats = [
 
           <!-- Right: code snippet -->
           <div class="hidden lg:block">
-            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
-              <!-- Window chrome -->
-              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
-                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
-                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
-                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
-                <span class="ml-2 text-xs text-(--color-text-muted)">src/config.ts</span>
-              </div>
-
+            <CodeWindow label="src/config.ts">
               <!-- Code -->
               <pre
                 class="overflow-x-auto p-5 text-sm leading-relaxed"><code><span class="text-(--color-text-muted)">// ← Your single source of truth</span>
@@ -121,7 +114,7 @@ const stats = [
     <span class="text-(--color-brand-accent)">brandPrimary</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"#6366f1"</span><span class="text-(--color-text-muted)">,</span>
   <span class="text-(--color-text-base)">{`}`}</span><span class="text-(--color-text-muted)">,</span>
 <span class="text-(--color-text-base)">{`}`}</span></code></pre>
-            </div>
+            </CodeWindow>
           </div>
         </div>
       </Container>
@@ -317,15 +310,7 @@ const stats = [
           </div>
 
           <!-- Showcase frame -->
-          <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
-            <!-- Frame chrome -->
-            <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
-              <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
-              <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
-              <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
-              <span class="ml-2 text-xs text-(--color-text-muted)">Component showcase</span>
-            </div>
-
+          <CodeWindow label="Component showcase">
             <!-- Frame content -->
             <div class="flex flex-col gap-10 p-6">
               <!-- Buttons -->
@@ -406,7 +391,7 @@ const stats = [
                 </div>
               </div>
             </div>
-          </div>
+          </CodeWindow>
         </div>
       </Container>
     </Section>
@@ -422,14 +407,7 @@ const stats = [
           </div>
 
           <!-- Code block -->
-          <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
-            <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
-              <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
-              <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
-              <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
-              <span class="ml-2 text-xs text-(--color-text-muted)">Terminal</span>
-            </div>
-
+          <CodeWindow label="Terminal">
             <pre class="overflow-x-auto p-5 text-sm leading-loose"><code><span class="text-(--color-text-muted)"># Clone the repo</span>
 <span class="text-(--color-brand-primary)">git clone</span> <span class="text-(--color-text-base)">https://github.com/zsoltrigler/core-boilerplate-astro.git my-project</span>
 
@@ -438,7 +416,7 @@ const stats = [
 
 <span class="text-(--color-text-muted)"># Start the dev server</span>
 <span class="text-(--color-brand-primary)">pnpm dev</span></code></pre>
-          </div>
+          </CodeWindow>
         </div>
       </Container>
     </Section>

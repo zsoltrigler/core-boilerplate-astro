@@ -1,0 +1,23 @@
+---
+interface Props {
+  /** Tab label shown after the traffic-light dots (e.g. "Button.astro", "src/config.ts"). */
+  label: string
+  class?: string
+}
+
+const { label, class: className } = Astro.props
+---
+
+<div class:list={["rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)", className]}>
+  <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+    <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+
+    <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+
+    <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+
+    <span class="ml-2 text-xs text-(--color-text-muted)">{label}</span>
+  </div>
+
+  <slot />
+</div>

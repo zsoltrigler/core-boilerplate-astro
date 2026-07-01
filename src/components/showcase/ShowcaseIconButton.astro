@@ -1,5 +1,6 @@
 ---
 import IconButton from "../ui/IconButton.astro"
+import CodeWindow from "../ui/CodeWindow.astro"
 ---
 
 <section id="icon-button" class="scroll-mt-24 flex flex-col gap-6">
@@ -11,13 +12,7 @@ import IconButton from "../ui/IconButton.astro"
     </p>
   </div>
 
-  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
-    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
-      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
-      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
-      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
-      <span class="ml-2 text-xs text-(--color-text-muted)">IconButton.astro</span>
-    </div>
+  <CodeWindow label="IconButton.astro">
 
     <div class="flex flex-col gap-8 p-6">
       <div class="flex flex-col gap-3">
@@ -74,5 +69,5 @@ import IconButton from "../ui/IconButton.astro"
         </div>
       </div>
     </div>
-  </div>
+</CodeWindow>
 </section>
