@@ -74,8 +74,8 @@
     background-color: var(--color-bg-base);
     /* * Grid pattern — single source of truth; defined only here on body */
     background-image:
-      linear-gradient(color-mix(in srgb, var(--color-grid-line) 15%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, var(--color-grid-line) 15%, transparent) 1px, transparent 1px);
+      linear-gradient(color-mix(in srgb, var(--color-grid-line) 30%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-grid-line) 30%, transparent) 1px, transparent 1px);
     background-size: 60px 60px;
     color: var(--color-text-base);
     font-family: var(--font-sans);
