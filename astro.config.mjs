@@ -70,6 +70,12 @@ runContrastChecks()
 export default defineConfig({
   site: process.env.SITE_URL ?? "http://localhost:4321",
 
+  build: {
+    // * Inline all stylesheets into <style> tags — eliminates render-blocking
+    //   external CSS requests. At ~6 KiB gzipped the trade-off is acceptable.
+    inlineStylesheets: "always",
+  },
+
   vite: {
     // * Order matters: colorTokensPlugin must run before tailwindcss
     //   so the generated @theme block is visible to Tailwind at build time.
