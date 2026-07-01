@@ -4,6 +4,8 @@ export interface Props {
   id?: string
   /** Visible label rendered above the select. */
   label?: string
+  /** Accessible label when no visible label is rendered. */
+  "aria-label"?: string
   /** Placeholder option shown when no value is selected. */
   placeholder?: string
   /** Error message — switches the select to error state when set. */
@@ -21,6 +23,7 @@ const {
   name,
   id,
   label,
+  "aria-label": ariaLabel,
   placeholder,
   error,
   hint,
@@ -67,6 +70,7 @@ const base = [
   <select
     id={selectId}
     name={name}
+    aria-label={!label ? ariaLabel : undefined}
     disabled={disabled}
     required={required}
     aria-invalid={error ? "true" : undefined}
