@@ -18,10 +18,7 @@ const activeId = defaultTab ?? tabs[0]?.id
 
 <div class={`w-full ${className}`}>
   <!-- Tab list -->
-  <div
-    role="tablist"
-    class="flex gap-1 border-b border-(--color-border-base)"
-  >
+  <div role="tablist" class="flex gap-1 border-b border-(--color-border-base)">
     {
       tabs.map((tab) => (
         <button
@@ -31,8 +28,8 @@ const activeId = defaultTab ?? tabs[0]?.id
           aria-selected={tab.id === activeId ? "true" : "false"}
           data-tab={tab.id}
           class={[
-            "px-4 py-2 text-sm font-medium transition-colors duration-200 -mb-px border-b-2 outline-none",
-            "focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40 rounded-t-md",
+            "-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors duration-200 outline-none",
+            "rounded-t-md focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40",
             tab.id === activeId
               ? "border-(--color-brand-primary) text-(--color-brand-primary)"
               : "border-transparent text-(--color-text-muted) hover:text-(--color-text-base)",
@@ -64,9 +61,7 @@ const activeId = defaultTab ?? tabs[0]?.id
   function initTabs(root: Document | HTMLElement = document) {
     root.querySelectorAll<HTMLElement>("[role='tablist']").forEach((tablist) => {
       const tabs = Array.from(tablist.querySelectorAll<HTMLElement>("[role='tab']"))
-      const panels = tabs.map((t) =>
-        document.getElementById(t.getAttribute("aria-controls")!)
-      )
+      const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")!))
 
       function activate(tab: HTMLElement) {
         tabs.forEach((t, i) => {

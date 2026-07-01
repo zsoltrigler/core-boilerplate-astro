@@ -44,10 +44,7 @@ const { items, class: className = "" } = Astro.props
                 {item.label}
               </span>
             ) : (
-              <a
-                href={item.href}
-                class="transition-colors hover:text-(--color-text-base)"
-              >
+              <a href={item.href} class="transition-colors hover:text-(--color-text-base)">
                 {item.label}
               </a>
             )}

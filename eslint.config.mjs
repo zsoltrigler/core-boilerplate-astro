@@ -13,7 +13,10 @@ export default [
       // * Allow explicit `any` only with a comment — too noisy to ban outright in Astro projects
       "@typescript-eslint/no-explicit-any": "warn",
       // * Unused vars are always bugs; prefix with _ to opt out
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" },
+      ],
       "no-console": "warn",
     },
   },

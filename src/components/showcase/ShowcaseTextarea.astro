@@ -5,32 +5,58 @@ import ShowcaseSection from "./ShowcaseSection.astro"
 
 <ShowcaseSection id="textarea" title="Textarea">
   <Fragment slot="description">
-      Multiline text input with label, hint, and error state. Vertically resizable by default.
+    Multiline text input with label, hint, and error state. Vertically resizable by default.
   </Fragment>
 
-    <div class="flex flex-col gap-8 p-6">
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Default</p>
+  <div class="flex flex-col gap-8 p-6">
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Default
+      </p>
 
-        <Textarea name="message" label="Message" placeholder="Write your message here…" fullWidth />
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">With hint</p>
-
-        <Textarea name="bio" label="Bio" placeholder="Tell us about yourself…" hint="Maximum 200 characters." rows={3} fullWidth />
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Error state</p>
-
-        <Textarea name="textarea-error" label="Description" error="Description is required." fullWidth />
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Disabled</p>
-
-        <Textarea name="textarea-disabled" label="Disabled textarea" value="This content cannot be edited." disabled fullWidth />
-      </div>
+      <Textarea name="message" label="Message" placeholder="Write your message here…" fullWidth />
     </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        With hint
+      </p>
+
+      <Textarea
+        name="bio"
+        label="Bio"
+        placeholder="Tell us about yourself…"
+        hint="Maximum 200 characters."
+        rows={3}
+        fullWidth
+      />
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Error state
+      </p>
+
+      <Textarea
+        name="textarea-error"
+        label="Description"
+        error="Description is required."
+        fullWidth
+      />
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Disabled
+      </p>
+
+      <Textarea
+        name="textarea-disabled"
+        label="Disabled textarea"
+        value="This content cannot be edited."
+        disabled
+        fullWidth
+      />
+    </div>
+  </div>
 </ShowcaseSection>

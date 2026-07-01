@@ -6,39 +6,43 @@ import ShowcaseSection from "./ShowcaseSection.astro"
 <ShowcaseSection id="badge" title="Badge">
   <Fragment slot="description">Inline label for status, category, or emphasis.</Fragment>
 
-    <div class="flex flex-col gap-8 p-6">
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Variants</p>
+  <div class="flex flex-col gap-8 p-6">
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Variants
+      </p>
 
-        <div class="flex flex-wrap gap-2">
-          <Badge variant="default">Default</Badge>
-          <Badge variant="primary">Primary</Badge>
-          <Badge variant="success">Success</Badge>
-          <Badge variant="warning">Warning</Badge>
-          <Badge variant="error">Error</Badge>
-          <Badge variant="info">Info</Badge>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Sizes</p>
-
-        <div class="flex flex-wrap items-center gap-3">
-          <Badge size="sm">Small</Badge>
-          <Badge size="md">Medium</Badge>
-          <Badge size="lg">Large</Badge>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">With pulse indicator</p>
-
-        <div class="flex flex-wrap gap-3">
-          <Badge variant="primary" pulse>Live</Badge>
-          <Badge variant="success" pulse>Online</Badge>
-          <Badge variant="error" pulse>Alert</Badge>
-          <Badge variant="warning" pulse>Pending</Badge>
-        </div>
+      <div class="flex flex-wrap gap-2">
+        <Badge variant="default">Default</Badge>
+        <Badge variant="primary">Primary</Badge>
+        <Badge variant="success">Success</Badge>
+        <Badge variant="warning">Warning</Badge>
+        <Badge variant="error">Error</Badge>
+        <Badge variant="info">Info</Badge>
       </div>
     </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">Sizes</p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <Badge size="sm">Small</Badge>
+        <Badge size="md">Medium</Badge>
+        <Badge size="lg">Large</Badge>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        With pulse indicator
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <Badge variant="primary" pulse>Live</Badge>
+        <Badge variant="success" pulse>Online</Badge>
+        <Badge variant="error" pulse>Alert</Badge>
+        <Badge variant="warning" pulse>Pending</Badge>
+      </div>
+    </div>
+  </div>
 </ShowcaseSection>

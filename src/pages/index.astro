@@ -10,7 +10,25 @@ import Card from "../components/ui/Card.astro"
 import Alert from "../components/ui/Alert.astro"
 import Input from "../components/ui/Input.astro"
 import CodeWindow from "../components/ui/CodeWindow.astro"
+import { Code } from "astro:components"
+import { createCssVariablesTheme } from "shiki"
 import { SITE, SOCIAL_LINKS } from "../config"
+
+const codeTheme = createCssVariablesTheme({ variablePrefix: "--shiki-" })
+
+const heroCode = `\
+// ← Your single source of truth
+export const SITE = {
+  name: "Your Site",
+  lang: "en",
+}
+
+export const COLORS = {
+  brandPrimary: "#4f46e5",
+  dark: {
+    brandPrimary: "#6366f1",
+  },
+}`
 
 const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
 
@@ -60,10 +78,11 @@ const stats = [
               <Badge variant="info" pulse>Astro 7 · Tailwind 4</Badge>
             </div>
 
-            <h1 class="text-5xl font-bold leading-tight text-(--color-text-base)">{SITE.name}</h1>
+            <h1 class="text-5xl leading-tight font-bold text-(--color-text-base)">{SITE.name}</h1>
 
             <p class="max-w-md text-lg leading-relaxed text-(--color-text-muted)">
-              Dark mode, WCAG AA enforcement, SEO, and a perfect Lighthouse score — wired up before you write a single line.
+              Dark mode, WCAG AA enforcement, SEO, and a perfect Lighthouse score — wired up before
+              you write a single line.
             </p>
 
             <div class="h-0.5 w-14 rounded bg-(--color-brand-primary)"></div>
@@ -100,20 +119,12 @@ const stats = [
           <!-- Right: code snippet -->
           <div class="hidden lg:block">
             <CodeWindow label="src/config.ts">
-              <!-- Code -->
-              <pre
-                class="overflow-x-auto p-5 text-sm leading-relaxed"><code><span class="text-(--color-text-muted)">// ← Your single source of truth</span>
-<span class="text-(--color-brand-secondary)">export const</span> <span class="text-(--color-text-base)">SITE</span> <span class="text-(--color-text-muted)">=</span> <span class="text-(--color-text-base)">{`{`}</span>
-  <span class="text-(--color-brand-accent)">name</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"Your Site"</span><span class="text-(--color-text-muted)">,</span>
-  <span class="text-(--color-brand-accent)">lang</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"en"</span><span class="text-(--color-text-muted)">,</span>
-<span class="text-(--color-text-base)">{`}`}</span>
-
-<span class="text-(--color-brand-secondary)">export const</span> <span class="text-(--color-text-base)">COLORS</span> <span class="text-(--color-text-muted)">=</span> <span class="text-(--color-text-base)">{`{`}</span>
-  <span class="text-(--color-brand-accent)">brandPrimary</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"#4f46e5"</span><span class="text-(--color-text-muted)">,</span>
-  <span class="text-(--color-brand-accent)">dark</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-text-base)">{`{`}</span>
-    <span class="text-(--color-brand-accent)">brandPrimary</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"#6366f1"</span><span class="text-(--color-text-muted)">,</span>
-  <span class="text-(--color-text-base)">{`}`}</span><span class="text-(--color-text-muted)">,</span>
-<span class="text-(--color-text-base)">{`}`}</span></code></pre>
+              <Code
+                code={heroCode}
+                lang="ts"
+                theme={codeTheme}
+                class="overflow-x-auto p-5 text-sm leading-relaxed [&_code]:font-mono"
+              />
             </CodeWindow>
           </div>
         </div>
@@ -274,7 +285,11 @@ const stats = [
               >
             </Card>
 
-            <Card title="SEO ready" desc="Meta tags, Open Graph, sitemap, canonical URL and robots.txt." hover>
+            <Card
+              title="SEO ready"
+              desc="Meta tags, Open Graph, sitemap, canonical URL and robots.txt."
+              hover
+            >
               <svg
                 slot="icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -315,7 +330,7 @@ const stats = [
             <div class="flex flex-col gap-10 p-6">
               <!-- Buttons -->
               <div class="flex flex-col gap-3">
-                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Button
                 </p>
 
@@ -330,7 +345,7 @@ const stats = [
 
               <!-- Badges -->
               <div class="flex flex-col gap-3">
-                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Badge
                 </p>
 
@@ -347,7 +362,7 @@ const stats = [
 
               <!-- Alerts -->
               <div class="flex flex-col gap-3">
-                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Alert
                 </p>
 
@@ -361,7 +376,7 @@ const stats = [
 
               <!-- Inputs -->
               <div class="flex flex-col gap-3">
-                <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Input
                 </p>
 
@@ -408,7 +423,8 @@ const stats = [
 
           <!-- Code block -->
           <CodeWindow label="Terminal">
-            <pre class="overflow-x-auto p-5 text-sm leading-loose"><code><span class="text-(--color-text-muted)"># Clone the repo</span>
+            <pre
+              class="overflow-x-auto p-5 text-sm leading-loose"><code><span class="text-(--color-text-muted)"># Clone the repo</span>
 <span class="text-(--color-brand-primary)">git clone</span> <span class="text-(--color-text-base)">https://github.com/zsoltrigler/core-boilerplate-astro.git my-project</span>
 
 <span class="text-(--color-text-muted)"># Install dependencies</span>

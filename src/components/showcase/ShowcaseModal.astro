@@ -7,20 +7,25 @@ import ShowcaseSection from "./ShowcaseSection.astro"
 
 <ShowcaseSection id="modal" title="Modal">
   <Fragment slot="description">
-      Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop, ESC and backdrop-click to close. Open with <code class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code> on any element.
+    Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop, ESC
+    and backdrop-click to close. Open with <code class="rounded bg-(--color-bg-surface) px-1"
+      >data-modal-open="id"</code
+    > on any element.
   </Fragment>
 
-    <div class="flex flex-wrap gap-3 p-6">
-      <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
-      <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
-      <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
-      <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
-    </div>
+  <div class="flex flex-wrap gap-3 p-6">
+    <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
+    <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
+    <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
+    <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
+  </div>
 </ShowcaseSection>
 
 <!-- Modals outside flow so they can cover the full viewport -->
 <Modal id="modal-default" title="Confirm action" size="md">
-  <p class="text-(--color-text-muted)">Are you sure you want to continue? This action cannot be undone.</p>
+  <p class="text-(--color-text-muted)">
+    Are you sure you want to continue? This action cannot be undone.
+  </p>
   <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
   <Button slot="footer" variant="danger">Delete</Button>
 </Modal>
@@ -33,7 +38,13 @@ import ShowcaseSection from "./ShowcaseSection.astro"
 <Modal id="modal-lg" title="Edit profile" size="lg">
   <div class="flex flex-col gap-4">
     <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
-    <Input name="modal-email" type="email" label="Email address" placeholder="jane@example.com" fullWidth />
+    <Input
+      name="modal-email"
+      type="email"
+      label="Email address"
+      placeholder="jane@example.com"
+      fullWidth
+    />
     <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
   </div>
   <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>

@@ -109,7 +109,9 @@
 
   /* * Respect user's motion preference — disable all transitions */
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       transition-duration: 0.01ms !important;
     }
 
@@ -128,6 +130,21 @@
 
   .dark {
     --grid-line: rgba(51, 65, 85, 0.3);
+  }
+
+  /* ── Shiki syntax highlight tokens — mapped to project color tokens ── */
+  :root {
+    --shiki-foreground: var(--color-text-base);
+    --shiki-background: transparent;
+    --shiki-token-keyword: var(--color-brand-secondary);
+    --shiki-token-string: var(--color-status-success);
+    --shiki-token-string-expression: var(--color-status-success);
+    --shiki-token-comment: var(--color-text-muted);
+    --shiki-token-constant: var(--color-brand-accent);
+    --shiki-token-parameter: var(--color-text-base);
+    --shiki-token-function: var(--color-brand-primary);
+    --shiki-token-punctuation: var(--color-text-muted);
+    --shiki-token-link: var(--color-brand-accent);
   }
 
   img,
@@ -163,5 +180,4 @@
     font-weight: var(--font-weight-black);
     color: color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
   }
-
 }

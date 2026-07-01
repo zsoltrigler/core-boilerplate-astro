@@ -5,45 +5,82 @@ import ShowcaseSection from "./ShowcaseSection.astro"
 
 <ShowcaseSection id="input" title="Input">
   <Fragment slot="description">
-      Text input with label, hint, error state and size variants. The <code class="rounded bg-(--color-bg-surface) px-1">name</code> prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls back to <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
+    Text input with label, hint, error state and size variants. The <code
+      class="rounded bg-(--color-bg-surface) px-1">name</code
+    > prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls back to <code
+      class="rounded bg-(--color-bg-surface) px-1">name</code
+    > when omitted.
   </Fragment>
 
-    <div class="flex flex-col gap-8 p-6">
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Sizes</p>
+  <div class="flex flex-col gap-8 p-6">
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">Sizes</p>
 
-        <div class="flex flex-wrap items-end gap-4">
-          <Input name="size-sm" size="sm" placeholder="Small" />
-          <Input name="size-md" size="md" placeholder="Medium (default)" />
-          <Input name="size-lg" size="lg" placeholder="Large" />
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">With label and hint</p>
-
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Input name="email" type="email" label="Email address" placeholder="you@example.com" hint="We'll never share your email." fullWidth />
-          <Input name="password" type="password" label="Password" placeholder="••••••••" required fullWidth />
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Error state</p>
-
-        <Input name="email-error" type="email" label="Email address" value="not-an-email" error="Please enter a valid email address." />
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Disabled</p>
-
-        <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
-      </div>
-
-      <div class="flex flex-col gap-3">
-        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Full width</p>
-
-        <Input name="fullwidth" label="Full width" placeholder="Stretches to fill its container" fullWidth />
+      <div class="flex flex-wrap items-end gap-4">
+        <Input name="size-sm" size="sm" placeholder="Small" />
+        <Input name="size-md" size="md" placeholder="Medium (default)" />
+        <Input name="size-lg" size="lg" placeholder="Large" />
       </div>
     </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        With label and hint
+      </p>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Input
+          name="email"
+          type="email"
+          label="Email address"
+          placeholder="you@example.com"
+          hint="We'll never share your email."
+          fullWidth
+        />
+        <Input
+          name="password"
+          type="password"
+          label="Password"
+          placeholder="••••••••"
+          required
+          fullWidth
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Error state
+      </p>
+
+      <Input
+        name="email-error"
+        type="email"
+        label="Email address"
+        value="not-an-email"
+        error="Please enter a valid email address."
+      />
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Disabled
+      </p>
+
+      <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Full width
+      </p>
+
+      <Input
+        name="fullwidth"
+        label="Full width"
+        placeholder="Stretches to fill its container"
+        fullWidth
+      />
+    </div>
+  </div>
 </ShowcaseSection>

@@ -82,15 +82,19 @@ const base = [
     class={base}
   />
 
-  {error && (
-    <p id={`${inputId}-error`} class="text-sm text-(--color-status-error)" role="alert">
-      {error}
-    </p>
-  )}
+  {
+    error && (
+      <p id={`${inputId}-error`} class="text-sm text-(--color-status-error)" role="alert">
+        {error}
+      </p>
+    )
+  }
 
-  {hint && (
-    <p id={`${inputId}-hint`} class="text-sm text-(--color-text-muted)">
-      {hint}
-    </p>
-  )}
+  {
+    hint && (
+      <p id={`${inputId}-hint`} class="text-sm text-(--color-text-muted)">
+        {hint}
+      </p>
+    )
+  }
 </div>

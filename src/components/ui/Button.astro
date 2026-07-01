@@ -29,7 +29,8 @@ const variants: Record<string, string> = {
     "border border-(--color-border-base) text-(--color-text-base) hover:bg-(--color-bg-elevated) transition-colors",
   ghost:
     "text-(--color-text-muted) hover:text-(--color-text-base) hover:bg-(--color-bg-elevated) transition-colors",
-  danger: "bg-(--color-status-error) text-white dark:text-(--color-bg-base) hover:opacity-90 transition-opacity",
+  danger:
+    "bg-(--color-status-error) text-white dark:text-(--color-bg-base) hover:opacity-90 transition-opacity",
 }
 
 const sizes: Record<string, string> = {
@@ -57,8 +58,13 @@ const disabledLinkProps = disabled ? { "aria-disabled": true as const, tabindex:
 
 {
   href ? (
-    <a href={disabled ? undefined : href} class={`${base} ${disabled ? "opacity-50 pointer-events-none" : ""}`} {...externalProps} {...disabledLinkProps} {...rest}>
-      <!-- icon-left and icon-right slots accept any inline SVG or element -->
+    <a
+      href={disabled ? undefined : href}
+      class={`${base} ${disabled ? "pointer-events-none opacity-50" : ""}`}
+      {...externalProps}
+      {...disabledLinkProps}
+      {...rest}
+    >
       <slot name="icon-left" />
       <slot />
       <slot name="icon-right" />
