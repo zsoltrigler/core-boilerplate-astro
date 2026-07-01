@@ -33,10 +33,6 @@ function generateColorTokens(colors) {
     )
     .join("\n")
 
-  const transitionList = Object.keys(light)
-    .map((k) => `--color-${toKebab(k)} 0.2s ease`)
-    .join(",\n    ")
-
   const themeVars = Object.entries(light)
     .map(([k, v]) => `  --color-${toKebab(k)}: ${v};`)
     .join("\n")
@@ -60,12 +56,6 @@ function generateColorTokens(colors) {
     ``,
     `.dark {`,
     darkVars,
-    `}`,
-    ``,
-    `/* Transition on :root (= <html>) fires when .dark toggles token values */`,
-    `:root {`,
-    `  transition:`,
-    `    ${transitionList};`,
     `}`,
   ].join("\n")
 }

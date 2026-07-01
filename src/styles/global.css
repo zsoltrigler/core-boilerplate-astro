@@ -86,6 +86,13 @@
   *::before,
   *::after {
     box-sizing: border-box;
+    /* * Uniform theme transition — fires on every element simultaneously when .dark toggles */
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      fill 0.2s ease,
+      stroke 0.2s ease;
   }
 
   img,
