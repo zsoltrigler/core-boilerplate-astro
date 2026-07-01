@@ -72,8 +72,7 @@
 
   body {
     background-color: var(--color-bg-base);
-    /* * Grid pattern — uses dedicated gridLine token (not borderBase) so :root can
-       transition it independently without causing double-animation on border elements */
+    /* * Grid — same pattern as .bg-grid below; duplicated here since body cannot take a class */
     background-image:
       linear-gradient(color-mix(in srgb, var(--color-grid-line) 15%, transparent) 1px, transparent 1px),
       linear-gradient(90deg, color-mix(in srgb, var(--color-grid-line) 15%, transparent) 1px, transparent 1px);
@@ -149,5 +148,15 @@
     font-size: var(--text-3xl);
     font-weight: var(--font-weight-black);
     color: color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
+  }
+
+  /* * Reusable grid overlay — used on body and as an overlay div in hero/404 sections.
+     Uses --color-grid-line (dedicated token, not --color-border-base) so :root can
+     transition it independently without interfering with border animations. */
+  .bg-grid {
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--color-grid-line) 15%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-grid-line) 15%, transparent) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
 }
