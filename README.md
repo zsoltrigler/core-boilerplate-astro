@@ -6,7 +6,7 @@ A minimal, production-ready starter built with **Astro 7** and **Tailwind CSS 4*
 
 ## Stack
 
-- [Astro 7](https://astro.build) — static site generator with View Transitions
+- [Astro 7](https://astro.build) — static site generator (SSG)
 - [Tailwind CSS 4](https://tailwindcss.com) — utility-first CSS
 - TypeScript — strict mode, typed component props
 - Dark mode — system preference + manual toggle, persisted in `localStorage`
@@ -103,13 +103,20 @@ src/
 │   └── ui/
 │       ├── Alert.astro        # Contextual feedback messages
 │       ├── Badge.astro        # Inline status labels
+│       ├── Breadcrumb.astro   # Accessible navigation trail
 │       ├── Button.astro       # Primary/secondary/ghost/danger, renders as <a> or <button>
 │       ├── Card.astro         # Content container with icon/title/desc slots
+│       ├── Checkbox.astro     # Checkbox with label, hint, and error state
+│       ├── CodeWindow.astro   # Decorative code window UI frame
 │       ├── IconButton.astro   # Square icon-only button
 │       ├── Input.astro        # Text input with label, hint, error, and size variants
-│       └── Modal.astro        # Native <dialog>-based modal with backdrop and slots
+│       ├── Modal.astro        # Native <dialog>-based modal with backdrop and slots
+│       ├── Select.astro       # Select dropdown with label, hint, and error state
+│       ├── Tabs.astro         # Keyboard-navigable tab panel
+│       ├── Textarea.astro     # Multiline input with label, hint, and error state
+│       └── Toast.astro        # Programmatic toast notifications
 ├── layouts/
-│   └── BaseLayout.astro       # HTML shell: meta tags, OG, dark mode, View Transitions
+│   └── BaseLayout.astro       # HTML shell: meta tags, OG, dark mode
 ├── pages/
 │   ├── index.astro            # Home page — replace with your own content
 │   ├── ui.astro               # Component showcase at /ui
@@ -235,6 +242,108 @@ Native `<dialog>`-based modal. Open it by adding `data-modal-open="<id>"` to any
 
 ---
 
+### Checkbox
+
+Checkbox with label, hint text, and error state.
+
+```astro
+<Checkbox name="agree" label="I agree to the terms" required />
+<Checkbox name="subscribe" label="Subscribe to newsletter" hint="You can unsubscribe anytime" />
+<Checkbox name="accept" label="Accept" error="You must accept to continue" />
+```
+
+**Props:** `name` · `id` · `label` · `hint` · `error` · `checked` · `disabled` · `required` · `fullWidth`
+
+---
+
+### Select
+
+Dropdown select with label, hint text, and error state.
+
+```astro
+<Select name="country" label="Country" placeholder="Choose a country">
+  <option value="hu">Hungary</option>
+  <option value="de">Germany</option>
+</Select>
+```
+
+**Props:** `name` · `id` · `label` · `aria-label` · `placeholder` · `hint` · `error` · `size` (sm | md | lg) · `disabled` · `required` · `fullWidth`
+
+---
+
+### Textarea
+
+Multiline text input with label, hint text, and error state.
+
+```astro
+<Textarea name="message" label="Message" placeholder="Your message..." rows={5} required />
+<Textarea name="bio" label="Bio" hint="Max 200 characters" error="Bio is required" />
+```
+
+**Props:** `name` · `id` · `label` · `placeholder` · `value` · `rows` · `hint` · `error` · `disabled` · `required` · `fullWidth`
+
+---
+
+### Tabs
+
+Keyboard-navigable tab panel.
+
+```astro
+<Tabs
+  tabs={[
+    { id: "tab-1", label: "First" },
+    { id: "tab-2", label: "Second" },
+  ]}
+>
+  <div data-tab="tab-1">First tab content</div>
+  <div data-tab="tab-2">Second tab content</div>
+</Tabs>
+```
+
+**Props:** `tabs` (array of `{ id, label }`) · `defaultTab`
+
+---
+
+### Toast
+
+Programmatic toast notifications. Add `<Toast />` once to your layout, then trigger it from any script.
+
+```astro
+<!-- In your layout -->
+<Toast />
+```
+
+```ts
+// Trigger from any script
+window.dispatchEvent(
+  new CustomEvent("toast", {
+    detail: { message: "Saved!", variant: "success" },
+  })
+)
+```
+
+**Event detail:** `message` · `variant` (info | success | warning | error) · `duration` (ms, default 4000)
+
+---
+
+### Breadcrumb
+
+Accessible navigation trail with structured markup.
+
+```astro
+<Breadcrumb
+  items={[
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: "Post title" },
+  ]}
+/>
+```
+
+**Props:** `items` (array of `{ label, href? }`) · `aria-label`
+
+---
+
 ### Container
 
 Constrains content width and adds horizontal padding.
@@ -312,8 +421,10 @@ Replace it with your own image (JPG or PNG, 1200×630px recommended) and update 
 
 Every push and pull request targeting `main` runs the CI pipeline automatically:
 
-1. Type check — `pnpm exec astro check`
-2. Build — `pnpm build`
+1. **Lint** — ESLint
+2. **Type check** — `pnpm exec astro check`
+3. **Build** — `pnpm build` (includes WCAG AA contrast check — fails on violation)
+4. **Lighthouse CI** — performance ≥ 0.85, accessibility ≥ 0.96, best-practices = 1.0, SEO = 1.0
 
 The `main` branch is protected — merging requires a passing CI run and an open pull request.
 
