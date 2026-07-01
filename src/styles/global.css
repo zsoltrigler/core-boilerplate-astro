@@ -3,6 +3,16 @@
 /* Use class-based dark mode strategy (toggled via <html class="dark">) */
 @variant dark (&:where(.dark, .dark *));
 
+/* * --grid-line is defined here (not via the Vite plugin) so it is always
+   available in dev and build. @property makes it typed so :root can
+   transition it — the ONLY use of this variable is body background-image,
+   so there is no double-transition risk with border or text animations. */
+@property --grid-line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(226, 232, 240, 0.3);
+}
+
 /* ============================================================
    Design System — Color Tokens
    ! Do not edit this section manually.
@@ -72,24 +82,52 @@
 
   body {
     background-color: var(--color-bg-base);
-    /* * Grid pattern — uses border color so it adapts automatically in dark mode */
+    /* * Grid uses --grid-line which is registered above with @property so
+       :root can transition it independently of border/text animations */
     background-image:
-      linear-gradient(color-mix(in srgb, var(--color-border-base) 15%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, var(--color-border-base) 15%, transparent) 1px, transparent 1px);
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 60px 60px;
     color: var(--color-text-base);
     font-family: var(--font-sans);
     line-height: 1.6;
-    /* * Animate bg/color on theme switch without a layout flash */
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
   }
 
   *,
   *::before,
   *::after {
     box-sizing: border-box;
+    /* * Uniform theme transition — fires on every element simultaneously when .dark toggles */
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      outline-color 0.2s ease,
+      fill 0.2s ease,
+      stroke 0.2s ease;
+  }
+
+  /* * Respect user's motion preference — disable all transitions */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+    }
+
+    /* * :root { transition: --grid-line } is not matched by * above, so it needs its own rule */
+    :root {
+      transition: none !important;
+    }
+  }
+
+  /* * :root transition animates --grid-line so background-image recomputes
+     each frame — the only way to animate a CSS gradient. */
+  :root {
+    --grid-line: rgba(226, 232, 240, 0.3);
+    transition: --grid-line 0.2s ease;
+  }
+
+  .dark {
+    --grid-line: rgba(51, 65, 85, 0.3);
   }
 
   img,
@@ -125,4 +163,5 @@
     font-weight: var(--font-weight-black);
     color: color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
   }
+
 }
