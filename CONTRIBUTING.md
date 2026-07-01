@@ -72,9 +72,12 @@ src/
 ├── components/
 │   ├── global/     # Header, Footer, ThemeToggle
 │   ├── layout/     # Section, Container
-│   └── ui/         # Button, Badge, Card, Alert, IconButton
+│   └── ui/         # Alert, Badge, Breadcrumb, Button, Card, Checkbox,
+│                   # CodeWindow, IconButton, Input, Modal, Select,
+│                   # Tabs, Textarea, Toast
 ├── layouts/        # BaseLayout.astro
 ├── pages/          # index.astro, ui.astro, 404.astro
 ├── styles/         # global.css
+├── utils/          # aria.ts — shared accessibility utilities
 └── config.ts       # single source of truth for all site config
 ```
