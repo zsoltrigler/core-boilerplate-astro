@@ -27,7 +27,7 @@ export const COLORS = {
   brandAccent: "#06b6d4",
   borderBase: "#e2e8f0",
   borderStrong: "#cbd5e1",
-  gridLine: "#e2e8f0", // body background grid — same value as borderBase, separate token so :root can transition it without affecting border elements
+  gridLine: "rgba(226, 232, 240, 0.3)", // body background grid — opacity baked in so var() works directly in linear-gradient() without color-mix()
   // * Darkened to pass WCAG AA (4.5:1) on white — math is symmetric, so these
   //   also pass as backgrounds with white text (e.g. Danger button).
   statusSuccess: "#15803d", // green-700  — 5.02:1 on white
@@ -44,7 +44,7 @@ export const COLORS = {
     textMuted: "#a0aec0", // lightened to pass 4.5:1 on bgElevated dark (#334155)
     borderBase: "#334155",
     borderStrong: "#475569",
-    gridLine: "#334155",
+    gridLine: "rgba(51, 65, 85, 0.3)",
     brandPrimary: "#5b5fef",
     // * Bright status colors for dark mode — high contrast on dark backgrounds.
     statusSuccess: "#22c55e", // green-500  — 7.83:1 on bgBase dark
