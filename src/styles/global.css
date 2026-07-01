@@ -92,7 +92,6 @@
       background-color 0.2s ease,
       border-color 0.2s ease,
       outline-color 0.2s ease,
-      box-shadow 0.2s ease,
       fill 0.2s ease,
       stroke 0.2s ease;
   }
@@ -104,14 +103,16 @@
     transition: --color-border-base 0.2s ease;
   }
 
-  /* * Respect user's motion preference — collapse all transitions to near-instant */
+  /* * Respect user's motion preference — disable all transitions */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       transition-duration: 0.01ms !important;
     }
 
+    /* ! transition: none is required here (not just transition-duration) because
+       Safari does not honour transition-duration overrides on @property transitions */
     :root {
-      transition-duration: 0.01ms !important;
+      transition: none !important;
     }
   }
 
