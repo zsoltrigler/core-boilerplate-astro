@@ -10,7 +10,11 @@ import Card from "../components/ui/Card.astro"
 import Alert from "../components/ui/Alert.astro"
 import Input from "../components/ui/Input.astro"
 import CodeWindow from "../components/ui/CodeWindow.astro"
+import { Code } from "astro:components"
+import { createCssVariablesTheme } from "shiki"
 import { SITE, SOCIAL_LINKS } from "../config"
+
+const codeTheme = createCssVariablesTheme({ variablePrefix: "--shiki-" })
 
 const github = SOCIAL_LINKS.find((l) => l.platform === "GitHub")
 
@@ -100,20 +104,23 @@ const stats = [
           <!-- Right: code snippet -->
           <div class="hidden lg:block">
             <CodeWindow label="src/config.ts">
-              <!-- Code -->
-              <pre
-                class="overflow-x-auto p-5 text-sm leading-relaxed"><code><span class="text-(--color-text-muted)">// ← Your single source of truth</span>
-<span class="text-(--color-brand-secondary)">export const</span> <span class="text-(--color-text-base)">SITE</span> <span class="text-(--color-text-muted)">=</span> <span class="text-(--color-text-base)">{`{`}</span>
-  <span class="text-(--color-brand-accent)">name</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"Your Site"</span><span class="text-(--color-text-muted)">,</span>
-  <span class="text-(--color-brand-accent)">lang</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"en"</span><span class="text-(--color-text-muted)">,</span>
-<span class="text-(--color-text-base)">{`}`}</span>
+              <Code
+                code={`// ← Your single source of truth
+export const SITE = {
+  name: "Your Site",
+  lang: "en",
+}
 
-<span class="text-(--color-brand-secondary)">export const</span> <span class="text-(--color-text-base)">COLORS</span> <span class="text-(--color-text-muted)">=</span> <span class="text-(--color-text-base)">{`{`}</span>
-  <span class="text-(--color-brand-accent)">brandPrimary</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"#4f46e5"</span><span class="text-(--color-text-muted)">,</span>
-  <span class="text-(--color-brand-accent)">dark</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-text-base)">{`{`}</span>
-    <span class="text-(--color-brand-accent)">brandPrimary</span><span class="text-(--color-text-muted)">:</span> <span class="text-(--color-status-success)">"#6366f1"</span><span class="text-(--color-text-muted)">,</span>
-  <span class="text-(--color-text-base)">{`}`}</span><span class="text-(--color-text-muted)">,</span>
-<span class="text-(--color-text-base)">{`}`}</span></code></pre>
+export const COLORS = {
+  brandPrimary: "#4f46e5",
+  dark: {
+    brandPrimary: "#6366f1",
+  },
+}`}
+                lang="ts"
+                theme={codeTheme}
+                class="overflow-x-auto p-5 text-sm leading-relaxed [&_code]:font-mono"
+              />
             </CodeWindow>
           </div>
         </div>
