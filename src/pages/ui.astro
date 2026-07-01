@@ -18,6 +18,7 @@ import ShowcaseTabs from "../components/showcase/ShowcaseTabs.astro"
 import ShowcaseToast from "../components/showcase/ShowcaseToast.astro"
 import ShowcaseCard from "../components/showcase/ShowcaseCard.astro"
 import ShowcaseBreadcrumb from "../components/showcase/ShowcaseBreadcrumb.astro"
+import CodeWindow from "../components/ui/CodeWindow.astro"
 import Toast from "../components/ui/Toast.astro"
 
 const components = [
@@ -71,14 +72,7 @@ const components = [
 
           <!-- Right: quick jump links -->
           <div class="hidden lg:block">
-            <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
-              <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
-                <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
-                <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
-                <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
-                <span class="ml-2 text-xs text-(--color-text-muted)">Quick jump</span>
-              </div>
-
+            <CodeWindow label="Quick jump">
               <div class="grid grid-cols-2 gap-2 p-4">
                 {
                   components.map((c) => (
@@ -92,7 +86,7 @@ const components = [
                   ))
                 }
               </div>
-            </div>
+            </CodeWindow>
           </div>
         </div>
       </Container>
