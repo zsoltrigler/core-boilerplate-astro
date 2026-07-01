@@ -13,7 +13,8 @@
     "astro": "astro",
     "format": "prettier --write .",
     "type-check": "astro check",
-    "check:contrast": "node scripts/contrast-check.mjs"
+    "check:contrast": "node scripts/contrast-check.mjs",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -22,9 +23,16 @@
     "tailwindcss": "^4.3.1"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@eslint/js": "^10.0.1",
+    "@types/wcag-contrast": "^3.0.3",
+    "eslint": "^10.6.0",
+    "eslint-plugin-astro": "^2.1.1",
     "prettier": "^3.8.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.62.1",
     "wcag-contrast": "^3.0.0"
   }
 }

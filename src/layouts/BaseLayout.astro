@@ -54,6 +54,7 @@ const resolvedOgImage = ogImage.startsWith("http")
 
 // ! Warn at runtime when the placeholder description is still in use — it hurts SEO.
 if (description === SITE_DEFAULTS.DESCRIPTION) {
+  // eslint-disable-next-line no-console
   console.warn(
     `[BaseLayout] No custom description set for "${fullTitle}". Using placeholder — this hurts SEO.`
   )
@@ -70,16 +71,18 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
     <script is:inline>
       ;(function () {
         try {
-          var stored = localStorage.getItem("theme")
-          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-          var dark = stored === "dark" || (!stored && prefersDark)
+          const stored = localStorage.getItem("theme")
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+          const dark = stored === "dark" || (!stored && prefersDark)
           if (dark) document.documentElement.classList.add("dark")
-        } catch (_) {}
+        } catch (_) { /* localStorage unavailable (e.g. private browsing) */ }
       })()
     </script>
 
     <!-- Persist dark class across View Transitions on every page -->
     <script>
+      import type { TransitionBeforeSwapEvent } from "astro:transitions/client"
+
       document.addEventListener("astro:before-swap", (e) => {
         if (document.documentElement.classList.contains("dark")) {
           ;(e as TransitionBeforeSwapEvent).newDocument.documentElement.classList.add("dark")

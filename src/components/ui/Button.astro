@@ -52,7 +52,7 @@ const base = [
 // ! Never pass both href and type together — type is ignored on anchor elements.
 // ! <a> does not support the disabled attribute — use aria-disabled + pointer-events-none instead.
 const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
-const disabledLinkProps = disabled ? { "aria-disabled": "true", tabindex: "-1" } : {}
+const disabledLinkProps = disabled ? { "aria-disabled": true as const, tabindex: "-1" } : {}
 ---
 
 {
