@@ -8,8 +8,6 @@ import ShowcaseSection from "./ShowcaseSection.astro"
       Accessible tabbed interface. Supports arrow-key navigation per the WAI-ARIA tabs pattern. Each tab panel is a named slot matching the tab <code class="rounded bg-(--color-bg-surface) px-1">id</code>.
   </Fragment>
 
-  
-
     <div class="p-6">
       <Tabs tabs={[{ id: "overview", label: "Overview" }, { id: "usage", label: "Usage" }, { id: "props", label: "Props" }]}>
         <div slot="overview" class="text-sm text-(--color-text-muted)">
