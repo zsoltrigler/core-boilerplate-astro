@@ -46,7 +46,16 @@
       variantClasses[variant],
     ].join(" ")
 
-    toast.innerHTML = `${icons[variant]}<span class="text-(--color-text-base)">${message}</span>`
+    // * Build DOM nodes instead of innerHTML to prevent XSS from caller-supplied message strings.
+    const iconWrapper = document.createElement("span")
+    iconWrapper.innerHTML = icons[variant]
+
+    const label = document.createElement("span")
+    label.className = "text-(--color-text-base)"
+    label.textContent = message
+
+    toast.appendChild(iconWrapper)
+    toast.appendChild(label)
     container.appendChild(toast)
 
     // * Auto-dismiss after duration ms.

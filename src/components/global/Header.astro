@@ -125,48 +125,36 @@ import { SITE, NAV_LINKS } from "../../config"
 </header>
 
 <script>
-  // * WeakMap ties each AbortController to its button so old listeners are
-  //   cleaned up when the button is replaced after a View Transition.
-  const controllers = new WeakMap<HTMLElement, AbortController>()
+  const btn = document.querySelector<HTMLElement>("[data-mobile-menu-toggle]")
+  const menu = document.querySelector<HTMLElement>("[data-mobile-menu]")
 
-  function initMobileMenu() {
-    document.querySelectorAll<HTMLElement>("[data-mobile-menu-toggle]").forEach((btn) => {
-      // * Abort previous listener for this button before re-attaching.
-      controllers.get(btn)?.abort()
-      const controller = new AbortController()
-      controllers.set(btn, controller)
-      const { signal } = controller
+  if (btn && menu) {
+    const { signal } = new AbortController()
 
-      const menu = document.querySelector<HTMLElement>("[data-mobile-menu]")
-      if (!menu) return
+    function setOpen(open: boolean) {
+      menu!.hidden = !open
+      btn!.setAttribute("aria-expanded", String(open))
+      btn!.setAttribute("aria-label", open ? btn!.dataset.labelClose! : btn!.dataset.labelOpen!)
+      btn!.querySelector("[data-icon-menu]")?.classList.toggle("hidden", open)
+      btn!.querySelector("[data-icon-close]")?.classList.toggle("hidden", !open)
+    }
 
-      function setOpen(open: boolean) {
-        menu!.hidden = !open
-        btn.setAttribute("aria-expanded", String(open))
-        btn.setAttribute("aria-label", open ? btn.dataset.labelClose! : btn.dataset.labelOpen!)
-        btn.querySelector("[data-icon-menu]")?.classList.toggle("hidden", open)
-        btn.querySelector("[data-icon-close]")?.classList.toggle("hidden", !open)
-      }
+    btn.addEventListener("click", () => setOpen(menu.hidden === true), { signal })
 
-      btn.addEventListener("click", () => setOpen(menu.hidden === true), { signal })
-
-      // Close on nav link click (hash / same-page navigation)
-      menu.querySelectorAll<HTMLElement>("[data-mobile-nav-link]").forEach((link) => {
-        link.addEventListener("click", () => setOpen(false), { signal })
-      })
-
-      // Close when the user clicks outside the menu or toggle button
-      document.addEventListener(
-        "click",
-        (e) => {
-          if (!btn.contains(e.target as Node) && !menu.contains(e.target as Node)) {
-            setOpen(false)
-          }
-        },
-        { signal }
-      )
+    // Close on nav link click (hash / same-page navigation)
+    menu.querySelectorAll<HTMLElement>("[data-mobile-nav-link]").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false), { signal })
     })
-  }
 
-  initMobileMenu()
+    // Close when the user clicks outside the menu or toggle button
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (!btn.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+          setOpen(false)
+        }
+      },
+      { signal }
+    )
+  }
 </script>
