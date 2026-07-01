@@ -1,7 +1,5 @@
 ---
 // * Manages dark/light mode with localStorage persistence.
-// * Uses astro:after-swap (not astro:page-load) intentionally — syncing icons before
-//   the transition animation completes prevents a flash of the wrong icon.
 // * The sun icon is shown in dark mode; the moon icon is shown in light mode.
 ---
 
@@ -94,7 +92,5 @@
     })
   }
 
-  // * Re-init after every View Transition to re-attach listeners to new DOM nodes.
   initToggle()
-  document.addEventListener("astro:after-swap", initToggle)
 </script>
