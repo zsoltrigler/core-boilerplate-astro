@@ -81,6 +81,8 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
 
     <!-- Persist dark class across View Transitions on every page -->
     <script>
+      import type { TransitionBeforeSwapEvent } from "astro:transitions/client"
+
       document.addEventListener("astro:before-swap", (e) => {
         if (document.documentElement.classList.contains("dark")) {
           ;(e as TransitionBeforeSwapEvent).newDocument.documentElement.classList.add("dark")
