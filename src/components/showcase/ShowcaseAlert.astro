@@ -1,0 +1,31 @@
+---
+import Alert from "../ui/Alert.astro"
+---
+
+<section id="alert" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Alert</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Contextual feedback messages. Supports custom icon and title via named slots.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Alert.astro</span>
+    </div>
+
+    <div class="flex flex-col gap-4 p-6">
+      <Alert variant="info" title="Information">This is an informational message with some useful context for the user.</Alert>
+      <Alert variant="success" title="Success">Your changes have been saved successfully.</Alert>
+      <Alert variant="warning" title="Warning">Please review your input before continuing.</Alert>
+      <Alert variant="error" title="Error">Something went wrong. Please try again.</Alert>
+      <Alert variant="info" title="Dismissible" dismissible>Click the × to dismiss this alert.</Alert>
+      <Alert variant="success">Alert without a title — just body text.</Alert>
+    </div>
+  </div>
+</section>

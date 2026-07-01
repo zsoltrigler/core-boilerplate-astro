@@ -1,0 +1,61 @@
+---
+import Input from "../ui/Input.astro"
+---
+
+<section id="input" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Input</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Text input with label, hint, error state and size variants. The <code class="rounded bg-(--color-bg-surface) px-1">name</code> prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls back to <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Input.astro</span>
+    </div>
+
+    <div class="flex flex-col gap-8 p-6">
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Sizes</p>
+
+        <div class="flex flex-wrap items-end gap-4">
+          <Input name="size-sm" size="sm" placeholder="Small" />
+          <Input name="size-md" size="md" placeholder="Medium (default)" />
+          <Input name="size-lg" size="lg" placeholder="Large" />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">With label and hint</p>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Input name="email" type="email" label="Email address" placeholder="you@example.com" hint="We'll never share your email." fullWidth />
+          <Input name="password" type="password" label="Password" placeholder="••••••••" required fullWidth />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Error state</p>
+
+        <Input name="email-error" type="email" label="Email address" value="not-an-email" error="Please enter a valid email address." />
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Disabled</p>
+
+        <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Full width</p>
+
+        <Input name="fullwidth" label="Full width" placeholder="Stretches to fill its container" fullWidth />
+      </div>
+    </div>
+  </div>
+</section>

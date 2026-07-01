@@ -1,0 +1,56 @@
+---
+import Badge from "../ui/Badge.astro"
+---
+
+<section id="badge" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Badge</h2>
+
+    <p class="text-sm text-(--color-text-muted)">Inline label for status, category, or emphasis.</p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Badge.astro</span>
+    </div>
+
+    <div class="flex flex-col gap-8 p-6">
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Variants</p>
+
+        <div class="flex flex-wrap gap-2">
+          <Badge variant="default">Default</Badge>
+          <Badge variant="primary">Primary</Badge>
+          <Badge variant="success">Success</Badge>
+          <Badge variant="warning">Warning</Badge>
+          <Badge variant="error">Error</Badge>
+          <Badge variant="info">Info</Badge>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Sizes</p>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <Badge size="sm">Small</Badge>
+          <Badge size="md">Medium</Badge>
+          <Badge size="lg">Large</Badge>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">With pulse indicator</p>
+
+        <div class="flex flex-wrap gap-3">
+          <Badge variant="primary" pulse>Live</Badge>
+          <Badge variant="success" pulse>Online</Badge>
+          <Badge variant="error" pulse>Alert</Badge>
+          <Badge variant="warning" pulse>Pending</Badge>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
