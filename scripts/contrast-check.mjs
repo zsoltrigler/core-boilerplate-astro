@@ -1,4 +1,5 @@
 // @ts-check
+/* eslint-disable no-console */
 import { hex } from "wcag-contrast"
 import { COLORS } from "../src/config.ts"
 
