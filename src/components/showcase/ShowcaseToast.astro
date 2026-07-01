@@ -1,18 +1,14 @@
 ---
 import Button from "../ui/Button.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="toast" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Toast</h2>
-
-    <p class="text-sm text-(--color-text-muted)">
+<ShowcaseSection id="toast" title="Toast">
+  <Fragment slot="description">
       Non-blocking notification. Add <code class="rounded bg-(--color-bg-surface) px-1">&lt;Toast /&gt;</code> once to your layout, then call <code class="rounded bg-(--color-bg-surface) px-1">window.toast("message", {"{ variant }"} )</code> from any script. Auto-dismisses after 4 seconds.
-    </p>
-  </div>
+  </Fragment>
 
-  <CodeWindow label="Toast.astro">
+  
 
     <div class="flex flex-col gap-3 p-6">
       <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Variants</p>
@@ -24,8 +20,7 @@ import CodeWindow from "../ui/CodeWindow.astro"
         <Button variant="secondary" data-toast="error">Error toast</Button>
       </div>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>
 
 <script>
   const messages: Record<string, string> = {

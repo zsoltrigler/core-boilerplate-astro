@@ -1,18 +1,14 @@
 ---
 import Alert from "../ui/Alert.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="alert" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Alert</h2>
-
-    <p class="text-sm text-(--color-text-muted)">
+<ShowcaseSection id="alert" title="Alert">
+  <Fragment slot="description">
       Contextual feedback messages. Supports custom icon and title via named slots.
-    </p>
-  </div>
+  </Fragment>
 
-  <CodeWindow label="Alert.astro">
+  
 
     <div class="flex flex-col gap-4 p-6">
       <Alert variant="info" title="Information">This is an informational message with some useful context for the user.</Alert>
@@ -22,5 +18,4 @@ import CodeWindow from "../ui/CodeWindow.astro"
       <Alert variant="info" title="Dismissible" dismissible>Click the × to dismiss this alert.</Alert>
       <Alert variant="success">Alert without a title — just body text.</Alert>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>

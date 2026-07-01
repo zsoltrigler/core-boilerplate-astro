@@ -2,19 +2,15 @@
 import Button from "../ui/Button.astro"
 import Input from "../ui/Input.astro"
 import Modal from "../ui/Modal.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="modal" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Modal</h2>
-
-    <p class="text-sm text-(--color-text-muted)">
+<ShowcaseSection id="modal" title="Modal">
+  <Fragment slot="description">
       Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop, ESC and backdrop-click to close. Open with <code class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code> on any element.
-    </p>
-  </div>
+  </Fragment>
 
-  <CodeWindow label="Modal.astro">
+  
 
     <div class="flex flex-wrap gap-3 p-6">
       <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
@@ -22,8 +18,7 @@ import CodeWindow from "../ui/CodeWindow.astro"
       <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
       <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>
 
 <!-- Modals outside flow so they can cover the full viewport -->
 <Modal id="modal-default" title="Confirm action" size="md">

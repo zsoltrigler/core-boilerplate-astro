@@ -1,18 +1,14 @@
 ---
 import Breadcrumb from "../ui/Breadcrumb.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="breadcrumb" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Breadcrumb</h2>
-
-    <p class="text-sm text-(--color-text-muted)">
+<ShowcaseSection id="breadcrumb" title="Breadcrumb">
+  <Fragment slot="description">
       Accessible navigation trail using a <code class="rounded bg-(--color-bg-surface) px-1">&lt;nav aria-label="Breadcrumb"&gt;</code> with an ordered list. The last item renders as a <code class="rounded bg-(--color-bg-surface) px-1">span</code> with <code class="rounded bg-(--color-bg-surface) px-1">aria-current="page"</code>.
-    </p>
-  </div>
+  </Fragment>
 
-  <CodeWindow label="Breadcrumb.astro">
+  
 
     <div class="flex flex-col gap-6 p-6">
       <div class="flex flex-col gap-3">
@@ -45,5 +41,4 @@ import CodeWindow from "../ui/CodeWindow.astro"
         ]} />
       </div>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>

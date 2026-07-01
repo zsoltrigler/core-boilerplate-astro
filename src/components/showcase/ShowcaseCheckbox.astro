@@ -1,18 +1,14 @@
 ---
 import Checkbox from "../ui/Checkbox.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="checkbox" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Checkbox</h2>
-
-    <p class="text-sm text-(--color-text-muted)">
+<ShowcaseSection id="checkbox" title="Checkbox">
+  <Fragment slot="description">
       Accessible checkbox with label, error state, and disabled support.
-    </p>
-  </div>
+  </Fragment>
 
-  <CodeWindow label="Checkbox.astro">
+  
 
     <div class="flex flex-col gap-8 p-6">
       <div class="flex flex-col gap-3">
@@ -33,5 +29,4 @@ import CodeWindow from "../ui/CodeWindow.astro"
         <Checkbox name="check-error" label="I agree to the terms and conditions" error="You must accept the terms to continue." />
       </div>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>
