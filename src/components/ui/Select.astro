@@ -1,4 +1,6 @@
 ---
+import { ariaDescribedBy } from "../../utils/aria"
+
 export interface Props {
   name: string
   id?: string
@@ -74,7 +76,7 @@ const base = [
     disabled={disabled}
     required={required}
     aria-invalid={error ? "true" : undefined}
-    aria-describedby={[error && `${selectId}-error`, hint && `${selectId}-hint`].filter((x): x is string => !!x).join(" ") || undefined}
+    aria-describedby={ariaDescribedBy(selectId, { error, hint })}
     class={base}
   >
     {placeholder && <option value="" disabled selected>{placeholder}</option>}
