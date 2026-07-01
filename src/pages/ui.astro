@@ -158,13 +158,22 @@ const components = [
         .map((l) => document.querySelector<HTMLElement>(l.getAttribute("href")!))
         .filter(Boolean) as HTMLElement[]
 
+      // * Track active link to update only the previous and next — O(1) instead of O(n).
+      let activeLink: HTMLAnchorElement | null = null
+
       function setActive(id: string) {
-        links.forEach((l) => {
-          const active = l.getAttribute("href") === `#${id}`
-          l.classList.toggle("bg-(--color-bg-surface)", active)
-          l.classList.toggle("text-(--color-text-base)", active)
-          l.classList.toggle("text-(--color-text-muted)", !active)
-        })
+        const next = Array.from(links).find((l) => l.getAttribute("href") === `#${id}`) ?? null
+        if (next === activeLink) return
+
+        if (activeLink) {
+          activeLink.classList.remove("bg-(--color-bg-surface)", "text-(--color-text-base)")
+          activeLink.classList.add("text-(--color-text-muted)")
+        }
+        if (next) {
+          next.classList.add("bg-(--color-bg-surface)", "text-(--color-text-base)")
+          next.classList.remove("text-(--color-text-muted)")
+        }
+        activeLink = next
       }
 
       const observer = new IntersectionObserver(
