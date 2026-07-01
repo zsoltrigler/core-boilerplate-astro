@@ -1,5 +1,4 @@
 ---
-import ClientRouter from "astro/components/ClientRouter.astro"
 import "../styles/global.css"
 import { SITE, SITE_DEFAULTS, COLORS } from "../config"
 
@@ -79,17 +78,6 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
       })()
     </script>
 
-    <!-- Persist dark class across View Transitions on every page -->
-    <script>
-      import type { TransitionBeforeSwapEvent } from "astro:transitions/client"
-
-      document.addEventListener("astro:before-swap", (e) => {
-        if (document.documentElement.classList.contains("dark")) {
-          ;(e as TransitionBeforeSwapEvent).newDocument.documentElement.classList.add("dark")
-        }
-      })
-    </script>
-
     <!-- Primary Meta -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -134,9 +122,6 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
     <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
 
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content={COLORS.dark.bgBase} />
-
-    <!-- View Transitions (Astro 7+ ClientRouter) -->
-    <ClientRouter />
 
     <!-- Per-page head injection (extra <link>, <script>, JSON-LD, etc.) -->
     <slot name="head" />
