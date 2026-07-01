@@ -70,6 +70,9 @@
   const isDark = document.documentElement.classList.contains("dark")
 
   document.querySelectorAll<HTMLElement>("[data-theme-toggle]").forEach((btn) => {
+    if (btn.dataset.themeToggleInit) return
+    btn.dataset.themeToggleInit = "1"
+
     syncIcons(btn, isDark)
 
     btn.addEventListener("click", () => {

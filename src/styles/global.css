@@ -112,6 +112,11 @@
     *, *::before, *::after {
       transition-duration: 0.01ms !important;
     }
+
+    /* * :root { transition: --grid-line } is not matched by * above, so it needs its own rule */
+    :root {
+      transition: none !important;
+    }
   }
 
   /* * :root transition animates --grid-line so background-image recomputes
