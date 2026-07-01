@@ -68,6 +68,8 @@ runContrastChecks()
 
 // https://astro.build/config
 export default defineConfig({
+  // ! Set SITE_URL in your deployment environment — without it, sitemap and
+  //   canonical URLs fall back to localhost and will be wrong in production.
   site: process.env.SITE_URL ?? "http://localhost:4321",
 
   vite: {
