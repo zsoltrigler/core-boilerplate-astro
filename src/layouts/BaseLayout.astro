@@ -22,8 +22,6 @@ interface Props {
   modifiedDate?: string
   /** Author name injected into the <meta name="author"> tag. */
   author?: string
-  /** Comma-separated keywords for the <meta name="keywords"> tag. */
-  keywords?: string
   /** Set to true to add <meta name="robots" content="noindex, nofollow">. */
   noindex?: boolean
   /** BCP 47 language tag for the <html lang> attribute. */
@@ -40,8 +38,7 @@ const {
   ogType = "website",
   publishedDate,
   modifiedDate,
-  author,
-  keywords,
+  author = SITE.author || undefined,
   noindex = false,
   lang = SITE.lang,
   siteName = SITE.name,
@@ -93,7 +90,6 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
     <!-- Primary Meta -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {keywords && <meta name="keywords" content={keywords} />}
     {author && <meta name="author" content={author} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
@@ -129,6 +125,8 @@ if (description === SITE_DEFAULTS.DESCRIPTION) {
     <link rel="icon" type="image/svg+xml" href={SITE.favicon} />
     <!-- * PNG fallback for browsers that do not support SVG favicons (~5% share). -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <!-- * 180×180 icon used by iOS when added to home screen. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
 

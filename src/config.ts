@@ -61,6 +61,8 @@ export const SITE = {
   favicon: "/favicon.svg",
   ogImage: "/og-default.jpg", // default Open Graph image — must be JPG/PNG (SVG not supported by social platforms)
   twitterHandle: "", // e.g. "@yourusername" — enables twitter:site meta tag when set
+  author: "", // used in <meta name="author"> — your name or company
+  email: "", // contact email — optional, only used where explicitly rendered
   lang: "en",
   allRightsReserved: "All rights reserved.",
 } as const
