@@ -1,0 +1,54 @@
+---
+import Breadcrumb from "../ui/Breadcrumb.astro"
+---
+
+<section id="breadcrumb" class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">Breadcrumb</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      Accessible navigation trail using a <code class="rounded bg-(--color-bg-surface) px-1">&lt;nav aria-label="Breadcrumb"&gt;</code> with an ordered list. The last item renders as a <code class="rounded bg-(--color-bg-surface) px-1">span</code> with <code class="rounded bg-(--color-bg-surface) px-1">aria-current="page"</code>.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-(--color-border-base) bg-(--color-bg-surface)">
+    <div class="flex items-center gap-2 border-b border-(--color-border-base) px-4 py-3">
+      <span class="h-3 w-3 rounded-full bg-(--color-status-error) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-warning) opacity-70"></span>
+      <span class="h-3 w-3 rounded-full bg-(--color-status-success) opacity-70"></span>
+      <span class="ml-2 text-xs text-(--color-text-muted)">Breadcrumb.astro</span>
+    </div>
+
+    <div class="flex flex-col gap-6 p-6">
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Two levels</p>
+
+        <Breadcrumb items={[
+          { label: "Home", href: "/" },
+          { label: "UI Components" },
+        ]} />
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Three levels</p>
+
+        <Breadcrumb items={[
+          { label: "Home", href: "/" },
+          { label: "Blog", href: "/blog" },
+          { label: "Getting started with Astro" },
+        ]} />
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xs font-semibold uppercase tracking-wider text-(--color-text-muted)">Four levels</p>
+
+        <Breadcrumb items={[
+          { label: "Home", href: "/" },
+          { label: "Docs", href: "/docs" },
+          { label: "Components", href: "/docs/components" },
+          { label: "Breadcrumb" },
+        ]} />
+      </div>
+    </div>
+  </div>
+</section>
