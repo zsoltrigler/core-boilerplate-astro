@@ -1,16 +1,10 @@
 ---
 import Badge from "../ui/Badge.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="badge" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Badge</h2>
-
-    <p class="text-sm text-(--color-text-muted)">Inline label for status, category, or emphasis.</p>
-  </div>
-
-  <CodeWindow label="Badge.astro">
+<ShowcaseSection id="badge" title="Badge">
+  <Fragment slot="description">Inline label for status, category, or emphasis.</Fragment>
 
     <div class="flex flex-col gap-8 p-6">
       <div class="flex flex-col gap-3">
@@ -47,5 +41,4 @@ import CodeWindow from "../ui/CodeWindow.astro"
         </div>
       </div>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>

@@ -1,0 +1,26 @@
+---
+import CodeWindow from "../ui/CodeWindow.astro"
+
+interface Props {
+  /** Section anchor id — used by the sidebar nav (e.g. "button", "icon-button"). */
+  id: string
+  /** Component name shown as the heading and as the CodeWindow tab label (e.g. "Button"). */
+  title: string
+}
+
+const { id, title } = Astro.props
+---
+
+<section id={id} class="scroll-mt-24 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold text-(--color-text-base)">{title}</h2>
+
+    <p class="text-sm text-(--color-text-muted)">
+      <slot name="description" />
+    </p>
+  </div>
+
+  <CodeWindow label={`${title}.astro`}>
+    <slot />
+  </CodeWindow>
+</section>

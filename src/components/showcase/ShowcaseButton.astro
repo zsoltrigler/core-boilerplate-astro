@@ -1,20 +1,14 @@
 ---
 import Button from "../ui/Button.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="button" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Button</h2>
-
-    <p class="text-sm text-(--color-text-muted)">
+<ShowcaseSection id="button" title="Button">
+  <Fragment slot="description">
       Renders as <code class="rounded bg-(--color-bg-surface) px-1">&lt;a&gt;</code> when
       <code class="rounded bg-(--color-bg-surface) px-1">href</code> is set, otherwise
       <code class="rounded bg-(--color-bg-surface) px-1">&lt;button&gt;</code>.
-    </p>
-  </div>
-
-  <CodeWindow label="Button.astro">
+  </Fragment>
 
     <div class="flex flex-col gap-8 p-6">
       <div class="flex flex-col gap-3">
@@ -67,5 +61,4 @@ import CodeWindow from "../ui/CodeWindow.astro"
         </div>
       </div>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>

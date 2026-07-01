@@ -1,18 +1,12 @@
 ---
 import Input from "../ui/Input.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="input" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Input</h2>
-
-    <p class="text-sm text-(--color-text-muted)">
+<ShowcaseSection id="input" title="Input">
+  <Fragment slot="description">
       Text input with label, hint, error state and size variants. The <code class="rounded bg-(--color-bg-surface) px-1">name</code> prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls back to <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
-    </p>
-  </div>
-
-  <CodeWindow label="Input.astro">
+  </Fragment>
 
     <div class="flex flex-col gap-8 p-6">
       <div class="flex flex-col gap-3">
@@ -52,5 +46,4 @@ import CodeWindow from "../ui/CodeWindow.astro"
         <Input name="fullwidth" label="Full width" placeholder="Stretches to fill its container" fullWidth />
       </div>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>

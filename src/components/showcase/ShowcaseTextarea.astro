@@ -1,18 +1,12 @@
 ---
 import Textarea from "../ui/Textarea.astro"
-import CodeWindow from "../ui/CodeWindow.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
 ---
 
-<section id="textarea" class="scroll-mt-24 flex flex-col gap-6">
-  <div class="flex flex-col gap-2">
-    <h2 class="text-2xl font-bold text-(--color-text-base)">Textarea</h2>
-
-    <p class="text-sm text-(--color-text-muted)">
+<ShowcaseSection id="textarea" title="Textarea">
+  <Fragment slot="description">
       Multiline text input with label, hint, and error state. Vertically resizable by default.
-    </p>
-  </div>
-
-  <CodeWindow label="Textarea.astro">
+  </Fragment>
 
     <div class="flex flex-col gap-8 p-6">
       <div class="flex flex-col gap-3">
@@ -39,5 +33,4 @@ import CodeWindow from "../ui/CodeWindow.astro"
         <Textarea name="textarea-disabled" label="Disabled textarea" value="This content cannot be edited." disabled fullWidth />
       </div>
     </div>
-</CodeWindow>
-</section>
+</ShowcaseSection>
