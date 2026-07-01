@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css"
-import { SITE, SITE_DEFAULTS, COLORS } from "../config"
+import { SITE, PLACEHOLDER_DESCRIPTION, COLORS } from "../config"
 
 // * All props have sensible defaults sourced from src/config.ts.
 // * Override per-page by passing props directly to <BaseLayout>.
@@ -52,7 +52,7 @@ const resolvedOgImage = ogImage.startsWith("http")
   : new URL(ogImage, Astro.url.origin).href
 
 // ! Warn at runtime when the placeholder description is still in use — it hurts SEO.
-if (description === SITE_DEFAULTS.DESCRIPTION) {
+if (description === PLACEHOLDER_DESCRIPTION) {
   // eslint-disable-next-line no-console
   console.warn(
     `[BaseLayout] No custom description set for "${fullTitle}". Using placeholder — this hurts SEO.`

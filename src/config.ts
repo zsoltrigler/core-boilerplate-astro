@@ -4,10 +4,8 @@
 // ! Replace all placeholder values before deploying.
 // ============================================================
 
-export const SITE_DEFAULTS = {
-  // ! Intentional placeholder — the build will warn if this remains unchanged.
-  DESCRIPTION: "REPLACE_WITH_YOUR_DESCRIPTION",
-} as const
+// ! Intentional placeholder — the build will warn if SITE.description is unchanged.
+export const PLACEHOLDER_DESCRIPTION = "REPLACE_WITH_YOUR_DESCRIPTION" as const
 
 // ── Color Tokens ──────────────────────────────────────────────────────────────
 // * Colors are injected into CSS automatically via the Vite plugin in astro.config.mjs.
@@ -55,7 +53,7 @@ export const COLORS = {
 // ── Site Metadata ─────────────────────────────────────────────────────────────
 export const SITE = {
   name: "Core Boilerplate",
-  description: SITE_DEFAULTS.DESCRIPTION,
+  description: PLACEHOLDER_DESCRIPTION,
   logo: "", // path to logo image (SVG, PNG, etc.); leave empty for text-only
   showName: true, // show site name text next to the logo
   favicon: "/favicon.svg",
