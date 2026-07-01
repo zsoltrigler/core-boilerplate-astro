@@ -96,23 +96,10 @@
       stroke 0.2s ease;
   }
 
-  /* * Transitions --color-border-base so that body's background-image grid
-     (which uses color-mix(var(--color-border-base))) recomputes each frame.
-     ! Update this if the body background-image references a different token. */
-  :root {
-    transition: --color-border-base 0.2s ease;
-  }
-
   /* * Respect user's motion preference — disable all transitions */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       transition-duration: 0.01ms !important;
-    }
-
-    /* ! transition: none is required here (not just transition-duration) because
-       Safari does not honour transition-duration overrides on @property transitions */
-    :root {
-      transition: none !important;
     }
   }
 
