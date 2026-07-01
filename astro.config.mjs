@@ -53,7 +53,7 @@ function colorTokensPlugin() {
   return {
     name: "color-tokens",
     enforce: "pre",
-    transform(code, id) {
+    transform(/** @type {string} */ code, /** @type {string} */ id) {
       if (!id.endsWith("/global.css")) return
       if (!code.includes("/* @inject-color-tokens */")) return
       return { code: code.replace("/* @inject-color-tokens */", tokens), map: null }
