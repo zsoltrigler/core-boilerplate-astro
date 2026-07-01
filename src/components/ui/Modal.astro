@@ -122,7 +122,5 @@ const sizes: Record<string, string> = {
     })
   }
 
-  // * Re-init after View Transitions navigation so modals work on every page.
   initModals()
-  document.addEventListener("astro:page-load", initModals)
 </script>
