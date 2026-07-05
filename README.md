@@ -343,11 +343,7 @@ Accessible navigation trail with structured markup.
 
 ```astro
 <Breadcrumb
-  items={[
-    { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
-    { label: "Post title" },
-  ]}
+  items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: "Post title" }]}
 />
 ```
 
@@ -405,11 +401,11 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 
 **Props:** `title` · `description` · `canonicalUrl` · `ogImage` · `ogImageAlt` · `ogType` · `ogLocale` · `publishedDate` · `modifiedDate` · `author` · `noindex` · `lang`
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `ogImageAlt` | `string` | — | Alt text for the OG image. Shown by screen readers and some social platforms (e.g. LinkedIn). |
-| `ogLocale` | `string` | auto | OG locale in `language_REGION` format (e.g. `"en_US"`). Auto-derived from the `lang` prop — only set this if you need to override it. |
-| `jsonLd` | `object` | — | Any [schema.org](https://schema.org) object. The `@context` is added automatically. Common types: `WebSite`, `Article`, `Product`, `LocalBusiness`, `BreadcrumbList`. |
+| Prop         | Type     | Default | Description                                                                                                                                                           |
+| ------------ | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ogImageAlt` | `string` | —       | Alt text for the OG image. Shown by screen readers and some social platforms (e.g. LinkedIn).                                                                         |
+| `ogLocale`   | `string` | auto    | OG locale in `language_REGION` format (e.g. `"en_US"`). Auto-derived from the `lang` prop — only set this if you need to override it.                                 |
+| `jsonLd`     | `object` | —       | Any [schema.org](https://schema.org) object. The `@context` is added automatically. Common types: `WebSite`, `Article`, `Product`, `LocalBusiness`, `BreadcrumbList`. |
 
 **Slot:** `head` — inject extra `<link>` or `<script>` tags per page.
 
@@ -426,7 +422,7 @@ import BaseLayout from "../layouts/BaseLayout.astro"
     datePublished: "2024-06-01",
     author: { "@type": "Person", name: "Jane Doe" },
   }}
->
+/>
 ```
 
 The layout automatically prepends `"@context": "https://schema.org"` — you only need to pass the object itself.

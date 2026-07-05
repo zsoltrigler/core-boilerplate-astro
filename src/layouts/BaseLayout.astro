@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css"
-import { SITE, PLACEHOLDER_DESCRIPTION, COLORS } from "../config"
+import { SITE, PLACEHOLDER_DESCRIPTION, COLORS, OG_LOCALE_MAP } from "../config"
 
 // * All props have sensible defaults sourced from src/config.ts.
 // * Override per-page by passing props directly to <BaseLayout>.
@@ -53,24 +53,12 @@ const {
 } = Astro.props
 
 // * Derive og:locale from lang if not explicitly provided (e.g. "en" → "en_US").
-const localeMap: Record<string, string> = {
-  en: "en_US",
-  hu: "hu_HU",
-  de: "de_DE",
-  fr: "fr_FR",
-  es: "es_ES",
-  it: "it_IT",
-  nl: "nl_NL",
-  pt: "pt_PT",
-  pl: "pl_PL",
-  ro: "ro_RO",
-}
-const resolvedOgLocale = ogLocale ?? localeMap[lang] ?? lang
-// ! lang value has no og:locale mapping — og:locale may be invalid. Add it to localeMap in BaseLayout.astro.
-if (!ogLocale && !localeMap[lang] && import.meta.env.DEV) {
+const resolvedOgLocale = ogLocale ?? OG_LOCALE_MAP[lang] ?? lang
+// ! lang has no og:locale mapping — og:locale may be invalid. Add it to OG_LOCALE_MAP in src/config.ts.
+if (!ogLocale && !OG_LOCALE_MAP[lang] && import.meta.env.DEV) {
   // eslint-disable-next-line no-console
   console.warn(
-    `[BaseLayout] No og:locale mapping for lang="${lang}". Add it to localeMap or pass ogLocale explicitly.`
+    `[BaseLayout] No og:locale mapping for lang="${lang}". Add it to OG_LOCALE_MAP in src/config.ts or pass ogLocale explicitly.`
   )
 }
 
@@ -166,14 +154,17 @@ if (description === PLACEHOLDER_DESCRIPTION) {
         <script
           is:inline
           type="application/ld+json"
-          set:html={JSON.stringify({ ...jsonLd, "@context": "https://schema.org" })
-            .replace(/</g, "\\u003c")
-            .replace(/>/g, "\\u003e")
-            .replace(/&/g, "\\u0026")
-            .split("\u2028")
-            .join("\\u2028")
-            .split("\u2029")
-            .join("\\u2029")}
+          set:html={JSON.stringify({ ...jsonLd, "@context": "https://schema.org" }).replace(
+            /[<>&\u2028\u2029]/g,
+            (c) =>
+              ({
+                "<": "\\u003c",
+                ">": "\\u003e",
+                "&": "\\u0026",
+                "\u2028": "\\u2028",
+                "\u2029": "\\u2029",
+              })[c]!
+          )}
         />
       )
     }
