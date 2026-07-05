@@ -1,6 +1,8 @@
-## What does this PR do?
+## Summary
 
-<!-- A short description of the change and why it was made. -->
+<!-- What changed and why. 1–3 bullet points. -->
+
+-
 
 ## Type of change
 
@@ -11,10 +13,27 @@
 - [ ] `refactor` — code rewrite, no functional change
 - [ ] `style` — formatting or visual change
 
+## Breaking changes
+
+<!-- Does this PR change any existing prop, API, or behavior that could break a consumer? -->
+
+None.
+
+## Test plan
+
+<!-- Concrete steps to verify this works. Check each one before opening the PR. -->
+
+- [ ]
+- [ ]
+
+## Screenshots
+
+<!-- UI changes only — Before / After. Delete this section if not applicable. -->
+
 ## Checklist
 
-- [ ] Code follows the project's Prettier config (format on save)
-- [ ] TypeScript — no type errors (`pnpm exec astro check`)
-- [ ] Build passes locally (`pnpm build`)
-- [ ] Comments follow the Better Comments convention
-- [ ] Blank lines between sibling HTML elements
+- [ ] `pnpm type-check` passes
+- [ ] `pnpm build` passes
+- [ ] Prettier formatting applied
+- [ ] Better Comments convention followed (`* ` info, `! ` warning, `? ` question, `TODO:`)
+- [ ] No hardcoded colors — all colors via `src/config.ts`

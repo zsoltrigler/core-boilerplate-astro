@@ -56,3 +56,14 @@ pnpm check:contrast # WCAG contrast check standalone
 ## Branch naming
 
 `feat/`, `fix/`, `chore/`, `docs/`, `refactor/`, `style/`
+
+## PR template structure
+
+Every PR body must follow this exact order — template is in `.github/PULL_REQUEST_TEMPLATE.md`:
+
+1. **Summary** — 1–3 bullet points: what changed and why
+2. **Type of change** — checkbox: `feat` / `fix` / `chore` / `docs` / `refactor` / `style`
+3. **Breaking changes** — explicit yes/no; default `None.` if nothing breaks
+4. **Test plan** — concrete checkbox steps a reviewer can reproduce
+5. **Screenshots** — Before/After for UI changes; delete section if not applicable
+6. **Checklist** — `pnpm type-check`, `pnpm build`, Prettier, Better Comments, no hardcoded colors
