@@ -66,6 +66,13 @@ const localeMap: Record<string, string> = {
   ro: "ro_RO",
 }
 const resolvedOgLocale = ogLocale ?? localeMap[lang] ?? lang
+// ! lang value has no og:locale mapping — og:locale may be invalid. Add it to localeMap in BaseLayout.astro.
+if (!ogLocale && !localeMap[lang] && import.meta.env.DEV) {
+  // eslint-disable-next-line no-console
+  console.warn(
+    `[BaseLayout] No og:locale mapping for lang="${lang}". Add it to localeMap or pass ogLocale explicitly.`
+  )
+}
 
 const fullTitle = title ? `${title} | ${siteName}` : siteName
 
