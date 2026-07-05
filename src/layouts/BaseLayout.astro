@@ -51,12 +51,14 @@ const resolvedOgImage = ogImage.startsWith("http")
   ? ogImage
   : new URL(ogImage, Astro.url.origin).href
 
-// ! Warn at runtime when the placeholder description is still in use — it hurts SEO.
+// ! Placeholder description check — blocks CI builds, warns locally.
 if (description === PLACEHOLDER_DESCRIPTION) {
+  const msg = `[BaseLayout] SITE.description is still the placeholder value. Replace it in src/config.ts before deploying.`
+  if (import.meta.env.CI) {
+    throw new Error(msg)
+  }
   // eslint-disable-next-line no-console
-  console.warn(
-    `[BaseLayout] No custom description set for "${fullTitle}". Using placeholder — this hurts SEO.`
-  )
+  console.warn(msg)
 }
 ---
 
