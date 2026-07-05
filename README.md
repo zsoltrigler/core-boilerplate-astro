@@ -431,6 +431,54 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 
 The layout automatically prepends `"@context": "https://schema.org"` — you only need to pass the object itself.
 
+### JSON-LD at scale — reuse via a shared layout
+
+`jsonLd` is per-page by design: the data (title, author, date) is different on every page. However, you don't have to repeat it in every `.astro` file. The pattern is to wrap `BaseLayout` in a purpose-built layout and pass the data down as props:
+
+```astro
+---
+// src/layouts/BlogPostLayout.astro
+import BaseLayout from "./BaseLayout.astro"
+
+interface Props {
+  title: string
+  author: string
+  publishedDate: string
+}
+
+const { title, author, publishedDate } = Astro.props
+---
+
+<BaseLayout
+  title={title}
+  ogType="article"
+  publishedDate={publishedDate}
+  jsonLd={{
+    "@type": "Article",
+    headline: title,
+    datePublished: publishedDate,
+    author: { "@type": "Person", name: author },
+  }}
+>
+  <slot />
+</BaseLayout>
+```
+
+Every blog post then uses `BlogPostLayout` instead of `BaseLayout` directly — JSON-LD is generated automatically with no repetition:
+
+```astro
+---
+// src/pages/blog/sourdough.astro
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro"
+---
+
+<BlogPostLayout title="How to bake sourdough" author="Jane Doe" publishedDate="2024-06-01">
+  <!-- post content -->
+</BlogPostLayout>
+```
+
+Apply the same pattern to product pages (`ProductLayout`), landing pages, or any repeated page type.
+
 ---
 
 ## Dark mode
