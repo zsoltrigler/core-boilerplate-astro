@@ -6,7 +6,7 @@ Production-ready Astro 7 + Tailwind 4 boilerplate. Free marketing tool for a pre
 
 ## Stack
 
-- **Astro 7** (SSG, View Transitions)
+- **Astro 7** (SSG)
 - **Tailwind CSS v4** (CSS-first config via `@theme`)
 - **TypeScript** (strict mode)
 - **pnpm** (package manager)
@@ -19,7 +19,7 @@ All colors live in `src/config.ts` → `COLORS`. A Vite plugin in `astro.config.
 
 ### WCAG AA enforcement
 
-`scripts/contrast-check.mjs` checks 24 color pairs at build time. Locally: warns. In CI (`CI=true`): throws and blocks the build. Run standalone with `pnpm check:contrast`.
+`scripts/contrast-check.mjs` checks color pairs at build time. Locally: warns. In CI (`CI=true`): throws and blocks the build. Run standalone with `pnpm check:contrast`.
 
 ### CSS strategy
 
@@ -28,40 +28,28 @@ All colors live in `src/config.ts` → `COLORS`. A Vite plugin in `astro.config.
 ## Commands
 
 ```bash
-pnpm dev           # dev server
-pnpm build         # production build (runs contrast checks)
-pnpm type-check    # astro check
-pnpm format        # prettier
+pnpm dev            # dev server
+pnpm build          # production build (runs contrast checks)
+pnpm type-check     # astro check
+pnpm format         # prettier
 pnpm check:contrast # WCAG contrast check standalone
 ```
 
 ## Component locations
 
-- `src/components/ui/` — reusable UI components (Button, Badge, Alert, Input, Card, Modal, IconButton)
-- `src/components/layout/` — layout primitives (Section, Container)
-- `src/components/global/` — site-wide (Header, Footer, ThemeToggle)
+- `src/components/ui/` — Alert, Badge, Breadcrumb, Button, Card, Checkbox, CodeWindow, IconButton, Input, Modal, Select, Tabs, Textarea, Toast
+- `src/components/layout/` — Container, Section
+- `src/components/global/` — Header, Footer, ThemeToggle
 - `src/components/showcase/` — `/ui` page demo sections — **delete when using as project base**
 
-## File conventions
+## Pages
 
-- Better Comments: `* ` info, `! ` warning, `? ` question, `TODO:` todo
-- Blank lines between sibling HTML elements in Astro templates
-- Prettier formats on save (`.vscode/settings.json`)
+- `src/pages/index.astro` — főoldal
+- `src/pages/ui.astro` — komponens showcase (`/ui`)
+- `src/pages/404.astro` — 404 oldal
+- `src/pages/robots.txt.ts` — dinamikus robots.txt
 
 ## What NOT to touch
 
 - `src/styles/global.css` — the `/* @inject-color-tokens */` marker is replaced at build time; do not edit the generated block
 - `dist/` — build output, git-ignored
-
-## Branch naming
-
-`feat/`, `fix/`, `chore/`, `docs/`, `refactor/`, `style/`
-
-## PR template structure
-
-Every PR body must follow this exact order — template is in `.github/PULL_REQUEST_TEMPLATE.md`:
-
-1. **Summary** — 1–3 bullet points: what changed and why
-2. **Type of change** — checkbox: `feat` / `fix` / `chore` / `docs` / `refactor` / `style`
-3. **Breaking changes** — explicit yes/no; default `None.` if nothing breaks
-4. **Checklist** — `pnpm type-check`, `pnpm build`, Prettier, Better Comments, no hardcoded colors
