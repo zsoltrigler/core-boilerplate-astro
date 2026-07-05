@@ -21,8 +21,8 @@ export const COLORS = {
   textMuted: "#5d6b7d", // secondary / helper text — darkened to pass 4.5:1 on bgElevated
   textInverted: "#ffffff", // text on brand-colored backgrounds
   brandPrimary: "#4f46e5",
-  brandSecondary: "#8b5cf6",
-  brandAccent: "#06b6d4",
+  brandSecondary: "#7c3aed", // violet-600 — 5.70:1 on white
+  brandAccent: "#0e7490", // cyan-700  — 5.36:1 on white
   borderBase: "#e2e8f0",
   borderStrong: "#cbd5e1",
   // * Darkened to pass WCAG AA (4.5:1) on white — math is symmetric, so these

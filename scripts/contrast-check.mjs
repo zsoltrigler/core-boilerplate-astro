@@ -76,6 +76,18 @@ const contrastPairs = [
     bg: COLORS.dark.brandPrimary,
     min: 4.5,
   },
+  {
+    name: "textInverted on brandSecondary (light)",
+    fg: COLORS.textInverted,
+    bg: COLORS.brandSecondary,
+    min: 4.5,
+  },
+  {
+    name: "textInverted on brandAccent (light)",
+    fg: COLORS.textInverted,
+    bg: COLORS.brandAccent,
+    min: 4.5,
+  },
 
   // Status colors as text on light bg (Badge, Alert)
   {
