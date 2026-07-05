@@ -156,7 +156,7 @@ if (description === PLACEHOLDER_DESCRIPTION) {
     <!-- JSON-LD structured data — pass a jsonLd prop to inject schema.org markup -->
     {
       jsonLd && (
-        <script is:inline type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", ...jsonLd })} />
+        <script is:inline type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", ...jsonLd }).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026")} />
       )
     }
 
