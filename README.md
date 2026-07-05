@@ -32,6 +32,17 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 
 ---
 
+## After cloning
+
+Before you start building, do these four things:
+
+1. **Edit `src/config.ts`** — set your site name, description, colors, nav links, and social links.
+2. **Replace `public/og-default.jpg`** — 1200×630px JPG or PNG, used when sharing on social media.
+3. **Replace the favicon** — swap out `public/favicon.svg` (and the `.ico` / `.png` variants) with your own.
+4. **Delete the component showcase** — remove `src/pages/ui.astro` and `src/components/showcase/` when you no longer need the reference.
+
+---
+
 ## Configuration
 
 **Everything starts in `src/config.ts`.** This is the single source of truth for your site — colors, name, URLs, nav links, and social links are all defined here.
