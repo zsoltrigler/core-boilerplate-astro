@@ -5,10 +5,19 @@ export const prerender = true
 export const GET: APIRoute = () => {
   const siteUrl = (import.meta.env.SITE as string | undefined)?.replace(/\/$/, "")
 
-  // ! SITE_URL env var is not set — sitemap line omitted to avoid a localhost URL in production.
-  //   Set SITE_URL in your deployment platform's environment variables.
+  // ! SITE env var is not set — sitemap line omitted to avoid a localhost URL in production.
+  //   Set SITE in your deployment platform's environment variables (e.g. https://example.com).
   const lines = ["User-agent: *", "Allow: /"]
-  if (siteUrl && !siteUrl.startsWith("http://localhost")) {
+  const isLocalhost = siteUrl
+    ? (() => {
+        try {
+          return ["localhost", "127.0.0.1", "::1"].includes(new URL(siteUrl).hostname)
+        } catch {
+          return true
+        }
+      })()
+    : true
+  if (siteUrl && !isLocalhost) {
     lines.push("", `Sitemap: ${siteUrl}/sitemap-index.xml`)
   }
 
