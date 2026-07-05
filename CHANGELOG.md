@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.6.0...core-boilerplate-v1.6.1) (2026-07-05)
+
+
+### Bug Fixes
+
+* darken brandSecondary and brandAccent to meet WCAG AA 4.5:1 ([edd22ca](https://github.com/zsoltrigler/core-boilerplate-astro/commit/edd22ca65a5082d772e43a214bcdcdea425c3328))
+* darken brandSecondary and brandAccent to meet WCAG AA 4.5:1 ([6fb396f](https://github.com/zsoltrigler/core-boilerplate-astro/commit/6fb396f820fdb9517dfd76652f586618c149dc25))
+
 ## [1.6.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.5.0...core-boilerplate-v1.6.0) (2026-07-05)
 
 
