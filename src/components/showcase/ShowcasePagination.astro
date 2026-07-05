@@ -1,0 +1,22 @@
+---
+import Pagination from "../ui/Pagination.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+---
+
+<ShowcaseSection id="pagination" title="Pagination">
+  <Fragment slot="description">
+    Static link-based pagination for SSG. Pass <code class="rounded bg-(--color-bg-surface) px-1"
+      >currentPage</code
+    >, <code class="rounded bg-(--color-bg-surface) px-1">totalPages</code>, and <code
+      class="rounded bg-(--color-bg-surface) px-1">baseUrl</code
+    >. Page 1 links to <code class="rounded bg-(--color-bg-surface) px-1">baseUrl</code> directly — no
+    <code class="rounded bg-(--color-bg-surface) px-1">/1</code> suffix.
+  </Fragment>
+
+  <div class="flex flex-col items-start gap-6 p-6">
+    <Pagination currentPage={1} totalPages={5} baseUrl="/blog" />
+    <Pagination currentPage={3} totalPages={5} baseUrl="/blog" />
+    <Pagination currentPage={5} totalPages={5} baseUrl="/blog" />
+    <Pagination currentPage={4} totalPages={12} baseUrl="/blog" />
+  </div>
+</ShowcaseSection>

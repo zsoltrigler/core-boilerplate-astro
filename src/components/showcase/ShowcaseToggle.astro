@@ -1,0 +1,26 @@
+---
+import Toggle from "../ui/Toggle.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+---
+
+<ShowcaseSection id="toggle" title="Toggle">
+  <Fragment slot="description">
+    Checkbox-based switch with custom CSS styling. Fully keyboard-accessible — space bar toggles.
+    Use instead of <code class="rounded bg-(--color-bg-surface) px-1">Checkbox</code> for on/off settings.
+  </Fragment>
+
+  <div class="flex flex-wrap items-start gap-6 p-6">
+    <div class="flex flex-col gap-4">
+      <Toggle name="t-sm" label="Small" size="sm" />
+      <Toggle name="t-md" label="Medium (default)" size="md" />
+      <Toggle name="t-lg" label="Large" size="lg" />
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <Toggle name="t-off" label="Off (default)" />
+      <Toggle name="t-on" label="On" checked />
+      <Toggle name="t-dis" label="Disabled" disabled />
+      <Toggle name="t-dis-on" label="Disabled checked" checked disabled />
+    </div>
+  </div>
+</ShowcaseSection>

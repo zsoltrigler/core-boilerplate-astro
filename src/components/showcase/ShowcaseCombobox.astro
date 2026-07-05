@@ -1,0 +1,58 @@
+---
+import Combobox from "../ui/Combobox.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+
+const frameworks = [
+  { value: "astro", label: "Astro" },
+  { value: "next", label: "Next.js" },
+  { value: "nuxt", label: "Nuxt" },
+  { value: "sveltekit", label: "SvelteKit" },
+  { value: "remix", label: "Remix" },
+  { value: "gatsby", label: "Gatsby" },
+]
+
+const countries = [
+  { value: "hu", label: "Hungary" },
+  { value: "de", label: "Germany" },
+  { value: "fr", label: "France" },
+  { value: "es", label: "Spain" },
+  { value: "it", label: "Italy" },
+  { value: "nl", label: "Netherlands" },
+  { value: "pl", label: "Poland" },
+  { value: "pt", label: "Portugal" },
+]
+---
+
+<ShowcaseSection id="combobox" title="Combobox">
+  <Fragment slot="description">
+    Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;input&gt;</code> + <code
+      class="rounded bg-(--color-bg-surface) px-1">&lt;datalist&gt;</code
+    > — zero JS, works everywhere. Type to filter suggestions. For fully custom filtering, swap the datalist
+    for a JS-driven listbox.
+  </Fragment>
+
+  <div class="flex flex-wrap items-start gap-6 p-6">
+    <Combobox
+      name="framework"
+      label="Framework"
+      options={frameworks}
+      placeholder="Search frameworks…"
+    />
+
+    <Combobox
+      name="country"
+      label="Country"
+      options={countries}
+      placeholder="Search countries…"
+      hint="Start typing to filter the list"
+    />
+
+    <Combobox
+      name="framework-error"
+      label="With error"
+      options={frameworks}
+      placeholder="Search…"
+      error="Please select a valid option"
+    />
+  </div>
+</ShowcaseSection>

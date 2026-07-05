@@ -1,0 +1,41 @@
+---
+import Accordion from "../ui/Accordion.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+---
+
+<ShowcaseSection id="accordion" title="Accordion">
+  <Fragment slot="description">
+    Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;details&gt;</code>/<code
+      class="rounded bg-(--color-bg-surface) px-1">&lt;summary&gt;</code
+    > accordion — no JS. Multiple items can be open simultaneously. Pass <code
+      class="rounded bg-(--color-bg-surface) px-1">open</code
+    > to expand by default.
+  </Fragment>
+
+  <div class="flex flex-col gap-2 p-6">
+    <Accordion title="What is Core Boilerplate?" open>
+      A production-ready Astro 7 + Tailwind CSS v4 starter with WCAG AA enforced at build time,
+      100/100 Lighthouse scores, and a full UI component library.
+    </Accordion>
+
+    <Accordion title="Do I need to credit the author?">
+      No — Core Boilerplate is MIT-licensed. Use it in personal and commercial projects without
+      attribution.
+    </Accordion>
+
+    <Accordion title="Can I add my own components?">
+      Absolutely. Every component lives in <code
+        class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">src/components/ui/</code
+      > — just drop a new <code class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs"
+        >.astro</code
+      > file there.
+    </Accordion>
+
+    <Accordion title="Is dark mode supported?">
+      Yes — all color tokens have dark-mode overrides in <code
+        class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">src/config.ts</code
+      >. The <code class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">ThemeToggle</code> component
+      handles switching.
+    </Accordion>
+  </div>
+</ShowcaseSection>

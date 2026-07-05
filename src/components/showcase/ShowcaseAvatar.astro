@@ -1,0 +1,37 @@
+---
+import Avatar from "../ui/Avatar.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+---
+
+<ShowcaseSection id="avatar" title="Avatar">
+  <Fragment slot="description">
+    Shows an image when <code class="rounded bg-(--color-bg-surface) px-1">src</code> is set; falls back
+    to initials derived from <code class="rounded bg-(--color-bg-surface) px-1">alt</code> or the explicit
+    <code class="rounded bg-(--color-bg-surface) px-1">initials</code> prop. Use <code
+      class="rounded bg-(--color-bg-surface) px-1">shape="square"</code
+    > for app icons.
+  </Fragment>
+
+  <div class="flex flex-wrap items-end gap-6 p-6">
+    <!-- Sizes -->
+    <div class="flex items-end gap-3">
+      <Avatar alt="Xavier Small" size="xs" />
+      <Avatar alt="Susan M" size="sm" />
+      <Avatar alt="John Doe" size="md" />
+      <Avatar alt="Rebecca L" size="lg" />
+      <Avatar alt="Thomas A" size="xl" />
+    </div>
+
+    <!-- Shapes -->
+    <div class="flex items-center gap-3">
+      <Avatar alt="Circle" size="md" />
+      <Avatar alt="Square" size="md" shape="square" />
+    </div>
+
+    <!-- Explicit initials -->
+    <div class="flex items-center gap-3">
+      <Avatar initials="AB" size="md" alt="AB initials" />
+      <Avatar initials="?" size="md" alt="Unknown user" />
+    </div>
+  </div>
+</ShowcaseSection>

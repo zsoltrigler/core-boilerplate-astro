@@ -1,0 +1,84 @@
+---
+import Button from "../ui/Button.astro"
+import Dropdown from "../ui/Dropdown.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+---
+
+<ShowcaseSection id="dropdown" title="Dropdown">
+  <Fragment slot="description">
+    JS-powered menu panel. Place the trigger in <code class="rounded bg-(--color-bg-surface) px-1"
+      >slot="trigger"</code
+    > and menu items in the default slot. Closes on item click, Escape, and outside click.
+  </Fragment>
+
+  <div class="flex flex-wrap items-start gap-6 p-8">
+    <Dropdown>
+      <Button slot="trigger" variant="secondary" size="md">
+        Actions
+        <svg
+          slot="icon-right"
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m6 9 6 6 6-6"></path>
+        </svg>
+      </Button>
+
+      <div class="flex flex-col">
+        <a
+          href="#"
+          class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-(--color-text-base) transition-colors hover:bg-(--color-bg-surface)"
+        >
+          Edit
+        </a>
+        <a
+          href="#"
+          class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-(--color-text-base) transition-colors hover:bg-(--color-bg-surface)"
+        >
+          Duplicate
+        </a>
+        <hr class="my-1 border-t border-(--color-border-base)" />
+        <button
+          type="button"
+          class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-(--color-status-error) transition-colors hover:bg-(--color-bg-surface)"
+        >
+          Delete
+        </button>
+      </div>
+    </Dropdown>
+
+    <Dropdown align="right">
+      <Button slot="trigger" variant="primary" size="md">Right-aligned</Button>
+
+      <div class="flex flex-col">
+        <button
+          type="button"
+          class="rounded-lg px-3 py-2 text-left text-sm text-(--color-text-base) transition-colors hover:bg-(--color-bg-surface)"
+        >
+          Profile settings
+        </button>
+        <button
+          type="button"
+          class="rounded-lg px-3 py-2 text-left text-sm text-(--color-text-base) transition-colors hover:bg-(--color-bg-surface)"
+        >
+          Billing
+        </button>
+        <hr class="my-1 border-t border-(--color-border-base)" />
+        <button
+          type="button"
+          class="rounded-lg px-3 py-2 text-left text-sm text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface)"
+        >
+          Sign out
+        </button>
+      </div>
+    </Dropdown>
+  </div>
+</ShowcaseSection>

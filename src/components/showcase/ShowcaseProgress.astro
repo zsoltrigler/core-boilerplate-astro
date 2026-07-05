@@ -1,0 +1,28 @@
+---
+import Progress from "../ui/Progress.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+---
+
+<ShowcaseSection id="progress" title="Progress">
+  <Fragment slot="description">
+    Accessible <code class="rounded bg-(--color-bg-surface) px-1">role="progressbar"</code> with smooth
+    fill transition. Supports four variants and three sizes. Value is clamped to 0–100.
+  </Fragment>
+
+  <div class="flex flex-col gap-6 p-6">
+    <Progress value={72} label="Uploading…" showPercent />
+
+    <div class="flex flex-col gap-4">
+      <Progress value={25} variant="primary" label="Primary" showPercent />
+      <Progress value={60} variant="success" label="Success" showPercent />
+      <Progress value={45} variant="warning" label="Warning" showPercent />
+      <Progress value={80} variant="error" label="Error" showPercent />
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <Progress value={55} size="sm" label="Small" />
+      <Progress value={55} size="md" label="Medium (default)" />
+      <Progress value={55} size="lg" label="Large" />
+    </div>
+  </div>
+</ShowcaseSection>

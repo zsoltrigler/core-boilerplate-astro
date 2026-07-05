@@ -1,0 +1,143 @@
+---
+export interface Props {
+  currentPage: number
+  totalPages: number
+  /**
+   * Base URL for page links. Page numbers are appended as /<n>.
+   * Page 1 links directly to baseUrl (no /1 suffix).
+   * Example: baseUrl="/blog" → /blog, /blog/2, /blog/3 …
+   */
+  baseUrl: string
+  class?: string
+}
+
+const { currentPage, totalPages, baseUrl, class: className = "" } = Astro.props
+
+function pageUrl(n: number): string {
+  return n === 1 ? baseUrl : `${baseUrl}/${n}`
+}
+
+// * Show first, last, current, and one neighbour on each side — collapse gaps into "…".
+function getPages(): (number | "...")[] {
+  if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1)
+
+  const visible = new Set(
+    [1, totalPages, currentPage, currentPage - 1, currentPage + 1].filter(
+      (n) => n >= 1 && n <= totalPages
+    )
+  )
+  const sorted = Array.from(visible).sort((a, b) => a - b)
+
+  const result: (number | "...")[] = []
+  for (let i = 0; i < sorted.length; i++) {
+    result.push(sorted[i])
+    if (i < sorted.length - 1 && sorted[i + 1] - sorted[i] > 1) result.push("...")
+  }
+  return result
+}
+
+const pages = getPages()
+
+const btnBase =
+  "inline-flex h-9 min-w-9 items-center justify-center rounded-lg px-3 text-sm font-medium transition-colors duration-150"
+const btnActive = `${btnBase} bg-(--color-brand-primary) text-white pointer-events-none`
+const btnIdle = `${btnBase} text-(--color-text-muted) hover:bg-(--color-bg-surface) hover:text-(--color-text-base)`
+const btnDisabled = `${btnBase} text-(--color-text-muted) opacity-40 pointer-events-none`
+---
+
+<nav aria-label="Pagination" class={`flex items-center gap-1 ${className}`}>
+  <!-- Previous -->
+  {
+    currentPage > 1 ? (
+      <a href={pageUrl(currentPage - 1)} rel="prev" aria-label="Previous page" class={btnIdle}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+      </a>
+    ) : (
+      <span aria-disabled="true" class={btnDisabled}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+      </span>
+    )
+  }
+
+  <!-- Page numbers -->
+  {
+    pages.map((p) =>
+      p === "..." ? (
+        <span class={`${btnBase} pointer-events-none text-(--color-text-muted)`}>…</span>
+      ) : p === currentPage ? (
+        <span aria-current="page" class={btnActive}>
+          {p}
+        </span>
+      ) : (
+        <a href={pageUrl(p)} aria-label={`Page ${p}`} class={btnIdle}>
+          {p}
+        </a>
+      )
+    )
+  }
+
+  <!-- Next -->
+  {
+    currentPage < totalPages ? (
+      <a href={pageUrl(currentPage + 1)} rel="next" aria-label="Next page" class={btnIdle}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
+    ) : (
+      <span aria-disabled="true" class={btnDisabled}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </span>
+    )
+  }
+</nav>

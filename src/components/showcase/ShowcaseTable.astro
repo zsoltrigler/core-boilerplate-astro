@@ -1,0 +1,77 @@
+---
+import Table from "../ui/Table.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+---
+
+<ShowcaseSection id="table" title="Table">
+  <Fragment slot="description">
+    Responsive wrapper with consistent thead/tbody/tfoot styling. Add <code
+      class="rounded bg-(--color-bg-surface) px-1">striped</code
+    > for alternating row backgrounds. Standard HTML elements go inside the slot.
+  </Fragment>
+
+  <div class="flex flex-col gap-8 p-6">
+    <Table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Joined</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Alice Johnson</td>
+          <td>Admin</td>
+          <td>Active</td>
+          <td>Jan 2024</td>
+        </tr>
+        <tr>
+          <td>Bob Smith</td>
+          <td>Editor</td>
+          <td>Active</td>
+          <td>Mar 2024</td>
+        </tr>
+        <tr>
+          <td>Carol White</td>
+          <td>Viewer</td>
+          <td>Inactive</td>
+          <td>Jun 2024</td>
+        </tr>
+      </tbody>
+    </Table>
+
+    <Table striped>
+      <thead>
+        <tr>
+          <th>Package</th>
+          <th>Version</th>
+          <th>License</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>astro</td>
+          <td>7.0.6</td>
+          <td>MIT</td>
+        </tr>
+        <tr>
+          <td>tailwindcss</td>
+          <td>4.3.2</td>
+          <td>MIT</td>
+        </tr>
+        <tr>
+          <td>typescript</td>
+          <td>5.x</td>
+          <td>Apache-2.0</td>
+        </tr>
+        <tr>
+          <td>prettier</td>
+          <td>3.9.4</td>
+          <td>MIT</td>
+        </tr>
+      </tbody>
+    </Table>
+  </div>
+</ShowcaseSection>

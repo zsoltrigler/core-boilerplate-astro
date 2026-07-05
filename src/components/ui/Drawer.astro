@@ -1,0 +1,128 @@
+---
+export interface Props {
+  /** Unique id — wire the trigger via data-drawer-open="<id>". */
+  id: string
+  /** Drawer heading shown in the header bar. */
+  title?: string
+  /** Side the drawer slides in from. */
+  side?: "left" | "right"
+  class?: string
+}
+
+const { id, title, side = "right", class: className = "" } = Astro.props
+
+const slideIn = side === "left" ? "-translate-x-full" : "translate-x-full"
+const position = side === "left" ? "left-0" : "right-0"
+---
+
+<!--
+  * Usage: add data-drawer-open="<id>" to any button to open this drawer.
+  * Close via the × button, backdrop click, or Escape.
+  * Uses native <dialog> for built-in focus trap and accessibility.
+-->
+<dialog
+  id={id}
+  data-drawer
+  data-side={side}
+  class={`fixed inset-y-0 ${position} m-0 h-full w-full max-w-sm border-0 bg-(--color-bg-base) p-0 shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${className}`}
+>
+  <!-- * Slide animation applied after dialog is shown via JS. -->
+  <div
+    data-drawer-panel
+    class={`flex h-full flex-col transition-transform duration-300 ${slideIn}`}
+  >
+    <!-- Header -->
+    {
+      (title || Astro.slots.has("title")) && (
+        <div class="flex shrink-0 items-center justify-between border-b border-(--color-border-base) px-6 py-4">
+          <h2 class="text-lg font-semibold text-(--color-text-base)">
+            {Astro.slots.has("title") ? <slot name="title" /> : title}
+          </h2>
+
+          <button
+            data-drawer-close
+            type="button"
+            aria-label="Close drawer"
+            class="flex h-8 w-8 items-center justify-center rounded-lg text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+      )
+    }
+
+    <!-- Body -->
+    <div class="flex-1 overflow-y-auto px-6 py-5 text-(--color-text-base)">
+      <slot />
+    </div>
+
+    <!-- Footer -->
+    {
+      Astro.slots.has("footer") && (
+        <div class="flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) px-6 py-4">
+          <slot name="footer" />
+        </div>
+      )
+    }
+  </div>
+</dialog>
+
+<script>
+  function initDrawers() {
+    // * Open: any element with [data-drawer-open="<id>"] triggers the matching drawer.
+    document.querySelectorAll<HTMLElement>("[data-drawer-open]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const drawer = document.getElementById(
+          trigger.dataset.drawerOpen!
+        ) as HTMLDialogElement | null
+        if (!drawer) return
+
+        drawer.showModal()
+        // * Animate in on the next frame so the transition plays after display: flex.
+        requestAnimationFrame(() => {
+          drawer
+            .querySelector<HTMLElement>("[data-drawer-panel]")
+            ?.classList.remove("-translate-x-full", "translate-x-full")
+        })
+      })
+    })
+
+    document.querySelectorAll<HTMLDialogElement>("[data-drawer]").forEach((drawer) => {
+      const panel = drawer.querySelector<HTMLElement>("[data-drawer-panel]")
+      const side = drawer.dataset.side ?? "right"
+      const exitClass = side === "left" ? "-translate-x-full" : "translate-x-full"
+
+      function closeDrawer() {
+        panel?.classList.add(exitClass)
+        // * Wait for the slide-out transition before closing the dialog.
+        setTimeout(() => drawer.close(), 300)
+      }
+
+      drawer.querySelectorAll("[data-drawer-close]").forEach((btn) => {
+        btn.addEventListener("click", closeDrawer)
+      })
+
+      // ! Backdrop click — same pattern as Modal.
+      drawer.addEventListener("click", (e) => {
+        if (e.target === drawer) closeDrawer()
+      })
+    })
+  }
+
+  initDrawers()
+  document.addEventListener("astro:page-load", initDrawers)
+</script>

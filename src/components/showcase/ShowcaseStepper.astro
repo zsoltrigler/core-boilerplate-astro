@@ -1,0 +1,44 @@
+---
+import Stepper from "../ui/Stepper.astro"
+import ShowcaseSection from "./ShowcaseSection.astro"
+
+const steps = [
+  { label: "Account", description: "Basic info" },
+  { label: "Profile", description: "About you" },
+  { label: "Review", description: "Check details" },
+  { label: "Done", description: "All set" },
+]
+---
+
+<ShowcaseSection id="stepper" title="Stepper">
+  <Fragment slot="description">
+    Multi-step progress indicator. Pass <code class="rounded bg-(--color-bg-surface) px-1"
+      >currentStep</code
+    > (1-based). Completed steps show a checkmark. Supports <code
+      class="rounded bg-(--color-bg-surface) px-1">horizontal</code
+    > (default) and <code class="rounded bg-(--color-bg-surface) px-1">vertical</code> orientations.
+  </Fragment>
+
+  <div class="flex flex-col gap-10 p-6">
+    <div class="flex flex-col gap-2">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Step 1 of 4
+      </p>
+      <Stepper steps={steps} currentStep={1} />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Step 3 of 4
+      </p>
+      <Stepper steps={steps} currentStep={3} />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+        Vertical — Step 2 of 4
+      </p>
+      <Stepper steps={steps} currentStep={2} orientation="vertical" class="max-w-xs" />
+    </div>
+  </div>
+</ShowcaseSection>

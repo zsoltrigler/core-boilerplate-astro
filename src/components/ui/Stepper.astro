@@ -1,0 +1,139 @@
+---
+export interface StepperStep {
+  label: string
+  description?: string
+}
+
+export interface Props {
+  steps: StepperStep[]
+  /** 1-based index of the currently active step. */
+  currentStep: number
+  orientation?: "horizontal" | "vertical"
+  class?: string
+}
+
+const { steps, currentStep, orientation = "horizontal", class: className = "" } = Astro.props
+---
+
+<ol
+  class={`flex ${orientation === "vertical" ? "flex-col gap-0" : "items-start"} ${className}`}
+  aria-label="Progress steps"
+>
+  {
+    steps.map((step, i) => {
+      const stepNum = i + 1
+      const isCompleted = stepNum < currentStep
+      const isActive = stepNum === currentStep
+      const isLast = i === steps.length - 1
+
+      return (
+        <li
+          class={`flex ${orientation === "vertical" ? "gap-4" : "flex-1 flex-col items-center"}`}
+          aria-current={isActive ? "step" : undefined}
+        >
+          {/* Vertical: connector line on the left, aligned with the circle center */}
+          {orientation === "vertical" ? (
+            <div class="flex flex-col items-center">
+              {/* Step circle */}
+              <div
+                class={[
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors duration-200",
+                  isCompleted
+                    ? "border-(--color-brand-primary) bg-(--color-brand-primary) text-white"
+                    : isActive
+                      ? "border-(--color-brand-primary) bg-(--color-bg-base) text-(--color-brand-primary)"
+                      : "border-(--color-border-base) bg-(--color-bg-base) text-(--color-text-muted)",
+                ].join(" ")}
+                aria-hidden="true"
+              >
+                {isCompleted ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  stepNum
+                )}
+              </div>
+
+              {/* Connector line below circle (all but last) */}
+              {!isLast && (
+                <div
+                  class={`mt-1 w-0.5 flex-1 self-stretch ${isCompleted ? "bg-(--color-brand-primary)" : "bg-(--color-border-base)"}`}
+                  style="min-height: 2rem;"
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+          ) : (
+            /* Horizontal: connector line is a pseudo-bar after the circle */
+            <div class="relative flex w-full items-center">
+              <div
+                class={[
+                  "relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors duration-200",
+                  isCompleted
+                    ? "border-(--color-brand-primary) bg-(--color-brand-primary) text-white"
+                    : isActive
+                      ? "border-(--color-brand-primary) bg-(--color-bg-base) text-(--color-brand-primary)"
+                      : "border-(--color-border-base) bg-(--color-bg-base) text-(--color-text-muted)",
+                ].join(" ")}
+                aria-hidden="true"
+              >
+                {isCompleted ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  stepNum
+                )}
+              </div>
+
+              {/* Connector bar to the right (all but last) */}
+              {!isLast && (
+                <div
+                  class={`h-0.5 flex-1 ${isCompleted ? "bg-(--color-brand-primary)" : "bg-(--color-border-base)"}`}
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+          )}
+
+          {/* Label + description */}
+          <div
+            class={`flex flex-col gap-0.5 ${orientation === "vertical" ? "pb-6" : "mt-3 items-center text-center"}`}
+          >
+            <span
+              class={`text-sm font-medium ${isActive ? "text-(--color-text-base)" : isCompleted ? "text-(--color-text-muted)" : "text-(--color-text-muted)"}`}
+            >
+              {step.label}
+            </span>
+            {step.description && (
+              <span class="text-xs text-(--color-text-muted)">{step.description}</span>
+            )}
+          </div>
+        </li>
+      )
+    })
+  }
+</ol>

@@ -1,0 +1,91 @@
+---
+export interface Props {
+  /** Alignment of the menu panel relative to the trigger. */
+  align?: "left" | "right"
+  class?: string
+}
+
+const { align = "left", class: className = "" } = Astro.props
+
+const menuAlign = align === "right" ? "right-0" : "left-0"
+---
+
+<!--
+  * Usage:
+  *   <Dropdown>
+  *     <button slot="trigger">Open</button>
+  *     <a href="#" data-dropdown-item>Item</a>
+  *   </Dropdown>
+  *
+  * The trigger receives aria-haspopup + aria-expanded automatically via the script.
+  * Close on: trigger click, Escape, click outside, item selection.
+-->
+<div data-dropdown class={`relative inline-flex ${className}`}>
+  <div data-dropdown-trigger>
+    <slot name="trigger" />
+  </div>
+
+  <div
+    data-dropdown-menu
+    hidden
+    role="menu"
+    class={`absolute top-full ${menuAlign} z-50 mt-1 min-w-44 rounded-xl border border-(--color-border-base) bg-(--color-bg-base) p-1 shadow-lg`}
+  >
+    <slot />
+  </div>
+</div>
+
+<script>
+  function initDropdowns() {
+    document.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((dropdown) => {
+      const triggerWrapper = dropdown.querySelector<HTMLElement>("[data-dropdown-trigger]")
+      const menu = dropdown.querySelector<HTMLElement>("[data-dropdown-menu]")
+      // * Find the first focusable element inside the trigger slot as the real button.
+      const trigger = triggerWrapper?.querySelector<HTMLElement>("button, a, [role='button']")
+      if (!trigger || !menu) return
+
+      // * Wire ARIA attributes so the trigger announces its state to screen readers.
+      trigger.setAttribute("aria-haspopup", "true")
+      trigger.setAttribute("aria-expanded", "false")
+
+      function open() {
+        menu!.hidden = false
+        trigger!.setAttribute("aria-expanded", "true")
+      }
+
+      function close() {
+        menu!.hidden = true
+        trigger!.setAttribute("aria-expanded", "false")
+      }
+
+      function toggle() {
+        menu!.hidden ? open() : close()
+      }
+
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation()
+        toggle()
+      })
+
+      // * Close on Escape.
+      dropdown.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          close()
+          trigger!.focus()
+        }
+      })
+
+      // * Close when clicking outside the dropdown.
+      document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target as Node)) close()
+      })
+
+      // ! Close when any item inside the menu is clicked — covers both <a> and buttons.
+      menu.addEventListener("click", () => close())
+    })
+  }
+
+  initDropdowns()
+  // * Re-init after Astro View Transitions.
+  document.addEventListener("astro:page-load", initDropdowns)
+</script>
