@@ -64,6 +64,4 @@ Every PR body must follow this exact order — template is in `.github/PULL_REQU
 1. **Summary** — 1–3 bullet points: what changed and why
 2. **Type of change** — checkbox: `feat` / `fix` / `chore` / `docs` / `refactor` / `style`
 3. **Breaking changes** — explicit yes/no; default `None.` if nothing breaks
-4. **Test plan** — concrete checkbox steps a reviewer can reproduce
-5. **Screenshots** — Before/After for UI changes; delete section if not applicable
-6. **Checklist** — `pnpm type-check`, `pnpm build`, Prettier, Better Comments, no hardcoded colors
+4. **Checklist** — `pnpm type-check`, `pnpm build`, Prettier, Better Comments, no hardcoded colors

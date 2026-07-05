@@ -19,17 +19,6 @@
 
 None.
 
-## Test plan
-
-<!-- Concrete steps to verify this works. Check each one before opening the PR. -->
-
-- [ ]
-- [ ]
-
-## Screenshots
-
-<!-- UI changes only — Before / After. Delete this section if not applicable. -->
-
 ## Checklist
 
 - [ ] `pnpm type-check` passes
