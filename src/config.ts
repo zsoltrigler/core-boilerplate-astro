@@ -50,6 +50,23 @@ export const COLORS = {
   },
 } as const
 
+// ── OG Locale Map ─────────────────────────────────────────────────────────────
+// * Maps BCP 47 lang codes to og:locale format (language_REGION).
+// * Used by BaseLayout to derive og:locale from the lang prop automatically.
+// * Add an entry here if you introduce a new language to the project.
+export const OG_LOCALE_MAP: Record<string, string> = {
+  en: "en_US",
+  hu: "hu_HU",
+  de: "de_DE",
+  fr: "fr_FR",
+  es: "es_ES",
+  it: "it_IT",
+  nl: "nl_NL",
+  pt: "pt_PT",
+  pl: "pl_PL",
+  ro: "ro_RO",
+}
+
 // ── Site Metadata ─────────────────────────────────────────────────────────────
 export const SITE = {
   name: "Core Boilerplate",
