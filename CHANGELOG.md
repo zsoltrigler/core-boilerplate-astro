@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.6.2...core-boilerplate-v1.6.3) (2026-07-05)
+
+
+### Miscellaneous Chores
+
+* add .claude/settings.json with permission allowlist ([8ec040a](https://github.com/zsoltrigler/core-boilerplate-astro/commit/8ec040aa4130826f919e7b8062b1a343978e7a22))
+* add .claude/settings.json with permission allowlist ([cf2e66a](https://github.com/zsoltrigler/core-boilerplate-astro/commit/cf2e66a2576b76a5053fc6f889e528e9fdbc7e2a))
+
 ## [1.6.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.6.1...core-boilerplate-v1.6.2) (2026-07-05)
 
 
