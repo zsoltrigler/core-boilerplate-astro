@@ -390,16 +390,94 @@ import BaseLayout from "../layouts/BaseLayout.astro"
   title="Page title"
   description="Page description (max ~160 chars)"
   ogImage="/custom-og.jpg"
+  ogImageAlt="A short description of the OG image for screen readers"
   ogType="article"
   noindex={false}
+  jsonLd={{
+    "@type": "WebSite",
+    name: "My Site",
+    url: "https://example.com",
+  }}
 >
   <!-- page content -->
 </BaseLayout>
 ```
 
-**Props:** `title` · `description` · `canonicalUrl` · `ogImage` · `ogType` · `publishedDate` · `modifiedDate` · `author` · `keywords` · `noindex` · `lang`
+**Props:** `title` · `description` · `canonicalUrl` · `ogImage` · `ogImageAlt` · `ogType` · `ogLocale` · `publishedDate` · `modifiedDate` · `author` · `noindex` · `lang`
 
-**Slot:** `head` — inject extra `<link>`, `<script>`, or JSON-LD per page.
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `ogImageAlt` | `string` | — | Alt text for the OG image. Shown by screen readers and some social platforms (e.g. LinkedIn). |
+| `ogLocale` | `string` | auto | OG locale in `language_REGION` format (e.g. `"en_US"`). Auto-derived from the `lang` prop — only set this if you need to override it. |
+| `jsonLd` | `object` | — | Any [schema.org](https://schema.org) object. The `@context` is added automatically. Common types: `WebSite`, `Article`, `Product`, `LocalBusiness`, `BreadcrumbList`. |
+
+**Slot:** `head` — inject extra `<link>` or `<script>` tags per page.
+
+### JSON-LD example — Article page
+
+```astro
+<BaseLayout
+  title="How to bake sourdough"
+  ogType="article"
+  publishedDate="2024-06-01"
+  jsonLd={{
+    "@type": "Article",
+    headline: "How to bake sourdough",
+    datePublished: "2024-06-01",
+    author: { "@type": "Person", name: "Jane Doe" },
+  }}
+>
+```
+
+The layout automatically prepends `"@context": "https://schema.org"` — you only need to pass the object itself.
+
+### JSON-LD at scale — reuse via a shared layout
+
+`jsonLd` is per-page by design: the data (title, author, date) is different on every page. However, you don't have to repeat it in every `.astro` file. The pattern is to wrap `BaseLayout` in a purpose-built layout and pass the data down as props:
+
+```astro
+---
+// src/layouts/BlogPostLayout.astro
+import BaseLayout from "./BaseLayout.astro"
+
+interface Props {
+  title: string
+  author: string
+  publishedDate: string
+}
+
+const { title, author, publishedDate } = Astro.props
+---
+
+<BaseLayout
+  title={title}
+  ogType="article"
+  publishedDate={publishedDate}
+  jsonLd={{
+    "@type": "Article",
+    headline: title,
+    datePublished: publishedDate,
+    author: { "@type": "Person", name: author },
+  }}
+>
+  <slot />
+</BaseLayout>
+```
+
+Every blog post then uses `BlogPostLayout` instead of `BaseLayout` directly — JSON-LD is generated automatically with no repetition:
+
+```astro
+---
+// src/pages/blog/sourdough.astro
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro"
+---
+
+<BlogPostLayout title="How to bake sourdough" author="Jane Doe" publishedDate="2024-06-01">
+  <!-- post content -->
+</BlogPostLayout>
+```
+
+Apply the same pattern to product pages (`ProductLayout`), landing pages, or any repeated page type.
 
 ---
 
