@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm type-check*)",
+      "Bash(pnpm check:contrast*)",
+      "Bash(pnpm outdated*)",
+      "Bash(pnpm lint*)",
+      "Bash(pnpm exec eslint*)"
+    ]
+  }
+}
