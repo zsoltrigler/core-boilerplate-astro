@@ -1,0 +1,32 @@
+# Release Please — automatically creates and maintains a Release PR on every
+# push to main. When the Release PR is merged, a GitHub Release and git tag
+# are created automatically and package.json version is bumped.
+#
+# How it works:
+#   1. Every push to main updates the pending Release PR with new changelog entries.
+#   2. Merge the Release PR when ready to ship → GitHub Release + tag are created.
+#   3. Version bump follows Conventional Commits:
+#        feat:  → minor (1.0.0 → 1.1.0)
+#        fix:   → patch (1.0.0 → 1.0.1)
+#        feat!: → major (1.0.0 → 2.0.0)
+#        chore/refactor/docs/style → no version bump
+
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
