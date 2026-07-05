@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.6.1...core-boilerplate-v1.6.2) (2026-07-05)
+
+
+### Miscellaneous Chores
+
+* bump dependencies to latest patch/minor versions ([5ff5104](https://github.com/zsoltrigler/core-boilerplate-astro/commit/5ff5104c56242b026833476aab5147bf538a6862))
+* bump dependencies to latest patch/minor versions ([5702350](https://github.com/zsoltrigler/core-boilerplate-astro/commit/57023500c4bfe9e6eefdd9c9b6f670e45b08012c))
+
 ## [1.6.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.6.0...core-boilerplate-v1.6.1) (2026-07-05)
 
 
