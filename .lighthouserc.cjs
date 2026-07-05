@@ -15,7 +15,9 @@ module.exports = {
     assert: {
       preset: "lighthouse:no-pwa",
       assertions: {
-        "categories:performance": ["error", { minScore: 0.95 }],
+        // * 0.9 instead of 0.95 — CI runners are slower than local machines and
+        //   performance scores vary. 0.9 is a realistic minimum in headless CI.
+        "categories:performance": ["error", { minScore: 0.9 }],
         // * 0.95 instead of 1.0: color-contrast audit cannot resolve CSS custom
         //   properties statically, which false-positives and lowers the score.
         "categories:accessibility": ["error", { minScore: 0.95 }],
@@ -34,6 +36,11 @@ module.exports = {
         // * is-crawlable is checked per-URL; 404 page is intentionally noindex.
         //   Pages with <meta name="robots" content="noindex"> trigger this audit.
         "is-crawlable": "off",
+        // * Diagnostic-only audits from lighthouse:no-pwa preset — warn level but
+        //   noisy in CI output. Scores are 0 by design on static pages without JS.
+        "dom-size-insight": "off",
+        "mainthread-work-breakdown": "off",
+        "max-potential-fid": "off",
       },
     },
     upload: {
