@@ -41,10 +41,30 @@ const {
 // * id falls back to name so label[for] always resolves even when id is omitted.
 const selectId = id ?? name
 
+// * Native select arrows vary wildly across browsers/OSes and can't be
+//   positioned reliably — appearance-none removes it in favour of a
+//   custom chevron, matching the one used in Accordion/Dropdown.
+// * pr-* overrides FIELD_SIZES' symmetric px-* on the right side only;
+//   Tailwind resolves same-property utility conflicts by specificity of
+//   the properties they touch, so a single-side override always wins
+//   over the shorthand it's paired with.
+const iconGap: Record<"sm" | "md" | "lg", string> = {
+  sm: "pr-8",
+  md: "pr-10",
+  lg: "pr-11",
+}
+
+const iconOffset: Record<"sm" | "md" | "lg", string> = {
+  sm: "right-2.5",
+  md: "right-3",
+  lg: "right-3.5",
+}
+
 const base = [
-  "w-full border bg-(--color-bg-base) text-(--color-text-base) cursor-pointer",
+  "w-full appearance-none border bg-(--color-bg-base) text-(--color-text-base) cursor-pointer",
   fieldStateClasses(error),
   FIELD_SIZES[size],
+  iconGap[size],
 ].join(" ")
 ---
 
@@ -57,23 +77,41 @@ const base = [
   fullWidth={fullWidth}
   class={className}
 >
-  <select
-    id={selectId}
-    name={name}
-    aria-label={!label ? ariaLabel : undefined}
-    disabled={disabled}
-    required={required}
-    aria-invalid={error ? "true" : undefined}
-    aria-describedby={ariaDescribedBy(selectId, { error, hint })}
-    class={base}
-  >
-    {
-      placeholder && (
-        <option value="" disabled selected>
-          {placeholder}
-        </option>
-      )
-    }
-    <slot />
-  </select>
+  <div class="relative">
+    <select
+      id={selectId}
+      name={name}
+      aria-label={!label ? ariaLabel : undefined}
+      disabled={disabled}
+      required={required}
+      aria-invalid={error ? "true" : undefined}
+      aria-describedby={ariaDescribedBy(selectId, { error, hint })}
+      class={base}
+    >
+      {
+        placeholder && (
+          <option value="" disabled selected>
+            {placeholder}
+          </option>
+        )
+      }
+      <slot />
+    </select>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      class={`pointer-events-none absolute top-1/2 ${iconOffset[size]} -translate-y-1/2 text-(--color-text-muted) ${disabled ? "opacity-50" : ""}`}
+    >
+      <path d="m6 9 6 6 6-6"></path>
+    </svg>
+  </div>
 </FormField>
