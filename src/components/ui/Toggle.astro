@@ -43,23 +43,28 @@ const thumbs: Record<string, string> = {
 <label
   class={`inline-flex cursor-pointer items-center gap-2.5 ${disabled ? "cursor-not-allowed opacity-50" : ""} ${className}`}
 >
-  <!-- * Hidden native checkbox — controls state and remains keyboard / screen-reader accessible. -->
-  <input
-    type="checkbox"
-    id={toggleId}
-    name={name}
-    checked={checked}
-    disabled={disabled}
-    class="peer sr-only"
-  />
-
-  <!-- * Visual track — bg changes on peer-checked, ring on peer-focus-visible. -->
+  <!--
+    * Track reacts via has-checked/has-focus-visible (CSS :has()) since the
+      input is a descendant, not a sibling — has-* reaches into descendants.
+    ! The thumb needs peer-checked, which only matches direct siblings of the
+      peer, so input and thumb are siblings here, both children of the track.
+  -->
   <span
-    class={`relative flex shrink-0 items-center rounded-full bg-(--color-bg-elevated) transition-colors duration-200 peer-checked:bg-(--color-brand-primary) peer-focus-visible:ring-2 peer-focus-visible:ring-(--color-brand-primary)/40 ${tracks[size]}`}
+    class={`relative flex shrink-0 items-center rounded-full bg-(--color-bg-elevated) transition-colors duration-200 has-checked:bg-(--color-brand-primary) has-focus-visible:ring-2 has-focus-visible:ring-(--color-brand-primary)/40 ${tracks[size]}`}
   >
+    <!-- * Hidden native checkbox — controls state and remains keyboard / screen-reader accessible. -->
+    <input
+      type="checkbox"
+      id={toggleId}
+      name={name}
+      checked={checked}
+      disabled={disabled}
+      class="peer sr-only"
+    />
+
     <!-- * Visual thumb — translates right when checked. -->
     <span
-      class={`absolute left-0.5 inline-block translate-x-0 rounded-full bg-white shadow transition-transform duration-200 ${thumbs[size]}`}
+      class={`pointer-events-none absolute left-0.5 inline-block translate-x-0 rounded-full bg-white shadow transition-transform duration-200 ${thumbs[size]}`}
     ></span>
   </span>
 
