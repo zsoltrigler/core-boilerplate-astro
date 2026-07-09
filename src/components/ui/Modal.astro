@@ -82,7 +82,11 @@ const sizes: Record<string, string> = {
   document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
       const modal = document.getElementById(trigger.dataset.modalOpen!) as HTMLDialogElement | null
-      modal?.showModal()
+      if (!modal) return
+      modal.showModal()
+      // ! showModal() does not lock body scroll by default — the page
+      //   behind stays scrollable via wheel/touch unless done manually.
+      document.documentElement.classList.add("overflow-hidden")
     })
   })
 
@@ -99,5 +103,12 @@ const sizes: Record<string, string> = {
     })
 
     // ESC is handled natively by the browser for <dialog> — no extra code needed.
+
+    // * The native "close" event fires however the dialog closes (the × button,
+    //   backdrop click, or the browser's own ESC handling) — the safest single
+    //   place to unlock scroll.
+    modal.addEventListener("close", () => {
+      document.documentElement.classList.remove("overflow-hidden")
+    })
   })
 </script>
