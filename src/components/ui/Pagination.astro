@@ -1,4 +1,6 @@
 ---
+import IconButton from "./IconButton.astro"
+
 export interface Props {
   currentPage: number
   totalPages: number
@@ -38,18 +40,27 @@ function getPages(): (number | "...")[] {
 
 const pages = getPages()
 
-const btnBase =
-  "inline-flex h-9 min-w-9 items-center justify-center rounded-lg px-3 text-sm font-medium transition-colors duration-150"
-const btnActive = `${btnBase} bg-(--color-brand-primary) text-white pointer-events-none`
-const btnIdle = `${btnBase} text-(--color-text-muted) hover:bg-(--color-bg-surface) hover:text-(--color-text-base)`
-const btnDisabled = `${btnBase} text-(--color-text-muted) opacity-40 pointer-events-none`
+// * Page-number pills match IconButton's "sm" footprint (h-8, rounded-md) so
+//   prev/next (rendered via IconButton below) align visually with the numbers.
+const pillBase =
+  "inline-flex h-8 min-w-8 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors duration-150"
+const pillActive = `${pillBase} bg-(--color-brand-primary) text-white pointer-events-none`
+const pillIdle = `${pillBase} text-(--color-text-muted) hover:bg-(--color-bg-surface) hover:text-(--color-text-base)`
+const disabledArrow =
+  "flex h-8 w-8 items-center justify-center rounded-md text-(--color-text-muted) opacity-40"
 ---
 
 <nav aria-label="Pagination" class={`flex items-center gap-1 ${className}`}>
   <!-- Previous -->
   {
     currentPage > 1 ? (
-      <a href={pageUrl(currentPage - 1)} rel="prev" aria-label="Previous page" class={btnIdle}>
+      <IconButton
+        href={pageUrl(currentPage - 1)}
+        rel="prev"
+        label="Previous page"
+        variant="ghost"
+        size="sm"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -64,9 +75,9 @@ const btnDisabled = `${btnBase} text-(--color-text-muted) opacity-40 pointer-eve
         >
           <path d="m15 18-6-6 6-6" />
         </svg>
-      </a>
+      </IconButton>
     ) : (
-      <span aria-disabled="true" class={btnDisabled}>
+      <span aria-disabled="true" class={disabledArrow}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -89,13 +100,13 @@ const btnDisabled = `${btnBase} text-(--color-text-muted) opacity-40 pointer-eve
   {
     pages.map((p) =>
       p === "..." ? (
-        <span class={`${btnBase} pointer-events-none text-(--color-text-muted)`}>…</span>
+        <span class={`${pillBase} pointer-events-none text-(--color-text-muted)`}>…</span>
       ) : p === currentPage ? (
-        <span aria-current="page" class={btnActive}>
+        <span aria-current="page" class={pillActive}>
           {p}
         </span>
       ) : (
-        <a href={pageUrl(p)} aria-label={`Page ${p}`} class={btnIdle}>
+        <a href={pageUrl(p)} aria-label={`Page ${p}`} class={pillIdle}>
           {p}
         </a>
       )
@@ -105,7 +116,13 @@ const btnDisabled = `${btnBase} text-(--color-text-muted) opacity-40 pointer-eve
   <!-- Next -->
   {
     currentPage < totalPages ? (
-      <a href={pageUrl(currentPage + 1)} rel="next" aria-label="Next page" class={btnIdle}>
+      <IconButton
+        href={pageUrl(currentPage + 1)}
+        rel="next"
+        label="Next page"
+        variant="ghost"
+        size="sm"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -120,9 +137,9 @@ const btnDisabled = `${btnBase} text-(--color-text-muted) opacity-40 pointer-eve
         >
           <path d="m9 18 6-6-6-6" />
         </svg>
-      </a>
+      </IconButton>
     ) : (
-      <span aria-disabled="true" class={btnDisabled}>
+      <span aria-disabled="true" class={disabledArrow}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

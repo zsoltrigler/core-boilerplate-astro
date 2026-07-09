@@ -1,4 +1,6 @@
 ---
+import IconButton from "./IconButton.astro"
+
 export interface Props {
   /** Unique id — used to wire the trigger button to this modal via data-modal-open. */
   id: string
@@ -38,12 +40,7 @@ const sizes: Record<string, string> = {
             {Astro.slots.has("title") ? <slot name="title" /> : title}
           </h2>
 
-          <button
-            data-modal-close
-            type="button"
-            aria-label="Close modal"
-            class="flex h-8 w-8 items-center justify-center rounded-lg text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
-          >
+          <IconButton data-modal-close label="Close modal" variant="ghost" size="sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -59,7 +56,7 @@ const sizes: Record<string, string> = {
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
-          </button>
+          </IconButton>
         </div>
       )
     }

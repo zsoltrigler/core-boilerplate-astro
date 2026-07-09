@@ -1,5 +1,7 @@
 ---
 import { ariaDescribedBy } from "../../utils/aria"
+import { fieldStateClasses, FIELD_SIZES } from "../../utils/fieldStyles"
+import FormField from "./FormField.astro"
 
 export interface Props {
   name: string
@@ -39,36 +41,22 @@ const {
 // * id falls back to name so label[for] always resolves even when id is omitted.
 const selectId = id ?? name
 
-const sizes: Record<string, string> = {
-  sm: "h-8  px-3 text-sm  rounded-md",
-  md: "h-10 px-4 text-base rounded-lg",
-  lg: "h-12 px-5 text-lg  rounded-xl",
-}
-
 const base = [
-  "w-full border bg-(--color-bg-base) text-(--color-text-base)",
-  "outline-none transition-colors duration-200 cursor-pointer",
-  "focus:ring-2 focus:ring-(--color-brand-primary)/40 focus:border-(--color-brand-primary)",
-  "disabled:opacity-50 disabled:cursor-not-allowed",
-  error
-    ? "border-(--color-status-error) focus:ring-(--color-status-error)/40 focus:border-(--color-status-error)"
-    : "border-(--color-border-base) hover:border-(--color-border-strong)",
-  sizes[size],
+  "w-full border bg-(--color-bg-base) text-(--color-text-base) cursor-pointer",
+  fieldStateClasses(error),
+  FIELD_SIZES[size],
 ].join(" ")
 ---
 
-<div class={`flex flex-col gap-1.5 ${fullWidth ? "w-full" : "w-fit"} ${className}`}>
-  {
-    label && (
-      <label
-        for={selectId}
-        class={`text-sm font-medium text-(--color-text-base) ${required ? "after:ml-0.5 after:text-(--color-status-error) after:content-['*']" : ""}`}
-      >
-        {label}
-      </label>
-    )
-  }
-
+<FormField
+  id={selectId}
+  label={label}
+  required={required}
+  error={error}
+  hint={hint}
+  fullWidth={fullWidth}
+  class={className}
+>
   <select
     id={selectId}
     name={name}
@@ -88,20 +76,4 @@ const base = [
     }
     <slot />
   </select>
-
-  {
-    error && (
-      <p id={`${selectId}-error`} class="text-sm text-(--color-status-error)" role="alert">
-        {error}
-      </p>
-    )
-  }
-
-  {
-    hint && (
-      <p id={`${selectId}-hint`} class="text-sm text-(--color-text-muted)">
-        {hint}
-      </p>
-    )
-  }
-</div>
+</FormField>

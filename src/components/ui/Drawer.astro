@@ -1,4 +1,6 @@
 ---
+import IconButton from "./IconButton.astro"
+
 export interface Props {
   /** Unique id — wire the trigger via data-drawer-open="<id>". */
   id: string
@@ -39,12 +41,7 @@ const position = side === "left" ? "left-0" : "right-0"
             {Astro.slots.has("title") ? <slot name="title" /> : title}
           </h2>
 
-          <button
-            data-drawer-close
-            type="button"
-            aria-label="Close drawer"
-            class="flex h-8 w-8 items-center justify-center rounded-lg text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
-          >
+          <IconButton data-drawer-close label="Close drawer" variant="ghost" size="sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -60,7 +57,7 @@ const position = side === "left" ? "left-0" : "right-0"
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
-          </button>
+          </IconButton>
         </div>
       )
     }

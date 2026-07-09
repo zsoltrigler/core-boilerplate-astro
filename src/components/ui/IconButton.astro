@@ -8,6 +8,8 @@ export interface Props {
   size?: "sm" | "md" | "lg"
   /** Opens the link in a new tab with rel="noopener noreferrer". */
   external?: boolean
+  /** rel attribute for link mode — e.g. "prev" / "next" for pagination controls. */
+  rel?: string
   disabled?: boolean
   class?: string
 }
@@ -19,8 +21,10 @@ const {
   variant = "ghost",
   size = "md",
   external = false,
+  rel,
   disabled = false,
   class: className = "",
+  ...rest
 } = Astro.props
 
 const variants: Record<string, string> = {
@@ -49,16 +53,21 @@ const base = [
 ].join(" ")
 
 // * Renders as <a> when href is provided, <button> otherwise.
-const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
+// ! external always forces a safe rel — it isn't overridable via the rel prop.
+const externalProps = external
+  ? { target: "_blank", rel: "noopener noreferrer" }
+  : rel
+    ? { rel }
+    : {}
 ---
 
 {
   href ? (
-    <a href={href} class={base} aria-label={label} {...externalProps}>
+    <a href={href} class={base} aria-label={label} {...externalProps} {...rest}>
       <slot />
     </a>
   ) : (
-    <button type={type} class={base} aria-label={label} disabled={disabled}>
+    <button type={type} class={base} aria-label={label} disabled={disabled} {...rest}>
       <slot />
     </button>
   )

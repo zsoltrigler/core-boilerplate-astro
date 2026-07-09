@@ -1,4 +1,6 @@
 ---
+import Input from "./Input.astro"
+
 export interface ComboboxOption {
   value: string
   label: string
@@ -24,8 +26,6 @@ export interface Props {
   class?: string
 }
 
-import { ariaDescribedBy } from "../../utils/aria"
-
 const {
   name,
   id,
@@ -45,75 +45,33 @@ const {
 
 const comboId = id ?? name
 const listId = `${comboId}-list`
-
-const sizes: Record<string, string> = {
-  sm: "h-8  px-3 text-sm  rounded-md",
-  md: "h-10 px-4 text-base rounded-lg",
-  lg: "h-12 px-5 text-lg  rounded-xl",
-}
-
-const inputBase = [
-  "w-full border bg-(--color-bg-base) text-(--color-text-base)",
-  "outline-none transition-colors duration-200",
-  "focus:ring-2 focus:ring-(--color-brand-primary)/40 focus:border-(--color-brand-primary)",
-  "disabled:opacity-50 disabled:cursor-not-allowed",
-  error
-    ? "border-(--color-status-error) focus:ring-(--color-status-error)/40 focus:border-(--color-status-error)"
-    : "border-(--color-border-base) hover:border-(--color-border-strong)",
-  sizes[size],
-].join(" ")
 ---
 
 <!--
-  * Native <input> + <datalist> combobox — zero JS, works in all modern browsers.
+  * Composes Input for the field chrome and styling, adding only the native
+    <input list> + <datalist> combo on top — zero JS, works everywhere.
   * For a fully custom filterable dropdown, replace <datalist> with a JS-driven
-  *   listbox — this covers the most common "search from a fixed list" use case.
+    listbox — this covers the most common "search from a fixed list" use case.
 -->
-<div class={`flex flex-col gap-1.5 ${fullWidth ? "w-full" : "w-fit"} ${className}`}>
-  {
-    label && (
-      <label
-        for={comboId}
-        class={`text-sm font-medium text-(--color-text-base) ${required ? "after:ml-0.5 after:text-(--color-status-error) after:content-['*']" : ""}`}
-      >
-        {label}
-      </label>
-    )
-  }
+<Input
+  type="text"
+  name={name}
+  id={comboId}
+  label={label}
+  aria-label={ariaLabel}
+  placeholder={placeholder}
+  value={value}
+  error={error}
+  hint={hint}
+  size={size}
+  disabled={disabled}
+  required={required}
+  fullWidth={fullWidth}
+  class={className}
+  list={listId}
+  autocomplete="off"
+/>
 
-  <input
-    type="text"
-    id={comboId}
-    name={name}
-    list={listId}
-    value={value}
-    placeholder={placeholder}
-    aria-label={!label ? ariaLabel : undefined}
-    disabled={disabled}
-    required={required}
-    aria-invalid={error ? "true" : undefined}
-    aria-describedby={ariaDescribedBy(comboId, { error, hint })}
-    autocomplete="off"
-    class={inputBase}
-  />
-
-  <datalist id={listId}>
-    {options.map((opt) => <option value={opt.value}>{opt.label}</option>)}
-  </datalist>
-
-  {
-    error && (
-      <p id={`${comboId}-error`} class="text-sm text-(--color-status-error)" role="alert">
-        {error}
-      </p>
-    )
-  }
-
-  {
-    hint && (
-      <p id={`${comboId}-hint`} class="text-sm text-(--color-text-muted)">
-        {hint}
-      </p>
-    )
-  }
-</div>
+<datalist id={listId}>
+  {options.map((opt) => <option value={opt.value}>{opt.label}</option>)}
+</datalist>

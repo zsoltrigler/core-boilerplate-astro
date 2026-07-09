@@ -1,0 +1,55 @@
+---
+// * Shared label + error + hint wrapper for Input, Select, Textarea, Combobox —
+//   keeps their field chrome (not the control element itself) in one place.
+export interface Props {
+  /** id of the underlying form control — used for label[for] and aria-describedby ids. */
+  id: string
+  label?: string
+  required?: boolean
+  error?: string
+  hint?: string
+  fullWidth?: boolean
+  class?: string
+}
+
+const {
+  id,
+  label,
+  required = false,
+  error,
+  hint,
+  fullWidth = false,
+  class: className = "",
+} = Astro.props
+---
+
+<div class={`flex flex-col gap-1.5 ${fullWidth ? "w-full" : "w-fit"} ${className}`}>
+  {
+    label && (
+      <label
+        for={id}
+        class={`text-sm font-medium text-(--color-text-base) ${required ? "after:ml-0.5 after:text-(--color-status-error) after:content-['*']" : ""}`}
+      >
+        {label}
+      </label>
+    )
+  }
+
+  <slot />
+
+  {
+    error && (
+      <p id={`${id}-error`} class="text-sm text-(--color-status-error)" role="alert">
+        {error}
+      </p>
+    )
+  }
+
+  {
+    hint && (
+      <p id={`${id}-hint`} class="text-sm text-(--color-text-muted)">
+        {hint}
+      </p>
+    )
+  }
+</div>
