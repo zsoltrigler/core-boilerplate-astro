@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.6.3...core-boilerplate-v1.7.0) (2026-07-09)
+
+
+### Features
+
+* add 14 new UI components (batch 2) ([9a9689a](https://github.com/zsoltrigler/core-boilerplate-astro/commit/9a9689a3efa988ec5a08ed5f8dc269c662c39e3c))
+* add 14 new UI components (batch 2) ([b99e58b](https://github.com/zsoltrigler/core-boilerplate-astro/commit/b99e58b69132f932e3b0d91dd889c38e72f6a1b0))
+
+
+### Bug Fixes
+
+* Drawer position, animation, and full-height sizing ([2bd4013](https://github.com/zsoltrigler/core-boilerplate-astro/commit/2bd4013f5a2bd5b686d43452b82534c0b584446a))
+* lock body scroll while Modal is open ([ba1ce82](https://github.com/zsoltrigler/core-boilerplate-astro/commit/ba1ce826507beeaa23769447f91502cad703101e))
+* make component sidebar nav independently scrollable ([99209ce](https://github.com/zsoltrigler/core-boilerplate-astro/commit/99209ce4f38cb23eae0cafe333e373986437d7f8))
+* Select dropdown arrow sat flush against the right edge ([ab32ba2](https://github.com/zsoltrigler/core-boilerplate-astro/commit/ab32ba2b28670c54c0a72cecfa31c41ed56fbd9c))
+* showcase demo content sat on the same background as its hover states ([0d2a2dd](https://github.com/zsoltrigler/core-boilerplate-astro/commit/0d2a2dd285152d24681721df86d76c08cfa81750))
+* Toggle thumb not sliding on state change ([8c3a655](https://github.com/zsoltrigler/core-boilerplate-astro/commit/8c3a655aae7250e988f5be2c566917a6bd4d9bca))
+
+
+### Code Refactoring
+
+* eliminate component-to-component code duplication ([6865d1f](https://github.com/zsoltrigler/core-boilerplate-astro/commit/6865d1f5b8d20fb21d3139bc8eb82ca27eda2336))
+* inline all showcase content into ui.astro, remove per-component wrappers ([1d202cd](https://github.com/zsoltrigler/core-boilerplate-astro/commit/1d202cdd19feb7d8dac7ee0702263a1b1bfeb02f))
+* rewrite Stepper horizontal layout with CSS Grid for exact geometry ([1a2a347](https://github.com/zsoltrigler/core-boilerplate-astro/commit/1a2a3476e531ef4b78be94db14bd626f12b41eeb))
+
 ## [1.6.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.6.2...core-boilerplate-v1.6.3) (2026-07-05)
 
 
