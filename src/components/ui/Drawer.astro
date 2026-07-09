@@ -1,0 +1,207 @@
+---
+import IconButton from "./IconButton.astro"
+
+export interface Props {
+  /** Unique id — wire the trigger via data-drawer-open="<id>". */
+  id: string
+  /** Drawer heading shown in the header bar. */
+  title?: string
+  /** Side the drawer slides in from. */
+  side?: "left" | "right"
+  class?: string
+}
+
+const { id, title, side = "right", class: className = "" } = Astro.props
+---
+
+<!--
+  * Usage: add data-drawer-open="<id>" to any button to open this drawer.
+  * Close via the × button, backdrop click, or Escape.
+  * Uses native <dialog> for its backdrop, focus trap, and Escape handling.
+  ! The global `dialog { ... }` rule in global.css (Modal's default centering)
+    excludes [data-drawer] so it doesn't fight this component's own
+    edge-anchored, full-height sizing — see that rule's comment.
+  * The slide animation is pure CSS (@starting-style + transition-behavior:
+    allow-discrete, in the <style> block below) — no JS class-toggling or
+    requestAnimationFrame timing games. The browser handles both the enter
+    and exit transition natively from a single source of truth: the `open`
+    attribute that showModal()/close() already set.
+-->
+<dialog
+  id={id}
+  data-drawer
+  data-side={side}
+  class={`w-full max-w-sm overflow-hidden border-0 bg-(--color-bg-base) p-0 shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${className}`}
+>
+  <div class="flex h-full w-full flex-col">
+    <!-- Header -->
+    {
+      (title || Astro.slots.has("title")) && (
+        <div class="flex shrink-0 items-center justify-between border-b border-(--color-border-base) px-6 py-4">
+          <h2 class="text-lg font-semibold text-(--color-text-base)">
+            {Astro.slots.has("title") ? <slot name="title" /> : title}
+          </h2>
+
+          <IconButton data-drawer-close label="Close drawer" variant="ghost" size="sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </IconButton>
+        </div>
+      )
+    }
+
+    <!-- Body -->
+    <div class="flex-1 overflow-y-auto px-6 py-5 text-(--color-text-base)">
+      <slot />
+    </div>
+
+    <!-- Footer -->
+    {
+      Astro.slots.has("footer") && (
+        <div class="flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) px-6 py-4">
+          <slot name="footer" />
+        </div>
+      )
+    }
+  </div>
+</dialog>
+
+<style>
+  /*
+   * No Tailwind utility exists for @starting-style / transition-behavior,
+   * so this one animation-critical piece is plain CSS — everything else
+   * about this component stays Tailwind utility classes.
+   *
+   * How it works: the dialog's resting transform is translateX(0). The
+   * `:not([open])` rule defines where it sits BEFORE opening. @starting-style
+   * tells the browser "when [open] is *added*, animate FROM this value" —
+   * covering the enter transition. transition-behavior: allow-discrete on
+   * display/overlay makes the browser keep painting the dialog (and delay
+   * actually removing it from the top layer) until the transform transition
+   * finishes when [open] is *removed* — covering the exit transition. This
+   * is the standard, browser-native way to animate <dialog> open/close;
+   * requestAnimationFrame class-toggling is a workaround for browsers that
+   * predate this, and is what caused the animation to start from the wrong
+   * frame and look like it overshot.
+   *
+   * ! position/inset/margin also live here, not as Tailwind classes — an
+   *   unlayered <style> block always wins over both Tailwind's layered
+   *   utilities and global.css's `dialog { ... }` base rule, regardless of
+   *   specificity. Keeping them next to `transform` in the same unlayered
+   *   rule removes any ambiguity about which one wins for a transformed,
+   *   top-layer element.
+   * ! height: auto must be set EXPLICITLY, not just omitted — <dialog>'s own
+   *   UA stylesheet default is height: fit-content (sizes to content), not
+   *   auto. Leaving height undeclared lets that UA default win, which is why
+   *   the drawer kept shrinking to fit its content instead of stretching.
+   *   Explicitly overriding it to `auto` is what actually engages the native
+   *   CSS behavior for absolutely/fixed-positioned boxes: when top, bottom,
+   *   and height are all resolved (top:0, bottom:0 via inset-block, height:
+   *   auto), the box's height is calculated to exactly fill the gap between
+   *   them.
+   * ! max-height: none is required too. Chromium's internal UA stylesheet
+   *   applies `max-height: calc(100% - 2em - 6px)` to any <dialog> promoted
+   *   to the top layer (selector `dialog:-internal-dialog-in-top-layer` —
+   *   not a normal selector, so it can't be targeted directly; only
+   *   overriding `max-height` ourselves defeats it). That's a fixed ~38px
+   *   shortfall at the default font-size, independent of position/height/
+   *   transform/transition — confirmed by testing four variants outside
+   *   Astro entirely (with/without transition, top/bottom vs inset-block,
+   *   and a plain non-dialog div) that only differed in whether max-height
+   *   was overridden.
+   */
+  dialog[data-drawer] {
+    position: fixed;
+    inset-block: 0;
+    right: 0;
+    left: auto;
+    margin: 0;
+    height: auto;
+    max-height: none;
+    transform: translateX(0);
+    transition:
+      transform 0.3s ease-out,
+      overlay 0.3s ease-out allow-discrete,
+      display 0.3s ease-out allow-discrete;
+  }
+
+  dialog[data-drawer][data-side="left"] {
+    right: auto;
+    left: 0;
+  }
+
+  dialog[data-drawer]:not([open]) {
+    transform: translateX(100%);
+  }
+
+  dialog[data-drawer][data-side="left"]:not([open]) {
+    transform: translateX(-100%);
+  }
+
+  @starting-style {
+    dialog[data-drawer][open] {
+      transform: translateX(100%);
+    }
+
+    dialog[data-drawer][data-side="left"][open] {
+      transform: translateX(-100%);
+    }
+  }
+</style>
+
+<script>
+  function initDrawers() {
+    // * Open: any element with [data-drawer-open="<id>"] triggers the matching drawer.
+    document.querySelectorAll<HTMLElement>("[data-drawer-open]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const drawer = document.getElementById(
+          trigger.dataset.drawerOpen!
+        ) as HTMLDialogElement | null
+        if (!drawer) return
+
+        drawer.showModal()
+        // ! showModal() does not lock body scroll by default — the page
+        //   behind stays scrollable via wheel/touch unless done manually.
+        document.documentElement.classList.add("overflow-hidden")
+      })
+    })
+
+    document.querySelectorAll<HTMLDialogElement>("[data-drawer]").forEach((drawer) => {
+      // * close() removes the `open` attribute — the CSS transition above
+      //   handles the exit animation and delays the actual close until it
+      //   finishes. No setTimeout needed.
+      drawer.querySelectorAll("[data-drawer-close]").forEach((btn) => {
+        btn.addEventListener("click", () => drawer.close())
+      })
+
+      // ! Backdrop click — clicking the native ::backdrop fires a click
+      //   event that targets the <dialog> element itself.
+      drawer.addEventListener("click", (e) => {
+        if (e.target === drawer) drawer.close()
+      })
+
+      // * The native "close" event fires however the dialog closes (the ×
+      //   button, backdrop click, or the browser's own ESC handling) — the
+      //   safest single place to unlock scroll.
+      drawer.addEventListener("close", () => {
+        document.documentElement.classList.remove("overflow-hidden")
+      })
+    })
+  }
+
+  initDrawers()
+  document.addEventListener("astro:page-load", initDrawers)
+</script>

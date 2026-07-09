@@ -1,0 +1,28 @@
+---
+export interface Props {
+  /** Optional label rendered in the middle of the divider. */
+  label?: string
+  orientation?: "horizontal" | "vertical"
+  class?: string
+}
+
+const { label, orientation = "horizontal", class: className = "" } = Astro.props
+---
+
+{
+  orientation === "vertical" ? (
+    <div
+      role="separator"
+      aria-orientation="vertical"
+      class={`inline-block h-full w-px self-stretch bg-(--color-border-base) ${className}`}
+    />
+  ) : label ? (
+    <div role="separator" class={`flex items-center gap-3 ${className}`}>
+      <span class="h-px flex-1 bg-(--color-border-base)" />
+      <span class="text-xs font-medium text-(--color-text-muted)">{label}</span>
+      <span class="h-px flex-1 bg-(--color-border-base)" />
+    </div>
+  ) : (
+    <hr class={`border-0 border-t border-(--color-border-base) ${className}`} />
+  )
+}

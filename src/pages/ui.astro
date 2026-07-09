@@ -3,38 +3,91 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 import Header from "../components/global/Header.astro"
 import Footer from "../components/global/Footer.astro"
 import Container from "../components/layout/Container.astro"
+import ShowcaseSection from "../components/showcase/ShowcaseSection.astro"
+import Accordion from "../components/ui/Accordion.astro"
+import Alert from "../components/ui/Alert.astro"
+import Avatar from "../components/ui/Avatar.astro"
 import Badge from "../components/ui/Badge.astro"
+import Breadcrumb from "../components/ui/Breadcrumb.astro"
 import Button from "../components/ui/Button.astro"
-import ShowcaseButton from "../components/showcase/ShowcaseButton.astro"
-import ShowcaseIconButton from "../components/showcase/ShowcaseIconButton.astro"
-import ShowcaseBadge from "../components/showcase/ShowcaseBadge.astro"
-import ShowcaseAlert from "../components/showcase/ShowcaseAlert.astro"
-import ShowcaseInput from "../components/showcase/ShowcaseInput.astro"
-import ShowcaseSelect from "../components/showcase/ShowcaseSelect.astro"
-import ShowcaseCheckbox from "../components/showcase/ShowcaseCheckbox.astro"
-import ShowcaseTextarea from "../components/showcase/ShowcaseTextarea.astro"
-import ShowcaseModal from "../components/showcase/ShowcaseModal.astro"
-import ShowcaseTabs from "../components/showcase/ShowcaseTabs.astro"
-import ShowcaseToast from "../components/showcase/ShowcaseToast.astro"
-import ShowcaseCard from "../components/showcase/ShowcaseCard.astro"
-import ShowcaseBreadcrumb from "../components/showcase/ShowcaseBreadcrumb.astro"
+import Card from "../components/ui/Card.astro"
+import Checkbox from "../components/ui/Checkbox.astro"
+import Combobox from "../components/ui/Combobox.astro"
 import CodeWindow from "../components/ui/CodeWindow.astro"
+import Divider from "../components/ui/Divider.astro"
+import Drawer from "../components/ui/Drawer.astro"
+import Dropdown from "../components/ui/Dropdown.astro"
+import IconButton from "../components/ui/IconButton.astro"
+import Input from "../components/ui/Input.astro"
+import Modal from "../components/ui/Modal.astro"
+import Pagination from "../components/ui/Pagination.astro"
+import Progress from "../components/ui/Progress.astro"
+import Select from "../components/ui/Select.astro"
+import Skeleton from "../components/ui/Skeleton.astro"
+import Spinner from "../components/ui/Spinner.astro"
+import Stepper from "../components/ui/Stepper.astro"
+import Table from "../components/ui/Table.astro"
+import Tabs from "../components/ui/Tabs.astro"
+import Textarea from "../components/ui/Textarea.astro"
 import Toast from "../components/ui/Toast.astro"
+import Toggle from "../components/ui/Toggle.astro"
+import Tooltip from "../components/ui/Tooltip.astro"
+
+const frameworks = [
+  { value: "astro", label: "Astro" },
+  { value: "next", label: "Next.js" },
+  { value: "nuxt", label: "Nuxt" },
+  { value: "sveltekit", label: "SvelteKit" },
+  { value: "remix", label: "Remix" },
+  { value: "gatsby", label: "Gatsby" },
+]
+
+const countries = [
+  { value: "hu", label: "Hungary" },
+  { value: "de", label: "Germany" },
+  { value: "fr", label: "France" },
+  { value: "es", label: "Spain" },
+  { value: "it", label: "Italy" },
+  { value: "nl", label: "Netherlands" },
+  { value: "pl", label: "Poland" },
+  { value: "pt", label: "Portugal" },
+]
+
+const steps = [
+  { label: "Account", description: "Basic info" },
+  { label: "Profile", description: "About you" },
+  { label: "Review", description: "Check details" },
+  { label: "Done", description: "All set" },
+]
 
 const components = [
-  { id: "button", label: "Button" },
-  { id: "icon-button", label: "IconButton" },
-  { id: "badge", label: "Badge" },
+  { id: "accordion", label: "Accordion" },
   { id: "alert", label: "Alert" },
-  { id: "input", label: "Input" },
-  { id: "select", label: "Select" },
-  { id: "checkbox", label: "Checkbox" },
-  { id: "textarea", label: "Textarea" },
-  { id: "modal", label: "Modal" },
-  { id: "tabs", label: "Tabs" },
-  { id: "toast", label: "Toast" },
-  { id: "card", label: "Card" },
+  { id: "avatar", label: "Avatar" },
+  { id: "badge", label: "Badge" },
   { id: "breadcrumb", label: "Breadcrumb" },
+  { id: "button", label: "Button" },
+  { id: "card", label: "Card" },
+  { id: "checkbox", label: "Checkbox" },
+  { id: "combobox", label: "Combobox" },
+  { id: "divider", label: "Divider" },
+  { id: "drawer", label: "Drawer" },
+  { id: "dropdown", label: "Dropdown" },
+  { id: "icon-button", label: "IconButton" },
+  { id: "input", label: "Input" },
+  { id: "modal", label: "Modal" },
+  { id: "pagination", label: "Pagination" },
+  { id: "progress", label: "Progress" },
+  { id: "select", label: "Select" },
+  { id: "skeleton", label: "Skeleton" },
+  { id: "spinner", label: "Spinner" },
+  { id: "stepper", label: "Stepper" },
+  { id: "table", label: "Table" },
+  { id: "tabs", label: "Tabs" },
+  { id: "textarea", label: "Textarea" },
+  { id: "toast", label: "Toast" },
+  { id: "toggle", label: "Toggle" },
+  { id: "tooltip", label: "Tooltip" },
 ]
 ---
 
@@ -102,7 +155,10 @@ const components = [
       <div class="flex gap-12 py-16">
         <!-- Sidebar -->
         <aside class="hidden w-44 shrink-0 lg:block">
-          <nav aria-label="Component navigation" class="sticky top-24 flex flex-col gap-1">
+          <nav
+            aria-label="Component navigation"
+            class="sticky top-24 flex max-h-[calc(100dvh-8rem)] flex-col gap-1 overflow-y-auto overscroll-contain pr-1"
+          >
             <p
               class="mb-2 text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
             >
@@ -124,22 +180,1469 @@ const components = [
 
         <!-- Component sections -->
         <div class="flex min-w-0 flex-1 flex-col gap-20">
-          <ShowcaseButton />
-          <ShowcaseIconButton />
-          <ShowcaseBadge />
-          <ShowcaseAlert />
-          <ShowcaseInput />
-          <ShowcaseSelect />
-          <ShowcaseCheckbox />
-          <ShowcaseTextarea />
-          <ShowcaseModal />
-          <ShowcaseTabs />
-          <ShowcaseToast />
-          <ShowcaseCard />
-          <ShowcaseBreadcrumb />
+          <!-- ── Accordion ─────────────────────────────────────────── -->
+          <ShowcaseSection id="accordion" title="Accordion">
+            <Fragment slot="description">
+              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;details&gt;</code>/<code
+                class="rounded bg-(--color-bg-surface) px-1">&lt;summary&gt;</code
+              > accordion — no JS. Multiple items can be open simultaneously. Pass <code
+                class="rounded bg-(--color-bg-surface) px-1">open</code
+              > to expand by default.
+            </Fragment>
+
+            <div class="flex flex-col gap-2 p-6">
+              <Accordion title="What is Core Boilerplate?" open>
+                A production-ready Astro 7 + Tailwind CSS v4 starter with WCAG AA enforced at build
+                time, 100/100 Lighthouse scores, and a full UI component library.
+              </Accordion>
+
+              <Accordion title="Do I need to credit the author?">
+                No — Core Boilerplate is MIT-licensed. Use it in personal and commercial projects
+                without attribution.
+              </Accordion>
+
+              <Accordion title="Can I add my own components?">
+                Absolutely. Every component lives in <code
+                  class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs"
+                  >src/components/ui/</code
+                > — just drop a new <code
+                  class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">.astro</code
+                > file there.
+              </Accordion>
+
+              <Accordion title="Is dark mode supported?">
+                Yes — all color tokens have dark-mode overrides in <code
+                  class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">src/config.ts</code
+                >. The <code class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs"
+                  >ThemeToggle</code
+                > component handles switching.
+              </Accordion>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Alert ─────────────────────────────────────────────── -->
+          <ShowcaseSection id="alert" title="Alert">
+            <Fragment slot="description">
+              Contextual feedback messages. Supports custom icon and title via named slots.
+            </Fragment>
+
+            <div class="flex flex-col gap-4 p-6">
+              <Alert variant="info" title="Information"
+                >This is an informational message with some useful context for the user.</Alert
+              >
+              <Alert variant="success" title="Success"
+                >Your changes have been saved successfully.</Alert
+              >
+              <Alert variant="warning" title="Warning"
+                >Please review your input before continuing.</Alert
+              >
+              <Alert variant="error" title="Error">Something went wrong. Please try again.</Alert>
+              <Alert variant="info" title="Dismissible" dismissible
+                >Click the × to dismiss this alert.</Alert
+              >
+              <Alert variant="success">Alert without a title — just body text.</Alert>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Avatar ─────────────────────────────────────────────── -->
+          <ShowcaseSection id="avatar" title="Avatar">
+            <Fragment slot="description">
+              Shows an image when <code class="rounded bg-(--color-bg-surface) px-1">src</code> is
+              set; falls back to initials derived from <code
+                class="rounded bg-(--color-bg-surface) px-1">alt</code
+              > or the explicit <code class="rounded bg-(--color-bg-surface) px-1">initials</code> prop.
+              Use <code class="rounded bg-(--color-bg-surface) px-1">shape="square"</code> for app icons.
+            </Fragment>
+
+            <div class="flex flex-wrap items-end gap-6 p-6">
+              <!-- Sizes -->
+              <div class="flex items-end gap-3">
+                <Avatar alt="Xavier Small" size="xs" />
+                <Avatar alt="Susan M" size="sm" />
+                <Avatar alt="John Doe" size="md" />
+                <Avatar alt="Rebecca L" size="lg" />
+                <Avatar alt="Thomas A" size="xl" />
+              </div>
+
+              <!-- Shapes -->
+              <div class="flex items-center gap-3">
+                <Avatar alt="Circle" size="md" />
+                <Avatar alt="Square" size="md" shape="square" />
+              </div>
+
+              <!-- Explicit initials -->
+              <div class="flex items-center gap-3">
+                <Avatar initials="AB" size="md" alt="AB initials" />
+                <Avatar initials="?" size="md" alt="Unknown user" />
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Badge ──────────────────────────────────────────────── -->
+          <ShowcaseSection id="badge" title="Badge">
+            <Fragment slot="description"
+              >Inline label for status, category, or emphasis.</Fragment
+            >
+
+            <div class="flex flex-col gap-8 p-6">
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Variants
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                  <Badge variant="default">Default</Badge>
+                  <Badge variant="primary">Primary</Badge>
+                  <Badge variant="success">Success</Badge>
+                  <Badge variant="warning">Warning</Badge>
+                  <Badge variant="error">Error</Badge>
+                  <Badge variant="info">Info</Badge>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                  >Sizes</p
+                >
+
+                <div class="flex flex-wrap items-center gap-3">
+                  <Badge size="sm">Small</Badge>
+                  <Badge size="md">Medium</Badge>
+                  <Badge size="lg">Large</Badge>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  With pulse indicator
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                  <Badge variant="primary" pulse>Live</Badge>
+                  <Badge variant="success" pulse>Online</Badge>
+                  <Badge variant="error" pulse>Alert</Badge>
+                  <Badge variant="warning" pulse>Pending</Badge>
+                </div>
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Breadcrumb ──────────────────────────────────────────── -->
+          <ShowcaseSection id="breadcrumb" title="Breadcrumb">
+            <Fragment slot="description">
+              Accessible navigation trail using a <code
+                class="rounded bg-(--color-bg-surface) px-1"
+                >&lt;nav aria-label="Breadcrumb"&gt;</code
+              > with an ordered list. The last item renders as a <code
+                class="rounded bg-(--color-bg-surface) px-1">span</code
+              > with <code class="rounded bg-(--color-bg-surface) px-1">aria-current="page"</code>.
+            </Fragment>
+
+            <div class="flex flex-col gap-6 p-6">
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Two levels
+                </p>
+
+                <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "UI Components" }]} />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Three levels
+                </p>
+
+                <Breadcrumb
+                  items={[
+                    { label: "Home", href: "/" },
+                    { label: "Blog", href: "/blog" },
+                    { label: "Getting started with Astro" },
+                  ]}
+                />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Four levels
+                </p>
+
+                <Breadcrumb
+                  items={[
+                    { label: "Home", href: "/" },
+                    { label: "Docs", href: "/docs" },
+                    { label: "Components", href: "/docs/components" },
+                    { label: "Breadcrumb" },
+                  ]}
+                />
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Button ─────────────────────────────────────────────── -->
+          <ShowcaseSection id="button" title="Button">
+            <Fragment slot="description">
+              Renders as <code class="rounded bg-(--color-bg-surface) px-1">&lt;a&gt;</code> when
+              <code class="rounded bg-(--color-bg-surface) px-1">href</code> is set, otherwise
+              <code class="rounded bg-(--color-bg-surface) px-1">&lt;button&gt;</code>.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-6">
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Variants
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                  <Button variant="primary">Primary</Button>
+                  <Button variant="secondary">Secondary</Button>
+                  <Button variant="ghost">Ghost</Button>
+                  <Button variant="danger">Danger</Button>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                  >Sizes</p
+                >
+
+                <div class="flex flex-wrap items-center gap-3">
+                  <Button variant="primary" size="sm">Small</Button>
+                  <Button variant="primary" size="md">Medium</Button>
+                  <Button variant="primary" size="lg">Large</Button>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                  >States</p
+                >
+
+                <div class="flex flex-wrap gap-3">
+                  <Button variant="primary" disabled>Disabled</Button>
+                  <Button variant="primary" href="/ui" external>External ↗</Button>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                  <Button variant="secondary" fullWidth>Full width</Button>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  With icons
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                  <Button variant="primary">
+                    <svg
+                      slot="icon-left"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline
+                        points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"
+                      ></line></svg
+                    >
+                    Download
+                  </Button>
+
+                  <Button variant="secondary">
+                    Send
+                    <svg
+                      slot="icon-right"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><line x1="22" y1="2" x2="11" y2="13"></line><polygon
+                        points="22 2 15 22 11 13 2 9 22 2"></polygon></svg
+                    >
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Card ───────────────────────────────────────────────── -->
+          <ShowcaseSection id="card" title="Card">
+            <Fragment slot="description">
+              Flexible content container. <code class="rounded bg-(--color-bg-surface) px-1"
+                >title</code
+              > and <code class="rounded bg-(--color-bg-surface) px-1">desc</code> accept props or named
+              slots. Icon always via <code class="rounded bg-(--color-bg-surface) px-1"
+                >slot="icon"</code
+              >.
+            </Fragment>
+
+            <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 lg:grid-cols-3">
+              <Card title="Default" desc="Hover border enabled by default.">
+                <span slot="icon">🎨</span>
+              </Card>
+
+              <Card title="With shadow" desc="shadow prop adds a subtle drop shadow." shadow>
+                <span slot="icon">⚡</span>
+              </Card>
+
+              <Card title="No icon" desc="Icon slot is optional — omit for a cleaner look." />
+
+              <Card title="Large padding" desc="padding=lg gives more breathing room." padding="lg">
+                <span slot="icon">📦</span>
+              </Card>
+
+              <Card title="Rounded 2xl" desc="rounded prop controls border radius." rounded="2xl">
+                <span slot="icon">🔵</span>
+              </Card>
+
+              <Card title="No hover" desc="hover=false disables border highlight." hover={false}>
+                <span slot="icon">🌙</span>
+              </Card>
+
+              <Card padding="md">
+                <p class="text-sm text-(--color-text-muted)">
+                  Card with only a <strong class="text-(--color-text-base)">default slot</strong> —
+                  fully custom content.
+                </p>
+                <Button variant="primary" size="sm">Action</Button>
+              </Card>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Checkbox ───────────────────────────────────────────── -->
+          <ShowcaseSection id="checkbox" title="Checkbox">
+            <Fragment slot="description">
+              Accessible checkbox with label, error state, and disabled support.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-6">
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                  >States</p
+                >
+
+                <div class="flex flex-col gap-3">
+                  <Checkbox name="check-default" label="Unchecked" />
+                  <Checkbox name="check-checked" label="Checked" checked />
+                  <Checkbox name="check-required" label="Required field" required />
+                  <Checkbox name="check-disabled" label="Disabled" disabled />
+                  <Checkbox
+                    name="check-disabled-checked"
+                    label="Disabled and checked"
+                    disabled
+                    checked
+                  />
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Error state
+                </p>
+
+                <Checkbox
+                  name="check-error"
+                  label="I agree to the terms and conditions"
+                  error="You must accept the terms to continue."
+                />
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Combobox ───────────────────────────────────────────── -->
+          <ShowcaseSection id="combobox" title="Combobox">
+            <Fragment slot="description">
+              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;input&gt;</code> + <code
+                class="rounded bg-(--color-bg-surface) px-1">&lt;datalist&gt;</code
+              > — zero JS, works everywhere. Type to filter suggestions. For fully custom filtering, swap
+              the datalist for a JS-driven listbox.
+            </Fragment>
+
+            <div class="flex flex-wrap items-start gap-6 p-6">
+              <Combobox
+                name="framework"
+                label="Framework"
+                options={frameworks}
+                placeholder="Search frameworks…"
+              />
+
+              <Combobox
+                name="country"
+                label="Country"
+                options={countries}
+                placeholder="Search countries…"
+                hint="Start typing to filter the list"
+              />
+
+              <Combobox
+                name="framework-error"
+                label="With error"
+                options={frameworks}
+                placeholder="Search…"
+                error="Please select a valid option"
+              />
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Divider ────────────────────────────────────────────── -->
+          <ShowcaseSection id="divider" title="Divider">
+            <Fragment slot="description">
+              Horizontal rule with an optional centered label, or a vertical separator for inline
+              layouts.
+            </Fragment>
+
+            <div class="flex flex-col gap-6 p-6">
+              <Divider />
+
+              <Divider label="or continue with" />
+
+              <Divider label="Section break" />
+
+              <div class="flex h-8 items-center gap-4">
+                <span class="text-sm text-(--color-text-muted)">Left</span>
+                <Divider orientation="vertical" />
+                <span class="text-sm text-(--color-text-muted)">Middle</span>
+                <Divider orientation="vertical" />
+                <span class="text-sm text-(--color-text-muted)">Right</span>
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Drawer ─────────────────────────────────────────────── -->
+          <ShowcaseSection id="drawer" title="Drawer">
+            <Fragment slot="description">
+              Slide-in panel based on native <code class="rounded bg-(--color-bg-surface) px-1"
+                >&lt;dialog&gt;</code
+              > — built-in focus trap and Escape to close. Add <code
+                class="rounded bg-(--color-bg-surface) px-1"
+                >data-drawer-open="&lt;id&gt;"</code
+              > to any trigger element.
+            </Fragment>
+
+            <div class="flex flex-wrap gap-3 p-6">
+              <Button variant="secondary" data-drawer-open="drawer-right">
+                Open right drawer
+              </Button>
+
+              <Button variant="secondary" data-drawer-open="drawer-left"> Open left drawer </Button>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Dropdown ───────────────────────────────────────────── -->
+          <ShowcaseSection id="dropdown" title="Dropdown">
+            <Fragment slot="description">
+              JS-powered menu panel. Place the trigger in <code
+                class="rounded bg-(--color-bg-surface) px-1">slot="trigger"</code
+              > and menu items in the default slot. Closes on item click, Escape, and outside click.
+            </Fragment>
+
+            <div class="flex flex-wrap items-start gap-6 p-8">
+              <Dropdown>
+                <Button slot="trigger" variant="secondary" size="md">
+                  Actions
+                  <svg
+                    slot="icon-right"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </Button>
+
+                <div class="flex flex-col">
+                  <a
+                    href="#"
+                    class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-(--color-text-base) transition-colors hover:bg-(--color-bg-surface)"
+                  >
+                    Edit
+                  </a>
+                  <a
+                    href="#"
+                    class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-(--color-text-base) transition-colors hover:bg-(--color-bg-surface)"
+                  >
+                    Duplicate
+                  </a>
+                  <hr class="my-1 border-t border-(--color-border-base)" />
+                  <button
+                    type="button"
+                    class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-(--color-status-error) transition-colors hover:bg-(--color-bg-surface)"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </Dropdown>
+
+              <Dropdown align="right">
+                <Button slot="trigger" variant="primary" size="md">Right-aligned</Button>
+
+                <div class="flex flex-col">
+                  <button
+                    type="button"
+                    class="rounded-lg px-3 py-2 text-left text-sm text-(--color-text-base) transition-colors hover:bg-(--color-bg-surface)"
+                  >
+                    Profile settings
+                  </button>
+                  <button
+                    type="button"
+                    class="rounded-lg px-3 py-2 text-left text-sm text-(--color-text-base) transition-colors hover:bg-(--color-bg-surface)"
+                  >
+                    Billing
+                  </button>
+                  <hr class="my-1 border-t border-(--color-border-base)" />
+                  <button
+                    type="button"
+                    class="rounded-lg px-3 py-2 text-left text-sm text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface)"
+                  >
+                    Sign out
+                  </button>
+                </div>
+              </Dropdown>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── IconButton ─────────────────────────────────────────── -->
+          <ShowcaseSection id="icon-button" title="IconButton">
+            <Fragment slot="description">
+              Square icon-only button. <code class="rounded bg-(--color-bg-surface) px-1"
+                >label</code
+              > is required for accessibility.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-6">
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Variants
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                  <IconButton label="Primary" variant="primary">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+                    >
+                  </IconButton>
+
+                  <IconButton label="Secondary" variant="secondary">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg
+                    >
+                  </IconButton>
+
+                  <IconButton label="Ghost" variant="ghost">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      ></path></svg
+                    >
+                  </IconButton>
+
+                  <IconButton label="Delete" variant="danger">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"
+                      ></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg
+                    >
+                  </IconButton>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                  >Sizes</p
+                >
+
+                <div class="flex flex-wrap items-center gap-3">
+                  <IconButton label="Small" variant="ghost" size="sm">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path
+                      ></svg
+                    >
+                  </IconButton>
+
+                  <IconButton label="Medium" variant="ghost" size="md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path
+                      ></svg
+                    >
+                  </IconButton>
+
+                  <IconButton label="Large" variant="ghost" size="lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path
+                      ></svg
+                    >
+                  </IconButton>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Disabled
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                  <IconButton label="Disabled primary" variant="primary" disabled>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
+                    >
+                  </IconButton>
+
+                  <IconButton label="Disabled ghost" variant="ghost" disabled>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path
+                      ></svg
+                    >
+                  </IconButton>
+                </div>
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Input ──────────────────────────────────────────────── -->
+          <ShowcaseSection id="input" title="Input">
+            <Fragment slot="description">
+              Text input with label, hint, error state and size variants. The <code
+                class="rounded bg-(--color-bg-surface) px-1">name</code
+              > prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls
+              back to <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-6">
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                  >Sizes</p
+                >
+
+                <div class="flex flex-wrap items-end gap-4">
+                  <Input name="size-sm" size="sm" placeholder="Small" />
+                  <Input name="size-md" size="md" placeholder="Medium (default)" />
+                  <Input name="size-lg" size="lg" placeholder="Large" />
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  With label and hint
+                </p>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <Input
+                    name="email"
+                    type="email"
+                    label="Email address"
+                    placeholder="you@example.com"
+                    hint="We'll never share your email."
+                    fullWidth
+                  />
+                  <Input
+                    name="password"
+                    type="password"
+                    label="Password"
+                    placeholder="••••••••"
+                    required
+                    fullWidth
+                  />
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Error state
+                </p>
+
+                <Input
+                  name="email-error"
+                  type="email"
+                  label="Email address"
+                  value="not-an-email"
+                  error="Please enter a valid email address."
+                />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Disabled
+                </p>
+
+                <Input name="disabled" label="Disabled input" placeholder="Not editable" disabled />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Full width
+                </p>
+
+                <Input
+                  name="fullwidth"
+                  label="Full width"
+                  placeholder="Stretches to fill its container"
+                  fullWidth
+                />
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Modal ──────────────────────────────────────────────── -->
+          <ShowcaseSection id="modal" title="Modal">
+            <Fragment slot="description">
+              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop,
+              ESC and backdrop-click to close. Open with <code
+                class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code
+              > on any element.
+            </Fragment>
+
+            <div class="flex flex-wrap gap-3 p-6">
+              <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
+              <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
+              <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
+              <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Pagination ─────────────────────────────────────────── -->
+          <ShowcaseSection id="pagination" title="Pagination">
+            <Fragment slot="description">
+              Static link-based pagination for SSG. Pass <code
+                class="rounded bg-(--color-bg-surface) px-1">currentPage</code
+              >, <code class="rounded bg-(--color-bg-surface) px-1">totalPages</code>, and <code
+                class="rounded bg-(--color-bg-surface) px-1">baseUrl</code
+              >. Page 1 links to <code class="rounded bg-(--color-bg-surface) px-1">baseUrl</code> directly
+              — no <code class="rounded bg-(--color-bg-surface) px-1">/1</code> suffix.
+            </Fragment>
+
+            <div class="flex flex-col items-start gap-6 p-6">
+              <Pagination currentPage={1} totalPages={5} baseUrl="/blog" />
+              <Pagination currentPage={3} totalPages={5} baseUrl="/blog" />
+              <Pagination currentPage={5} totalPages={5} baseUrl="/blog" />
+              <Pagination currentPage={4} totalPages={12} baseUrl="/blog" />
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Progress ───────────────────────────────────────────── -->
+          <ShowcaseSection id="progress" title="Progress">
+            <Fragment slot="description">
+              Accessible <code class="rounded bg-(--color-bg-surface) px-1">role="progressbar"</code>
+              with smooth fill transition. Supports four variants and three sizes. Value is clamped to
+              0–100.
+            </Fragment>
+
+            <div class="flex flex-col gap-6 p-6">
+              <Progress value={72} label="Uploading…" showPercent />
+
+              <div class="flex flex-col gap-4">
+                <Progress value={25} variant="primary" label="Primary" showPercent />
+                <Progress value={60} variant="success" label="Success" showPercent />
+                <Progress value={45} variant="warning" label="Warning" showPercent />
+                <Progress value={80} variant="error" label="Error" showPercent />
+              </div>
+
+              <div class="flex flex-col gap-4">
+                <Progress value={55} size="sm" label="Small" />
+                <Progress value={55} size="md" label="Medium (default)" />
+                <Progress value={55} size="lg" label="Large" />
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Select ─────────────────────────────────────────────── -->
+          <ShowcaseSection id="select" title="Select">
+            <Fragment slot="description">
+              Dropdown select with label, hint, and error state. Uses the same size and styling
+              system as <code class="rounded bg-(--color-bg-surface) px-1">Input</code>.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-6">
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                  >Sizes</p
+                >
+
+                <div class="flex flex-wrap items-end gap-4">
+                  <Select name="select-sm" size="sm" aria-label="Small select" placeholder="Small">
+                    <option value="a">Option A</option>
+                    <option value="b">Option B</option>
+                  </Select>
+
+                  <Select
+                    name="select-md"
+                    size="md"
+                    aria-label="Medium select"
+                    placeholder="Medium (default)"
+                  >
+                    <option value="a">Option A</option>
+                    <option value="b">Option B</option>
+                  </Select>
+
+                  <Select
+                    name="select-lg"
+                    size="lg"
+                    aria-label="Large select"
+                    placeholder="Large"
+                  >
+                    <option value="a">Option A</option>
+                    <option value="b">Option B</option>
+                  </Select>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  With label and hint
+                </p>
+
+                <Select
+                  name="country"
+                  label="Country"
+                  hint="Select the country where you are based."
+                  fullWidth
+                >
+                  <option value="">Choose a country…</option>
+                  <option value="de">Germany</option>
+                  <option value="hu">Hungary</option>
+                  <option value="at">Austria</option>
+                </Select>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Error state
+                </p>
+
+                <Select name="select-error" label="Role" error="Please select a role.">
+                  <option value="">Choose a role…</option>
+                  <option value="dev">Developer</option>
+                  <option value="design">Designer</option>
+                </Select>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Disabled
+                </p>
+
+                <Select name="select-disabled" label="Disabled select" disabled>
+                  <option value="a">Not selectable</option>
+                </Select>
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Skeleton ───────────────────────────────────────────── -->
+          <ShowcaseSection id="skeleton" title="Skeleton">
+            <Fragment slot="description">
+              Pulsing placeholder for loading states. Combine multiple skeletons to match the shape
+              of the content being loaded.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-6">
+              <!-- Card skeleton -->
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Card skeleton
+                </p>
+                <div
+                  class="flex flex-col gap-3 rounded-xl border border-(--color-border-base) p-5"
+                  aria-busy="true"
+                  aria-label="Loading card"
+                >
+                  <Skeleton height="1.25rem" width="60%" />
+                  <Skeleton height="0.875rem" width="100%" />
+                  <Skeleton height="0.875rem" width="85%" />
+                  <Skeleton height="0.875rem" width="70%" />
+                  <div class="flex gap-2 pt-1">
+                    <Skeleton height="2rem" width="6rem" rounded="lg" />
+                    <Skeleton height="2rem" width="5rem" rounded="lg" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Avatar + text skeleton -->
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Profile row skeleton
+                </p>
+                <div class="flex items-center gap-3">
+                  <Skeleton height="2.5rem" width="2.5rem" rounded="full" />
+                  <div class="flex flex-1 flex-col gap-2">
+                    <Skeleton height="0.875rem" width="40%" />
+                    <Skeleton height="0.75rem" width="25%" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Spinner ────────────────────────────────────────────── -->
+          <ShowcaseSection id="spinner" title="Spinner">
+            <Fragment slot="description">
+              SVG arc spinner with <code class="rounded bg-(--color-bg-surface) px-1"
+                >animate-spin</code
+              >. Inherits color via <code class="rounded bg-(--color-bg-surface) px-1"
+                >currentColor</code
+              > — wrap in a colored parent or override with a text-color class.
+            </Fragment>
+
+            <div class="flex flex-wrap items-center gap-8 p-8">
+              <div class="flex items-center gap-4">
+                <Spinner size="sm" />
+                <Spinner size="md" />
+                <Spinner size="lg" />
+              </div>
+
+              <div class="flex items-center gap-4">
+                <span class="text-(--color-status-success)"><Spinner size="md" /></span>
+                <span class="text-(--color-status-warning)"><Spinner size="md" /></span>
+                <span class="text-(--color-status-error)"><Spinner size="md" /></span>
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Stepper ────────────────────────────────────────────── -->
+          <ShowcaseSection id="stepper" title="Stepper">
+            <Fragment slot="description">
+              Multi-step progress indicator. Pass <code
+                class="rounded bg-(--color-bg-surface) px-1">currentStep</code
+              > (1-based). Completed steps show a checkmark. Supports <code
+                class="rounded bg-(--color-bg-surface) px-1">horizontal</code
+              > (default) and <code class="rounded bg-(--color-bg-surface) px-1">vertical</code> orientations.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-8">
+              <div class="flex flex-col gap-4">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Step 1 of 4
+                </p>
+                <Stepper steps={steps} currentStep={1} class="w-full" />
+              </div>
+
+              <Divider />
+
+              <div class="flex flex-col gap-4">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Step 3 of 4
+                </p>
+                <Stepper steps={steps} currentStep={3} class="w-full" />
+              </div>
+
+              <Divider />
+
+              <div class="flex flex-col gap-4">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Vertical — Step 2 of 4
+                </p>
+                <Stepper steps={steps} currentStep={2} orientation="vertical" class="max-w-xs" />
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Table ──────────────────────────────────────────────── -->
+          <ShowcaseSection id="table" title="Table">
+            <Fragment slot="description">
+              Responsive wrapper with consistent thead/tbody/tfoot styling. Add <code
+                class="rounded bg-(--color-bg-surface) px-1">striped</code
+              > for alternating row backgrounds. Standard HTML elements go inside the slot.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-6">
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Alice Johnson</td>
+                    <td>Admin</td>
+                    <td>Active</td>
+                    <td>Jan 2024</td>
+                  </tr>
+                  <tr>
+                    <td>Bob Smith</td>
+                    <td>Editor</td>
+                    <td>Active</td>
+                    <td>Mar 2024</td>
+                  </tr>
+                  <tr>
+                    <td>Carol White</td>
+                    <td>Viewer</td>
+                    <td>Inactive</td>
+                    <td>Jun 2024</td>
+                  </tr>
+                </tbody>
+              </Table>
+
+              <Table striped>
+                <thead>
+                  <tr>
+                    <th>Package</th>
+                    <th>Version</th>
+                    <th>License</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>astro</td>
+                    <td>7.0.6</td>
+                    <td>MIT</td>
+                  </tr>
+                  <tr>
+                    <td>tailwindcss</td>
+                    <td>4.3.2</td>
+                    <td>MIT</td>
+                  </tr>
+                  <tr>
+                    <td>typescript</td>
+                    <td>5.x</td>
+                    <td>Apache-2.0</td>
+                  </tr>
+                  <tr>
+                    <td>prettier</td>
+                    <td>3.9.4</td>
+                    <td>MIT</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Tabs ───────────────────────────────────────────────── -->
+          <ShowcaseSection id="tabs" title="Tabs">
+            <Fragment slot="description">
+              Accessible tabbed interface. Supports arrow-key navigation per the WAI-ARIA tabs
+              pattern. Each tab panel is a named slot matching the tab <code
+                class="rounded bg-(--color-bg-surface) px-1">id</code
+              >.
+            </Fragment>
+
+            <div class="p-6">
+              <Tabs
+                tabs={[
+                  { id: "overview", label: "Overview" },
+                  { id: "usage", label: "Usage" },
+                  { id: "props", label: "Props" },
+                ]}
+              >
+                <div slot="overview" class="text-sm text-(--color-text-muted)">
+                  <p>
+                    The <strong class="text-(--color-text-base)">Tabs</strong> component renders an accessible
+                    tab list and matching panels. Pass an array of <code
+                      class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code
+                    > objects and provide a named slot for each tab ID.
+                  </p>
+                </div>
+
+                <div slot="usage" class="text-sm text-(--color-text-muted)">
+                  <pre
+                    class="overflow-x-auto rounded-lg bg-(--color-bg-elevated) p-4 text-xs"><code>{`<Tabs tabs={[
+  { id: "tab1", label: "Tab 1" },
+  { id: "tab2", label: "Tab 2" },
+]}>
+  <div slot="tab1">Content for tab 1</div>
+  <div slot="tab2">Content for tab 2</div>
+</Tabs>`}</code></pre>
+                </div>
+
+                <div slot="props" class="text-sm text-(--color-text-muted)">
+                  <ul class="flex flex-col gap-1">
+                    <li>
+                      <code class="rounded bg-(--color-bg-surface) px-1">tabs</code> — array of <code
+                        class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code
+                      > objects (required)
+                    </li>
+                    <li>
+                      <code class="rounded bg-(--color-bg-surface) px-1">defaultTab</code> — ID of
+                      the initially active tab (defaults to first)
+                    </li>
+                  </ul>
+                </div>
+              </Tabs>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Textarea ───────────────────────────────────────────── -->
+          <ShowcaseSection id="textarea" title="Textarea">
+            <Fragment slot="description">
+              Multiline text input with label, hint, and error state. Vertically resizable by
+              default.
+            </Fragment>
+
+            <div class="flex flex-col gap-8 p-6">
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Default
+                </p>
+
+                <Textarea
+                  name="message"
+                  label="Message"
+                  placeholder="Write your message here…"
+                  fullWidth
+                />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  With hint
+                </p>
+
+                <Textarea
+                  name="bio"
+                  label="Bio"
+                  placeholder="Tell us about yourself…"
+                  hint="Maximum 200 characters."
+                  rows={3}
+                  fullWidth
+                />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Error state
+                </p>
+
+                <Textarea
+                  name="textarea-error"
+                  label="Description"
+                  error="Description is required."
+                  fullWidth
+                />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p
+                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >
+                  Disabled
+                </p>
+
+                <Textarea
+                  name="textarea-disabled"
+                  label="Disabled textarea"
+                  value="This content cannot be edited."
+                  disabled
+                  fullWidth
+                />
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Toast ─────────────────────────────────────────────── -->
+          <ShowcaseSection id="toast" title="Toast">
+            <Fragment slot="description">
+              Non-blocking notification. Add <code class="rounded bg-(--color-bg-surface) px-1"
+                >&lt;Toast /&gt;</code
+              > once to your layout, then call <code class="rounded bg-(--color-bg-surface) px-1"
+                >window.toast("message", {"{ variant }"} )</code
+              > from any script. Auto-dismisses after 4 seconds.
+            </Fragment>
+
+            <div class="flex flex-col gap-3 p-6">
+              <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+                >Variants</p
+              >
+
+              <div class="flex flex-wrap gap-3">
+                <Button variant="secondary" data-toast="info">Info toast</Button>
+                <Button variant="secondary" data-toast="success">Success toast</Button>
+                <Button variant="secondary" data-toast="warning">Warning toast</Button>
+                <Button variant="secondary" data-toast="error">Error toast</Button>
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Toggle ─────────────────────────────────────────────── -->
+          <ShowcaseSection id="toggle" title="Toggle">
+            <Fragment slot="description">
+              Checkbox-based switch with custom CSS styling. Fully keyboard-accessible — space bar
+              toggles. Use instead of <code class="rounded bg-(--color-bg-surface) px-1"
+                >Checkbox</code
+              > for on/off settings.
+            </Fragment>
+
+            <div class="flex flex-wrap items-start gap-6 p-6">
+              <div class="flex flex-col gap-4">
+                <Toggle name="t-sm" label="Small" size="sm" />
+                <Toggle name="t-md" label="Medium (default)" size="md" />
+                <Toggle name="t-lg" label="Large" size="lg" />
+              </div>
+
+              <div class="flex flex-col gap-4">
+                <Toggle name="t-off" label="Off (default)" />
+                <Toggle name="t-on" label="On" checked />
+                <Toggle name="t-dis" label="Disabled" disabled />
+                <Toggle name="t-dis-on" label="Disabled checked" checked disabled />
+              </div>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── Tooltip ────────────────────────────────────────────── -->
+          <ShowcaseSection id="tooltip" title="Tooltip">
+            <Fragment slot="description">
+              CSS-only tooltip — no JS. Shows on hover and keyboard focus. Pass <code
+                class="rounded bg-(--color-bg-surface) px-1">tip</code
+              > and optionally <code class="rounded bg-(--color-bg-surface) px-1">placement</code>.
+            </Fragment>
+
+            <div class="flex flex-wrap items-center justify-center gap-6 p-8">
+              <Tooltip tip="Top tooltip (default)">
+                <Button variant="secondary" size="sm">Top</Button>
+              </Tooltip>
+
+              <Tooltip tip="Bottom tooltip" placement="bottom">
+                <Button variant="secondary" size="sm">Bottom</Button>
+              </Tooltip>
+
+              <Tooltip tip="Left tooltip" placement="left">
+                <Button variant="secondary" size="sm">Left</Button>
+              </Tooltip>
+
+              <Tooltip tip="Right tooltip" placement="right">
+                <Button variant="secondary" size="sm">Right</Button>
+              </Tooltip>
+
+              <Tooltip tip="Keyboard-accessible — try tabbing here">
+                <button
+                  class="rounded-lg border border-(--color-border-base) px-3 py-1.5 text-sm text-(--color-text-muted) outline-none focus:ring-2 focus:ring-(--color-brand-primary)/40"
+                >
+                  Focus me
+                </button>
+              </Tooltip>
+            </div>
+          </ShowcaseSection>
         </div>
       </div>
     </Container>
+
+    <!-- ── Dialogs (viewport-level) ─────────────────────────────── -->
+    <Modal id="modal-default" title="Confirm action" size="md">
+      <p class="text-(--color-text-muted)">
+        Are you sure you want to continue? This action cannot be undone.
+      </p>
+      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
+      <Button slot="footer" variant="danger">Delete</Button>
+    </Modal>
+
+    <Modal id="modal-sm" title="Quick note" size="sm">
+      <p class="text-(--color-text-muted)">A compact modal for short confirmations or notices.</p>
+      <Button slot="footer" variant="primary" data-modal-close>Got it</Button>
+    </Modal>
+
+    <Modal id="modal-lg" title="Edit profile" size="lg">
+      <div class="flex flex-col gap-4">
+        <Input name="modal-name" label="Full name" placeholder="Jane Doe" fullWidth />
+        <Input
+          name="modal-email"
+          type="email"
+          label="Email address"
+          placeholder="jane@example.com"
+          fullWidth
+        />
+        <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
+      </div>
+      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
+      <Button slot="footer" variant="primary">Save changes</Button>
+    </Modal>
+
+    <Modal id="modal-no-footer" title="Information">
+      <p class="text-(--color-text-muted)">
+        This modal has no footer slot — useful for informational content where no action is needed.
+        Close with the × button, the backdrop, or the ESC key.
+      </p>
+    </Modal>
+
+    <Drawer id="drawer-right" title="Right Drawer" side="right">
+      <div class="flex flex-col gap-4">
+        <p class="text-sm text-(--color-text-muted)">
+          This drawer slides in from the right. Use it for navigation, filters, or detail panels.
+        </p>
+        <p class="text-sm text-(--color-text-muted)">
+          Close with the × button, Escape, or backdrop click.
+        </p>
+      </div>
+      <Button slot="footer" data-drawer-close variant="secondary" size="md">Cancel</Button>
+      <Button slot="footer" variant="primary" size="md">Save</Button>
+    </Drawer>
+
+    <Drawer id="drawer-left" title="Left Drawer" side="left">
+      <nav class="flex flex-col gap-1">
+        <a
+          href="#"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-base) hover:bg-(--color-bg-surface)"
+          >Dashboard</a
+        >
+        <a
+          href="#"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-base) hover:bg-(--color-bg-surface)"
+          >Projects</a
+        >
+        <a
+          href="#"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-base) hover:bg-(--color-bg-surface)"
+          >Settings</a
+        >
+      </nav>
+    </Drawer>
   </main>
 
   <script>
@@ -193,6 +1696,25 @@ const components = [
     }
 
     initSidebarNav()
+  </script>
+
+  <script>
+    const messages: Record<string, string> = {
+      info: "Here is some useful information.",
+      success: "Your changes have been saved.",
+      warning: "Please review before continuing.",
+      error: "Something went wrong. Try again.",
+    }
+
+    document.querySelectorAll<HTMLElement>("[data-toast]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const variant = btn.dataset.toast as "info" | "success" | "warning" | "error"
+        ;(window as unknown as Record<string, (msg: string, opts: object) => void>).toast?.(
+          messages[variant],
+          { variant }
+        )
+      })
+    })
   </script>
 
   <Toast />

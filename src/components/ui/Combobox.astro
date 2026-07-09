@@ -1,0 +1,77 @@
+---
+import Input from "./Input.astro"
+
+export interface ComboboxOption {
+  value: string
+  label: string
+}
+
+export interface Props {
+  name: string
+  id?: string
+  options: ComboboxOption[]
+  /** Visible label rendered above the input. */
+  label?: string
+  /** Accessible label when no visible label is rendered. */
+  "aria-label"?: string
+  placeholder?: string
+  /** Pre-selected value. */
+  value?: string
+  error?: string
+  hint?: string
+  size?: "sm" | "md" | "lg"
+  disabled?: boolean
+  required?: boolean
+  fullWidth?: boolean
+  class?: string
+}
+
+const {
+  name,
+  id,
+  options,
+  label,
+  "aria-label": ariaLabel,
+  placeholder = "Search…",
+  value = "",
+  error,
+  hint,
+  size = "md",
+  disabled = false,
+  required = false,
+  fullWidth = false,
+  class: className = "",
+} = Astro.props
+
+const comboId = id ?? name
+const listId = `${comboId}-list`
+---
+
+<!--
+  * Composes Input for the field chrome and styling, adding only the native
+    <input list> + <datalist> combo on top — zero JS, works everywhere.
+  * For a fully custom filterable dropdown, replace <datalist> with a JS-driven
+    listbox — this covers the most common "search from a fixed list" use case.
+-->
+<Input
+  type="text"
+  name={name}
+  id={comboId}
+  label={label}
+  aria-label={ariaLabel}
+  placeholder={placeholder}
+  value={value}
+  error={error}
+  hint={hint}
+  size={size}
+  disabled={disabled}
+  required={required}
+  fullWidth={fullWidth}
+  class={className}
+  list={listId}
+  autocomplete="off"
+/>
+
+<datalist id={listId}>
+  {options.map((opt) => <option value={opt.value}>{opt.label}</option>)}
+</datalist>

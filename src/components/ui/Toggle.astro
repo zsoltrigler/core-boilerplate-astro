@@ -1,0 +1,72 @@
+---
+export interface Props {
+  name: string
+  id?: string
+  /** Visible label rendered next to the switch. */
+  label?: string
+  checked?: boolean
+  disabled?: boolean
+  size?: "sm" | "md" | "lg"
+  class?: string
+}
+
+const {
+  name,
+  id,
+  label,
+  checked = false,
+  disabled = false,
+  size = "md",
+  class: className = "",
+} = Astro.props
+
+const toggleId = id ?? name
+
+// * Track sizes: width controls how far the thumb travels.
+const tracks: Record<string, string> = {
+  sm: "h-4 w-7",
+  md: "h-5 w-9",
+  lg: "h-6 w-11",
+}
+
+// * Thumb sizes + checked translation (track-width − thumb-width − 2×left-offset).
+//   sm: 28 − 12 − 4 = 12px → translate-x-3
+//   md: 36 − 16 − 4 = 16px → translate-x-4
+//   lg: 44 − 20 − 4 = 20px → translate-x-5
+const thumbs: Record<string, string> = {
+  sm: "h-3 w-3 peer-checked:translate-x-3",
+  md: "h-4 w-4 peer-checked:translate-x-4",
+  lg: "h-5 w-5 peer-checked:translate-x-5",
+}
+---
+
+<label
+  class={`inline-flex cursor-pointer items-center gap-2.5 ${disabled ? "cursor-not-allowed opacity-50" : ""} ${className}`}
+>
+  <!--
+    * Track reacts via has-checked/has-focus-visible (CSS :has()) since the
+      input is a descendant, not a sibling — has-* reaches into descendants.
+    ! The thumb needs peer-checked, which only matches direct siblings of the
+      peer, so input and thumb are siblings here, both children of the track.
+  -->
+  <span
+    class={`relative flex shrink-0 items-center rounded-full bg-(--color-bg-elevated) transition-colors duration-200 has-checked:bg-(--color-brand-primary) has-focus-visible:ring-2 has-focus-visible:ring-(--color-brand-primary)/40 ${tracks[size]}`}
+  >
+    <!-- * Hidden native checkbox — controls state and remains keyboard / screen-reader accessible. -->
+    <input
+      type="checkbox"
+      id={toggleId}
+      name={name}
+      checked={checked}
+      disabled={disabled}
+      class="peer sr-only"
+    />
+
+    <!-- * Visual thumb — translates right when checked. -->
+    <span
+      class={`pointer-events-none absolute left-0.5 inline-block translate-x-0 rounded-full bg-white shadow transition-transform duration-200 ${thumbs[size]}`}
+    ></span>
+  </span>
+
+  {label && <span class="text-sm font-medium text-(--color-text-base)">{label}</span>}
+</label>

@@ -1,0 +1,29 @@
+---
+export interface Props {
+  /** CSS height value — e.g. "1rem", "40px", "2lh". */
+  height?: string
+  /** CSS width value — e.g. "100%", "12rem". */
+  width?: string
+  rounded?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "full"
+  class?: string
+}
+
+const { height = "1rem", width = "100%", rounded = "md", class: className = "" } = Astro.props
+
+const roundedMap: Record<string, string> = {
+  none: "rounded-none",
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  xl: "rounded-xl",
+  "2xl": "rounded-2xl",
+  full: "rounded-full",
+}
+---
+
+<div
+  class={`animate-pulse bg-(--color-bg-elevated) ${roundedMap[rounded]} ${className}`}
+  style={`height: ${height}; width: ${width};`}
+  aria-hidden="true"
+>
+</div>

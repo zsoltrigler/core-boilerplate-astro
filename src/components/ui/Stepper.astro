@@ -1,0 +1,154 @@
+---
+export interface StepperStep {
+  label: string
+  description?: string
+}
+
+export interface Props {
+  steps: StepperStep[]
+  /** 1-based index of the currently active step. */
+  currentStep: number
+  orientation?: "horizontal" | "vertical"
+  class?: string
+}
+
+const { steps, currentStep, orientation = "horizontal", class: className = "" } = Astro.props
+
+const n = steps.length
+// * Grid columns are equal, so every circle center sits at (i + 0.5) / n of
+//   the total width. The track runs between the first and last center, giving
+//   exact geometry with no approximation.
+const progressFraction = n > 1 ? Math.min(Math.max(currentStep - 1, 0), n - 1) / (n - 1) : 0
+
+const circleClasses = (completed: boolean, active: boolean) =>
+  [
+    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors duration-200",
+    completed
+      ? "border-(--color-brand-primary) bg-(--color-brand-primary) text-white"
+      : active
+        ? "border-(--color-brand-primary) bg-(--color-bg-base) text-(--color-brand-primary)"
+        : "border-(--color-border-base) bg-(--color-bg-base) text-(--color-text-muted)",
+  ].join(" ")
+---
+
+{
+  orientation === "horizontal" ? (
+    <ol
+      class={`relative grid w-full ${className}`}
+      style={`grid-template-columns: repeat(${n}, 1fr);`}
+      aria-label="Progress steps"
+    >
+      {/* Track: left and right are offset by half a column so the line
+          starts exactly at the first circle's center and ends at the last. */}
+      <div
+        class="absolute top-4 h-0.5 bg-(--color-border-base)"
+        style={`left: calc(50% / ${n}); right: calc(50% / ${n});`}
+        aria-hidden="true"
+      />
+      <div
+        class="absolute top-4 h-0.5 bg-(--color-brand-primary) transition-all duration-300"
+        style={`left: calc(50% / ${n}); width: calc((100% - 100% / ${n}) * ${progressFraction});`}
+        aria-hidden="true"
+      />
+
+      {steps.map((step, i) => {
+        const stepNum = i + 1
+        const isCompleted = stepNum < currentStep
+        const isActive = stepNum === currentStep
+
+        return (
+          <li
+            class="relative z-10 flex flex-col items-center"
+            aria-current={isActive ? "step" : undefined}
+          >
+            <div class={circleClasses(isCompleted, isActive)} aria-hidden="true">
+              {isCompleted ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              ) : (
+                stepNum
+              )}
+            </div>
+
+            <div class="mt-3 flex flex-col items-center gap-0.5 text-center">
+              <span
+                class={`text-sm font-medium ${isActive ? "text-(--color-text-base)" : "text-(--color-text-muted)"}`}
+              >
+                {step.label}
+              </span>
+              {step.description && (
+                <span class="text-xs text-(--color-text-muted)">{step.description}</span>
+              )}
+            </div>
+          </li>
+        )
+      })}
+    </ol>
+  ) : (
+    <ol class={`flex flex-col gap-0 ${className}`} aria-label="Progress steps">
+      {steps.map((step, i) => {
+        const stepNum = i + 1
+        const isCompleted = stepNum < currentStep
+        const isActive = stepNum === currentStep
+        const isLast = i === n - 1
+
+        return (
+          <li class="flex gap-4" aria-current={isActive ? "step" : undefined}>
+            <div class="relative flex flex-col items-center">
+              <div class={`relative z-10 ${circleClasses(isCompleted, isActive)}`} aria-hidden="true">
+                {isCompleted ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  stepNum
+                )}
+              </div>
+
+              {!isLast && (
+                <div
+                  class={`absolute top-8 bottom-0 left-1/2 w-0.5 -translate-x-1/2 ${isCompleted ? "bg-(--color-brand-primary)" : "bg-(--color-border-base)"}`}
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+
+            <div class="flex flex-col gap-0.5 pb-6">
+              <span
+                class={`text-sm font-medium ${isActive ? "text-(--color-text-base)" : "text-(--color-text-muted)"}`}
+              >
+                {step.label}
+              </span>
+              {step.description && (
+                <span class="text-xs text-(--color-text-muted)">{step.description}</span>
+              )}
+            </div>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}

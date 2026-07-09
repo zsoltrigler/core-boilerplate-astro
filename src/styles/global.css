@@ -164,8 +164,10 @@
     scroll-margin-top: 5rem;
   }
 
-  /* * Center <dialog> in the viewport — browsers don't do this automatically */
-  dialog {
+  /* * Center <dialog> in the viewport — browsers don't do this automatically.
+     ! Excludes Drawer — it's edge-anchored and full-height by design, and
+       this rule's height:fit-content/margin:auto fight those utility classes. */
+  dialog:not([data-drawer]) {
     position: fixed;
     inset: 0;
     margin: auto;

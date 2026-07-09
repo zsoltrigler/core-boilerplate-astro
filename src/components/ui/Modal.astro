@@ -1,4 +1,6 @@
 ---
+import IconButton from "./IconButton.astro"
+
 export interface Props {
   /** Unique id — used to wire the trigger button to this modal via data-modal-open. */
   id: string
@@ -38,12 +40,7 @@ const sizes: Record<string, string> = {
             {Astro.slots.has("title") ? <slot name="title" /> : title}
           </h2>
 
-          <button
-            data-modal-close
-            type="button"
-            aria-label="Close modal"
-            class="flex h-8 w-8 items-center justify-center rounded-lg text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
-          >
+          <IconButton data-modal-close label="Close modal" variant="ghost" size="sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -59,7 +56,7 @@ const sizes: Record<string, string> = {
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
-          </button>
+          </IconButton>
         </div>
       )
     }
@@ -85,7 +82,11 @@ const sizes: Record<string, string> = {
   document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
       const modal = document.getElementById(trigger.dataset.modalOpen!) as HTMLDialogElement | null
-      modal?.showModal()
+      if (!modal) return
+      modal.showModal()
+      // ! showModal() does not lock body scroll by default — the page
+      //   behind stays scrollable via wheel/touch unless done manually.
+      document.documentElement.classList.add("overflow-hidden")
     })
   })
 
@@ -102,5 +103,12 @@ const sizes: Record<string, string> = {
     })
 
     // ESC is handled natively by the browser for <dialog> — no extra code needed.
+
+    // * The native "close" event fires however the dialog closes (the × button,
+    //   backdrop click, or the browser's own ESC handling) — the safest single
+    //   place to unlock scroll.
+    modal.addEventListener("close", () => {
+      document.documentElement.classList.remove("overflow-hidden")
+    })
   })
 </script>

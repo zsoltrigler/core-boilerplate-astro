@@ -1,5 +1,7 @@
 ---
 import { ariaDescribedBy } from "../../utils/aria"
+import { fieldStateClasses } from "../../utils/fieldStyles"
+import FormField from "./FormField.astro"
 
 export interface Props {
   name: string
@@ -40,27 +42,20 @@ const textareaId = id ?? name
 
 const base = [
   "w-full rounded-lg border bg-(--color-bg-base) px-4 py-2.5 text-base text-(--color-text-base) placeholder:text-(--color-text-muted)",
-  "outline-none transition-colors duration-200 resize-y",
-  "focus:ring-2 focus:ring-(--color-brand-primary)/40 focus:border-(--color-brand-primary)",
-  "disabled:opacity-50 disabled:cursor-not-allowed",
-  error
-    ? "border-(--color-status-error) focus:ring-(--color-status-error)/40 focus:border-(--color-status-error)"
-    : "border-(--color-border-base) hover:border-(--color-border-strong)",
+  "resize-y",
+  fieldStateClasses(error),
 ].join(" ")
 ---
 
-<div class={`flex flex-col gap-1.5 ${fullWidth ? "w-full" : "w-fit"} ${className}`}>
-  {
-    label && (
-      <label
-        for={textareaId}
-        class={`text-sm font-medium text-(--color-text-base) ${required ? "after:ml-0.5 after:text-(--color-status-error) after:content-['*']" : ""}`}
-      >
-        {label}
-      </label>
-    )
-  }
-
+<FormField
+  id={textareaId}
+  label={label}
+  required={required}
+  error={error}
+  hint={hint}
+  fullWidth={fullWidth}
+  class={className}
+>
   <textarea
     id={textareaId}
     name={name}
@@ -72,20 +67,4 @@ const base = [
     aria-describedby={ariaDescribedBy(textareaId, { error, hint })}
     class={base}>{value}</textarea
   >
-
-  {
-    error && (
-      <p id={`${textareaId}-error`} class="text-sm text-(--color-status-error)" role="alert">
-        {error}
-      </p>
-    )
-  }
-
-  {
-    hint && (
-      <p id={`${textareaId}-hint`} class="text-sm text-(--color-text-muted)">
-        {hint}
-      </p>
-    )
-  }
-</div>
+</FormField>

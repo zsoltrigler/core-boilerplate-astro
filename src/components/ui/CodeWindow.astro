@@ -18,5 +18,12 @@ const { label, class: className } = Astro.props
     <span class="ml-2 text-xs text-(--color-text-muted)">{label}</span>
   </div>
 
-  <slot />
+  <!--
+    ! Content area needs its own bg-base, distinct from the chrome bar's
+      bg-surface — otherwise any child with hover:bg-surface becomes invisible
+      since it would match the surrounding background exactly.
+  -->
+  <div class="rounded-b-xl bg-(--color-bg-base)">
+    <slot />
+  </div>
 </div>

@@ -1,0 +1,73 @@
+---
+export interface Props {
+  /** Image source URL. Falls back to initials when omitted or on load error. */
+  src?: string
+  /** Alt text — also used to auto-derive initials when `initials` is not set. */
+  alt?: string
+  /** Explicit initials shown when no image is available (up to 2 characters). */
+  initials?: string
+  size?: "xs" | "sm" | "md" | "lg" | "xl"
+  shape?: "circle" | "square"
+  class?: string
+}
+
+const {
+  src,
+  alt = "",
+  initials,
+  size = "md",
+  shape = "circle",
+  class: className = "",
+} = Astro.props
+
+const sizes: Record<string, string> = {
+  xs: "h-6 w-6 text-xs",
+  sm: "h-8 w-8 text-sm",
+  md: "h-10 w-10 text-base",
+  lg: "h-12 w-12 text-lg",
+  xl: "h-16 w-16 text-xl",
+}
+
+const shapes: Record<string, string> = {
+  circle: "rounded-full",
+  square: "rounded-lg",
+}
+
+// * Derive initials from alt text when not provided explicitly.
+const derivedInitials =
+  initials ??
+  (alt
+    ? alt
+        .trim()
+        .split(/\s+/)
+        .map((w) => w[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase()
+    : "?")
+
+const base = `inline-flex shrink-0 items-center justify-center overflow-hidden border border-(--color-border-base) bg-(--color-bg-elevated) font-semibold text-(--color-text-muted) ${sizes[size]} ${shapes[shape]} ${className}`
+---
+
+<!--
+  ! When src is provided, onerror swaps to the initials fallback if the image fails to load.
+  * Both <img> and the fallback <span> are rendered; the span is hidden until onerror fires.
+-->{
+  src ? (
+    <Fragment>
+      <img
+        src={src}
+        alt={alt}
+        class={base}
+        onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'"
+      />
+      <span class={base} style="display:none" aria-hidden="true">
+        {derivedInitials}
+      </span>
+    </Fragment>
+  ) : (
+    <span class={base} aria-label={alt || derivedInitials}>
+      {derivedInitials}
+    </span>
+  )
+}
