@@ -5,64 +5,64 @@ import Footer from "../components/global/Footer.astro"
 import Container from "../components/layout/Container.astro"
 import Badge from "../components/ui/Badge.astro"
 import Button from "../components/ui/Button.astro"
-import ShowcaseButton from "../components/showcase/ShowcaseButton.astro"
-import ShowcaseIconButton from "../components/showcase/ShowcaseIconButton.astro"
-import ShowcaseBadge from "../components/showcase/ShowcaseBadge.astro"
-import ShowcaseAlert from "../components/showcase/ShowcaseAlert.astro"
-import ShowcaseInput from "../components/showcase/ShowcaseInput.astro"
-import ShowcaseSelect from "../components/showcase/ShowcaseSelect.astro"
-import ShowcaseCheckbox from "../components/showcase/ShowcaseCheckbox.astro"
-import ShowcaseTextarea from "../components/showcase/ShowcaseTextarea.astro"
-import ShowcaseModal from "../components/showcase/ShowcaseModal.astro"
-import ShowcaseTabs from "../components/showcase/ShowcaseTabs.astro"
-import ShowcaseToast from "../components/showcase/ShowcaseToast.astro"
-import ShowcaseCard from "../components/showcase/ShowcaseCard.astro"
-import ShowcaseBreadcrumb from "../components/showcase/ShowcaseBreadcrumb.astro"
-import ShowcaseTooltip from "../components/showcase/ShowcaseTooltip.astro"
-import ShowcaseToggle from "../components/showcase/ShowcaseToggle.astro"
-import ShowcaseAvatar from "../components/showcase/ShowcaseAvatar.astro"
-import ShowcaseSpinner from "../components/showcase/ShowcaseSpinner.astro"
-import ShowcaseSkeleton from "../components/showcase/ShowcaseSkeleton.astro"
-import ShowcaseTable from "../components/showcase/ShowcaseTable.astro"
-import ShowcasePagination from "../components/showcase/ShowcasePagination.astro"
-import ShowcaseProgress from "../components/showcase/ShowcaseProgress.astro"
-import ShowcaseAccordion from "../components/showcase/ShowcaseAccordion.astro"
-import ShowcaseDivider from "../components/showcase/ShowcaseDivider.astro"
-import ShowcaseStepper from "../components/showcase/ShowcaseStepper.astro"
-import ShowcaseDropdown from "../components/showcase/ShowcaseDropdown.astro"
-import ShowcaseDrawer from "../components/showcase/ShowcaseDrawer.astro"
-import ShowcaseCombobox from "../components/showcase/ShowcaseCombobox.astro"
 import CodeWindow from "../components/ui/CodeWindow.astro"
 import Toast from "../components/ui/Toast.astro"
+import ShowcaseAccordion from "../components/showcase/ShowcaseAccordion.astro"
+import ShowcaseAlert from "../components/showcase/ShowcaseAlert.astro"
+import ShowcaseAvatar from "../components/showcase/ShowcaseAvatar.astro"
+import ShowcaseBadge from "../components/showcase/ShowcaseBadge.astro"
+import ShowcaseBreadcrumb from "../components/showcase/ShowcaseBreadcrumb.astro"
+import ShowcaseButton from "../components/showcase/ShowcaseButton.astro"
+import ShowcaseCard from "../components/showcase/ShowcaseCard.astro"
+import ShowcaseCheckbox from "../components/showcase/ShowcaseCheckbox.astro"
+import ShowcaseCombobox from "../components/showcase/ShowcaseCombobox.astro"
+import ShowcaseDivider from "../components/showcase/ShowcaseDivider.astro"
+import ShowcaseDrawer from "../components/showcase/ShowcaseDrawer.astro"
+import ShowcaseDropdown from "../components/showcase/ShowcaseDropdown.astro"
+import ShowcaseIconButton from "../components/showcase/ShowcaseIconButton.astro"
+import ShowcaseInput from "../components/showcase/ShowcaseInput.astro"
+import ShowcaseModal from "../components/showcase/ShowcaseModal.astro"
+import ShowcasePagination from "../components/showcase/ShowcasePagination.astro"
+import ShowcaseProgress from "../components/showcase/ShowcaseProgress.astro"
+import ShowcaseSelect from "../components/showcase/ShowcaseSelect.astro"
+import ShowcaseSkeleton from "../components/showcase/ShowcaseSkeleton.astro"
+import ShowcaseSpinner from "../components/showcase/ShowcaseSpinner.astro"
+import ShowcaseStepper from "../components/showcase/ShowcaseStepper.astro"
+import ShowcaseTable from "../components/showcase/ShowcaseTable.astro"
+import ShowcaseTabs from "../components/showcase/ShowcaseTabs.astro"
+import ShowcaseTextarea from "../components/showcase/ShowcaseTextarea.astro"
+import ShowcaseToast from "../components/showcase/ShowcaseToast.astro"
+import ShowcaseToggle from "../components/showcase/ShowcaseToggle.astro"
+import ShowcaseTooltip from "../components/showcase/ShowcaseTooltip.astro"
 
 const components = [
-  { id: "button", label: "Button" },
-  { id: "icon-button", label: "IconButton" },
-  { id: "badge", label: "Badge" },
+  { id: "accordion", label: "Accordion" },
   { id: "alert", label: "Alert" },
-  { id: "input", label: "Input" },
-  { id: "select", label: "Select" },
-  { id: "checkbox", label: "Checkbox" },
-  { id: "textarea", label: "Textarea" },
-  { id: "modal", label: "Modal" },
-  { id: "tabs", label: "Tabs" },
-  { id: "toast", label: "Toast" },
-  { id: "card", label: "Card" },
-  { id: "breadcrumb", label: "Breadcrumb" },
-  { id: "tooltip", label: "Tooltip" },
-  { id: "toggle", label: "Toggle" },
   { id: "avatar", label: "Avatar" },
-  { id: "spinner", label: "Spinner" },
-  { id: "skeleton", label: "Skeleton" },
-  { id: "table", label: "Table" },
+  { id: "badge", label: "Badge" },
+  { id: "breadcrumb", label: "Breadcrumb" },
+  { id: "button", label: "Button" },
+  { id: "card", label: "Card" },
+  { id: "checkbox", label: "Checkbox" },
+  { id: "combobox", label: "Combobox" },
+  { id: "divider", label: "Divider" },
+  { id: "drawer", label: "Drawer" },
+  { id: "dropdown", label: "Dropdown" },
+  { id: "icon-button", label: "IconButton" },
+  { id: "input", label: "Input" },
+  { id: "modal", label: "Modal" },
   { id: "pagination", label: "Pagination" },
   { id: "progress", label: "Progress" },
-  { id: "accordion", label: "Accordion" },
-  { id: "divider", label: "Divider" },
+  { id: "select", label: "Select" },
+  { id: "skeleton", label: "Skeleton" },
+  { id: "spinner", label: "Spinner" },
   { id: "stepper", label: "Stepper" },
-  { id: "dropdown", label: "Dropdown" },
-  { id: "drawer", label: "Drawer" },
-  { id: "combobox", label: "Combobox" },
+  { id: "table", label: "Table" },
+  { id: "tabs", label: "Tabs" },
+  { id: "textarea", label: "Textarea" },
+  { id: "toast", label: "Toast" },
+  { id: "toggle", label: "Toggle" },
+  { id: "tooltip", label: "Tooltip" },
 ]
 ---
 
@@ -155,33 +155,33 @@ const components = [
 
         <!-- Component sections -->
         <div class="flex min-w-0 flex-1 flex-col gap-20">
-          <ShowcaseButton />
-          <ShowcaseIconButton />
-          <ShowcaseBadge />
+          <ShowcaseAccordion />
           <ShowcaseAlert />
-          <ShowcaseInput />
-          <ShowcaseSelect />
-          <ShowcaseCheckbox />
-          <ShowcaseTextarea />
-          <ShowcaseModal />
-          <ShowcaseTabs />
-          <ShowcaseToast />
-          <ShowcaseCard />
-          <ShowcaseBreadcrumb />
-          <ShowcaseTooltip />
-          <ShowcaseToggle />
           <ShowcaseAvatar />
-          <ShowcaseSpinner />
-          <ShowcaseSkeleton />
-          <ShowcaseTable />
+          <ShowcaseBadge />
+          <ShowcaseBreadcrumb />
+          <ShowcaseButton />
+          <ShowcaseCard />
+          <ShowcaseCheckbox />
+          <ShowcaseCombobox />
+          <ShowcaseDivider />
+          <ShowcaseDrawer />
+          <ShowcaseDropdown />
+          <ShowcaseIconButton />
+          <ShowcaseInput />
+          <ShowcaseModal />
           <ShowcasePagination />
           <ShowcaseProgress />
-          <ShowcaseAccordion />
-          <ShowcaseDivider />
+          <ShowcaseSelect />
+          <ShowcaseSkeleton />
+          <ShowcaseSpinner />
           <ShowcaseStepper />
-          <ShowcaseDropdown />
-          <ShowcaseDrawer />
-          <ShowcaseCombobox />
+          <ShowcaseTable />
+          <ShowcaseTabs />
+          <ShowcaseTextarea />
+          <ShowcaseToast />
+          <ShowcaseToggle />
+          <ShowcaseTooltip />
         </div>
       </div>
     </Container>
