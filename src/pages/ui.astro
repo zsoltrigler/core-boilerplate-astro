@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro"
 import Header from "../components/global/Header.astro"
+import ThemeToggle from "../components/global/ThemeToggle.astro"
 import Footer from "../components/global/Footer.astro"
 import Container from "../components/layout/Container.astro"
 import ShowcaseSection from "../components/showcase/ShowcaseSection.astro"
@@ -98,6 +99,7 @@ const components = [
 >
   <Header>
     <Button slot="nav-end" href="/" variant="ghost" size="md">← Back to home</Button>
+    <ThemeToggle slot="nav-end" />
   </Header>
 
   <main id="main-content" class="flex flex-1 flex-col">
