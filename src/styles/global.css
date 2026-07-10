@@ -119,6 +119,17 @@
     :root {
       transition: none !important;
     }
+
+  }
+
+  /* * Suppress all transitions for exactly one frame during theme switch —
+     prevents per-element CSS transitions from firing simultaneously,
+     which causes choppiness on complex pages. Removed via rAF in ThemeToggle. */
+  html.theme-switching,
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition: none !important;
   }
 
   /* * :root transition animates --grid-line so background-image recomputes
