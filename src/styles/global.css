@@ -120,18 +120,15 @@
       transition: none !important;
     }
 
-    ::view-transition-old(root),
-    ::view-transition-new(root) {
-      animation: none;
-    }
   }
 
-  /* * During a View Transition the browser composites a screenshot cross-fade —
-     suppress per-element CSS transitions so they don't fight the VTA. */
-  :root:has(::view-transition),
-  :root:has(::view-transition) *,
-  :root:has(::view-transition) *::before,
-  :root:has(::view-transition) *::after {
+  /* * Suppress all transitions for exactly one frame during theme switch —
+     prevents per-element CSS transitions from firing simultaneously,
+     which causes choppiness on complex pages. Removed via rAF in ThemeToggle. */
+  html.theme-switching,
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
     transition: none !important;
   }
 

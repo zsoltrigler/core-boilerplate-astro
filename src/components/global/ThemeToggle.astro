@@ -63,21 +63,16 @@
   function applyTheme(theme: "dark" | "light") {
     currentIsDark = theme === "dark"
 
-    const update = () => {
-      document.documentElement.classList.toggle("dark", currentIsDark)
-      localStorage.setItem("theme", theme)
-      // * Sync all toggle instances on the page (e.g. mobile + desktop header).
-      buttons.forEach((btn) => syncIcons(btn, currentIsDark))
-    }
-
-    // * VTA cross-fades the entire viewport as one GPU-composited operation —
-    //   no per-element CSS transitions firing simultaneously on complex pages.
-    if (!document.startViewTransition) {
-      update()
-      return
-    }
-
-    document.startViewTransition(update)
+    // * Suppress all transitions for one frame so the theme switch is instant —
+    //   without this, every element's CSS transition fires simultaneously,
+    //   causing choppiness on complex pages. The class is removed after one rAF
+    //   so hover/focus transitions continue to work normally.
+    document.documentElement.classList.add("theme-switching")
+    document.documentElement.classList.toggle("dark", currentIsDark)
+    localStorage.setItem("theme", theme)
+    // * Sync all toggle instances on the page (e.g. mobile + desktop header).
+    buttons.forEach((btn) => syncIcons(btn, currentIsDark))
+    requestAnimationFrame(() => document.documentElement.classList.remove("theme-switching"))
   }
 
   buttons.forEach((btn) => {
