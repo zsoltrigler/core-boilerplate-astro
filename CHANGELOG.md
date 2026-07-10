@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.7.0...core-boilerplate-v1.7.1) (2026-07-10)
+
+
+### Bug Fixes
+
+* instant theme switch — eliminate per-element transition jank ([bcd31dc](https://github.com/zsoltrigler/core-boilerplate-astro/commit/bcd31dcbbb5c2f76a4843c20248d99df5abc2ae4))
+* instant theme switch via theme-switching class — no more per-element transition jank ([106d1eb](https://github.com/zsoltrigler/core-boilerplate-astro/commit/106d1ebc5d88560665a946dc749060fd6cbe24ac))
+* replace per-element CSS transitions with View Transitions API for theme switch ([d3a049f](https://github.com/zsoltrigler/core-boilerplate-astro/commit/d3a049f27751d6fba3a3021fcac464c2ff4c07ef))
+
 ## [1.7.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.6.3...core-boilerplate-v1.7.0) (2026-07-09)
 
 
