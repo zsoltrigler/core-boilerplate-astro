@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro"
 import Header from "../components/global/Header.astro"
+import ThemeToggle from "../components/global/ThemeToggle.astro"
 import Footer from "../components/global/Footer.astro"
 import Section from "../components/layout/Section.astro"
 import Container from "../components/layout/Container.astro"
@@ -55,7 +56,9 @@ const stats = [
   title="Home"
   description="Production-ready Astro 7 + Tailwind 4 boilerplate with dark mode, WCAG AA enforcement, SEO, and a perfect Lighthouse score."
 >
-  <Header />
+  <Header>
+    <ThemeToggle slot="nav-end" />
+  </Header>
 
   <main id="main-content" class="flex flex-1 flex-col">
     <!-- ── Hero ─────────────────────────────────────────────────────── -->
