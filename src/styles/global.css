@@ -119,6 +119,20 @@
     :root {
       transition: none !important;
     }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+    }
+  }
+
+  /* * During a View Transition the browser composites a screenshot cross-fade —
+     suppress per-element CSS transitions so they don't fight the VTA. */
+  :root:has(::view-transition),
+  :root:has(::view-transition) *,
+  :root:has(::view-transition) *::before,
+  :root:has(::view-transition) *::after {
+    transition: none !important;
   }
 
   /* * :root transition animates --grid-line so background-image recomputes

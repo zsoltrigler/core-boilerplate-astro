@@ -62,11 +62,22 @@
 
   function applyTheme(theme: "dark" | "light") {
     currentIsDark = theme === "dark"
-    document.documentElement.classList.toggle("dark", currentIsDark)
-    localStorage.setItem("theme", theme)
 
-    // * Sync all toggle instances on the page (e.g. mobile + desktop header).
-    buttons.forEach((btn) => syncIcons(btn, currentIsDark))
+    const update = () => {
+      document.documentElement.classList.toggle("dark", currentIsDark)
+      localStorage.setItem("theme", theme)
+      // * Sync all toggle instances on the page (e.g. mobile + desktop header).
+      buttons.forEach((btn) => syncIcons(btn, currentIsDark))
+    }
+
+    // * VTA cross-fades the entire viewport as one GPU-composited operation —
+    //   no per-element CSS transitions firing simultaneously on complex pages.
+    if (!document.startViewTransition) {
+      update()
+      return
+    }
+
+    document.startViewTransition(update)
   }
 
   buttons.forEach((btn) => {
