@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.7.1...core-boilerplate-v1.7.2) (2026-07-10)
+
+
+### Code Refactoring
+
+* decouple ThemeToggle from Header — make it opt-in ([aecfc38](https://github.com/zsoltrigler/core-boilerplate-astro/commit/aecfc386c9579f7b22ce3d8885f89a766ad1b00a))
+* decouple ThemeToggle from Header — make it opt-in via nav-end slot ([9184735](https://github.com/zsoltrigler/core-boilerplate-astro/commit/9184735b8b12f62e121dfd0afe3debcaf31af353))
+
 ## [1.7.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.7.0...core-boilerplate-v1.7.1) (2026-07-10)
 
 
