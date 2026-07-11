@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.11.0...core-boilerplate-v1.11.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* **ci:** use squash merge for release-please auto-merge ([#142](https://github.com/zsoltrigler/core-boilerplate-astro/issues/142)) ([9dbc465](https://github.com/zsoltrigler/core-boilerplate-astro/commit/9dbc465a9ef47532687f871e5ce237c56d358e0e))
+* **header:** defer scroll-spy IntersectionObserver setup to next frame ([#140](https://github.com/zsoltrigler/core-boilerplate-astro/issues/140)) ([a431cc2](https://github.com/zsoltrigler/core-boilerplate-astro/commit/a431cc2e344cc440746f4a405fd43fcbd509b395))
+
 ## [1.11.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.6...core-boilerplate-v1.11.0) (2026-07-11)
 
 
