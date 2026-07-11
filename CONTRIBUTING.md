@@ -72,6 +72,7 @@ src/
 ├── components/
 │   ├── global/     # Header, Footer, ThemeToggle
 │   ├── layout/     # Section, Container
+│   ├── sections/   # Page sections composed from ui/ + layout/ primitives
 │   └── ui/         # Alert, Badge, Breadcrumb, Button, Card, Checkbox,
 │                   # CodeWindow, IconButton, Input, Modal, Select,
 │                   # Tabs, Textarea, Toast
@@ -81,3 +82,46 @@ src/
 ├── utils/          # aria.ts — shared accessibility utilities
 └── config.ts       # single source of truth for all site config
 ```
+
+## Building page sections
+
+`src/components/sections/` is where page-level sections live (hero, pricing,
+testimonials, FAQ, etc.) — one `.astro` file per section, composed from the
+`ui/` and `layout/` primitives. Don't hand-roll markup that a primitive
+already covers (see "Code standards" above); a section file should mostly be
+`<Section>` / `<Container>` scaffolding plus `ui/` components wired to props.
+
+```
+src/components/sections/
+├── Hero.astro
+├── Pricing.astro
+├── Testimonials.astro
+└── Faq.astro
+```
+
+- One section per file, PascalCase, named after what it shows (`Pricing.astro`, not `Section3.astro`).
+- Accept content via a typed `Props` interface (title, items, etc.) rather than hardcoding copy — the same section should be reusable across templates with different content.
+- If a section is only ever used on one page, it's still worth extracting once the page file gets long — keeps `pages/*.astro` readable.
+
+**Gotcha: components with dynamic named slots.** `Tabs` renders one
+`<slot name={tab.id} />` per entry in its `tabs` prop — the slot name is
+whatever `id` you gave that tab, not a fixed set like `"header"` or
+`"footer"`. The caller must tag each content block with a matching
+`slot="<id>"` attribute:
+
+```astro
+<Tabs
+  tabs={[
+    { id: "overview", label: "Overview" },
+    { id: "specs", label: "Specs" },
+  ]}
+>
+  <p slot="overview">...</p>
+  <p slot="specs">...</p>
+</Tabs>
+```
+
+There's no compile-time check tying `tabs` to your slots — a typo'd or
+renamed `id` just renders an empty panel with no error. Keep the `tabs`
+array and the slotted content next to each other in the file so they're
+easy to eyeball together, and grep for the `id` string when you rename one.
