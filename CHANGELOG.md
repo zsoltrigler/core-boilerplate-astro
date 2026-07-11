@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.5](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.4...core-boilerplate-v1.8.5) (2026-07-11)
+
+
+### Bug Fixes
+
+* use PAT for the release PR merge, not just the PR update ([8428743](https://github.com/zsoltrigler/core-boilerplate-astro/commit/84287439e81ce0778c751e13d38445a724e752fb))
+* use PAT for the release PR merge, not just the PR update ([39bd3e2](https://github.com/zsoltrigler/core-boilerplate-astro/commit/39bd3e261fb44e71eb2ae12761060f6f402775f0))
+
 ## [1.8.4](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.3...core-boilerplate-v1.8.4) (2026-07-11)
 
 
