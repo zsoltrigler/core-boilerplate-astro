@@ -15,10 +15,12 @@
 #        chore/refactor/docs/style → no version bump
 #
 # ! Requires a RELEASE_PLEASE_TOKEN repo secret (a PAT with Contents + Pull
-#   requests write access). PRs opened with the default GITHUB_TOKEN do not
-#   trigger other workflows (incl. the "Type check & build" CI check this
-#   auto-merge waits on) — see https://github.com/googleapis/release-please-action#other-actions-on-release-please-prs.
-#   Without it, the release PR's required check never runs and auto-merge hangs forever.
+#   requests write access). PRs opened AND merged with the default GITHUB_TOKEN
+#   do not trigger other workflows (incl. the "Type check & build" CI check this
+#   auto-merge waits on, and — just as importantly — the next Release Please run
+#   that actually creates the GitHub Release/tag once the release commit lands
+#   on main) — see https://github.com/googleapis/release-please-action#other-actions-on-release-please-prs.
+#   Without it, both the required check and the follow-up tagging run never fire.
 
 name: Release Please
 
@@ -48,10 +50,13 @@ jobs:
       # ! --repo is required — this job never checks out the git repo (release-please
       #   operates purely via the GitHub API), so `gh` has no local git remote to
       #   infer the repo from and fails with "not a git repository" without it.
+      # ! GH_TOKEN must be the PAT, not github.token — a merge performed with the
+      #   default token doesn't trigger the next push-to-main run, so the release
+      #   commit lands but the GitHub Release/tag never gets created.
       - name: Enable auto-merge for the release PR
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
         run: >
           gh pr merge --auto --merge --repo "${{ github.repository }}"
           "${{ fromJson(steps.release.outputs.pr).number }}"
