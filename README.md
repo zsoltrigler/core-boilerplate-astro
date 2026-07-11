@@ -9,7 +9,8 @@ A minimal, production-ready starter built with **Astro 7** and **Tailwind CSS 4*
 - [Astro 7](https://astro.build) — static site generator (SSG)
 - [Tailwind CSS 4](https://tailwindcss.com) — utility-first CSS
 - TypeScript — strict mode, typed component props
-- Dark mode — system preference + manual toggle, persisted in `localStorage`
+- Icons — [line-md](https://icon-sets.iconify.design/line-md/) via [astro-icon](https://github.com/natemoo-re/astro-icon), inlined at build time — zero runtime JS
+- Dark mode — system preference + manual toggle, persisted in `localStorage` — or skip it entirely with `SITE.singleTheme`
 - SEO — meta tags, Open Graph, Twitter Card, sitemap, robots.txt
 
 ---
@@ -78,6 +79,18 @@ export const COLORS = {
 
 > **WCAG contrast check** — the build automatically warns you if any color combination fails AA contrast requirements. Fix the colors in `config.ts` and the warning disappears.
 
+The `dark` key is entirely optional — see [Single-theme templates](#single-theme-templates-no-dark-mode) below. `COLORS.overlay` (defaults to `#000000`) controls the `Modal`/`Drawer` backdrop scrim, kept separate from the dark palette since it looks correct in both themes.
+
+### Typography
+
+`--font-display` is a headline/display font token, separate from `--font-sans` — it defaults to `var(--font-sans)`, so `font-display` works immediately without redefining a fallback chain. Override it in `global.css` when you add a custom display font:
+
+```css
+@theme {
+  --font-display: "Your Display Font", var(--font-sans);
+}
+```
+
 ### Navigation
 
 ```ts
@@ -107,34 +120,51 @@ src/
 │   ├── global/
 │   │   ├── Header.astro       # Sticky header with nav, mobile menu, ThemeToggle
 │   │   ├── Footer.astro       # Footer with social links and copyright
-│   │   └── ThemeToggle.astro  # Dark/light mode toggle button
+│   │   └── ThemeToggle.astro  # Dark/light mode toggle — opt-in, not wired into Header
 │   ├── layout/
 │   │   ├── Container.astro    # Max-width wrapper (sm/md/lg/xl/full)
 │   │   └── Section.astro      # Semantic section wrapper
+│   ├── sections/               # Page-level sections you add — see CONTRIBUTING.md
 │   └── ui/
+│       ├── Accordion.astro    # Native <details>/<summary> — no JS
 │       ├── Alert.astro        # Contextual feedback messages
+│       ├── Avatar.astro       # Image with initials fallback
 │       ├── Badge.astro        # Inline status labels
 │       ├── Breadcrumb.astro   # Accessible navigation trail
 │       ├── Button.astro       # Primary/secondary/ghost/danger, renders as <a> or <button>
 │       ├── Card.astro         # Content container with icon/title/desc slots
 │       ├── Checkbox.astro     # Checkbox with label, hint, and error state
 │       ├── CodeWindow.astro   # Decorative code window UI frame
+│       ├── Combobox.astro     # Text input + native <datalist> filtering
+│       ├── Divider.astro      # Horizontal/vertical rule, optional label
+│       ├── Drawer.astro       # Edge-anchored sliding panel
+│       ├── Dropdown.astro     # JS-powered menu panel
+│       ├── FormField.astro    # Shared label/error/hint chrome for form controls
 │       ├── IconButton.astro   # Square icon-only button
 │       ├── Input.astro        # Text input with label, hint, error, and size variants
 │       ├── Modal.astro        # Native <dialog>-based modal with backdrop and slots
+│       ├── Pagination.astro   # Page number links with prev/next
+│       ├── Progress.astro     # Progress bar
 │       ├── Select.astro       # Select dropdown with label, hint, and error state
+│       ├── Skeleton.astro     # Loading placeholder block
+│       ├── Spinner.astro      # Loading spinner
+│       ├── Stepper.astro      # Multi-step progress indicator
+│       ├── Table.astro        # Styled wrapper for native table markup
 │       ├── Tabs.astro         # Keyboard-navigable tab panel
 │       ├── Textarea.astro     # Multiline input with label, hint, and error state
-│       └── Toast.astro        # Programmatic toast notifications
+│       ├── Toast.astro        # Programmatic toast notifications
+│       ├── Toggle.astro       # Switch / checkbox alternative
+│       └── Tooltip.astro      # CSS-only tooltip on hover/focus
 ├── layouts/
 │   └── BaseLayout.astro       # HTML shell: meta tags, OG, dark mode
 ├── pages/
 │   ├── index.astro            # Home page — replace with your own content
-│   ├── ui.astro               # Component showcase at /ui
+│   ├── ui.astro               # Component showcase at /ui — delete when done referencing it
 │   ├── 404.astro              # Custom 404 page
 │   └── robots.txt.ts          # Dynamic robots.txt
 ├── styles/
 │   └── global.css             # Tailwind + design tokens + base styles
+├── utils/                      # aria.ts, fieldStyles.ts — shared helpers for form components
 └── config.ts                  # ← Start here
 ```
 
@@ -217,6 +247,38 @@ Flexible content container.
 
 ---
 
+### CodeWindow
+
+Decorative code-window UI frame — the traffic-light dots and tab bar seen throughout `/ui` and this README's own examples.
+
+```astro
+<CodeWindow label="Terminal">
+  <pre><code>pnpm install</code></pre>
+</CodeWindow>
+```
+
+**Props:** `label` (required)
+
+**Slot:** default
+
+---
+
+### FormField
+
+Shared label/error/hint chrome used internally by `Input`, `Select`, `Textarea`, and `Combobox` — you generally won't reach for this directly unless you're building a custom form control that should look consistent with the rest.
+
+```astro
+<FormField id="custom-field" label="Custom field" hint="Some helper text">
+  <input id="custom-field" class="..." />
+</FormField>
+```
+
+**Props:** `id` (required) · `label` · `required` · `error` · `hint` · `fullWidth`
+
+**Slot:** default (the control itself)
+
+---
+
 ### Input
 
 Text input with label, hint text, and error state.
@@ -263,7 +325,7 @@ Checkbox with label, hint text, and error state.
 <Checkbox name="accept" label="Accept" error="You must accept to continue" />
 ```
 
-**Props:** `name` · `id` · `label` · `hint` · `error` · `checked` · `disabled` · `required` · `fullWidth`
+**Props:** `name` · `id` · `label` · `aria-label` · `checked` · `disabled` · `required` · `error`
 
 ---
 
@@ -297,27 +359,29 @@ Multiline text input with label, hint text, and error state.
 
 ### Tabs
 
-Keyboard-navigable tab panel.
+Keyboard-navigable tab panel. Each entry in `tabs` renders a named slot matching its `id` — tag your content with `slot="<id>"`, not a `data-*` attribute.
 
 ```astro
 <Tabs
   tabs={[
-    { id: "tab-1", label: "First" },
-    { id: "tab-2", label: "Second" },
+    { id: "overview", label: "Overview" },
+    { id: "specs", label: "Specs" },
   ]}
 >
-  <div data-tab="tab-1">First tab content</div>
-  <div data-tab="tab-2">Second tab content</div>
+  <p slot="overview">Overview content</p>
+  <p slot="specs">Specs content</p>
 </Tabs>
 ```
 
 **Props:** `tabs` (array of `{ id, label }`) · `defaultTab`
 
+> ⚠️ There's no compile-time check tying `tabs` to your slots — a typo'd or renamed `id` just renders an empty panel with no error. See [CONTRIBUTING.md](./CONTRIBUTING.md) for more on this.
+
 ---
 
 ### Toast
 
-Programmatic toast notifications. Add `<Toast />` once to your layout, then trigger it from any script.
+Programmatic toast notifications. Add `<Toast />` once to your layout, then call `window.toast(...)` from any script.
 
 ```astro
 <!-- In your layout -->
@@ -326,14 +390,10 @@ Programmatic toast notifications. Add `<Toast />` once to your layout, then trig
 
 ```ts
 // Trigger from any script
-window.dispatchEvent(
-  new CustomEvent("toast", {
-    detail: { message: "Saved!", variant: "success" },
-  })
-)
+window.toast("Saved!", { variant: "success", duration: 4000 })
 ```
 
-**Event detail:** `message` · `variant` (info | success | warning | error) · `duration` (ms, default 4000)
+**`window.toast(message, options?)`:** `message` (string) · `options.variant` (info | success | warning | error, default info) · `options.duration` (ms, default 4000)
 
 ---
 
@@ -348,6 +408,219 @@ Accessible navigation trail with structured markup.
 ```
 
 **Props:** `items` (array of `{ label, href? }`) · `aria-label`
+
+---
+
+### Accordion
+
+Native `<details>`/`<summary>` — no JS. Multiple items can be open at once.
+
+```astro
+<Accordion title="What is Core Boilerplate?" open>
+  A production-ready Astro + Tailwind starter.
+</Accordion>
+```
+
+**Props:** `title` (required) · `open` · `class`
+
+---
+
+### Avatar
+
+Shows an image when `src` is set; falls back to initials derived from `alt`, or the explicit `initials` prop.
+
+```astro
+<Avatar src="/user.jpg" alt="Jane Doe" size="md" />
+<Avatar initials="JD" size="md" shape="square" />
+```
+
+**Props:** `src` · `alt` · `initials` · `size` (xs | sm | md | lg | xl) · `shape` (circle | square)
+
+---
+
+### Combobox
+
+Text input with native `<datalist>` filtering — zero JS. Wraps `Input`, adding only the `list`/`datalist` wiring.
+
+```astro
+<Combobox
+  name="framework"
+  label="Framework"
+  options={[
+    { value: "astro", label: "Astro" },
+    { value: "next", label: "Next.js" },
+  ]}
+/>
+```
+
+**Props:** `name` (required) · `options` (required, array of `{ value, label }`) · `id` · `label` · `aria-label` · `placeholder` · `value` · `error` · `hint` · `size` (sm | md | lg) · `disabled` · `required` · `fullWidth`
+
+---
+
+### Divider
+
+Horizontal or vertical rule, with an optional centered label.
+
+```astro
+<Divider />
+<Divider label="OR" />
+<Divider orientation="vertical" />
+```
+
+**Props:** `label` · `orientation` (horizontal | vertical)
+
+---
+
+### Drawer
+
+Edge-anchored sliding panel. Open it with `data-drawer-open="<id>"` on any trigger element — same pattern as `Modal`.
+
+```astro
+<button data-drawer-open="settings">Open settings</button>
+
+<Drawer id="settings" title="Settings" side="right">
+  <p>Drawer content.</p>
+</Drawer>
+```
+
+**Props:** `id` (required) · `title` · `side` (left | right)
+
+**Slots:** `title` · default (body) · `footer`
+
+---
+
+### Dropdown
+
+JS-powered menu panel. Closes on item click, Escape, or clicking outside.
+
+```astro
+<Dropdown>
+  <Button slot="trigger" variant="secondary">Actions</Button>
+  <a href="/edit">Edit</a>
+  <a href="/duplicate">Duplicate</a>
+</Dropdown>
+```
+
+**Props:** `align` (left | right)
+
+**Slots:** `trigger` · default (menu items)
+
+---
+
+### Pagination
+
+Page-number links with prev/next arrows. Page 1 links directly to `baseUrl` (no `/1` suffix).
+
+```astro
+<Pagination currentPage={2} totalPages={10} baseUrl="/blog" />
+<!-- → /blog, /blog/2, /blog/3 … -->
+```
+
+**Props:** `currentPage` (required) · `totalPages` (required) · `baseUrl` (required)
+
+---
+
+### Progress
+
+Progress bar with an optional label and percentage readout.
+
+```astro
+<Progress value={65} label="Uploading" showPercent />
+```
+
+**Props:** `value` (required, 0–100) · `label` · `showPercent` · `size` (sm | md | lg) · `variant` (primary | success | warning | error)
+
+---
+
+### Skeleton
+
+Loading placeholder block.
+
+```astro
+<Skeleton height="1rem" width="60%" />
+```
+
+**Props:** `height` · `width` · `rounded` (none | sm | md | lg | xl | 2xl | full)
+
+---
+
+### Spinner
+
+Loading spinner — uses `currentColor`.
+
+```astro
+<Spinner size="md" label="Loading" />
+```
+
+**Props:** `size` (sm | md | lg) · `label`
+
+---
+
+### Stepper
+
+Multi-step progress indicator.
+
+```astro
+<Stepper
+  steps={[{ label: "Account" }, { label: "Profile" }, { label: "Review" }]}
+  currentStep={2}
+/>
+```
+
+**Props:** `steps` (required, array of `{ label, description? }`) · `currentStep` (required) · `orientation` (horizontal | vertical)
+
+---
+
+### Table
+
+Styled wrapper for standard `<table>` markup — write normal `<thead>`/`<tbody>`/`<tr>`/`<th>`/`<td>` inside.
+
+```astro
+<Table striped>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jane</td>
+      <td>Admin</td>
+    </tr>
+  </tbody>
+</Table>
+```
+
+**Props:** `striped`
+
+---
+
+### Toggle
+
+Switch-style checkbox alternative.
+
+```astro
+<Toggle name="notifications" label="Email notifications" checked />
+```
+
+**Props:** `name` (required) · `id` · `label` · `checked` · `disabled` · `size` (sm | md | lg)
+
+---
+
+### Tooltip
+
+CSS-only tooltip — shows on hover and keyboard focus, no JS.
+
+```astro
+<Tooltip tip="Copy to clipboard" placement="top">
+  <IconButton label="Copy" variant="ghost">
+    <svg>...</svg>
+  </IconButton>
+</Tooltip>
+```
+
+**Props:** `tip` (required) · `placement` (top | bottom | left | right)
 
 ---
 
@@ -370,6 +643,24 @@ Semantic wrapper, accepts an `id` for anchor links.
 ```astro
 <Section id="features">...</Section>
 ```
+
+---
+
+## Icons
+
+All icons throughout the boilerplate come from [line-md](https://icon-sets.iconify.design/line-md/) via [astro-icon](https://github.com/natemoo-re/astro-icon) — inlined as SVG at build time, zero runtime JS, and free to use anywhere:
+
+```astro
+---
+import { Icon } from "astro-icon/components"
+---
+
+<Icon name="line-md:heart" width="20" height="20" />
+```
+
+Browse the full set at [icon-sets.iconify.design/line-md](https://icon-sets.iconify.design/line-md/) — any icon name from there works with `name="line-md:<icon-name>"`. Many icons are self-animating (stroke-draw on mount); toggle-style icons like `menu-to-close-transition` come in matched reverse pairs (`close-to-menu-transition`) for building two-state controls — see `Header.astro` and `ThemeToggle.astro` for real examples.
+
+> ⚠️ Icons inserted at runtime via plain DOM APIs (e.g. inside a `<script>` block, like `Toast.astro`'s dismiss icons) can't use the `<Icon>` component — it only resolves at build time. Embed the SVG markup as a string literal instead.
 
 ---
 
@@ -481,6 +772,14 @@ Apply the same pattern to product pages (`ProductLayout`), landing pages, or any
 
 Dark mode is class-based (`<html class="dark">`). It reads from `localStorage` on first paint (no flash), respects system preference on first visit, and persists the user's choice.
 
+`ThemeToggle` is **not** wired into `Header` automatically — add it yourself via the `nav-end` slot:
+
+```astro
+<Header>
+  <ThemeToggle slot="nav-end" />
+</Header>
+```
+
 To override any color for dark mode, add it to the `dark` key in `COLORS`:
 
 ```ts
@@ -491,6 +790,26 @@ dark: {
 ```
 
 Any key omitted from `dark` inherits its light-mode value.
+
+### Single-theme templates (no dark mode)
+
+If your template only ships one theme, you can drop dark mode entirely instead of maintaining a redundant `dark` block that duplicates your light colors:
+
+1. **Omit the `dark` key from `COLORS`** — `generateColorTokens()` in `astro.config.mjs` skips the `.dark {}` CSS block automatically when it's absent.
+2. **Set `SITE.singleTheme = true`** — this skips the FOUC-prevention script and the dark `theme-color` meta tag in `BaseLayout`, both of which would otherwise run unconditionally with nothing to switch to.
+3. **Don't include `<ThemeToggle>`** anywhere — there's no dark palette for it to switch to.
+
+```ts
+// src/config.ts
+export const SITE = {
+  // ...
+  singleTheme: true,
+}
+
+export const COLORS = {
+  // light-mode tokens only — no `dark` key
+}
+```
 
 ---
 

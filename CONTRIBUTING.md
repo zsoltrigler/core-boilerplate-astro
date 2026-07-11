@@ -51,10 +51,13 @@ chore: update Tailwind to v4.1
   - `// ? ` open question or consideration
   - `// TODO:` future improvement
 - **Blank lines** — always add a blank line between sibling HTML elements.
+- **Icons** — use `astro-icon` with the [line-md](https://icon-sets.iconify.design/line-md/) set (`<Icon name="line-md:..." />` from `"astro-icon/components"`). Never hand-write inline `<svg>` markup for a new icon; only fall back to a raw SVG string when the icon must be inserted at runtime via plain DOM APIs (e.g. `Toast.astro`'s dismiss icons), since `<Icon>` only resolves at build time.
 
 ## Colors and design tokens
 
-Edit colors **only** in `src/config.ts`. They are injected into CSS at build time — never edit the generated `@theme` block in `global.css` directly.
+Edit colors **only** in `src/config.ts`. They are injected into CSS at build time — never edit the generated `@theme` block in `global.css` directly. Never hardcode a color anywhere else, including named Tailwind colors (`bg-white`, `bg-black`) and `rgba()`/hex literals — even UI chrome like the modal backdrop scrim goes through a token (`COLORS.overlay`).
+
+`COLORS.dark` is optional — single-theme templates can omit it entirely (pair with `SITE.singleTheme = true`, which skips the FOUC-prevention script and dark `theme-color` meta in `BaseLayout.astro`). If you touch `scripts/contrast-check.mjs`, keep dark-mode pairs guarded behind a `COLORS.dark` check so it doesn't crash for single-theme configs.
 
 WCAG AA contrast is checked automatically at build time. Fix any warnings before opening a PR.
 
@@ -64,6 +67,7 @@ WCAG AA contrast is checked automatically at build time. Fix any warnings before
 - Keep each PR focused on a single topic
 - The CI pipeline must pass before merging
 - PRs are merged by the maintainer — do not self-merge
+- The one exception is the standing release-please PR, which auto-merges itself once its own CI run passes — this is the only PR that isn't human-merged
 
 ## Project structure
 
@@ -73,13 +77,15 @@ src/
 │   ├── global/     # Header, Footer, ThemeToggle
 │   ├── layout/     # Section, Container
 │   ├── sections/   # Page sections composed from ui/ + layout/ primitives
-│   └── ui/         # Alert, Badge, Breadcrumb, Button, Card, Checkbox,
-│                   # CodeWindow, IconButton, Input, Modal, Select,
-│                   # Tabs, Textarea, Toast
+│   └── ui/         # Accordion, Alert, Avatar, Badge, Breadcrumb, Button,
+│                   # Card, Checkbox, CodeWindow, Combobox, Divider, Drawer,
+│                   # Dropdown, FormField, IconButton, Input, Modal,
+│                   # Pagination, Progress, Select, Skeleton, Spinner,
+│                   # Stepper, Table, Tabs, Textarea, Toast, Toggle, Tooltip
 ├── layouts/        # BaseLayout.astro
 ├── pages/          # index.astro, ui.astro, 404.astro
 ├── styles/         # global.css
-├── utils/          # aria.ts — shared accessibility utilities
+├── utils/          # aria.ts, fieldStyles.ts — shared helpers for form components
 └── config.ts       # single source of truth for all site config
 ```
 
