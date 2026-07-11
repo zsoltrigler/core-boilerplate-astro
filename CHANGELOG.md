@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.4](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.3...core-boilerplate-v1.10.4) (2026-07-11)
+
+
+### Documentation
+
+* sync all documentation with current codebase state ([f9e4fc9](https://github.com/zsoltrigler/core-boilerplate-astro/commit/f9e4fc9f6e48ab9fe7ca7ecfd8dff735f2d1e072))
+* sync all documentation with current codebase state ([aa93366](https://github.com/zsoltrigler/core-boilerplate-astro/commit/aa933661e22a6fe83ca90771fb3d814fcbf1c94d))
+
 ## [1.10.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.2...core-boilerplate-v1.10.3) (2026-07-11)
 
 
