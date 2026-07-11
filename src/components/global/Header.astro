@@ -198,22 +198,30 @@ function isActivePath(href: string): boolean {
       })
     }
 
-    // * Offset the detection band by the sticky header's real height rather
-    //   than a hardcoded value, so it stays correct if a template customizes it.
-    const headerHeight = document.querySelector("header")?.offsetHeight ?? 0
+    // ! Deferred to requestAnimationFrame — reading offsetHeight synchronously
+    //   during initial script execution forces the browser into an early,
+    //   blocking layout pass instead of its normal batched one (flagged by
+    //   Lighthouse's forced-reflow-insight audit). Waiting a frame lets the
+    //   browser's natural layout/paint cycle for the page finish first; the
+    //   one-frame delay before scroll-spy is armed is imperceptible.
+    requestAnimationFrame(() => {
+      // * Offset the detection band by the sticky header's real height rather
+      //   than a hardcoded value, so it stays correct if a template customizes it.
+      const headerHeight = document.querySelector("header")?.offsetHeight ?? 0
 
-    observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(`#${entry.target.id}`)
-        })
-      },
-      { rootMargin: `-${headerHeight}px 0px -60% 0px`, threshold: 0 }
-    )
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) setActive(`#${entry.target.id}`)
+          })
+        },
+        { rootMargin: `-${headerHeight}px 0px -60% 0px`, threshold: 0 }
+      )
 
-    linksByHash.forEach((_links, hash) => {
-      const section = document.querySelector(hash)
-      if (section) observer!.observe(section)
+      linksByHash.forEach((_links, hash) => {
+        const section = document.querySelector(hash)
+        if (section) observer!.observe(section)
+      })
     })
   }
 
