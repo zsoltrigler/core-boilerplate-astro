@@ -6,11 +6,15 @@
 /* * --grid-line is defined here (not via the Vite plugin) so it is always
    available in dev and build. @property makes it typed so :root can
    transition it — the ONLY use of this variable is body background-image,
-   so there is no double-transition risk with border or text animations. */
+   so there is no double-transition risk with border or text animations.
+   ! initial-value must be a literal per the @property spec — var() can't be
+     used here. It's immediately overridden by the :root rule below, which
+     derives the real value from --color-border-base via color-mix(), so
+     "transparent" (rather than a hardcoded color) is a safe, neutral filler. */
 @property --grid-line {
   syntax: "<color>";
   inherits: true;
-  initial-value: rgba(226, 232, 240, 0.3);
+  initial-value: transparent;
 }
 
 /* ============================================================
@@ -136,14 +140,14 @@
   }
 
   /* * :root transition animates --grid-line so background-image recomputes
-     each frame — the only way to animate a CSS gradient. */
+     each frame — the only way to animate a CSS gradient.
+     * Derived from --color-border-base via color-mix() rather than a
+       hardcoded rgba() literal — color-mix() re-resolves whenever the
+       referenced custom property changes, so this alone tracks light/dark
+       (and any custom borderBase) without a separate .dark override. */
   :root {
-    --grid-line: rgba(226, 232, 240, 0.3);
+    --grid-line: color-mix(in srgb, var(--color-border-base) 30%, transparent);
     transition: --grid-line 0.2s ease;
-  }
-
-  .dark {
-    --grid-line: rgba(51, 65, 85, 0.3);
   }
 
   /* ── Shiki syntax highlight tokens — mapped to project color tokens ── */
