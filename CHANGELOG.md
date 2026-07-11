@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.1...core-boilerplate-v1.10.2) (2026-07-11)
+
+
+### Bug Fixes
+
+* eliminate every remaining hardcoded color ([01d8742](https://github.com/zsoltrigler/core-boilerplate-astro/commit/01d8742810c2e9f62cd8090bb7fa42cec2a92b27))
+* eliminate every remaining hardcoded color ([46295c9](https://github.com/zsoltrigler/core-boilerplate-astro/commit/46295c9e830c677d4b8285a83b41eeb17186df5b))
+* guard Toast dismiss timers against a detached node ([41831ee](https://github.com/zsoltrigler/core-boilerplate-astro/commit/41831ee4b761442151fef4d4a4c04fee5c218fb5))
+* guard Toast dismiss timers against a detached node ([6c7eae6](https://github.com/zsoltrigler/core-boilerplate-astro/commit/6c7eae60c72826ba2bcdf36d35924f6b40afa648))
+* prevent Dropdown listener accumulation on View Transitions ([ca47f91](https://github.com/zsoltrigler/core-boilerplate-astro/commit/ca47f91f6b885dba3516c3f166c840fca59eab80))
+* prevent Dropdown listener accumulation on View Transitions ([e23569a](https://github.com/zsoltrigler/core-boilerplate-astro/commit/e23569ad5c3b37f6878d43fb37749d1dc5627255))
+* replace Avatar's inline onerror with a scripted listener ([6963ba6](https://github.com/zsoltrigler/core-boilerplate-astro/commit/6963ba60cfeabe50979877b48ba0af84fa6949f8))
+* replace Avatar's inline onerror with a scripted listener ([6c5a624](https://github.com/zsoltrigler/core-boilerplate-astro/commit/6c5a6241d8ba366bc312deebcc9a1631414802da))
+
 ## [1.10.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.0...core-boilerplate-v1.10.1) (2026-07-11)
 
 
