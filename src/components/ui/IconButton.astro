@@ -28,7 +28,8 @@ const {
 } = Astro.props
 
 const variants: Record<string, string> = {
-  primary: "bg-(--color-brand-primary) text-white hover:opacity-90 transition-opacity",
+  primary:
+    "bg-(--color-brand-primary) text-(--color-text-inverted) hover:opacity-90 transition-opacity",
   secondary:
     "border border-(--color-border-base) text-(--color-text-base) hover:bg-(--color-bg-surface) transition-colors",
   ghost:

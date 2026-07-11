@@ -45,7 +45,7 @@ const pages = getPages()
 //   prev/next (rendered via IconButton below) align visually with the numbers.
 const pillBase =
   "inline-flex h-8 min-w-8 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors duration-150"
-const pillActive = `${pillBase} bg-(--color-brand-primary) text-white pointer-events-none`
+const pillActive = `${pillBase} bg-(--color-brand-primary) text-(--color-text-inverted) pointer-events-none`
 const pillIdle = `${pillBase} text-(--color-text-muted) hover:bg-(--color-bg-surface) hover:text-(--color-text-base)`
 const disabledArrow =
   "flex h-8 w-8 items-center justify-center rounded-md text-(--color-text-muted) opacity-40"
