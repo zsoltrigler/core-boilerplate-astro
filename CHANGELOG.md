@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.7.2...core-boilerplate-v1.7.3) (2026-07-11)
+
+
+### Bug Fixes
+
+* use Divider component instead of raw &lt;hr&gt; in Dropdown showcase ([1253283](https://github.com/zsoltrigler/core-boilerplate-astro/commit/1253283f839356b02a33cd253abc84190589b8cd))
+* use Divider component instead of raw &lt;hr&gt; in Dropdown showcase ([703b46d](https://github.com/zsoltrigler/core-boilerplate-astro/commit/703b46d4188a82b6f56c6bf7258df182db5f7dda))
+
 ## [1.7.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.7.1...core-boilerplate-v1.7.2) (2026-07-10)
 
 
