@@ -62,10 +62,16 @@
     container.appendChild(toast)
 
     // * Auto-dismiss after duration ms.
+    // ! isConnected guards against a stray timer firing on a toast whose
+    //   container (and possibly the whole page) is already gone — e.g. a
+    //   toast shown right before a View Transitions navigation away.
     setTimeout(() => {
+      if (!toast.isConnected) return
       toast.style.opacity = "0"
       toast.style.transform = "translateY(-100%)"
-      setTimeout(() => toast.remove(), 300)
+      setTimeout(() => {
+        if (toast.isConnected) toast.remove()
+      }, 300)
     }, duration)
   }
 
