@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.2...core-boilerplate-v1.8.3) (2026-07-11)
+
+
+### Bug Fixes
+
+* use --color-text-inverted token instead of hardcoded text-white on brand-colored backgrounds ([1a0b36f](https://github.com/zsoltrigler/core-boilerplate-astro/commit/1a0b36f7c1ab6cbd85c0358e54629255268f12df))
+
 ## [1.8.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.1...core-boilerplate-v1.8.2) (2026-07-11)
 
 
