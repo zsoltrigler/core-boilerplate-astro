@@ -8,11 +8,18 @@
 #   2. This workflow enables GitHub auto-merge on that PR — it merges itself as
 #      soon as the required "Type check & build" status check passes (see branch
 #      protection on main), with no human click needed.
-#   3. Version bump follows Conventional Commits:
+#   3. Version bump follows Conventional Commits, per release-please's own
+#      default behavior (release-please-config.json has no changelog-sections
+#      override — do not add one; a custom list that includes chore/docs/style
+#      types has been observed to make them ALSO bump the version, which
+#      contradicts the documented spec that only feat/fix/deps are releasable
+#      units — see https://github.com/googleapis/release-please/issues/2638):
 #        feat:  → minor (1.0.0 → 1.1.0)
 #        fix:   → patch (1.0.0 → 1.0.1)
 #        feat!: → major (1.0.0 → 2.0.0)
-#        chore/refactor/docs/style → no version bump
+#        chore/refactor/docs/style → recorded, but does not bump the version
+#          on its own — only rides along in the changelog if bundled with a
+#          feat/fix in the same release
 #
 # ! Requires a RELEASE_PLEASE_TOKEN repo secret (a PAT with Contents + Pull
 #   requests write access). PRs opened AND merged with the default GITHUB_TOKEN
