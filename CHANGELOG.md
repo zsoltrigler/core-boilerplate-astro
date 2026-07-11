@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.6](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.5...core-boilerplate-v1.10.6) (2026-07-11)
+
+
+### Bug Fixes
+
+* remove custom changelog-sections override to restore release-please's default bump behavior ([e735b8d](https://github.com/zsoltrigler/core-boilerplate-astro/commit/e735b8d9d9f81596544f4b7471e87a98be953364))
+* remove custom changelog-sections override to restore release-please's default bump behavior ([614f799](https://github.com/zsoltrigler/core-boilerplate-astro/commit/614f799afd2740ae82ca1d477a137c4c75988f7b))
+
 ## [1.10.5](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.4...core-boilerplate-v1.10.5) (2026-07-11)
 
 
