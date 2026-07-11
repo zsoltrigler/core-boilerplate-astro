@@ -22,80 +22,85 @@ function warnOrThrow(msg) {
 //   templates (SITE.singleTheme, see BaseLayout.astro) can omit it entirely
 //   per astro.config.mjs's generateColorTokens(), so this must not assume
 //   COLORS.dark.* is always accessible.
+// ! COLORS.dark is Partial<ColorGroup> (see config.ts) — a key omitted from
+//   `dark` inherits its light-mode value via the generated CSS, so every
+//   reference here falls back to the matching light COLORS.* value. This is
+//   both type-safe (dark.<key> is `string | undefined`) and matches the
+//   actual runtime behavior.
 const darkPairs = COLORS.dark
   ? [
       {
         name: "textBase on bgBase (dark)",
-        fg: COLORS.dark.textBase,
-        bg: COLORS.dark.bgBase,
+        fg: COLORS.dark.textBase ?? COLORS.textBase,
+        bg: COLORS.dark.bgBase ?? COLORS.bgBase,
         min: 4.5,
       },
       {
         name: "textMuted on bgBase (dark)",
-        fg: COLORS.dark.textMuted,
-        bg: COLORS.dark.bgBase,
+        fg: COLORS.dark.textMuted ?? COLORS.textMuted,
+        bg: COLORS.dark.bgBase ?? COLORS.bgBase,
         min: 4.5,
       },
       {
         name: "textBase on bgSurface (dark)",
-        fg: COLORS.dark.textBase,
-        bg: COLORS.dark.bgSurface,
+        fg: COLORS.dark.textBase ?? COLORS.textBase,
+        bg: COLORS.dark.bgSurface ?? COLORS.bgSurface,
         min: 4.5,
       },
       {
         name: "textMuted on bgSurface (dark)",
-        fg: COLORS.dark.textMuted,
-        bg: COLORS.dark.bgSurface,
+        fg: COLORS.dark.textMuted ?? COLORS.textMuted,
+        bg: COLORS.dark.bgSurface ?? COLORS.bgSurface,
         min: 4.5,
       },
       {
         name: "textBase on bgElevated (dark)",
-        fg: COLORS.dark.textBase,
-        bg: COLORS.dark.bgElevated,
+        fg: COLORS.dark.textBase ?? COLORS.textBase,
+        bg: COLORS.dark.bgElevated ?? COLORS.bgElevated,
         min: 4.5,
       },
       {
         name: "textMuted on bgElevated (dark)",
-        fg: COLORS.dark.textMuted,
-        bg: COLORS.dark.bgElevated,
+        fg: COLORS.dark.textMuted ?? COLORS.textMuted,
+        bg: COLORS.dark.bgElevated ?? COLORS.bgElevated,
         min: 4.5,
       },
       {
         name: "textInverted on brandPrimary (dark)",
         fg: COLORS.textInverted,
-        bg: COLORS.dark.brandPrimary,
+        bg: COLORS.dark.brandPrimary ?? COLORS.brandPrimary,
         min: 4.5,
       },
       {
         // * Button/IconButton's danger variant (dark mode) — uses dark bgBase
         //   as text since dark statusError is a bright/light red needing dark text.
         name: "bgBase on statusError (dark)",
-        fg: COLORS.dark.bgBase,
-        bg: COLORS.dark.statusError,
+        fg: COLORS.dark.bgBase ?? COLORS.bgBase,
+        bg: COLORS.dark.statusError ?? COLORS.statusError,
         min: 4.5,
       },
       {
         name: "statusSuccess on bgBase (dark)",
-        fg: COLORS.dark.statusSuccess,
-        bg: COLORS.dark.bgBase,
+        fg: COLORS.dark.statusSuccess ?? COLORS.statusSuccess,
+        bg: COLORS.dark.bgBase ?? COLORS.bgBase,
         min: 4.5,
       },
       {
         name: "statusWarning on bgBase (dark)",
-        fg: COLORS.dark.statusWarning,
-        bg: COLORS.dark.bgBase,
+        fg: COLORS.dark.statusWarning ?? COLORS.statusWarning,
+        bg: COLORS.dark.bgBase ?? COLORS.bgBase,
         min: 4.5,
       },
       {
         name: "statusError on bgBase (dark)",
-        fg: COLORS.dark.statusError,
-        bg: COLORS.dark.bgBase,
+        fg: COLORS.dark.statusError ?? COLORS.statusError,
+        bg: COLORS.dark.bgBase ?? COLORS.bgBase,
         min: 4.5,
       },
       {
         name: "statusInfo on bgBase (dark)",
-        fg: COLORS.dark.statusInfo,
-        bg: COLORS.dark.bgBase,
+        fg: COLORS.dark.statusInfo ?? COLORS.statusInfo,
+        bg: COLORS.dark.bgBase ?? COLORS.bgBase,
         min: 4.5,
       },
     ]
