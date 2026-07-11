@@ -50,18 +50,16 @@ const base = `inline-flex shrink-0 items-center justify-center overflow-hidden b
 ---
 
 <!--
-  ! When src is provided, onerror swaps to the initials fallback if the image fails to load.
-  * Both <img> and the fallback <span> are rendered; the span is hidden until onerror fires.
+  ! When src is provided, an error listener (wired up below, not an inline
+    onerror= attribute — that's a string-eval'd handler that would need
+    unsafe-inline under a strict script-src CSP) swaps to the initials
+    fallback if the image fails to load.
+  * Both <img> and the fallback <span> are rendered; the span is hidden until the error fires.
 -->{
   src ? (
     <Fragment>
-      <img
-        src={src}
-        alt={alt}
-        class={base}
-        onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'"
-      />
-      <span class={base} style="display:none" aria-hidden="true">
+      <img src={src} alt={alt} class={base} data-avatar-img />
+      <span class={base} style="display:none" aria-hidden="true" data-avatar-fallback>
         {derivedInitials}
       </span>
     </Fragment>
@@ -71,3 +69,22 @@ const base = `inline-flex shrink-0 items-center justify-center overflow-hidden b
     </span>
   )
 }
+
+<script>
+  function initAvatars() {
+    document.querySelectorAll<HTMLImageElement>("[data-avatar-img]").forEach((img) => {
+      if (img.dataset.avatarInit) return
+      img.dataset.avatarInit = "1"
+
+      img.addEventListener("error", () => {
+        img.style.display = "none"
+        const fallback = img.nextElementSibling as HTMLElement | null
+        if (fallback) fallback.style.display = "inline-flex"
+      })
+    })
+  }
+
+  initAvatars()
+  // * Re-init after Astro View Transitions.
+  document.addEventListener("astro:page-load", initAvatars)
+</script>
