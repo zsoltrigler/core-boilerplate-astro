@@ -1,10 +1,13 @@
 # Release Please — automatically creates and maintains a Release PR on every
-# push to main. When the Release PR is merged, a GitHub Release and git tag
-# are created automatically and package.json version is bumped.
+# push to main, and auto-merges it once CI passes so releases ship continuously
+# with no manual step. A GitHub Release and git tag are created automatically
+# and package.json version is bumped the moment the Release PR merges.
 #
 # How it works:
 #   1. Every push to main updates the pending Release PR with new changelog entries.
-#   2. Merge the Release PR when ready to ship → GitHub Release + tag are created.
+#   2. This workflow enables GitHub auto-merge on that PR — it merges itself as
+#      soon as the required "Type check & build" status check passes (see branch
+#      protection on main), with no human click needed.
 #   3. Version bump follows Conventional Commits:
 #        feat:  → minor (1.0.0 → 1.1.0)
 #        fix:   → patch (1.0.0 → 1.0.1)
@@ -27,6 +30,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      # * Requires branch protection on main with "Type check & build" as a
+      #   required status check, and allow_auto_merge enabled on the repo —
+      #   otherwise this merges immediately without waiting for CI.
+      - name: Enable auto-merge for the release PR
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr merge --auto --merge "${{ fromJson(steps.release.outputs.pr).number }}"
