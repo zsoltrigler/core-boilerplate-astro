@@ -60,10 +60,27 @@ jobs:
       # ! GH_TOKEN must be the PAT, not github.token — a merge performed with the
       #   default token doesn't trigger the next push-to-main run, so the release
       #   commit lands but the GitHub Release/tag never gets created.
+      # ! Deliberately NOT gated on steps.release.outputs.prs_created — that output
+      #   is only 'true' the moment a release PR is first opened from scratch. Every
+      #   subsequent push that just updates the SAME still-open release PR (the
+      #   common case — most releases bundle several merged PRs) reports
+      #   prs_created: false, which silently skipped this step entirely and left
+      #   auto-merge never enabled. Instead, always look up whatever PR currently
+      #   sits on the release-please branch and (re-)enable auto-merge on it —
+      #   idempotent if it's already enabled, and self-healing if a push race or
+      #   manual intervention ever clears it.
+      # ! --squash, not --merge — the repo only allows squash merges (see
+      #   ~/.claude/CLAUDE.md core-boilerplate section: no staging branch, so
+      #   merge commits would duplicate conventional-commit text in the
+      #   changelog). --merge fails outright once merge commits are disabled
+      #   on the repo.
       - name: Enable auto-merge for the release PR
-        if: ${{ steps.release.outputs.prs_created == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
-        run: >
-          gh pr merge --auto --merge --repo "${{ github.repository }}"
-          "${{ fromJson(steps.release.outputs.pr).number }}"
+        run: |
+          pr_number=$(gh pr list --repo "${{ github.repository }}" \
+            --head "release-please--branches--main--components--core-boilerplate" \
+            --json number --jq '.[0].number')
+          if [ -n "$pr_number" ]; then
+            gh pr merge --auto --squash --repo "${{ github.repository }}" "$pr_number"
+          fi
