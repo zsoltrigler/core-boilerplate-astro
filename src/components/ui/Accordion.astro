@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components"
+
 export interface Props {
   /** Accordion item heading. */
   title: string
@@ -25,21 +27,13 @@ const { title, open = false, class: className = "" } = Astro.props
     {title}
 
     <!-- * Chevron rotates 180° when open via group-open Tailwind variant. -->
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    <Icon
+      name="line-md:chevron-down"
       width="16"
       height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
       aria-hidden="true"
       class="shrink-0 text-(--color-text-muted) transition-transform duration-200 group-open:rotate-180"
-    >
-      <path d="m6 9 6 6 6-6"></path>
-    </svg>
+    />
   </summary>
 
   <div class="border-t border-(--color-border-base) px-5 py-4 text-sm text-(--color-text-muted)">

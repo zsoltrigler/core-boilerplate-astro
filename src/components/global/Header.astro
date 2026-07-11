@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components"
 import { SITE, NAV_LINKS } from "../../config"
 ---
 
@@ -53,43 +54,24 @@ import { SITE, NAV_LINKS } from "../../config"
         data-label-close="Close navigation menu"
         class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) transition-colors duration-200 hover:bg-(--color-bg-elevated) md:hidden"
       >
-        <!-- Hamburger icon — shown when menu is closed -->
-        <svg
+        <!-- Menu→close animated icon — shown when menu is closed; plays on open -->
+        <Icon
           data-icon-menu
-          xmlns="http://www.w3.org/2000/svg"
+          name="line-md:menu-to-close-transition"
           width="20"
           height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
           aria-hidden="true"
-        >
-          <line x1="4" y1="6" x2="20" y2="6"></line>
-          <line x1="4" y1="12" x2="20" y2="12"></line>
-          <line x1="4" y1="18" x2="20" y2="18"></line>
-        </svg>
+        />
 
-        <!-- Close icon — shown when menu is open -->
-        <svg
+        <!-- Close→menu animated icon — shown when menu is open; plays on close -->
+        <Icon
           data-icon-close
-          xmlns="http://www.w3.org/2000/svg"
+          name="line-md:close-to-menu-transition"
           width="20"
           height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
           aria-hidden="true"
           class="hidden"
-        >
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+        />
       </button>
     </div>
   </div>

@@ -33,6 +33,7 @@ import Textarea from "../components/ui/Textarea.astro"
 import Toast from "../components/ui/Toast.astro"
 import Toggle from "../components/ui/Toggle.astro"
 import Tooltip from "../components/ui/Tooltip.astro"
+import { Icon } from "astro-icon/components"
 
 const frameworks = [
   { value: "astro", label: "Astro" },
@@ -249,9 +250,9 @@ const components = [
           <!-- ── Avatar ─────────────────────────────────────────────── -->
           <ShowcaseSection id="avatar" title="Avatar">
             <Fragment slot="description">
-              Shows an image when <code class="rounded bg-(--color-bg-surface) px-1">src</code> is
-              set; falls back to initials derived from <code
-                class="rounded bg-(--color-bg-surface) px-1">alt</code
+              Shows an image when <code class="rounded bg-(--color-bg-surface) px-1">src</code> is set;
+              falls back to initials derived from <code class="rounded bg-(--color-bg-surface) px-1"
+                >alt</code
               > or the explicit <code class="rounded bg-(--color-bg-surface) px-1">initials</code> prop.
               Use <code class="rounded bg-(--color-bg-surface) px-1">shape="square"</code> for app icons.
             </Fragment>
@@ -282,9 +283,7 @@ const components = [
 
           <!-- ── Badge ──────────────────────────────────────────────── -->
           <ShowcaseSection id="badge" title="Badge">
-            <Fragment slot="description"
-              >Inline label for status, category, or emphasis.</Fragment
-            >
+            <Fragment slot="description">Inline label for status, category, or emphasis.</Fragment>
 
             <div class="flex flex-col gap-8 p-6">
               <div class="flex flex-col gap-3">
@@ -303,9 +302,9 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                  >Sizes</p
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Sizes
+                </p>
 
                 <div class="flex flex-wrap items-center gap-3">
                   <Badge size="sm">Small</Badge>
@@ -332,8 +331,7 @@ const components = [
           <!-- ── Breadcrumb ──────────────────────────────────────────── -->
           <ShowcaseSection id="breadcrumb" title="Breadcrumb">
             <Fragment slot="description">
-              Accessible navigation trail using a <code
-                class="rounded bg-(--color-bg-surface) px-1"
+              Accessible navigation trail using a <code class="rounded bg-(--color-bg-surface) px-1"
                 >&lt;nav aria-label="Breadcrumb"&gt;</code
               > with an ordered list. The last item renders as a <code
                 class="rounded bg-(--color-bg-surface) px-1">span</code
@@ -342,9 +340,7 @@ const components = [
 
             <div class="flex flex-col gap-6 p-6">
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Two levels
                 </p>
 
@@ -352,9 +348,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Three levels
                 </p>
 
@@ -368,9 +362,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Four levels
                 </p>
 
@@ -396,9 +388,7 @@ const components = [
 
             <div class="flex flex-col gap-8 p-6">
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Variants
                 </p>
 
@@ -411,10 +401,9 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                  >Sizes</p
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Sizes
+                </p>
 
                 <div class="flex flex-wrap items-center gap-3">
                   <Button variant="primary" size="sm">Small</Button>
@@ -424,10 +413,9 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                  >States</p
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  States
+                </p>
 
                 <div class="flex flex-wrap gap-3">
                   <Button variant="primary" disabled>Disabled</Button>
@@ -440,50 +428,31 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   With icons
                 </p>
 
                 <div class="flex flex-wrap gap-3">
                   <Button variant="primary">
-                    <svg
+                    <Icon
                       slot="icon-left"
-                      xmlns="http://www.w3.org/2000/svg"
+                      name="line-md:download"
                       width="16"
                       height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
                       aria-hidden="true"
-                      ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline
-                        points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"
-                      ></line></svg
-                    >
+                    />
                     Download
                   </Button>
 
                   <Button variant="secondary">
                     Send
-                    <svg
+                    <Icon
                       slot="icon-right"
-                      xmlns="http://www.w3.org/2000/svg"
+                      name="line-md:telegram"
                       width="16"
                       height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
                       aria-hidden="true"
-                      ><line x1="22" y1="2" x2="11" y2="13"></line><polygon
-                        points="22 2 15 22 11 13 2 9 22 2"></polygon></svg
-                    >
+                    />
                   </Button>
                 </div>
               </div>
@@ -526,8 +495,8 @@ const components = [
 
               <Card padding="md">
                 <p class="text-sm text-(--color-text-muted)">
-                  Card with only a <strong class="text-(--color-text-base)">default slot</strong> —
-                  fully custom content.
+                  Card with only a <strong class="text-(--color-text-base)">default slot</strong> — fully
+                  custom content.
                 </p>
                 <Button variant="primary" size="sm">Action</Button>
               </Card>
@@ -542,10 +511,9 @@ const components = [
 
             <div class="flex flex-col gap-8 p-6">
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                  >States</p
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  States
+                </p>
 
                 <div class="flex flex-col gap-3">
                   <Checkbox name="check-default" label="Unchecked" />
@@ -562,9 +530,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Error state
                 </p>
 
@@ -642,8 +608,7 @@ const components = [
               Slide-in panel based on native <code class="rounded bg-(--color-bg-surface) px-1"
                 >&lt;dialog&gt;</code
               > — built-in focus trap and Escape to close. Add <code
-                class="rounded bg-(--color-bg-surface) px-1"
-                >data-drawer-open="&lt;id&gt;"</code
+                class="rounded bg-(--color-bg-surface) px-1">data-drawer-open="&lt;id&gt;"</code
               > to any trigger element.
             </Fragment>
 
@@ -668,21 +633,13 @@ const components = [
               <Dropdown>
                 <Button slot="trigger" variant="secondary" size="md">
                   Actions
-                  <svg
+                  <Icon
                     slot="icon-right"
-                    xmlns="http://www.w3.org/2000/svg"
+                    name="line-md:chevron-down"
                     width="14"
                     height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
                     aria-hidden="true"
-                  >
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg>
+                  />
                 </Button>
 
                 <div class="flex flex-col">
@@ -746,179 +703,61 @@ const components = [
 
             <div class="flex flex-col gap-8 p-6">
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Variants
                 </p>
 
                 <div class="flex flex-wrap gap-3">
                   <IconButton label="Primary" variant="primary">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
-                    >
+                    <Icon name="line-md:arrow-right" width="18" height="18" aria-hidden="true" />
                   </IconButton>
 
                   <IconButton label="Secondary" variant="secondary">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      ><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg
-                    >
+                    <Icon name="line-md:watch" width="18" height="18" aria-hidden="true" />
                   </IconButton>
 
                   <IconButton label="Ghost" variant="ghost">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      ><path
-                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                      ></path></svg
-                    >
+                    <Icon name="line-md:heart" width="18" height="18" aria-hidden="true" />
                   </IconButton>
 
                   <IconButton label="Delete" variant="danger">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      ><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"
-                      ></path><path d="M10 11v6M14 11v6"></path><path d="M9 6V4h6v2"></path></svg
-                    >
+                    <Icon name="line-md:trash" width="18" height="18" aria-hidden="true" />
                   </IconButton>
                 </div>
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                  >Sizes</p
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Sizes
+                </p>
 
                 <div class="flex flex-wrap items-center gap-3">
                   <IconButton label="Small" variant="ghost" size="sm">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path
-                      ></svg
-                    >
+                    <Icon name="line-md:search" width="14" height="14" aria-hidden="true" />
                   </IconButton>
 
                   <IconButton label="Medium" variant="ghost" size="md">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path
-                      ></svg
-                    >
+                    <Icon name="line-md:search" width="18" height="18" aria-hidden="true" />
                   </IconButton>
 
                   <IconButton label="Large" variant="ghost" size="lg">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path
-                      ></svg
-                    >
+                    <Icon name="line-md:search" width="22" height="22" aria-hidden="true" />
                   </IconButton>
                 </div>
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Disabled
                 </p>
 
                 <div class="flex flex-wrap gap-3">
                   <IconButton label="Disabled primary" variant="primary" disabled>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg
-                    >
+                    <Icon name="line-md:arrow-right" width="18" height="18" aria-hidden="true" />
                   </IconButton>
 
                   <IconButton label="Disabled ghost" variant="ghost" disabled>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path
-                      ></svg
-                    >
+                    <Icon name="line-md:search" width="18" height="18" aria-hidden="true" />
                   </IconButton>
                 </div>
               </div>
@@ -936,10 +775,9 @@ const components = [
 
             <div class="flex flex-col gap-8 p-6">
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                  >Sizes</p
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Sizes
+                </p>
 
                 <div class="flex flex-wrap items-end gap-4">
                   <Input name="size-sm" size="sm" placeholder="Small" />
@@ -949,9 +787,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   With label and hint
                 </p>
 
@@ -976,9 +812,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Error state
                 </p>
 
@@ -992,9 +826,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Disabled
                 </p>
 
@@ -1002,9 +834,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Full width
                 </p>
 
@@ -1057,7 +887,8 @@ const components = [
           <!-- ── Progress ───────────────────────────────────────────── -->
           <ShowcaseSection id="progress" title="Progress">
             <Fragment slot="description">
-              Accessible <code class="rounded bg-(--color-bg-surface) px-1">role="progressbar"</code>
+              Accessible <code class="rounded bg-(--color-bg-surface) px-1">role="progressbar"</code
+              >
               with smooth fill transition. Supports four variants and three sizes. Value is clamped to
               0–100.
             </Fragment>
@@ -1089,10 +920,9 @@ const components = [
 
             <div class="flex flex-col gap-8 p-6">
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                  >Sizes</p
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Sizes
+                </p>
 
                 <div class="flex flex-wrap items-end gap-4">
                   <Select name="select-sm" size="sm" aria-label="Small select" placeholder="Small">
@@ -1110,12 +940,7 @@ const components = [
                     <option value="b">Option B</option>
                   </Select>
 
-                  <Select
-                    name="select-lg"
-                    size="lg"
-                    aria-label="Large select"
-                    placeholder="Large"
-                  >
+                  <Select name="select-lg" size="lg" aria-label="Large select" placeholder="Large">
                     <option value="a">Option A</option>
                     <option value="b">Option B</option>
                   </Select>
@@ -1123,9 +948,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   With label and hint
                 </p>
 
@@ -1143,9 +966,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Error state
                 </p>
 
@@ -1157,9 +978,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Disabled
                 </p>
 
@@ -1180,9 +999,7 @@ const components = [
             <div class="flex flex-col gap-8 p-6">
               <!-- Card skeleton -->
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Card skeleton
                 </p>
                 <div
@@ -1203,9 +1020,7 @@ const components = [
 
               <!-- Avatar + text skeleton -->
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Profile row skeleton
                 </p>
                 <div class="flex items-center gap-3">
@@ -1247,8 +1062,8 @@ const components = [
           <!-- ── Stepper ────────────────────────────────────────────── -->
           <ShowcaseSection id="stepper" title="Stepper">
             <Fragment slot="description">
-              Multi-step progress indicator. Pass <code
-                class="rounded bg-(--color-bg-surface) px-1">currentStep</code
+              Multi-step progress indicator. Pass <code class="rounded bg-(--color-bg-surface) px-1"
+                >currentStep</code
               > (1-based). Completed steps show a checkmark. Supports <code
                 class="rounded bg-(--color-bg-surface) px-1">horizontal</code
               > (default) and <code class="rounded bg-(--color-bg-surface) px-1">vertical</code> orientations.
@@ -1256,9 +1071,7 @@ const components = [
 
             <div class="flex flex-col gap-8 p-8">
               <div class="flex flex-col gap-4">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Step 1 of 4
                 </p>
                 <Stepper steps={steps} currentStep={1} class="w-full" />
@@ -1267,9 +1080,7 @@ const components = [
               <Divider />
 
               <div class="flex flex-col gap-4">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Step 3 of 4
                 </p>
                 <Stepper steps={steps} currentStep={3} class="w-full" />
@@ -1278,9 +1089,7 @@ const components = [
               <Divider />
 
               <div class="flex flex-col gap-4">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Vertical — Step 2 of 4
                 </p>
                 <Stepper steps={steps} currentStep={2} orientation="vertical" class="max-w-xs" />
@@ -1407,8 +1216,8 @@ const components = [
                       > objects (required)
                     </li>
                     <li>
-                      <code class="rounded bg-(--color-bg-surface) px-1">defaultTab</code> — ID of
-                      the initially active tab (defaults to first)
+                      <code class="rounded bg-(--color-bg-surface) px-1">defaultTab</code> — ID of the
+                      initially active tab (defaults to first)
                     </li>
                   </ul>
                 </div>
@@ -1425,9 +1234,7 @@ const components = [
 
             <div class="flex flex-col gap-8 p-6">
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Default
                 </p>
 
@@ -1440,9 +1247,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   With hint
                 </p>
 
@@ -1457,9 +1262,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Error state
                 </p>
 
@@ -1472,9 +1275,7 @@ const components = [
               </div>
 
               <div class="flex flex-col gap-3">
-                <p
-                  class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Disabled
                 </p>
 
@@ -1500,9 +1301,9 @@ const components = [
             </Fragment>
 
             <div class="flex flex-col gap-3 p-6">
-              <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-                >Variants</p
-              >
+              <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                Variants
+              </p>
 
               <div class="flex flex-wrap gap-3">
                 <Button variant="secondary" data-toast="info">Info toast</Button>
