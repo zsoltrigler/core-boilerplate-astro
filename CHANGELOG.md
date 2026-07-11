@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.5](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.4...core-boilerplate-v1.10.5) (2026-07-11)
+
+
+### Bug Fixes
+
+* make COLORS.dark genuinely optional at the type level ([792fef9](https://github.com/zsoltrigler/core-boilerplate-astro/commit/792fef9d121b8c80e4674e56b0df480728cdfc93))
+* make COLORS.dark genuinely optional at the type level ([8d0ade9](https://github.com/zsoltrigler/core-boilerplate-astro/commit/8d0ade9bcb2102c274818ec8f30a09e731de5b44))
+
 ## [1.10.4](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.3...core-boilerplate-v1.10.4) (2026-07-11)
 
 
