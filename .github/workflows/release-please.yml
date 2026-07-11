@@ -65,5 +65,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
         run: >
-          gh pr merge --auto --merge --repo "${{ github.repository }}"
+          gh pr merge --auto --squash --repo "${{ github.repository }}"
           "${{ fromJson(steps.release.outputs.pr).number }}"
