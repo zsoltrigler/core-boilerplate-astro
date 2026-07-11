@@ -119,7 +119,6 @@
     :root {
       transition: none !important;
     }
-
   }
 
   /* * Suppress all transitions for exactly one frame during theme switch —

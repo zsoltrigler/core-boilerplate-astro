@@ -1,5 +1,6 @@
 ---
 import IconButton from "./IconButton.astro"
+import { Icon } from "astro-icon/components"
 
 export interface Props {
   /** Unique id — used to wire the trigger button to this modal via data-modal-open. */
@@ -41,21 +42,7 @@ const sizes: Record<string, string> = {
           </h2>
 
           <IconButton data-modal-close label="Close modal" variant="ghost" size="sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+            <Icon name="line-md:close" width="16" height="16" aria-hidden="true" />
           </IconButton>
         </div>
       )

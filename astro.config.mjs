@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
 import sitemap from "@astrojs/sitemap"
+import icon from "astro-icon"
 import { COLORS } from "./src/config.ts"
 import { runContrastChecks } from "./scripts/contrast-check.mjs"
 
@@ -101,5 +102,5 @@ export default defineConfig({
   },
 
   // * /ui is a developer-facing component showcase — exclude from sitemap and SEO.
-  integrations: [sitemap({ filter: (page) => !page.includes("/ui/") })],
+  integrations: [sitemap({ filter: (page) => !page.includes("/ui/") }), icon()],
 })
