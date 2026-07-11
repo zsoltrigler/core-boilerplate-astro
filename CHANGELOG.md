@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.7.3...core-boilerplate-v1.8.0) (2026-07-11)
+
+
+### Features
+
+* introduce line-md animated icon set via astro-icon ([e10b8a3](https://github.com/zsoltrigler/core-boilerplate-astro/commit/e10b8a3fafc30f7319eff2bdcedadbafad4375a2))
+* introduce line-md animated icon set via astro-icon ([3c017d5](https://github.com/zsoltrigler/core-boilerplate-astro/commit/3c017d52517bae5a9971e11677617dbb16334cc7))
+
 ## [1.7.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.7.2...core-boilerplate-v1.7.3) (2026-07-11)
 
 ### Bug Fixes
