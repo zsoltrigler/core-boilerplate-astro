@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.9.0...core-boilerplate-v1.10.0) (2026-07-11)
+
+
+### Features
+
+* add SITE.singleTheme flag to skip dark-mode plumbing entirely ([262f8e7](https://github.com/zsoltrigler/core-boilerplate-astro/commit/262f8e7204b17d64617e31deb190d1d682afdbb1))
+* add SITE.singleTheme flag to skip dark-mode plumbing entirely ([2baa087](https://github.com/zsoltrigler/core-boilerplate-astro/commit/2baa0876895e33b1216863835c7fcf4fa555160f))
+
 ## [1.9.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.5...core-boilerplate-v1.9.0) (2026-07-11)
 
 
