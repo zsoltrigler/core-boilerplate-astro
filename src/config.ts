@@ -12,7 +12,36 @@ export const PLACEHOLDER_DESCRIPTION = "REPLACE_WITH_YOUR_DESCRIPTION" as const
 // ! Edit colors here only — never touch the generated @theme block in global.css.
 // * WCAG AA minimums: 4.5:1 for body text, 3:1 for large text and UI components.
 // ? Check contrast ratios: https://webaim.org/resources/contrastchecker/
-export const COLORS = {
+interface ColorGroup {
+  bgBase: string
+  bgSurface: string
+  bgElevated: string
+  textBase: string
+  textMuted: string
+  textInverted: string
+  brandPrimary: string
+  brandSecondary: string
+  brandAccent: string
+  borderBase: string
+  borderStrong: string
+  overlay: string
+  statusSuccess: string
+  statusWarning: string
+  statusError: string
+  statusInfo: string
+}
+
+// ! `dark` is annotated as explicitly optional here — an object literal that
+//   simply omits the `dark` key (as single-theme templates do) would
+//   otherwise infer a type with no `dark` property at all, rather than
+//   `dark?: Partial<ColorGroup> | undefined`. Every `COLORS.dark` reference
+//   elsewhere (astro.config.mjs, contrast-check.mjs, BaseLayout.astro) —
+//   even inside a `dark ? ... : ...` guard — would then fail typecheck with
+//   ts(2339): Property 'dark' does not exist on type, despite working fine
+//   at runtime.
+// * dark is Partial<ColorGroup>, not ColorGroup — omitting a key inside
+//   `dark` inherits the light-mode value, so not every key is required there.
+export const COLORS: ColorGroup & { dark?: Partial<ColorGroup> } = {
   // Light mode
   bgBase: "#ffffff", // page background
   bgSurface: "#f8fafc", // card and input background
