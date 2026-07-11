@@ -28,7 +28,7 @@ const sizes: Record<string, string> = {
 <dialog
   id={id}
   data-modal
-  class={`w-full rounded-2xl border border-(--color-border-base) bg-(--color-bg-base) p-0 shadow-2xl mx-auto my-auto max-h-[90dvh] backdrop:bg-black/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${sizes[size]} ${className}`}
+  class={`w-full rounded-2xl border border-(--color-border-base) bg-(--color-bg-base) p-0 shadow-2xl mx-auto my-auto max-h-[90dvh] backdrop:bg-(--color-overlay)/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${sizes[size]} ${className}`}
 >
   <!-- * Inner wrapper handles flex layout and overflow clipping separately from
        the dialog element — overflow-hidden on <dialog> would prevent body scroll. -->

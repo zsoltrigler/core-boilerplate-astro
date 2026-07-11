@@ -25,6 +25,10 @@ export const COLORS = {
   brandAccent: "#0e7490", // cyan-700  — 5.36:1 on white
   borderBase: "#e2e8f0",
   borderStrong: "#cbd5e1",
+  // * Modal/Drawer backdrop scrim — intentionally the same in light and dark
+  //   (a black overlay reads correctly against either), but still sourced
+  //   from a token rather than a literal so it's overridable per template.
+  overlay: "#000000",
   // * Darkened to pass WCAG AA (4.5:1) on white — math is symmetric, so these
   //   also pass as backgrounds with white text (e.g. Danger button).
   statusSuccess: "#15803d", // green-700  — 5.02:1 on white

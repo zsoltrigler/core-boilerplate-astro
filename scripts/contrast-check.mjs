@@ -88,6 +88,22 @@ const contrastPairs = [
     bg: COLORS.brandAccent,
     min: 4.5,
   },
+  {
+    // * Button/IconButton's danger variant (light mode) — was hardcoded
+    //   text-white before it was switched to the textInverted token.
+    name: "textInverted on statusError (light)",
+    fg: COLORS.textInverted,
+    bg: COLORS.statusError,
+    min: 4.5,
+  },
+  {
+    // * Button/IconButton's danger variant (dark mode) — uses dark bgBase as
+    //   text since dark statusError is a bright/light red needing dark text.
+    name: "bgBase on statusError (dark)",
+    fg: COLORS.dark.bgBase,
+    bg: COLORS.dark.statusError,
+    min: 4.5,
+  },
 
   // Status colors as text on light bg (Badge, Alert)
   {
