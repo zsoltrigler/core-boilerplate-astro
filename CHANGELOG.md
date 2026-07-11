@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.6...core-boilerplate-v1.11.0) (2026-07-11)
+
+
+### Features
+
+* highlight the active nav link in Header ([#137](https://github.com/zsoltrigler/core-boilerplate-astro/issues/137)) ([eec90b5](https://github.com/zsoltrigler/core-boilerplate-astro/commit/eec90b56a29d9fd0273dff4e641571bdb1db1f1a))
+
 ## [1.10.6](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.5...core-boilerplate-v1.10.6) (2026-07-11)
 
 
