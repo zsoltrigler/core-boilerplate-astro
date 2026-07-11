@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.9.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.5...core-boilerplate-v1.9.0) (2026-07-11)
+
+
+### Features
+
+* add --font-display typography token ([bc20b4f](https://github.com/zsoltrigler/core-boilerplate-astro/commit/bc20b4f22ec300c1f9297469e63f2e7875b86d86))
+* add --font-display typography token ([63e3425](https://github.com/zsoltrigler/core-boilerplate-astro/commit/63e3425d3be354e375dba2bc85b23a4aa8b04ac8))
+
 ## [1.8.5](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.4...core-boilerplate-v1.8.5) (2026-07-11)
 
 
