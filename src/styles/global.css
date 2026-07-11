@@ -36,6 +36,10 @@
     sans-serif;
   --font-serif: Georgia, "Times New Roman", Times, serif;
   --font-mono: "Fira Code", "Cascadia Code", Consolas, "Courier New", monospace;
+  /* * Headline/display font — defaults to --font-sans so font-display works
+     out of the box. Override with a custom display font in your template
+     (e.g. a variable font import) without having to redefine the fallback chain. */
+  --font-display: var(--font-sans);
 
   /* Font Sizes — Major Third scale (×1.250) */
   --text-xs: 0.64rem; /* ~10px */
