@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.0...core-boilerplate-v1.8.1) (2026-07-11)
+
+
+### Bug Fixes
+
+* make COLORS.dark optional so single-theme templates don't need a duplicate dark block ([2eb3997](https://github.com/zsoltrigler/core-boilerplate-astro/commit/2eb3997f0905c9c2a2a138345a19b8f9f7977d9e))
+* make COLORS.dark optional so single-theme templates don't need a duplicate dark block ([eba2b72](https://github.com/zsoltrigler/core-boilerplate-astro/commit/eba2b72f829dabed752bc24d10a59b5598a798b9))
+
 ## [1.8.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.7.3...core-boilerplate-v1.8.0) (2026-07-11)
 
 
