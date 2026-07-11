@@ -16,11 +16,13 @@ function toKebab(str) {
   return str.replace(/([A-Z])/g, (m) => `-${m.toLowerCase()}`)
 }
 
-/** Generate @property, @theme, and .dark blocks from the COLORS object.
+/** Generate @property, @theme, and (optionally) .dark blocks from the COLORS object.
  * @property registration makes CSS color tokens typed (<color>) so the browser can
  * interpolate between light and dark values. Combined with the universal
  * * { transition: color, background-color, ... } rule in global.css, toggling
  * .dark on <html> triggers smooth, synchronized transitions on every element.
+ * ! `dark` is optional — single-theme templates can omit it entirely and no
+ *   .dark block is generated, so there is nothing to duplicate or keep in sync.
  * @param {typeof import('./src/config.ts').COLORS} colors
  * @returns {string}
  */
@@ -39,9 +41,16 @@ function generateColorTokens(colors) {
     .map(([k, v]) => `  --color-${toKebab(k)}: ${v};`)
     .join("\n")
 
-  const darkVars = Object.entries(dark)
-    .map(([k, v]) => `  --color-${toKebab(k)}: ${v};`)
-    .join("\n")
+  const darkBlock = dark
+    ? [
+        ``,
+        `.dark {`,
+        Object.entries(dark)
+          .map(([k, v]) => `  --color-${toKebab(k)}: ${v};`)
+          .join("\n"),
+        `}`,
+      ]
+    : []
 
   // * Header comment is intentional — warns anyone who opens the compiled CSS.
   return [
@@ -55,10 +64,7 @@ function generateColorTokens(colors) {
     `@theme {`,
     themeVars,
     `}`,
-    ``,
-    `.dark {`,
-    darkVars,
-    `}`,
+    ...darkBlock,
   ].join("\n")
 }
 

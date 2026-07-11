@@ -33,6 +33,8 @@ export const COLORS = {
   statusInfo: "#2563eb", // blue-600   — 5.17:1 on white
 
   // * Dark mode overrides — omit a key to inherit its light-mode value.
+  // * The entire `dark` object is optional — single-theme templates can remove
+  //   it completely; no .dark CSS block is generated and no duplication is needed.
   dark: {
     bgBase: "#0f172a",
     bgSurface: "#1e293b",

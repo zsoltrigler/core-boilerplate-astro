@@ -146,7 +146,11 @@ if (description === PLACEHOLDER_DESCRIPTION) {
 
     <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
 
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={COLORS.dark.bgBase} />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content={COLORS.dark?.bgBase ?? COLORS.bgBase}
+    />
 
     <!-- JSON-LD structured data — pass a jsonLd prop to inject schema.org markup -->
     {
