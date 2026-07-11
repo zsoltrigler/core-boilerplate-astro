@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.2...core-boilerplate-v1.10.3) (2026-07-11)
+
+
+### Bug Fixes
+
+* make contrast-check.mjs handle a missing COLORS.dark ([492a4f8](https://github.com/zsoltrigler/core-boilerplate-astro/commit/492a4f8300b3d048d6a0720defa54c1afc6b5e89))
+* make contrast-check.mjs handle a missing COLORS.dark ([8eea1b7](https://github.com/zsoltrigler/core-boilerplate-astro/commit/8eea1b74d6167ec428d3eed212018c638fc8b379))
+
 ## [1.10.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.10.1...core-boilerplate-v1.10.2) (2026-07-11)
 
 
