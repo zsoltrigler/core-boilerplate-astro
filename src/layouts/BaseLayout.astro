@@ -79,16 +79,22 @@ if (description === PLACEHOLDER_DESCRIPTION) {
   // eslint-disable-next-line no-console
   console.warn(msg)
 }
----
 
-<!doctype html>
-<html lang={lang}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- FOUC prevention: read theme before first paint -->
-    <script is:inline>
+// * Built as a string (rather than a conditionally-rendered <script> element)
+//   because prettier-plugin-astro cannot format a multi-statement inline
+//   script nested inside a template expression — its brace-matching gets
+//   confused by the try/catch block. set:html sidesteps that entirely and
+//   is equivalent here: this becomes literal static HTML in the build
+//   output, parsed and executed by the browser exactly like an authored
+//   <script> tag — unlike a runtime element.innerHTML assignment, this is
+//   not something the "scripts inserted via innerHTML don't execute" rule
+//   applies to.
+// ! Skipped entirely for single-theme templates (SITE.singleTheme) — there
+//   is no dark palette or ThemeToggle to switch to, so this would just be
+//   dead work on every page load.
+const foucScript = SITE.singleTheme
+  ? ""
+  : `<script>
       ;(function () {
         try {
           const stored = localStorage.getItem("theme")
@@ -99,7 +105,17 @@ if (description === PLACEHOLDER_DESCRIPTION) {
           /* localStorage unavailable (e.g. private browsing) */
         }
       })()
-    </script>
+    </script>`
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- FOUC prevention: read theme before first paint (see foucScript above) -->
+    <Fragment set:html={foucScript} />
 
     <!-- Primary Meta -->
     <title>{fullTitle}</title>
@@ -144,13 +160,20 @@ if (description === PLACEHOLDER_DESCRIPTION) {
     <!-- * 180×180 icon used by iOS when added to home screen. -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
-
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content={COLORS.dark?.bgBase ?? COLORS.bgBase}
-    />
+    {
+      SITE.singleTheme ? (
+        <meta name="theme-color" content={COLORS.bgBase} />
+      ) : (
+        <>
+          <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
+          <meta
+            name="theme-color"
+            media="(prefers-color-scheme: dark)"
+            content={COLORS.dark?.bgBase ?? COLORS.bgBase}
+          />
+        </>
+      )
+    }
 
     <!-- JSON-LD structured data — pass a jsonLd prop to inject schema.org markup -->
     {
