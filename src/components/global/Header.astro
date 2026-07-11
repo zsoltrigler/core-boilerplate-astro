@@ -1,6 +1,18 @@
 ---
 import { Icon } from "astro-icon/components"
 import { SITE, NAV_LINKS } from "../../config"
+
+// * Active state for page-style links (e.g. "/blog") — resolved server-side
+//   from the current URL, so it's correct on first paint with no JS. Anchor
+//   links ("#features") and external links (http://…) never match here;
+//   anchors get their active state from the scroll-spy script below instead.
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/"
+
+function isActivePath(href: string): boolean {
+  if (!href.startsWith("/") || href.startsWith("//")) return false
+  const normalized = href.replace(/\/$/, "") || "/"
+  return normalized === currentPath
+}
 ---
 
 <header
@@ -32,11 +44,19 @@ import { SITE, NAV_LINKS } from "../../config"
         class="mr-4 hidden items-center gap-6 text-sm font-medium text-(--color-text-muted) md:flex"
       >
         {
-          NAV_LINKS.map((link) => (
-            <a href={link.href} class="transition-colors hover:text-(--color-text-base)">
-              {link.label}
-            </a>
-          ))
+          NAV_LINKS.map((link) => {
+            const active = isActivePath(link.href)
+            return (
+              <a
+                href={link.href}
+                data-nav-link={link.href}
+                aria-current={active ? "page" : undefined}
+                class={`transition-colors hover:text-(--color-text-base) ${active ? "font-semibold text-(--color-text-base)" : ""}`}
+              >
+                {link.label}
+              </a>
+            )
+          })
         }
       </nav>
 
@@ -86,17 +106,22 @@ import { SITE, NAV_LINKS } from "../../config"
     <nav aria-label="Mobile navigation">
       <ul class="flex flex-col gap-4 px-6 py-4 text-sm font-medium text-(--color-text-muted)">
         {
-          NAV_LINKS.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                data-mobile-nav-link
-                class="block transition-colors hover:text-(--color-text-base)"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))
+          NAV_LINKS.map((link) => {
+            const active = isActivePath(link.href)
+            return (
+              <li>
+                <a
+                  href={link.href}
+                  data-mobile-nav-link
+                  data-nav-link={link.href}
+                  aria-current={active ? "page" : undefined}
+                  class={`block transition-colors hover:text-(--color-text-base) ${active ? "font-semibold text-(--color-text-base)" : ""}`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            )
+          })
         }
       </ul>
     </nav>
@@ -136,4 +161,63 @@ import { SITE, NAV_LINKS } from "../../config"
       { signal }
     )
   }
+</script>
+
+<script>
+  // * Scroll-spy for anchor-style nav links (e.g. "#features") — highlights
+  //   whichever section is currently in view. Page-style links ("/blog") get
+  //   their active state server-side above; this only ever touches links
+  //   whose data-nav-link starts with "#".
+  let observer: IntersectionObserver | null = null
+
+  function initScrollSpy() {
+    observer?.disconnect()
+
+    const navLinks = Array.from(document.querySelectorAll<HTMLElement>("[data-nav-link]")).filter(
+      (link) => link.dataset.navLink?.startsWith("#")
+    )
+    if (navLinks.length === 0) return
+
+    // * Group all nav-link elements (desktop + mobile both point at the same
+    //   hash) so one intersection event can toggle every matching instance.
+    const linksByHash = new Map<string, HTMLElement[]>()
+    navLinks.forEach((link) => {
+      const hash = link.dataset.navLink!
+      linksByHash.set(hash, [...(linksByHash.get(hash) ?? []), link])
+    })
+
+    function setActive(hash: string) {
+      linksByHash.forEach((links, key) => {
+        const active = key === hash
+        links.forEach((link) => {
+          link.classList.toggle("font-semibold", active)
+          link.classList.toggle("text-(--color-text-base)", active)
+          if (active) link.setAttribute("aria-current", "page")
+          else link.removeAttribute("aria-current")
+        })
+      })
+    }
+
+    // * Offset the detection band by the sticky header's real height rather
+    //   than a hardcoded value, so it stays correct if a template customizes it.
+    const headerHeight = document.querySelector("header")?.offsetHeight ?? 0
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`)
+        })
+      },
+      { rootMargin: `-${headerHeight}px 0px -60% 0px`, threshold: 0 }
+    )
+
+    linksByHash.forEach((_links, hash) => {
+      const section = document.querySelector(hash)
+      if (section) observer!.observe(section)
+    })
+  }
+
+  initScrollSpy()
+  // * Re-init after Astro View Transitions.
+  document.addEventListener("astro:page-load", initScrollSpy)
 </script>
