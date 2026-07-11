@@ -82,6 +82,11 @@ export const SITE = {
   email: "", // contact email — optional, only used where explicitly rendered
   lang: "en",
   allRightsReserved: "All rights reserved.",
+  // * Set to true for single-theme templates with no dark mode (pair with
+  //   omitting COLORS.dark in src/config.ts). Skips the FOUC-prevention
+  //   script and the dark theme-color meta tag in BaseLayout — both are
+  //   dead weight without a dark palette or a ThemeToggle to switch to it.
+  singleTheme: false,
 } as const
 
 // ── Navigation ────────────────────────────────────────────────────────────────
