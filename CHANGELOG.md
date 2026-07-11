@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.1...core-boilerplate-v1.8.2) (2026-07-11)
+
+
+### Miscellaneous Chores
+
+* auto-merge the release-please PR once CI passes ([01c2482](https://github.com/zsoltrigler/core-boilerplate-astro/commit/01c2482551a774426316ab05b34a16206420b645))
+* auto-merge the release-please PR once CI passes ([99769c9](https://github.com/zsoltrigler/core-boilerplate-astro/commit/99769c9ba6699869ea02a7bfb04b8bc54b3fadae))
+
 ## [1.8.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.8.0...core-boilerplate-v1.8.1) (2026-07-11)
 
 
