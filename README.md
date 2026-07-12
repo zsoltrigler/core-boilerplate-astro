@@ -834,6 +834,20 @@ The `main` branch is protected — merging requires a passing CI run and an open
 
 ---
 
+## Release automation
+
+Every push to `main` is versioned automatically via [release-please](https://github.com/googleapis/release-please): commit messages (`feat:`, `fix:`) drive semantic version bumps and `CHANGELOG.md` generation, and the standing release PR merges itself once its own CI run passes.
+
+**This does not work out of the box in a new repository** — three one-time steps are required right after you create your repo from this template:
+
+1. **Create a `RELEASE_PLEASE_TOKEN` repo secret** — a GitHub Personal Access Token (classic or fine-grained) with **Contents: write** and **Pull requests: write** permissions, added under Settings → Secrets and variables → Actions. Without it, PRs opened and merged with the default `GITHUB_TOKEN` don't trigger downstream workflows — neither the required CI check the release PR waits on, nor the follow-up run that creates the GitHub Release and tag once the release commit lands.
+2. **Protect the `main` branch** with **"Type check & build"** set as a required status check, and enable **"Allow auto-merge"** in the repo's general settings — otherwise the release PR would merge immediately without waiting for CI.
+3. **Reset `.release-please-manifest.json`** to your project's starting version (e.g. `{ ".": "0.1.0" }`) — it ships pre-set to this template's own version history.
+
+Once these are in place, every `feat:`/`fix:` commit to `main` is versioned and changelogged automatically, with no further manual steps.
+
+---
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup instructions, branch naming conventions, code standards, and the PR process.
