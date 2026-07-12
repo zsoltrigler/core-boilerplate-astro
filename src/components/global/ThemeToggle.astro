@@ -1,6 +1,12 @@
 ---
 import { Icon } from "astro-icon/components"
 
+export interface Props {
+  class?: string
+}
+
+const { class: className = "" } = Astro.props
+
 // * Manages dark/light mode with localStorage persistence.
 // * The sun icon is shown in dark mode; the moon icon is shown in light mode.
 // * Both icons are line-md's animated morph pairs — un-hiding an element replays
@@ -11,7 +17,10 @@ import { Icon } from "astro-icon/components"
   data-theme-toggle
   type="button"
   aria-label="Toggle dark/light mode"
-  class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) transition-colors duration-200 hover:bg-(--color-bg-elevated)"
+  class={[
+    "inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) transition-colors duration-200 hover:bg-(--color-bg-elevated)",
+    className,
+  ].join(" ")}
 >
   <!-- Sun icon — visible in dark mode; plays moon→sun on switch to light -->
   <Icon
