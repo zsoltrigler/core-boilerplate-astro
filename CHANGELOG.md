@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.12.1...core-boilerplate-v1.12.2) (2026-07-12)
+
+
+### Bug Fixes
+
+* **ci:** drop lighthouse:no-pwa preset re-enabling perf/a11y audit assertions ([#148](https://github.com/zsoltrigler/core-boilerplate-astro/issues/148)) ([efe1094](https://github.com/zsoltrigler/core-boilerplate-astro/commit/efe10945346207b6095ad11b797f9f5ed927d6c0))
+
 ## [1.12.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.12.0...core-boilerplate-v1.12.1) (2026-07-12)
 
 
