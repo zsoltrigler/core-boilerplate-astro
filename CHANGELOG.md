@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.12.0...core-boilerplate-v1.12.1) (2026-07-12)
+
+
+### Bug Fixes
+
+* **ci:** remove stale .lighthouserc.json superseded by .lighthouserc.cjs ([#146](https://github.com/zsoltrigler/core-boilerplate-astro/issues/146)) ([a598880](https://github.com/zsoltrigler/core-boilerplate-astro/commit/a598880b023723c0eefd9c77a4e61fd5a00160c3))
+
 ## [1.12.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.11.1...core-boilerplate-v1.12.0) (2026-07-12)
 
 
