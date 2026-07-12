@@ -3,6 +3,13 @@
 // ! Only categories that are reliably 1.0 in headless CI are asserted.
 //   Performance varies too much on shared runners; accessibility false-positives
 //   on CSS custom properties. Both are validated on Vercel preview instead.
+// ! No `preset` key here on purpose — any lhci preset (e.g. "lighthouse:no-pwa")
+//   brings its own per-audit assertions (heading-order, image-delivery-insight,
+//   uses-responsive-images, etc.), all independent of the "categories:*" keys
+//   below. Setting "categories:performance"/"categories:accessibility" to
+//   "off" only silences the rollup score, not those inherited per-audit
+//   checks — so a preset would re-introduce the exact flakiness this file
+//   exists to avoid. Without a preset, only the assertions listed below run.
 module.exports = {
   ci: {
     collect: {
@@ -14,27 +21,9 @@ module.exports = {
       numberOfRuns: 1,
     },
     assert: {
-      preset: "lighthouse:no-pwa",
       assertions: {
-        "categories:performance": "off",
-        "categories:accessibility": "off",
         "categories:best-practices": ["error", { minScore: 1 }],
         "categories:seo": ["error", { minScore: 1 }],
-        // * cssCodeSplit is intentionally disabled — one blocking stylesheet is
-        //   the trade-off for preventing multiple render-blocking CSS chunks.
-        "render-blocking-resources": "off",
-        "render-blocking-insight": "off",
-        // * CSS custom properties cannot be resolved statically by Lighthouse.
-        "color-contrast": "off",
-        // * Flags the single CSS bundle (intentional, see cssCodeSplit: false).
-        "network-dependency-tree-insight": "off",
-        // * 404 and /ui pages are intentionally noindex.
-        "is-crawlable": "off",
-        // * Noisy diagnostic audits from the preset with no actionable value.
-        "dom-size-insight": "off",
-        "mainthread-work-breakdown": "off",
-        "max-potential-fid": "off",
-        "speed-index": "off",
       },
     },
     upload: {
