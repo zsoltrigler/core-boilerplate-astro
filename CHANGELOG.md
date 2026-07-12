@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.11.1...core-boilerplate-v1.12.0) (2026-07-12)
+
+
+### Features
+
+* **header,footer,theme-toggle:** add class prop for consistency ([#143](https://github.com/zsoltrigler/core-boilerplate-astro/issues/143)) ([f92d144](https://github.com/zsoltrigler/core-boilerplate-astro/commit/f92d144c5c3a629def795ef78b326d3e480655bc))
+
 ## [1.11.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.11.0...core-boilerplate-v1.11.1) (2026-07-11)
 
 
