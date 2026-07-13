@@ -48,6 +48,7 @@ pnpm type-check     # astro check
 pnpm format         # prettier
 pnpm check:contrast # WCAG contrast check standalone
 pnpm check:config   # config schema validation standalone
+pnpm setup          # interactive wizard: name/description/lang/brand color → src/config.ts
 ```
 
 ## Component locations

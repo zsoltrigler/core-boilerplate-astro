@@ -4,6 +4,9 @@
 
 A minimal, production-ready starter built with **Astro 7** and **Tailwind CSS 4**. Everything you need to start a new project — nothing you don't.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/zsoltrigler/core-boilerplate-astro)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/zsoltrigler/core-boilerplate-astro)
+
 ## Stack
 
 - [Astro 7](https://astro.build) — static site generator (SSG)
@@ -41,6 +44,14 @@ Before you start building, do these four things:
 2. **Replace `public/og-default.jpg`** — 1200×630px JPG or PNG, used when sharing on social media.
 3. **Replace the favicon** — swap out `public/favicon.svg` (and the `.ico` / `.png` variants) with your own.
 4. **Delete the component showcase** — remove `src/pages/ui.astro` and `src/components/showcase/` when you no longer need the reference.
+
+Step 1 can be done for you interactively:
+
+```bash
+pnpm setup
+```
+
+This asks for your site name, description, language, and brand color, writes them into `src/config.ts`, and prints a checklist reminder for steps 2–4 (which touch binary files and can't be automated).
 
 ---
 
