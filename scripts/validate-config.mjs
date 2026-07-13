@@ -5,9 +5,11 @@ import { COLORS, NAV_LINKS, SITE, SOCIAL_LINKS } from "../src/config.ts"
 
 // ── Schemas ───────────────────────────────────────────────────────────────────
 
-const hexColor = z
-  .string()
-  .regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/, "must be a hex color like #4f46e5 or #fff")
+// * Exported so scripts/setup-wizard.mjs can validate its own hex color prompt
+//   against the exact same rule, instead of duplicating the pattern.
+export const hexColorPattern = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/
+
+const hexColor = z.string().regex(hexColorPattern, "must be a hex color like #4f46e5 or #fff")
 
 const colorGroupSchema = z.object({
   bgBase: hexColor,
