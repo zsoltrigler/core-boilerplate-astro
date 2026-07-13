@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.14.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.13.0...core-boilerplate-v1.14.0) (2026-07-13)
+
+
+### Features
+
+* add deploy buttons and interactive setup wizard ([#157](https://github.com/zsoltrigler/core-boilerplate-astro/issues/157)) ([410d461](https://github.com/zsoltrigler/core-boilerplate-astro/commit/410d461101a733ce4302d8d1aff0c502d7f73adc))
+
 ## [1.13.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.12.2...core-boilerplate-v1.13.0) (2026-07-13)
 
 
