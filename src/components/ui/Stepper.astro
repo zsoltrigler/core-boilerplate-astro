@@ -11,10 +11,18 @@ export interface Props {
   /** 1-based index of the currently active step. */
   currentStep: number
   orientation?: "horizontal" | "vertical"
+  /** aria-label for the step list — override for a non-English site. */
+  "aria-label"?: string
   class?: string
 }
 
-const { steps, currentStep, orientation = "horizontal", class: className = "" } = Astro.props
+const {
+  steps,
+  currentStep,
+  orientation = "horizontal",
+  "aria-label": ariaLabel = "Progress steps",
+  class: className = "",
+} = Astro.props
 
 const n = steps.length
 // * Grid columns are equal, so every circle center sits at (i + 0.5) / n of
@@ -38,7 +46,7 @@ const circleClasses = (completed: boolean, active: boolean) =>
     <ol
       class={`relative grid w-full ${className}`}
       style={`grid-template-columns: repeat(${n}, 1fr);`}
-      aria-label="Progress steps"
+      aria-label={ariaLabel}
     >
       {/* Track: left and right are offset by half a column so the line
           starts exactly at the first circle's center and ends at the last. */}
@@ -86,7 +94,7 @@ const circleClasses = (completed: boolean, active: boolean) =>
       })}
     </ol>
   ) : (
-    <ol class={`flex flex-col gap-0 ${className}`} aria-label="Progress steps">
+    <ol class={`flex flex-col gap-0 ${className}`} aria-label={ariaLabel}>
       {steps.map((step, i) => {
         const stepNum = i + 1
         const isCompleted = stepNum < currentStep

@@ -11,10 +11,27 @@ export interface Props {
    * Example: baseUrl="/blog" → /blog, /blog/2, /blog/3 …
    */
   baseUrl: string
+  /** aria-label for the nav landmark — override for a non-English site. */
+  "aria-label"?: string
+  /** aria-label for the previous-page button. */
+  previousLabel?: string
+  /** aria-label for the next-page button. */
+  nextLabel?: string
+  /** aria-label template for page-number links — "{n}" is replaced with the page number. */
+  pageLabel?: string
   class?: string
 }
 
-const { currentPage, totalPages, baseUrl, class: className = "" } = Astro.props
+const {
+  currentPage,
+  totalPages,
+  baseUrl,
+  "aria-label": ariaLabel = "Pagination",
+  previousLabel = "Previous page",
+  nextLabel = "Next page",
+  pageLabel = "Page {n}",
+  class: className = "",
+} = Astro.props
 
 function pageUrl(n: number): string {
   return n === 1 ? baseUrl : `${baseUrl}/${n}`
@@ -51,14 +68,14 @@ const disabledArrow =
   "flex h-8 w-8 items-center justify-center rounded-md text-(--color-text-muted) opacity-40"
 ---
 
-<nav aria-label="Pagination" class={`flex items-center gap-1 ${className}`}>
+<nav aria-label={ariaLabel} class={`flex items-center gap-1 ${className}`}>
   <!-- Previous -->
   {
     currentPage > 1 ? (
       <IconButton
         href={pageUrl(currentPage - 1)}
         rel="prev"
-        label="Previous page"
+        label={previousLabel}
         variant="ghost"
         size="sm"
       >
@@ -81,7 +98,7 @@ const disabledArrow =
           {p}
         </span>
       ) : (
-        <a href={pageUrl(p)} aria-label={`Page ${p}`} class={pillIdle}>
+        <a href={pageUrl(p)} aria-label={pageLabel.replace("{n}", String(p))} class={pillIdle}>
           {p}
         </a>
       )
@@ -94,7 +111,7 @@ const disabledArrow =
       <IconButton
         href={pageUrl(currentPage + 1)}
         rel="next"
-        label="Next page"
+        label={nextLabel}
         variant="ghost"
         size="sm"
       >

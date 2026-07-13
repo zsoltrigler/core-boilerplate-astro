@@ -8,13 +8,15 @@ export interface BreadcrumbItem {
 
 export interface Props {
   items: BreadcrumbItem[]
+  /** aria-label for the nav landmark — override for a non-English site. */
+  "aria-label"?: string
   class?: string
 }
 
-const { items, class: className = "" } = Astro.props
+const { items, "aria-label": ariaLabel = "Breadcrumb", class: className = "" } = Astro.props
 ---
 
-<nav aria-label="Breadcrumb" class={className}>
+<nav aria-label={ariaLabel} class={className}>
   <ol class="flex flex-wrap items-center gap-1.5 text-sm text-(--color-text-muted)">
     {
       items.map((item, index) => {
