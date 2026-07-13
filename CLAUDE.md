@@ -27,6 +27,10 @@ All icons are [line-md](https://icon-sets.iconify.design/line-md/) via `astro-ic
 
 `scripts/contrast-check.mjs` checks color pairs at build time. Locally: warns. In CI (`CI=true`): throws and blocks the build. Run standalone with `pnpm check:contrast`.
 
+### Config validation
+
+`scripts/validate-config.mjs` validates `COLORS`, `SITE`, `NAV_LINKS`, and `SOCIAL_LINKS` against a Zod schema at build time (hex color format, non-empty required fields, valid URLs). Unlike the contrast check, this always throws — a malformed config shape is a hard error, not a style nitpick. Run standalone with `pnpm check:config`.
+
 ### CSS strategy
 
 `cssCodeSplit: false` in Vite config — all CSS lands in one file, preventing render-blocking component CSS chunks.
@@ -43,6 +47,7 @@ pnpm build          # production build (runs contrast checks)
 pnpm type-check     # astro check
 pnpm format         # prettier
 pnpm check:contrast # WCAG contrast check standalone
+pnpm check:config   # config schema validation standalone
 ```
 
 ## Component locations

@@ -48,6 +48,8 @@ Before you start building, do these four things:
 
 **Everything starts in `src/config.ts`.** This is the single source of truth for your site — colors, name, URLs, nav links, and social links are all defined here.
 
+> **Config validation** — the build validates `COLORS`, `SITE`, `NAV_LINKS`, and `SOCIAL_LINKS` against a schema (hex color format, required fields, valid URLs) and fails immediately with a clear error message if something's wrong — e.g. `COLORS.brandPrimary: must be a hex color like #4f46e5 or #fff`. Run it standalone with `pnpm check:config`.
+
 ### Site settings
 
 ```ts
@@ -828,7 +830,7 @@ Every push and pull request targeting `main` runs the CI pipeline automatically:
 1. **Lint** — ESLint
 2. **Type check** — `pnpm exec astro check`
 3. **Unit tests** — `pnpm test` (Vitest, covers framework-agnostic logic in `src/utils/`)
-4. **Build** — `pnpm build` (includes WCAG AA contrast check — fails on violation)
+4. **Build** — `pnpm build` (includes config schema validation and WCAG AA contrast check — fails on violation)
 5. **Lighthouse CI** — performance ≥ 0.85, accessibility ≥ 0.96, best-practices = 1.0, SEO = 1.0
 6. **End-to-end tests** — `pnpm test:e2e` (Playwright, cross-browser: Chromium, Firefox, WebKit — covers every JS-powered component: Modal, Drawer, Dropdown, Tabs, Toast, Combobox, ThemeToggle)
 
