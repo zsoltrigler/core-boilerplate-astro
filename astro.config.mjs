@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap"
 import icon from "astro-icon"
 import { COLORS } from "./src/config.ts"
 import { runContrastChecks } from "./scripts/contrast-check.mjs"
+import { validateConfig } from "./scripts/validate-config.mjs"
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -83,6 +84,12 @@ function colorTokensPlugin() {
     },
   }
 }
+
+// ── Config validation ─────────────────────────────────────────────────────────
+// * Runs at build time, always throws — an invalid shape (bad hex color, empty
+//   required field, malformed URL) is a hard error, not a style nitpick.
+// * Schema lives in scripts/validate-config.mjs — edit there.
+validateConfig()
 
 // ── WCAG contrast checks ──────────────────────────────────────────────────────
 // * Runs at build time. Locally warns; in CI throws to block the deploy.

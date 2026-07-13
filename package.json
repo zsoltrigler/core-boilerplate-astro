@@ -14,6 +14,7 @@
     "format": "prettier --write .",
     "type-check": "astro check",
     "check:contrast": "node scripts/contrast-check.mjs",
+    "check:config": "node scripts/validate-config.mjs",
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "playwright test",
@@ -26,7 +27,8 @@
     "astro": "^7.0.6",
     "astro-icon": "^1.1.5",
     "shiki": "^4.3.1",
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.2",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
