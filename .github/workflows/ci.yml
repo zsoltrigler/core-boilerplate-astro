@@ -1,5 +1,5 @@
 # CI pipeline — runs on every push and pull request targeting main.
-# Installs dependencies, lints, type-checks, builds, and runs Lighthouse CI.
+# Installs dependencies, lints, type-checks, tests, builds, and runs Lighthouse CI.
 # Any failing step blocks the PR from being merged.
 
 name: CI
@@ -39,6 +39,9 @@ jobs:
       - name: Type check
         run: pnpm exec astro check
 
+      - name: Unit tests
+        run: pnpm test
+
       - name: Build
         run: pnpm build
 
@@ -46,3 +49,31 @@ jobs:
         run: pnpm exec lhci autorun
         env:
           LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
+
+  e2e:
+    name: End-to-end tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium firefox webkit
+
+      # * playwright.config.ts's webServer builds and previews the site itself.
+      - name: Run Playwright tests
+        run: pnpm test:e2e

@@ -827,10 +827,25 @@ Every push and pull request targeting `main` runs the CI pipeline automatically:
 
 1. **Lint** — ESLint
 2. **Type check** — `pnpm exec astro check`
-3. **Build** — `pnpm build` (includes WCAG AA contrast check — fails on violation)
-4. **Lighthouse CI** — performance ≥ 0.85, accessibility ≥ 0.96, best-practices = 1.0, SEO = 1.0
+3. **Unit tests** — `pnpm test` (Vitest, covers framework-agnostic logic in `src/utils/`)
+4. **Build** — `pnpm build` (includes WCAG AA contrast check — fails on violation)
+5. **Lighthouse CI** — performance ≥ 0.85, accessibility ≥ 0.96, best-practices = 1.0, SEO = 1.0
+6. **End-to-end tests** — `pnpm test:e2e` (Playwright, cross-browser: Chromium, Firefox, WebKit — covers every JS-powered component: Modal, Drawer, Dropdown, Tabs, Toast, Combobox, ThemeToggle)
 
 The `main` branch is protected — merging requires a passing CI run and an open pull request.
+
+### Testing locally
+
+```bash
+pnpm test        # unit tests (Vitest)
+pnpm test:e2e    # end-to-end tests (Playwright) — builds and previews the site automatically
+```
+
+The first `pnpm test:e2e` run requires the Playwright browsers to be installed once:
+
+```bash
+pnpm exec playwright install --with-deps chromium firefox webkit
+```
 
 ---
 

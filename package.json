@@ -15,6 +15,8 @@
     "type-check": "astro check",
     "check:contrast": "node scripts/contrast-check.mjs",
     "lint": "eslint .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
     "prepare": "husky"
   },
   "dependencies": {
@@ -30,6 +32,7 @@
     "@astrojs/check": "^0.9.9",
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.61.1",
     "@types/wcag-contrast": "^3.0.3",
     "eslint": "^10.6.0",
     "eslint-plugin-astro": "^2.1.1",
@@ -40,6 +43,7 @@
     "prettier-plugin-tailwindcss": "^0.8.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1",
+    "vitest": "^4.1.10",
     "wcag-contrast": "^3.0.0"
   },
   "lint-staged": {

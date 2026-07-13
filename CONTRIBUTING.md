@@ -61,6 +61,12 @@ Edit colors **only** in `src/config.ts`. They are injected into CSS at build tim
 
 WCAG AA contrast is checked automatically at build time. Fix any warnings before opening a PR.
 
+## Testing
+
+- **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
+- **Playwright** (`pnpm test:e2e`) — cross-browser (Chromium, Firefox, WebKit) interaction tests, in `tests/e2e/`, for every JS-powered component (`Modal`, `Drawer`, `Dropdown`, `Tabs`, `Toast`, `Combobox`, `ThemeToggle`). These drive the real `/ui` showcase page in a real browser rather than mocking the DOM — Astro's inline component `<script>` blocks rely on native browser APIs (`<dialog>`, focus, `astro:page-load`) that jsdom doesn't faithfully emulate. When you add a new interactive component, add its spec here instead of reaching for Vitest + jsdom.
+- Both suites run in CI on every PR. Run `pnpm exec playwright install --with-deps chromium firefox webkit` once locally before your first `pnpm test:e2e`.
+
 ## Pull requests
 
 - Open a PR against `main`
