@@ -14,7 +14,8 @@
     "format": "prettier --write .",
     "type-check": "astro check",
     "check:contrast": "node scripts/contrast-check.mjs",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -32,11 +33,17 @@
     "@types/wcag-contrast": "^3.0.3",
     "eslint": "^10.6.0",
     "eslint-plugin-astro": "^2.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
     "prettier": "^3.9.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1",
     "wcag-contrast": "^3.0.0"
+  },
+  "lint-staged": {
+    "*.{astro,ts,tsx,js,mjs,cjs,json,css,md}": "prettier --write",
+    "*.{astro,ts,tsx,js,mjs,cjs}": "eslint --fix"
   }
 }
