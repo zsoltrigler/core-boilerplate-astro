@@ -322,7 +322,7 @@ Native `<dialog>`-based modal. Open it by adding `data-modal-open="<id>"` to any
 </Modal>
 ```
 
-**Props:** `id` (required) · `title` · `size` (sm | md | lg | xl)
+**Props:** `id` (required) · `title` · `size` (sm | md | lg | xl) · `closeLabel` (aria-label for the × button, default `"Close modal"`)
 
 **Slots:** `title` · default (body) · `footer`
 
@@ -496,7 +496,7 @@ Edge-anchored sliding panel. Open it with `data-drawer-open="<id>"` on any trigg
 </Drawer>
 ```
 
-**Props:** `id` (required) · `title` · `side` (left | right)
+**Props:** `id` (required) · `title` · `side` (left | right) · `closeLabel` (aria-label for the × button, default `"Close drawer"`)
 
 **Slots:** `title` · default (body) · `footer`
 
@@ -703,13 +703,15 @@ import BaseLayout from "../layouts/BaseLayout.astro"
 </BaseLayout>
 ```
 
-**Props:** `title` · `description` · `canonicalUrl` · `ogImage` · `ogImageAlt` · `ogType` · `ogLocale` · `publishedDate` · `modifiedDate` · `author` · `noindex` · `lang`
+**Props:** `title` · `description` · `canonicalUrl` · `ogImage` · `ogImageAlt` · `ogType` · `ogLocale` · `publishedDate` · `modifiedDate` · `author` · `noindex` · `lang` · `dir` · `skipLinkLabel`
 
-| Prop         | Type     | Default | Description                                                                                                                                                           |
-| ------------ | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ogImageAlt` | `string` | —       | Alt text for the OG image. Shown by screen readers and some social platforms (e.g. LinkedIn).                                                                         |
-| `ogLocale`   | `string` | auto    | OG locale in `language_REGION` format (e.g. `"en_US"`). Auto-derived from the `lang` prop — only set this if you need to override it.                                 |
-| `jsonLd`     | `object` | —       | Any [schema.org](https://schema.org) object. The `@context` is added automatically. Common types: `WebSite`, `Article`, `Product`, `LocalBusiness`, `BreadcrumbList`. |
+| Prop            | Type             | Default             | Description                                                                                                                                                                                                                                                                                                                                             |
+| --------------- | ---------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ogImageAlt`    | `string`         | —                   | Alt text for the OG image. Shown by screen readers and some social platforms (e.g. LinkedIn).                                                                                                                                                                                                                                                           |
+| `ogLocale`      | `string`         | auto                | OG locale in `language_REGION` format (e.g. `"en_US"`). Auto-derived from the `lang` prop — only set this if you need to override it.                                                                                                                                                                                                                   |
+| `dir`           | `"ltr" \| "rtl"` | auto                | Text direction for `<html dir>`. Auto-derived from `lang` against `RTL_LANGUAGES` in `src/config.ts` (Arabic, Hebrew, Persian, Urdu, etc.) — only set this to override. Note: this sets the HTML-level attribute only; components using physical Tailwind spacing (`ml-`/`mr-`) rather than logical properties won't automatically mirror their layout. |
+| `skipLinkLabel` | `string`         | `"Skip to content"` | Visible text for the keyboard-only "skip to content" link — override for a non-English site.                                                                                                                                                                                                                                                            |
+| `jsonLd`        | `object`         | —                   | Any [schema.org](https://schema.org) object. The `@context` is added automatically. Common types: `WebSite`, `Article`, `Product`, `LocalBusiness`, `BreadcrumbList`.                                                                                                                                                                                   |
 
 **Slot:** `head` — inject extra `<link>` or `<script>` tags per page.
 

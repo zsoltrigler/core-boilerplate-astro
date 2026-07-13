@@ -3,10 +3,24 @@ import { Icon } from "astro-icon/components"
 import { SITE, NAV_LINKS } from "../../config"
 
 export interface Props {
+  /** aria-label for the desktop nav landmark — override for a non-English site. */
+  navLabel?: string
+  /** aria-label for the mobile nav landmark. */
+  mobileNavLabel?: string
+  /** aria-label for the mobile menu toggle button when the menu is closed. */
+  menuOpenLabel?: string
+  /** aria-label for the mobile menu toggle button when the menu is open. */
+  menuCloseLabel?: string
   class?: string
 }
 
-const { class: className = "" } = Astro.props
+const {
+  navLabel = "Main navigation",
+  mobileNavLabel = "Mobile navigation",
+  menuOpenLabel = "Open navigation menu",
+  menuCloseLabel = "Close navigation menu",
+  class: className = "",
+} = Astro.props
 
 // * Active state for page-style links (e.g. "/blog") — resolved server-side
 //   from the current URL, so it's correct on first paint with no JS. Anchor
@@ -49,7 +63,7 @@ function isActivePath(href: string): boolean {
     <div class="flex items-center gap-2">
       <!-- Desktop navigation — hidden on mobile, visible md and up -->
       <nav
-        aria-label="Main navigation"
+        aria-label={navLabel}
         class="mr-4 hidden items-center gap-6 text-sm font-medium text-(--color-text-muted) md:flex"
       >
         {
@@ -76,11 +90,11 @@ function isActivePath(href: string): boolean {
       <button
         data-mobile-menu-toggle
         type="button"
-        aria-label="Open navigation menu"
+        aria-label={menuOpenLabel}
         aria-expanded="false"
         aria-controls="mobile-menu"
-        data-label-open="Open navigation menu"
-        data-label-close="Close navigation menu"
+        data-label-open={menuOpenLabel}
+        data-label-close={menuCloseLabel}
         class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) transition-colors duration-200 hover:bg-(--color-bg-elevated) md:hidden"
       >
         <!-- Menu→close animated icon — shown when menu is closed; plays on open -->
@@ -112,7 +126,7 @@ function isActivePath(href: string): boolean {
     hidden
     class="border-t border-(--color-border-base) bg-(--color-bg-base) md:hidden"
   >
-    <nav aria-label="Mobile navigation">
+    <nav aria-label={mobileNavLabel}>
       <ul class="flex flex-col gap-4 px-6 py-4 text-sm font-medium text-(--color-text-muted)">
         {
           NAV_LINKS.map((link) => {
