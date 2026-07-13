@@ -1,7 +1,7 @@
 {
   "name": "core-boilerplate",
   "type": "module",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "packageManager": "pnpm@11.5.1",
   "engines": {
     "node": ">=22.12.0"
