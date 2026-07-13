@@ -1,36 +1,36 @@
+# Dependencies
+node_modules/
+
 # Build output
 dist/
+
 # Generated types
 .astro/
-# Lighthouse CI reports
-.lighthouseci/
 
-# Playwright
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Test & CI reports
+/.lighthouseci/
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 
-# Dependencies
-node_modules/
+# Local-only reference docs (business strategy, planning notes) —
+# intentionally never committed/pushed to this public repo
+/local-only/
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
-
-# Environment variables
-.env
-.env.*
-.env.production
-!.env.example
-
-# macOS
-.DS_Store
 
 # TypeScript
 *.tsbuildinfo
+
+# macOS
+.DS_Store
 
 # Editor
 .idea/
