@@ -237,7 +237,7 @@ Contextual feedback with optional title and dismiss button.
 <Alert variant="info" title="Heads up" dismissible> Your message here. </Alert>
 ```
 
-**Props:** `variant` (info | success | warning | error) · `title` · `dismissible`
+**Props:** `variant` (info | success | warning | error) · `title` · `dismissible` · `dismissLabel` (aria-label for the dismiss button, default `"Dismiss"`)
 
 **Slots:** `icon` · `title` · default
 
@@ -529,7 +529,7 @@ Page-number links with prev/next arrows. Page 1 links directly to `baseUrl` (no 
 <!-- → /blog, /blog/2, /blog/3 … -->
 ```
 
-**Props:** `currentPage` (required) · `totalPages` (required) · `baseUrl` (required)
+**Props:** `currentPage` (required) · `totalPages` (required) · `baseUrl` (required) · `aria-label` (nav landmark, default `"Pagination"`) · `previousLabel` (default `"Previous page"`) · `nextLabel` (default `"Next page"`) · `pageLabel` (template for page links, `{n}` is replaced with the page number, default `"Page {n}"`)
 
 ---
 
@@ -580,7 +580,7 @@ Multi-step progress indicator.
 />
 ```
 
-**Props:** `steps` (required, array of `{ label, description? }`) · `currentStep` (required) · `orientation` (horizontal | vertical)
+**Props:** `steps` (required, array of `{ label, description? }`) · `currentStep` (required) · `orientation` (horizontal | vertical) · `aria-label` (default `"Progress steps"`)
 
 ---
 

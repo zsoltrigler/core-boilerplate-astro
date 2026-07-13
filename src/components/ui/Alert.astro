@@ -7,10 +7,18 @@ export interface Props {
   title?: string
   /** Renders a dismiss (×) button that removes the alert from the DOM. */
   dismissible?: boolean
+  /** aria-label for the dismiss button — override for a non-English site. */
+  dismissLabel?: string
   class?: string
 }
 
-const { variant = "info", title, dismissible = false, class: className = "" } = Astro.props
+const {
+  variant = "info",
+  title,
+  dismissible = false,
+  dismissLabel = "Dismiss",
+  class: className = "",
+} = Astro.props
 
 const styles: Record<string, { border: string; text: string; bg: string }> = {
   info: {
@@ -86,7 +94,7 @@ const { border, text, bg } = styles[variant]
       <button
         data-alert-dismiss
         type="button"
-        aria-label="Dismiss"
+        aria-label={dismissLabel}
         class={`shrink-0 ${text} cursor-pointer transition-opacity hover:opacity-70`}
       >
         <Icon name="line-md:close-small" width="16" height="16" aria-hidden="true" />
