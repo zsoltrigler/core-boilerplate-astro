@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.12.2...core-boilerplate-v1.13.0) (2026-07-13)
+
+
+### Features
+
+* add Zod schema validation for src/config.ts ([#155](https://github.com/zsoltrigler/core-boilerplate-astro/issues/155)) ([cd74cff](https://github.com/zsoltrigler/core-boilerplate-astro/commit/cd74cff634749e829ac5745e97925dba5623e45a))
+
 ## [1.12.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.12.1...core-boilerplate-v1.12.2) (2026-07-12)
 
 
