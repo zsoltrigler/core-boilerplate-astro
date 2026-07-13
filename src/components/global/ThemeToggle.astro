@@ -2,10 +2,12 @@
 import { Icon } from "astro-icon/components"
 
 export interface Props {
+  /** aria-label for the toggle button — override for a non-English site. */
+  "aria-label"?: string
   class?: string
 }
 
-const { class: className = "" } = Astro.props
+const { "aria-label": ariaLabel = "Toggle dark/light mode", class: className = "" } = Astro.props
 
 // * Manages dark/light mode with localStorage persistence.
 // * The sun icon is shown in dark mode; the moon icon is shown in light mode.
@@ -16,7 +18,7 @@ const { class: className = "" } = Astro.props
 <button
   data-theme-toggle
   type="button"
-  aria-label="Toggle dark/light mode"
+  aria-label={ariaLabel}
   class={[
     "inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) transition-colors duration-200 hover:bg-(--color-bg-elevated)",
     className,

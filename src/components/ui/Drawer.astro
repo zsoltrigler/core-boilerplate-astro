@@ -9,10 +9,18 @@ export interface Props {
   title?: string
   /** Side the drawer slides in from. */
   side?: "left" | "right"
+  /** aria-label for the × close button — override for a non-English site. */
+  closeLabel?: string
   class?: string
 }
 
-const { id, title, side = "right", class: className = "" } = Astro.props
+const {
+  id,
+  title,
+  side = "right",
+  closeLabel = "Close drawer",
+  class: className = "",
+} = Astro.props
 ---
 
 <!--
@@ -43,7 +51,7 @@ const { id, title, side = "right", class: className = "" } = Astro.props
             {Astro.slots.has("title") ? <slot name="title" /> : title}
           </h2>
 
-          <IconButton data-drawer-close label="Close drawer" variant="ghost" size="sm">
+          <IconButton data-drawer-close label={closeLabel} variant="ghost" size="sm">
             <Icon name="line-md:close" width="16" height="16" aria-hidden="true" />
           </IconButton>
         </div>

@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css"
-import { SITE, PLACEHOLDER_DESCRIPTION, COLORS, OG_LOCALE_MAP } from "../config"
+import { SITE, PLACEHOLDER_DESCRIPTION, COLORS, OG_LOCALE_MAP, RTL_LANGUAGES } from "../config"
 
 // * All props have sensible defaults sourced from src/config.ts.
 // * Override per-page by passing props directly to <BaseLayout>.
@@ -31,8 +31,14 @@ interface Props {
   noindex?: boolean
   /** BCP 47 language tag for the <html lang> attribute. */
   lang?: string
+  /** Text direction for the <html dir> attribute. Auto-derived from lang (via
+   * RTL_LANGUAGES in src/config.ts) when omitted — only pass this to override
+   * that inference. */
+  dir?: "ltr" | "rtl"
   /** Site name appended to the page title and used in OG tags. */
   siteName?: string
+  /** Visible text for the keyboard-only "skip to content" link. */
+  skipLinkLabel?: string
 }
 
 const {
@@ -48,12 +54,17 @@ const {
   author = SITE.author || undefined,
   noindex = false,
   lang = SITE.lang,
+  dir,
   siteName = SITE.name,
+  skipLinkLabel = "Skip to content",
   jsonLd,
 } = Astro.props
 
 // * Derive og:locale from lang if not explicitly provided (e.g. "en" → "en_US").
 const resolvedOgLocale = ogLocale ?? OG_LOCALE_MAP[lang] ?? lang
+
+// * Derive dir from lang's base subtag if not explicitly provided (e.g. "ar-EG" → "ar" → "rtl").
+const resolvedDir = dir ?? (RTL_LANGUAGES.has(lang.split("-")[0]!) ? "rtl" : "ltr")
 // ! lang has no og:locale mapping — og:locale may be invalid. Add it to OG_LOCALE_MAP in src/config.ts.
 if (!ogLocale && !OG_LOCALE_MAP[lang] && import.meta.env.DEV) {
   // eslint-disable-next-line no-console
@@ -109,7 +120,7 @@ const foucScript = SITE.singleTheme
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} dir={resolvedDir}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -206,7 +217,7 @@ const foucScript = SITE.singleTheme
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-(--color-brand-primary) focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-(--color-text-inverted) focus:outline-none"
     >
-      Skip to content
+      {skipLinkLabel}
     </a>
 
     <slot />

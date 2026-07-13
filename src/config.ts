@@ -102,6 +102,30 @@ export const OG_LOCALE_MAP: Record<string, string> = {
   ro: "ro_RO",
 }
 
+// ── RTL Languages ─────────────────────────────────────────────────────────────
+// * BCP 47 language codes that read right-to-left — used by BaseLayout to
+//   auto-derive the <html dir> attribute from SITE.lang (or a page's lang
+//   override). Based on the commonly-used RTL locale list (e.g. WordPress's
+//   is_rtl()). Add a code here if you need one that's missing, or pass the
+//   `dir` prop to <BaseLayout> explicitly to override the derived value.
+export const RTL_LANGUAGES = new Set([
+  "ar", // Arabic
+  "arc", // Aramaic
+  "dv", // Divehi
+  "fa", // Persian/Farsi
+  "ha", // Hausa (Arabic script)
+  "he", // Hebrew
+  "khw", // Khowar
+  "ks", // Kashmiri
+  "ku", // Kurdish (Sorani)
+  "nqo", // N'Ko
+  "ps", // Pashto
+  "sd", // Sindhi
+  "ug", // Uyghur
+  "ur", // Urdu
+  "yi", // Yiddish
+])
+
 // ── Site Metadata ─────────────────────────────────────────────────────────────
 export const SITE = {
   name: "Core Boilerplate",

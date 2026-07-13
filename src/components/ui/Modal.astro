@@ -8,10 +8,12 @@ export interface Props {
   /** Modal heading shown in the header bar. */
   title?: string
   size?: "sm" | "md" | "lg" | "xl"
+  /** aria-label for the × close button — override for a non-English site. */
+  closeLabel?: string
   class?: string
 }
 
-const { id, title, size = "md", class: className = "" } = Astro.props
+const { id, title, size = "md", closeLabel = "Close modal", class: className = "" } = Astro.props
 
 const sizes: Record<string, string> = {
   sm: "max-w-sm",
@@ -41,7 +43,7 @@ const sizes: Record<string, string> = {
             {Astro.slots.has("title") ? <slot name="title" /> : title}
           </h2>
 
-          <IconButton data-modal-close label="Close modal" variant="ghost" size="sm">
+          <IconButton data-modal-close label={closeLabel} variant="ghost" size="sm">
             <Icon name="line-md:close" width="16" height="16" aria-hidden="true" />
           </IconButton>
         </div>
