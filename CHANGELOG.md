@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.14.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.14.1...core-boilerplate-v1.14.2) (2026-07-13)
+
+
+### Bug Fixes
+
+* make remaining hardcoded UI strings overridable, add RTL support ([#161](https://github.com/zsoltrigler/core-boilerplate-astro/issues/161)) ([7c627b7](https://github.com/zsoltrigler/core-boilerplate-astro/commit/7c627b7fe17e3d5e4ad3ab130efe6aa66c794960))
+
 ## [1.14.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.14.0...core-boilerplate-v1.14.1) (2026-07-13)
 
 
