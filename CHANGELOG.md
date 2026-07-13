@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.14.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.14.0...core-boilerplate-v1.14.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* make hardcoded aria-labels overridable (Alert, Breadcrumb, Pagination, Stepper) ([#159](https://github.com/zsoltrigler/core-boilerplate-astro/issues/159)) ([cad51ad](https://github.com/zsoltrigler/core-boilerplate-astro/commit/cad51ad890fd422c5dee623f214f66564fc5b906))
+
 ## [1.14.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.13.0...core-boilerplate-v1.14.0) (2026-07-13)
 
 
