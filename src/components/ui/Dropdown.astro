@@ -77,6 +77,10 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
         "click",
         (e) => {
           e.stopPropagation()
+          // ! Safari/WebKit doesn't focus <button> on click (unlike Chrome/Firefox),
+          //   so without this, Escape's keydown listener below never receives the
+          //   event — its target stays <body>, which is outside `dropdown`.
+          trigger!.focus()
           toggle()
         },
         { signal }
