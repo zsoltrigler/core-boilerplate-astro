@@ -15,6 +15,7 @@ A minimal, production-ready starter built with **Astro 7** and **Tailwind CSS 4*
 - Icons — [line-md](https://icon-sets.iconify.design/line-md/) via [astro-icon](https://github.com/natemoo-re/astro-icon), inlined at build time — zero runtime JS
 - Dark mode — system preference + manual toggle, persisted in `localStorage` — or skip it entirely with `SITE.singleTheme`
 - SEO — meta tags, Open Graph, Twitter Card, sitemap, robots.txt
+- Prefetch — every link's target page prefetches on hover/focus, on by default
 
 ---
 

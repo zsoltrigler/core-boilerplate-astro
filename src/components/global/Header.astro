@@ -191,11 +191,7 @@ function isActivePath(href: string): boolean {
   //   whichever section is currently in view. Page-style links ("/blog") get
   //   their active state server-side above; this only ever touches links
   //   whose data-nav-link starts with "#".
-  let observer: IntersectionObserver | null = null
-
   function initScrollSpy() {
-    observer?.disconnect()
-
     const navLinks = Array.from(document.querySelectorAll<HTMLElement>("[data-nav-link]")).filter(
       (link) => link.dataset.navLink?.startsWith("#")
     )
@@ -232,7 +228,7 @@ function isActivePath(href: string): boolean {
       //   than a hardcoded value, so it stays correct if a template customizes it.
       const headerHeight = document.querySelector("header")?.offsetHeight ?? 0
 
-      observer = new IntersectionObserver(
+      const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) setActive(`#${entry.target.id}`)
@@ -243,12 +239,10 @@ function isActivePath(href: string): boolean {
 
       linksByHash.forEach((_links, hash) => {
         const section = document.querySelector(hash)
-        if (section) observer!.observe(section)
+        if (section) observer.observe(section)
       })
     })
   }
 
   initScrollSpy()
-  // * Re-init after Astro View Transitions.
-  document.addEventListener("astro:page-load", initScrollSpy)
 </script>

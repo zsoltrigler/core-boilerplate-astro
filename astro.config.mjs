@@ -102,6 +102,14 @@ export default defineConfig({
   //   canonical URLs fall back to localhost and will be wrong in production.
   site: process.env.SITE_URL ?? "http://localhost:4321",
 
+  // * Prefetches a page's HTML on link hover, so the click feels instant.
+  // ! prefetchAll: true is required to cover every link by default — plain
+  //   `prefetch: true` alone only adds the prefetch script, it does not
+  //   prefetch anything unless individual links carry data-astro-prefetch.
+  prefetch: {
+    prefetchAll: true,
+  },
+
   vite: {
     // * Order matters: colorTokensPlugin must run before tailwindcss
     //   so the generated @theme block is visible to Tailwind at build time.

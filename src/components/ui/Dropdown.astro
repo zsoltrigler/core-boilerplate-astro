@@ -36,17 +36,7 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
 </div>
 
 <script>
-  // * AbortController tears down and re-registers every listener below cleanly
-  //   on each View Transition — without it, re-running initDropdowns() on
-  //   astro:page-load would stack duplicate document-level click listeners
-  //   (and duplicate per-instance keydown/menu listeners) on every navigation.
-  let controller: AbortController | null = null
-
   function initDropdowns() {
-    controller?.abort()
-    controller = new AbortController()
-    const { signal } = controller
-
     document.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((dropdown) => {
       const triggerWrapper = dropdown.querySelector<HTMLElement>("[data-dropdown-trigger]")
       const menu = dropdown.querySelector<HTMLElement>("[data-dropdown-menu]")
@@ -73,46 +63,32 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
         else close()
       }
 
-      trigger.addEventListener(
-        "click",
-        (e) => {
-          e.stopPropagation()
-          // ! Safari/WebKit doesn't focus <button> on click (unlike Chrome/Firefox),
-          //   so without this, Escape's keydown listener below never receives the
-          //   event — its target stays <body>, which is outside `dropdown`.
-          trigger!.focus()
-          toggle()
-        },
-        { signal }
-      )
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation()
+        // ! Safari/WebKit doesn't focus <button> on click (unlike Chrome/Firefox),
+        //   so without this, Escape's keydown listener below never receives the
+        //   event — its target stays <body>, which is outside `dropdown`.
+        trigger!.focus()
+        toggle()
+      })
 
       // * Close on Escape.
-      dropdown.addEventListener(
-        "keydown",
-        (e) => {
-          if (e.key === "Escape") {
-            close()
-            trigger!.focus()
-          }
-        },
-        { signal }
-      )
+      dropdown.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          close()
+          trigger!.focus()
+        }
+      })
 
       // * Close when clicking outside the dropdown.
-      document.addEventListener(
-        "click",
-        (e) => {
-          if (!dropdown.contains(e.target as Node)) close()
-        },
-        { signal }
-      )
+      document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target as Node)) close()
+      })
 
       // ! Close when any item inside the menu is clicked — covers both <a> and buttons.
-      menu.addEventListener("click", () => close(), { signal })
+      menu.addEventListener("click", () => close())
     })
   }
 
   initDropdowns()
-  // * Re-init after Astro View Transitions.
-  document.addEventListener("astro:page-load", initDropdowns)
 </script>

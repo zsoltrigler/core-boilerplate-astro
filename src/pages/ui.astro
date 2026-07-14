@@ -1450,14 +1450,7 @@ const components = [
 
   <script>
     // * Intersection Observer highlights the active sidebar link as the user scrolls.
-    //   AbortController ensures clean re-init after View Transitions.
-    let controller: AbortController | null = null
-
     function initSidebarNav() {
-      controller?.abort()
-      controller = new AbortController()
-      const { signal } = controller
-
       const links = document.querySelectorAll<HTMLAnchorElement>("aside nav a[href^='#']")
       if (!links.length) return
 
@@ -1494,8 +1487,6 @@ const components = [
       )
 
       sections.forEach((s) => observer.observe(s))
-
-      signal.addEventListener("abort", () => observer.disconnect())
     }
 
     initSidebarNav()
