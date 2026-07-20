@@ -16,6 +16,8 @@ pnpm install
 pnpm dev
 ```
 
+`pnpm install` also enables `git rerere` for this clone (`scripts/enable-rerere.mjs`, wired into the `prepare` script). It's a per-clone setting, not something committed to the repo, so it has to be re-enabled on every fresh checkout — this saves re-resolving the same recurring conflicts (`package.json` name/version, `.release-please-manifest.json`) every time a downstream project merges from `upstream`.
+
 ## Renaming this project
 
 If you're starting a new project from this boilerplate and keeping its git history — e.g. `git clone` plus an `upstream` remote so you can pull in future boilerplate fixes — **don't just hand-edit `package.json`'s `name` field.** release-please anchors its version bump to a `<package-name>-v<version>` git tag; if you rename the package but no tag exists under the new name, release-please falls back to the oldest reachable commit and folds this repo's entire tagged history into one giant, wrong release the first time its workflow runs.
