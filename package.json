@@ -8,6 +8,7 @@
   },
   "scripts": {
     "setup": "node scripts/setup-wizard.mjs",
+    "rename": "node scripts/rename-project.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -19,7 +20,7 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "prepare": "husky"
+    "prepare": "husky && node scripts/enable-rerere.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

@@ -38,12 +38,13 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 
 ## After cloning
 
-Before you start building, do these four things:
+Before you start building, do these five things:
 
 1. **Edit `src/config.ts`** — set your site name, description, colors, nav links, and social links.
 2. **Replace `public/og-default.jpg`** — 1200×630px JPG or PNG, used when sharing on social media.
 3. **Replace the favicon** — swap out `public/favicon.svg` (and the `.ico` / `.png` variants) with your own.
 4. **Delete the component showcase** — remove `src/pages/ui.astro` and `src/components/showcase/` when you no longer need the reference.
+5. **Rename `package.json`'s `name`** — if you cloned with `git clone` (keeping the full history, e.g. to add an `upstream` remote), **don't hand-edit this field.** Run `pnpm rename` instead — hand-editing it desyncs release-please's version-tracking tag and can fold this repo's entire tagged history into one broken release. See [CONTRIBUTING.md](./CONTRIBUTING.md#renaming-this-project) for why.
 
 Step 1 can be done for you interactively:
 
@@ -52,6 +53,12 @@ pnpm setup
 ```
 
 This asks for your site name, description, language, and brand color, writes them into `src/config.ts`, and prints a checklist reminder for steps 2–4 (which touch binary files and can't be automated).
+
+Step 5 has its own wizard:
+
+```bash
+pnpm rename
+```
 
 ---
 

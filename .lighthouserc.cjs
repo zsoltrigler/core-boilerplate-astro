@@ -13,11 +13,32 @@
 module.exports = {
   ci: {
     collect: {
-      // * Serve the pre-built dist/ folder — no dev server needed in CI.
-      staticDistDir: "./dist",
+      // * Use the Astro dev server rather than serving a built output directory
+      //   or `astro preview`. Both of those depend on the configured adapter/
+      //   output mode (`static` vs `server` with Vercel/Cloudflare/Node/etc.) —
+      //   a template that adds a server adapter would have no dist/index.html,
+      //   or `astro preview` would behave differently per adapter. `astro dev`
+      //   is available identically regardless of adapter, since this check only
+      //   audits SEO/best-practices, not performance.
+      // ! Call the astro binary directly (not `pnpm dev --`) — the extra pnpm
+      //   script layer delays/reorders stdout enough that lhci's readiness-
+      //   pattern match can time out before the server is actually reachable.
+      // ! Astro 7's dev server runs as a detached background daemon: the
+      //   invoking process only ever prints "Dev server running at ...", never
+      //   the Vite-style "ready in Xms" banner (that goes to the daemon's own
+      //   log, not this stdout) — match on the text that's actually emitted.
+      // ! Disable the dev toolbar for this run only: it injects a "Learn more"
+      //   link with non-descriptive text that fails the `link-text` SEO audit,
+      //   and only exists in dev mode (never in a production build). The
+      //   preference is written to the gitignored .astro/ dir, so it's scoped
+      //   to this checkout and doesn't touch the shared astro.config.mjs.
+      startServerCommand:
+        "pnpm exec astro preferences disable devToolbar && pnpm exec astro dev --port 4321",
+      startServerReadyPattern: "Dev server running at",
+      startServerReadyTimeout: 15000,
       // * Only test the production homepage. 404 and /ui are developer-facing
       //   pages with intentional noindex — they skew SEO scores.
-      url: ["http://localhost/index.html"],
+      url: ["http://localhost:4321/"],
       numberOfRuns: 1,
     },
     assert: {

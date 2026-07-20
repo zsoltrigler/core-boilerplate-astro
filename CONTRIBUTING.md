@@ -16,6 +16,25 @@ pnpm install
 pnpm dev
 ```
 
+`pnpm install` also enables `git rerere` for this clone (`scripts/enable-rerere.mjs`, wired into the `prepare` script). It's a per-clone setting, not something committed to the repo, so it has to be re-enabled on every fresh checkout — this saves re-resolving the same recurring conflicts (`package.json` name/version, `.release-please-manifest.json`) every time a downstream project merges from `upstream`.
+
+## Renaming this project
+
+If you're starting a new project from this boilerplate and keeping its git history — e.g. `git clone` plus an `upstream` remote so you can pull in future boilerplate fixes — **don't just hand-edit `package.json`'s `name` field.** release-please anchors its version bump to a `<package-name>-v<version>` git tag; if you rename the package but no tag exists under the new name, release-please falls back to the oldest reachable commit and folds this repo's entire tagged history into one giant, wrong release the first time its workflow runs.
+
+Run `pnpm rename` instead (`scripts/rename-project.mjs`). It asks for the new project name and starting version, then:
+
+1. Updates `package.json`'s `name`
+2. Resets `.release-please-manifest.json` to the starting version
+3. Clears `CHANGELOG.md` (the inherited boilerplate history isn't relevant to your project)
+4. **If** it detects inherited git history and tags under the old package name, creates the `<new-name>-v<start-version>` anchor tag on `HEAD` so release-please has the right thing to anchor to
+
+It auto-detects how the checkout was created and adjusts accordingly:
+
+- **No git history** (ZIP download, `degit`, or GitHub's "Use this template" button) — no old tags to conflict with, so it just updates the files.
+- **Fresh git init with no old tags** — same as above.
+- **Full history with `upstream`** — the tag step matters here. If you've already pushed under the old name/manifest before running this, push the new tag (`git push origin <new-name>-v<start-version>`) before your next push, and if a bad release/PR already merged on the remote, revert it by hand — the script only fixes local state.
+
 ## Branch naming
 
 | Prefix      | When to use                               |
