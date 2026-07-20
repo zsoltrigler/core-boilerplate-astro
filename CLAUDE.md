@@ -35,6 +35,14 @@ All icons are [line-md](https://icon-sets.iconify.design/line-md/) via `astro-ic
 
 `cssCodeSplit: false` in Vite config — all CSS lands in one file, preventing render-blocking component CSS chunks.
 
+### Prefetch
+
+`prefetch: { prefetchAll: true }` in `astro.config.mjs` — every same-origin link prefetches its target HTML on hover/focus by default. Plain `prefetch: true` alone would only add the prefetch script without prefetching anything, since it requires opting in each link via `data-astro-prefetch`; `prefetchAll` is what makes every link opt-in by default (opt a link back out with `data-astro-prefetch="false"`).
+
+### View Transitions — intentionally not used
+
+Astro's `<ClientRouter />` (View Transitions) is not included in `BaseLayout`. Don't add `astro:page-load` event listeners or other View-Transitions-specific re-init logic to component scripts — without the router, that event never fires beyond the initial page load, so it's dead code. If View Transitions are added back in the future, re-audit every component script for idempotent re-init (some rely on one-time DOM flags or module-level state that assumes a single execution).
+
 ### Release automation
 
 `.github/workflows/release-please.yml` is configured to auto-merge the standing release PR once its own CI run passes. This requires a `RELEASE_PLEASE_TOKEN` repo secret — PRs/merges made with the default `GITHUB_TOKEN` don't trigger downstream workflows, which would otherwise leave the required CI check permanently pending.

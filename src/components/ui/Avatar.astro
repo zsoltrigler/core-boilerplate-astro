@@ -71,20 +71,11 @@ const base = `inline-flex shrink-0 items-center justify-center overflow-hidden b
 }
 
 <script>
-  function initAvatars() {
-    document.querySelectorAll<HTMLImageElement>("[data-avatar-img]").forEach((img) => {
-      if (img.dataset.avatarInit) return
-      img.dataset.avatarInit = "1"
-
-      img.addEventListener("error", () => {
-        img.style.display = "none"
-        const fallback = img.nextElementSibling as HTMLElement | null
-        if (fallback) fallback.style.display = "inline-flex"
-      })
+  document.querySelectorAll<HTMLImageElement>("[data-avatar-img]").forEach((img) => {
+    img.addEventListener("error", () => {
+      img.style.display = "none"
+      const fallback = img.nextElementSibling as HTMLElement | null
+      if (fallback) fallback.style.display = "inline-flex"
     })
-  }
-
-  initAvatars()
-  // * Re-init after Astro View Transitions.
-  document.addEventListener("astro:page-load", initAvatars)
+  })
 </script>
