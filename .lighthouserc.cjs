@@ -13,11 +13,17 @@
 module.exports = {
   ci: {
     collect: {
-      // * Serve the pre-built dist/ folder — no dev server needed in CI.
-      staticDistDir: "./dist",
+      // * Use the Astro dev server rather than serving a built output directory
+      //   or `astro preview`. Both of those depend on the configured adapter/
+      //   output mode (`static` vs `server` with Vercel/Cloudflare/Node/etc.) —
+      //   a template that adds a server adapter would have no dist/index.html,
+      //   or `astro preview` would behave differently per adapter. `astro dev`
+      //   is available identically regardless of adapter, since this check only
+      //   audits SEO/best-practices, not performance.
+      startServerCommand: "pnpm dev -- --port 4321",
       // * Only test the production homepage. 404 and /ui are developer-facing
       //   pages with intentional noindex — they skew SEO scores.
-      url: ["http://localhost/index.html"],
+      url: ["http://localhost:4321/"],
       numberOfRuns: 1,
     },
     assert: {
