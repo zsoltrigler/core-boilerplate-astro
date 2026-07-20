@@ -10,6 +10,9 @@ const packageJsonPath = fileURLToPath(new URL("../package.json", import.meta.url
 const manifestPath = fileURLToPath(new URL("../.release-please-manifest.json", import.meta.url))
 const changelogPath = fileURLToPath(new URL("../CHANGELOG.md", import.meta.url))
 
+// ! Deliberately rejects scoped npm names (@org/name) — this boilerplate's
+//   package.json name is a site-name-style identifier, not a published/scoped
+//   package, so scoping was never a supported input.
 const projectNamePattern = /^[a-z0-9][a-z0-9-]*$/
 const semverPattern = /^\d+\.\d+\.\d+$/
 
@@ -36,7 +39,11 @@ function detectInitMode() {
   const revCount = git(["rev-list", "--count", "HEAD"])
   const hasHistory = revCount !== null && Number(revCount) > 1
 
-  const allTags = git(["tag", "-l"])?.split("\n").filter(Boolean) ?? []
+  // ! `--merged HEAD` matters: plain `git tag -l` lists every tag in the repo's
+  //   object database, including ones unreachable from the current branch (e.g.
+  //   left over from a fetch into an unrelated branch). Scoping to HEAD's own
+  //   history avoids treating an unrelated stale tag as "inherited history".
+  const allTags = git(["tag", "-l", "--merged", "HEAD"])?.split("\n").filter(Boolean) ?? []
   const tagPattern = /^(.+)-v\d+\.\d+\.\d+$/
   const oldTagPrefixes = [
     ...new Set(allTags.map((t) => t.match(tagPattern)?.[1]).filter((p) => p !== undefined)),
