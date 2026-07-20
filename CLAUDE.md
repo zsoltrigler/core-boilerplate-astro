@@ -39,6 +39,18 @@ All icons are [line-md](https://icon-sets.iconify.design/line-md/) via `astro-ic
 
 `.github/workflows/release-please.yml` is configured to auto-merge the standing release PR once its own CI run passes. This requires a `RELEASE_PLEASE_TOKEN` repo secret — PRs/merges made with the default `GITHUB_TOKEN` don't trigger downstream workflows, which would otherwise leave the required CI check permanently pending.
 
+### Project renaming (downstream forks)
+
+release-please anchors its version bump to a `<package.json name>-v<version>` git tag. A downstream project that keeps the full core-boilerplate git history (e.g. `git clone` + an `upstream` remote) and then hand-edits `package.json`'s `name` desyncs that anchor — release-please falls back to the oldest reachable commit and folds the entire inherited history into one release the first time its workflow runs. `scripts/rename-project.mjs` (`pnpm rename`) handles this: it detects the init mode (no git / fresh history / inherited history with old tags) and only creates an anchor tag when the dangerous case applies. See CONTRIBUTING.md → "Renaming this project" for the downstream-facing writeup.
+
+### Lighthouse CI
+
+`.lighthouserc.cjs` boots the project via `astro dev`, not `astro preview` or a static `dist/` serve — those depend on the configured adapter/output mode (`static` vs a server adapter like Vercel/Cloudflare/Node), so a downstream fork adding a server adapter would otherwise break this check. `astro dev` behaves identically regardless of adapter, and this check only audits SEO/best-practices (not performance), so the dev server is sufficient.
+
+### git rerere for downstream forks
+
+`scripts/enable-rerere.mjs` runs from the `prepare` script (every `pnpm install`) and turns on `git config rerere.enabled true` for the clone. `rerere.enabled` is a local, per-clone setting — not version-controlled — so it doesn't propagate to downstream forks on its own; wiring it into `prepare` (already used for Husky) means every clone gets it without an extra manual step. It matters for downstream projects that keep an `upstream` remote, since the same files (`package.json` name/version, `.release-please-manifest.json`) tend to conflict on every upstream merge.
+
 ## Commands
 
 ```bash
@@ -49,6 +61,7 @@ pnpm format         # prettier
 pnpm check:contrast # WCAG contrast check standalone
 pnpm check:config   # config schema validation standalone
 pnpm setup          # interactive wizard: name/description/lang/brand color → src/config.ts
+pnpm rename         # rename the project safely (package.json name, manifest, release-please tag anchor)
 ```
 
 ## Component locations
