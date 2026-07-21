@@ -11,6 +11,16 @@ export interface Props {
   /** rel attribute for link mode — e.g. "prev" / "next" for pagination controls. */
   rel?: string
   disabled?: boolean
+  /**
+   * Sets aria-expanded — pass for toggle buttons (e.g. a menu open/close control).
+   * The button also gets a "group" class, so slotted content can react to this
+   * state purely in CSS via group-aria-expanded:* variants (e.g. rotate/fade a
+   * child icon) — no JS-driven icon-swap bookkeeping needed. The caller's own
+   * script only needs to flip the expanded/aria-expanded value at runtime.
+   */
+  expanded?: boolean
+  /** Sets aria-controls — id of the element this button toggles. */
+  controls?: string
   class?: string
 }
 
@@ -23,6 +33,8 @@ const {
   external = false,
   rel,
   disabled = false,
+  expanded,
+  controls,
   class: className = "",
   ...rest
 } = Astro.props
@@ -46,7 +58,7 @@ const sizes: Record<string, string> = {
 }
 
 const base = [
-  "inline-flex items-center justify-center cursor-pointer",
+  "group inline-flex items-center justify-center cursor-pointer",
   "disabled:opacity-50 disabled:pointer-events-none duration-200",
   variants[variant],
   sizes[size],
@@ -64,11 +76,27 @@ const externalProps = external
 
 {
   href ? (
-    <a href={href} class={base} aria-label={label} {...externalProps} {...rest}>
+    <a
+      href={href}
+      class={base}
+      aria-label={label}
+      aria-expanded={expanded}
+      aria-controls={controls}
+      {...externalProps}
+      {...rest}
+    >
       <slot />
     </a>
   ) : (
-    <button type={type} class={base} aria-label={label} disabled={disabled} {...rest}>
+    <button
+      type={type}
+      class={base}
+      aria-label={label}
+      aria-expanded={expanded}
+      aria-controls={controls}
+      disabled={disabled}
+      {...rest}
+    >
       <slot />
     </button>
   )

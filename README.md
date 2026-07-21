@@ -221,7 +221,26 @@ Square icon-only button. `label` is required for accessibility.
 </IconButton>
 ```
 
-**Props:** `variant` · `size` · `label` · `href` · `external` · `disabled`
+For toggle buttons (e.g. a menu open/close control, or a disclosure chevron), pass `expanded` + `controls` — IconButton sets `aria-expanded`/`aria-controls` and adds a `group` class, so slotted content can animate itself in pure CSS via `group-aria-expanded:*` variants. The caller's own script only needs to flip the runtime `aria-expanded` value; there's no icon-swap state to manage:
+
+```astro
+<IconButton label="Open menu" expanded={false} controls="mobile-menu" data-menu-toggle>
+  <Icon
+    name="line-md:chevron-down"
+    class="transition-transform duration-200 ease-out group-aria-expanded:[transform:rotate(180deg)]"
+  />
+</IconButton>
+```
+
+```ts
+btn.setAttribute("aria-expanded", String(open))
+```
+
+> Write the transform as a literal `[transform:rotate(...)]` / `[transform:scale(...)]` arbitrary value, not Tailwind's `rotate-*`/`scale-*`/`translate-*` utilities — those drive CSS custom properties registered with `@property { syntax: "*" }`, and per the CSS Houdini spec, `"*"`-syntax custom properties aren't animatable (the value just snaps instead of transitioning). A literal `transform` value is a native, always-interpolable property. This also means line-md's `-transition` morph-pair icons (e.g. `menu-to-close-transition`) are a poor fit here: they rely on a one-shot SMIL `<animate>` that auto-plays once on mount and freezes — it never replays on toggle, and forcing a replay via `beginElement()` is both mechanical-feeling (fixed duration, linear easing) and unsafe if the same icon name is reused elsewhere on the page (astro-icon dedupes repeated names into one shared `<symbol>`, so a second `<use>` shares — and fights over — the same timeline). See `Header.astro`'s mobile menu toggle for a hand-built hamburger→X built the same way (three `group-aria-expanded:`-driven bars, no icon at all).
+
+**Props:** `variant` · `size` · `label` · `href` · `external` · `disabled` · `expanded` · `controls`
+
+**Slots:** default (icon)
 
 ---
 
@@ -679,7 +698,7 @@ import { Icon } from "astro-icon/components"
 <Icon name="line-md:heart" width="20" height="20" />
 ```
 
-Browse the full set at [icon-sets.iconify.design/line-md](https://icon-sets.iconify.design/line-md/) — any icon name from there works with `name="line-md:<icon-name>"`. Many icons are self-animating (stroke-draw on mount); toggle-style icons like `menu-to-close-transition` come in matched reverse pairs (`close-to-menu-transition`) for building two-state controls — see `Header.astro` and `ThemeToggle.astro` for real examples.
+Browse the full set at [icon-sets.iconify.design/line-md](https://icon-sets.iconify.design/line-md/) — any icon name from there works with `name="line-md:<icon-name>"`. Many icons are self-animating (stroke-draw on mount). Some, like `menu-to-close-transition`, come in matched reverse pairs (`close-to-menu-transition`) meant for two-state toggle controls (see `ThemeToggle.astro`) — but they only auto-play their morph once, on mount, and freeze there; they don't replay when an already-mounted instance is shown/hidden again, so they're a poor fit for a "both icons present, toggle visibility" button like `Header.astro`'s mobile menu toggle, which uses plain `menu`/`close` instead.
 
 > ⚠️ Icons inserted at runtime via plain DOM APIs (e.g. inside a `<script>` block, like `Toast.astro`'s dismiss icons) can't use the `<Icon>` component — it only resolves at build time. Embed the SVG markup as a string literal instead.
 

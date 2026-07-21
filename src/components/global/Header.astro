@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon/components"
+import IconButton from "../ui/IconButton.astro"
 import { SITE, NAV_LINKS } from "../../config"
 
 export interface Props {
@@ -87,35 +87,38 @@ function isActivePath(href: string): boolean {
       <slot name="nav-end" />
 
       <!-- Mobile menu toggle — visible below md breakpoint -->
-      <button
+      <IconButton
         data-mobile-menu-toggle
-        type="button"
-        aria-label={menuOpenLabel}
-        aria-expanded="false"
-        aria-controls="mobile-menu"
+        label={menuOpenLabel}
+        variant="secondary"
+        expanded={false}
+        controls="mobile-menu"
         data-label-open={menuOpenLabel}
         data-label-close={menuCloseLabel}
-        class="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-(--color-border-base) bg-(--color-bg-surface) text-(--color-text-base) transition-colors duration-200 hover:bg-(--color-bg-elevated) md:hidden"
+        class="bg-(--color-bg-surface) hover:!bg-(--color-bg-elevated) md:hidden"
       >
-        <!-- Menu→close animated icon — shown when menu is closed; plays on open -->
-        <Icon
-          data-icon-menu
-          name="line-md:menu-to-close-transition"
-          width="20"
-          height="20"
-          aria-hidden="true"
-        />
-
-        <!-- Close→menu animated icon — shown when menu is open; plays on close -->
-        <Icon
-          data-icon-close
-          name="line-md:close-to-menu-transition"
-          width="20"
-          height="20"
-          aria-hidden="true"
-          class="hidden"
-        />
-      </button>
+        <!--
+          * Hand-built hamburger→X, not a pre-made icon — driven purely by
+          * IconButton's "group" class + its own aria-expanded, via
+          * group-aria-expanded:* variants below. Each bar's rotate/translate
+          * is written as a single raw "transform:" value (not Tailwind's
+          * rotate-*/translate-* utilities) because those utilities drive CSS
+          * custom properties registered with `@property { syntax: "*" }`,
+          * which per the CSS Houdini spec can't be transitioned smoothly —
+          * they just snap. A literal "transform" value is always animatable.
+        -->
+        <span class="relative block h-4 w-5" aria-hidden="true">
+          <span
+            class="absolute inset-x-0 top-0 h-0.5 rounded-full bg-current transition-transform duration-200 ease-out group-aria-expanded:[transform:translateY(7px)_rotate(45deg)]"
+          ></span>
+          <span
+            class="absolute inset-x-0 top-[7px] h-0.5 rounded-full bg-current transition-opacity duration-200 ease-out group-aria-expanded:opacity-0"
+          ></span>
+          <span
+            class="absolute inset-x-0 top-[14px] h-0.5 rounded-full bg-current transition-transform duration-200 ease-out group-aria-expanded:[transform:translateY(-7px)_rotate(-45deg)]"
+          ></span>
+        </span>
+      </IconButton>
     </div>
   </div>
 
@@ -162,8 +165,6 @@ function isActivePath(href: string): boolean {
       menu!.hidden = !open
       btn!.setAttribute("aria-expanded", String(open))
       btn!.setAttribute("aria-label", open ? btn!.dataset.labelClose! : btn!.dataset.labelOpen!)
-      btn!.querySelector("[data-icon-menu]")?.classList.toggle("hidden", open)
-      btn!.querySelector("[data-icon-close]")?.classList.toggle("hidden", !open)
     }
 
     btn.addEventListener("click", () => setOpen(menu.hidden === true), { signal })
