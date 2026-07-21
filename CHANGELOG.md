@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.16.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.15.0...core-boilerplate-v1.16.0) (2026-07-21)
+
+
+### Features
+
+* add trailing slot to Card component ([#168](https://github.com/zsoltrigler/core-boilerplate-astro/issues/168)) ([b069fde](https://github.com/zsoltrigler/core-boilerplate-astro/commit/b069fdeed0babb61f6467f84c9fe7b095c54a6b4))
+
 ## [1.15.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.14.2...core-boilerplate-v1.15.0) (2026-07-21)
 
 
