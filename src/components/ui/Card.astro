@@ -23,6 +23,8 @@ const {
   class: className = "",
 } = Astro.props
 
+const hasTrailing = Astro.slots.has("trailing")
+
 const paddings: Record<string, string> = {
   sm: "p-3",
   md: "p-5",
@@ -82,8 +84,20 @@ const roundeds: Record<string, string> = {
         )
       }
     </div>
+
+    <!-- * Only rendered here in horizontal layout — sits at the row's right edge, e.g. a chevron for clickable rows. -->
+    {
+      layout === "horizontal" && hasTrailing && (
+        <div class="shrink-0 sm:ml-auto sm:self-center">
+          <slot name="trailing" />
+        </div>
+      )
+    }
   </div>
 
   <!-- Default slot for fully custom card content -->
   <slot />
+
+  <!-- * Vertical layout keeps trailing content at the bottom of the card, same as before this slot existed. -->
+  {layout === "vertical" && hasTrailing && <slot name="trailing" />}
 </div>

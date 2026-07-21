@@ -264,7 +264,7 @@ Flexible content container.
 
 **Props:** `title` · `desc` · `padding` (sm | md | lg) · `rounded` (md | lg | xl | 2xl) · `hover` · `shadow` · `layout` (vertical | horizontal)
 
-**Slots:** `icon` · `title` · `desc` · default
+**Slots:** `icon` · `title` · `desc` · `trailing` (right-aligned next to title/desc in horizontal layout, bottom of card in vertical) · default
 
 ---
 
