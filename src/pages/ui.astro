@@ -99,7 +99,16 @@ const components = [
   noindex={true}
 >
   <Header>
-    <Button slot="nav-end" href="/" variant="ghost" size="md">← Back to home</Button>
+    <Button slot="nav-end" href="/" variant="ghost" size="md">
+      <Icon
+        slot="icon-left"
+        name="line-md:chevron-left"
+        width="16"
+        height="16"
+        aria-hidden="true"
+      />
+      Back to home
+    </Button>
     <ThemeToggle slot="nav-end" />
   </Header>
 
@@ -498,7 +507,13 @@ const components = [
                 desc='layout="horizontal" places icon left, title/desc right — stacks below sm.'
                 layout="horizontal"
               >
-                <span slot="icon">↔️</span>
+                <Icon
+                  slot="icon"
+                  name="line-md:chevron-right"
+                  width="24"
+                  height="24"
+                  aria-hidden="true"
+                />
               </Card>
 
               <Card
@@ -730,7 +745,7 @@ const components = [
 
                 <div class="flex flex-wrap gap-3">
                   <IconButton label="Primary" variant="primary">
-                    <Icon name="line-md:arrow-right" width="18" height="18" aria-hidden="true" />
+                    <Icon name="line-md:chevron-right" width="18" height="18" aria-hidden="true" />
                   </IconButton>
 
                   <IconButton label="Secondary" variant="secondary">
@@ -774,7 +789,7 @@ const components = [
 
                 <div class="flex flex-wrap gap-3">
                   <IconButton label="Disabled primary" variant="primary" disabled>
-                    <Icon name="line-md:arrow-right" width="18" height="18" aria-hidden="true" />
+                    <Icon name="line-md:chevron-right" width="18" height="18" aria-hidden="true" />
                   </IconButton>
 
                   <IconButton label="Disabled ghost" variant="ghost" disabled>
