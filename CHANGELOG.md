@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.14.2...core-boilerplate-v1.15.0) (2026-07-21)
+
+
+### Features
+
+* add horizontal layout option to Card component ([#166](https://github.com/zsoltrigler/core-boilerplate-astro/issues/166)) ([b64a416](https://github.com/zsoltrigler/core-boilerplate-astro/commit/b64a4160d4742d7960ac611f7dc3ca86969f5e85))
+
 ## [1.14.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.14.1...core-boilerplate-v1.14.2) (2026-07-13)
 
 
