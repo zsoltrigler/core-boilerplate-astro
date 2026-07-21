@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro"
 import Button from "../components/ui/Button.astro"
+import { Icon } from "astro-icon/components"
 ---
 
 <BaseLayout
@@ -33,7 +34,16 @@ import Button from "../components/ui/Button.astro"
       </p>
 
       <div class="mt-2 flex flex-wrap justify-center gap-3">
-        <Button href="/" variant="primary">← Back to home</Button>
+        <Button href="/" variant="primary">
+          <Icon
+            slot="icon-left"
+            name="line-md:chevron-left"
+            width="16"
+            height="16"
+            aria-hidden="true"
+          />
+          Back to home
+        </Button>
 
         <Button href="/ui" variant="secondary">Browse components</Button>
       </div>

@@ -96,7 +96,7 @@ const stats = [
                 Browse components
                 <Icon
                   slot="icon-right"
-                  name="line-md:arrow-small-right"
+                  name="line-md:chevron-right"
                   width="16"
                   height="16"
                   aria-hidden="true"
@@ -267,7 +267,16 @@ const stats = [
               <p class="text-(--color-text-muted)">A quick look at what's ready to use.</p>
             </div>
 
-            <Button href="/ui" variant="ghost" size="sm">See all →</Button>
+            <Button href="/ui" variant="ghost" size="sm">
+              See all
+              <Icon
+                slot="icon-right"
+                name="line-md:chevron-right"
+                width="16"
+                height="16"
+                aria-hidden="true"
+              />
+            </Button>
           </div>
 
           <!-- Showcase frame -->
