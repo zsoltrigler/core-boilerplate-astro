@@ -57,6 +57,7 @@ const siteSchema = z.object({
   lang: z.string().min(2, 'must be a valid language code, e.g. "en"'),
   allRightsReserved: z.string(),
   singleTheme: z.boolean(),
+  showGridBackground: z.boolean(),
 })
 
 const navLinkSchema = z.object({

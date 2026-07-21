@@ -80,6 +80,7 @@ export const SITE = {
   ogImage: "/og-default.jpg", // default Open Graph image — must be JPG/PNG
   lang: "en",
   allRightsReserved: "All rights reserved.",
+  showGridBackground: true, // set to false for a plain, flat background instead of the grid-line pattern
 }
 ```
 
