@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.18.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.17.0...core-boilerplate-v1.18.0) (2026-07-21)
+
+
+### Features
+
+* add SITE.showGridBackground toggle for the body grid pattern ([#174](https://github.com/zsoltrigler/core-boilerplate-astro/issues/174)) ([8682edb](https://github.com/zsoltrigler/core-boilerplate-astro/commit/8682edb4bda9bd17067ea50503a0d0b8c9f1348f))
+
 ## [1.17.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.16.1...core-boilerplate-v1.17.0) (2026-07-21)
 
 
