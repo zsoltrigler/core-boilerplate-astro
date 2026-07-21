@@ -501,6 +501,19 @@ const components = [
                 <span slot="icon">↔️</span>
               </Card>
 
+              <Card
+                title="With trailing slot"
+                desc="trailing slot sits at the row's right edge — handy for clickable rows."
+                layout="horizontal"
+              >
+                <span slot="icon">📋</span>
+                <Icon
+                  slot="trailing"
+                  name="line-md:chevron-right"
+                  class="text-(--color-text-muted)"
+                />
+              </Card>
+
               <Card padding="md">
                 <p class="text-sm text-(--color-text-muted)">
                   Card with only a <strong class="text-(--color-text-base)">default slot</strong> — fully
