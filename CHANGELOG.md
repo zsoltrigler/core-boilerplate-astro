@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.16.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.16.0...core-boilerplate-v1.16.1) (2026-07-21)
+
+
+### Bug Fixes
+
+* unify all directional icons to line-md chevron ([#170](https://github.com/zsoltrigler/core-boilerplate-astro/issues/170)) ([9c31870](https://github.com/zsoltrigler/core-boilerplate-astro/commit/9c31870e7c090bdb38da0949431cba3569360454))
+
 ## [1.16.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.15.0...core-boilerplate-v1.16.0) (2026-07-21)
 
 
