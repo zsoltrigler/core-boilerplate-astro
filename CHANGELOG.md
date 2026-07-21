@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.17.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.16.1...core-boilerplate-v1.17.0) (2026-07-21)
+
+
+### Features
+
+* add toggle state support to IconButton, rebuild Header's mobile menu icon ([#172](https://github.com/zsoltrigler/core-boilerplate-astro/issues/172)) ([62e62d0](https://github.com/zsoltrigler/core-boilerplate-astro/commit/62e62d054cd9b0474c3b3d368d655e53c0ae0c13))
+
 ## [1.16.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.16.0...core-boilerplate-v1.16.1) (2026-07-21)
 
 
