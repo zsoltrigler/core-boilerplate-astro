@@ -90,15 +90,21 @@
 
   body {
     background-color: var(--color-bg-base);
-    /* * Grid uses --grid-line which is registered above with @property so
-       :root can transition it independently of border/text animations */
+    color: var(--color-text-base);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+  }
+
+  /* * Opt out via SITE.showGridBackground = false in src/config.ts —
+     BaseLayout adds .no-grid-background to <body> accordingly, leaving a
+     plain, flat background-color. --grid-line (registered above with
+     @property so :root can transition it independently of border/text
+     animations) is only ever read here. */
+  body:not(.no-grid-background) {
     background-image:
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 60px 60px;
-    color: var(--color-text-base);
-    font-family: var(--font-sans);
-    line-height: 1.6;
   }
 
   *,

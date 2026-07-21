@@ -211,7 +211,11 @@ const foucScript = SITE.singleTheme
     <slot name="head" />
   </head>
 
-  <body class="flex min-h-screen flex-col">
+  <body
+    class={["flex min-h-screen flex-col", !SITE.showGridBackground && "no-grid-background"]
+      .filter(Boolean)
+      .join(" ")}
+  >
     <!-- * Skip to content — visible on focus only; lets keyboard users bypass navigation. -->
     <a
       href="#main-content"

@@ -144,6 +144,10 @@ export const SITE = {
   //   script and the dark theme-color meta tag in BaseLayout — both are
   //   dead weight without a dark palette or a ThemeToggle to switch to it.
   singleTheme: false,
+  // * Decorative grid-line pattern on the page background (see body in
+  //   global.css) — set to false for a plain, flat background-color instead.
+  //   Defaults to true to match the template's existing look out of the box.
+  showGridBackground: true,
 } as const
 
 // ── Navigation ────────────────────────────────────────────────────────────────
