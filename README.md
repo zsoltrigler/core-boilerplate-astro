@@ -262,7 +262,7 @@ Flexible content container.
 </Card>
 ```
 
-**Props:** `title` · `desc` · `padding` (sm | md | lg) · `rounded` (md | lg | xl | 2xl) · `hover` · `shadow`
+**Props:** `title` · `desc` · `padding` (sm | md | lg) · `rounded` (md | lg | xl | 2xl) · `hover` · `shadow` · `layout` (vertical | horizontal)
 
 **Slots:** `icon` · `title` · `desc` · default
 
