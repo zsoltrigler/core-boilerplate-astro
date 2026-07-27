@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.18.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.18.0...core-boilerplate-v1.18.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* pin transitive dependencies to patched versions via pnpm overrides ([#186](https://github.com/zsoltrigler/core-boilerplate-astro/issues/186)) ([2cab80b](https://github.com/zsoltrigler/core-boilerplate-astro/commit/2cab80ba87b66f8feac5339c068c227ef8faa76c))
+
 ## [1.18.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.17.0...core-boilerplate-v1.18.0) (2026-07-21)
 
 
