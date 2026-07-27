@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.18.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.18.1...core-boilerplate-v1.18.2) (2026-07-27)
+
+
+### Bug Fixes
+
+* prevent distorted images in Avatar component ([#190](https://github.com/zsoltrigler/core-boilerplate-astro/issues/190)) ([5f0e0a9](https://github.com/zsoltrigler/core-boilerplate-astro/commit/5f0e0a9e25ee1d67ebd99352c7b4eec4ba3335d5))
+
 ## [1.18.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.18.0...core-boilerplate-v1.18.1) (2026-07-27)
 
 
