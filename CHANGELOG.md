@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.18.2...core-boilerplate-v1.19.0) (2026-07-28)
+
+
+### Features
+
+* auto-optimize logo via src/assets/brand/ convention ([#192](https://github.com/zsoltrigler/core-boilerplate-astro/issues/192)) ([a62c921](https://github.com/zsoltrigler/core-boilerplate-astro/commit/a62c9213aedc7c9a1ef3fbbeaa85acf43cd7873a))
+
 ## [1.18.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.18.1...core-boilerplate-v1.18.2) (2026-07-27)
 
 
