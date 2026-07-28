@@ -7,7 +7,13 @@ export interface Props {
   class?: string
 }
 
-const { variant = "default", size = "md", pulse = false, class: className = "" } = Astro.props
+const {
+  variant = "default",
+  size = "md",
+  pulse = false,
+  class: className = "",
+  ...rest
+} = Astro.props
 
 const variants: Record<string, string> = {
   default: "bg-(--color-bg-surface) border border-(--color-border-base) text-(--color-text-muted)",
@@ -41,6 +47,7 @@ const pulseColor: Record<string, string> = {
 
 <span
   class={`inline-flex items-center font-medium rounded-full ${variants[variant]} ${sizes[size]} ${className}`}
+  {...rest}
 >
   {
     pulse && (

@@ -24,7 +24,10 @@ export interface Props {
   /** Wires the input to a <datalist> id — used by Combobox. */
   list?: string
   autocomplete?: string
+  /** Applied to the wrapping field block (label + input + hint/error) — see `inputClass` to target the `<input>` itself. */
   class?: string
+  /** Applied directly to the `<input>` element — e.g. to override `::placeholder` or native type="search" decorations. */
+  inputClass?: string
 }
 
 const {
@@ -44,6 +47,7 @@ const {
   list,
   autocomplete,
   class: className = "",
+  inputClass = "",
   ...rest
 } = Astro.props
 
@@ -54,6 +58,7 @@ const base = [
   "w-full border bg-(--color-bg-base) text-(--color-text-base) placeholder:text-(--color-text-muted)",
   fieldStateClasses(error),
   FIELD_SIZES[size],
+  inputClass,
 ].join(" ")
 ---
 
