@@ -1,6 +1,20 @@
 ---
+import { Image } from "astro:assets"
+import type { ImageMetadata } from "astro"
 import IconButton from "../ui/IconButton.astro"
 import { SITE, NAV_LINKS } from "../../config"
+
+// * Convention-over-config logo: if a src/assets/brand/logo.{png,svg,jpg,...}
+//   file exists, it wins over SITE.logo and gets Astro's build-time image
+//   optimization (responsive srcset, modern format conversion). This glob
+//   only ever runs from an .astro file (never from the Node-only build
+//   scripts that also import config.ts), so it's always inside the Vite
+//   pipeline where astro:assets is available — that's what keeps SITE.logo
+//   as a plain string safe for those dual-context scripts.
+const logoModules = import.meta.glob<{ default: ImageMetadata }>("../../assets/brand/logo.*", {
+  eager: true,
+})
+const logoImage = Object.values(logoModules)[0]?.default
 
 export interface Props {
   /** aria-label for the desktop nav landmark — override for a non-English site. */
@@ -52,7 +66,18 @@ function isActivePath(href: string): boolean {
           <slot name="logo" />
         ) : (
           <>
-            {SITE.logo && <img src={SITE.logo} alt={SITE.name} class="h-8 w-auto" />}
+            {logoImage ? (
+              <Image
+                src={logoImage}
+                alt={SITE.name}
+                height={32}
+                densities={[1, 2]}
+                loading="eager"
+                class="h-8 w-auto"
+              />
+            ) : (
+              SITE.logo && <img src={SITE.logo} alt={SITE.name} class="h-8 w-auto" />
+            )}
             {SITE.showName && SITE.name}
           </>
         )
