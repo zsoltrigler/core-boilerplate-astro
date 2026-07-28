@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.19.0...core-boilerplate-v1.19.1) (2026-07-28)
+
+
+### Bug Fixes
+
+* forward rest props on Badge and add Input's inputClass ([#194](https://github.com/zsoltrigler/core-boilerplate-astro/issues/194)) ([05ba256](https://github.com/zsoltrigler/core-boilerplate-astro/commit/05ba25680381619da7c515bc72062084e61efade))
+
 ## [1.19.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.18.2...core-boilerplate-v1.19.0) (2026-07-28)
 
 
