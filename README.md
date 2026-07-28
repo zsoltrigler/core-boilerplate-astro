@@ -84,6 +84,11 @@ export const SITE = {
 }
 ```
 
+**Two ways to set your logo:**
+
+1. **Simple (recommended)** — drop your file in as `src/assets/brand/logo.png` (or `.svg`, `.jpg`, …). `Header.astro` picks it up automatically and renders it through Astro's `<Image>` component: responsive `srcset` (1x/2x) and automatic format conversion, no config or code changes needed.
+2. **Flexible** — set `SITE.logo` to a path under `public/` if you want a different filename or location. This renders as a plain `<img>` without build-time optimization, and is only used as a fallback when `src/assets/brand/logo.*` doesn't exist.
+
 ### Brand colors
 
 Colors are defined once in `COLORS` and automatically injected as CSS custom properties (e.g. `--color-brand-primary`, `--color-bg-base`) at build time — no manual CSS editing needed.
