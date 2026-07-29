@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.20.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.19.1...core-boilerplate-v1.20.0) (2026-07-29)
+
+
+### Features
+
+* add pill variant to Tabs component ([#196](https://github.com/zsoltrigler/core-boilerplate-astro/issues/196)) ([ac37178](https://github.com/zsoltrigler/core-boilerplate-astro/commit/ac37178e6225ca237feef04adef10562fbc1f4e8))
+
 ## [1.19.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.19.0...core-boilerplate-v1.19.1) (2026-07-28)
 
 
