@@ -72,10 +72,21 @@ const base = `inline-flex shrink-0 items-center justify-center overflow-hidden b
 
 <script>
   document.querySelectorAll<HTMLImageElement>("[data-avatar-img]").forEach((img) => {
-    img.addEventListener("error", () => {
+    function showFallback() {
       img.style.display = "none"
       const fallback = img.nextElementSibling as HTMLElement | null
       if (fallback) fallback.style.display = "inline-flex"
-    })
+    }
+
+    // ! type="module" scripts are deferred — they only run after the whole
+    //   document has parsed, but the browser starts loading <img src> as
+    //   soon as the tag is parsed. A fast failure (e.g. a local/CDN 404)
+    //   can fire the "error" event before this script attaches its
+    //   listener, so check the already-failed state first.
+    if (img.complete && img.naturalWidth === 0) {
+      showFallback()
+    } else {
+      img.addEventListener("error", showFallback)
+    }
   })
 </script>

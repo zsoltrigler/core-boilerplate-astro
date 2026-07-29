@@ -287,6 +287,11 @@ const components = [
                 <Avatar initials="AB" size="md" alt="AB initials" />
                 <Avatar initials="?" size="md" alt="Unknown user" />
               </div>
+
+              <!-- Broken src → falls back to initials on image load error -->
+              <div class="flex items-center gap-3">
+                <Avatar src="/does-not-exist.jpg" alt="Broken Image" size="md" />
+              </div>
             </div>
           </ShowcaseSection>
 
