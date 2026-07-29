@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.20.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.20.0...core-boilerplate-v1.20.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* add cursor-pointer to Tabs buttons for consistency ([#200](https://github.com/zsoltrigler/core-boilerplate-astro/issues/200)) ([868d692](https://github.com/zsoltrigler/core-boilerplate-astro/commit/868d6928e19f38d600a8799fe9ff6b54cb52c82a))
+
 ## [1.20.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.19.1...core-boilerplate-v1.20.0) (2026-07-29)
 
 
