@@ -71,8 +71,32 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # * Resolved from node_modules (not just the package.json semver range) so the
+      #   cache key always matches the version actually installed.
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: echo "version=$(pnpm exec playwright --version | sed 's/Version //')" >> "$GITHUB_OUTPUT"
+
+      # * Official Playwright-recommended pattern (https://playwright.dev/docs/ci#caching-browsers):
+      #   cache the browser binaries themselves; on a hit, skip the ~250-500MB
+      #   re-download and only run the (much faster) OS-dependency install below.
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+
       - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps chromium firefox webkit
+
+      # ! Browser binaries came from cache, so only the apt-level OS deps
+      #   (audio/video codecs, GTK, etc.) still need installing — skipping this
+      #   entirely on cache hit would leave those missing on a fresh runner.
+      - name: Install Playwright OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium firefox webkit
 
       # * playwright.config.ts's webServer builds and previews the site itself.
       - name: Run Playwright tests
