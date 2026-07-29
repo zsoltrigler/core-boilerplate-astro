@@ -24,11 +24,11 @@ const tablistClasses: Record<string, string> = {
 
 const tabBaseClasses: Record<string, string> = {
   underline:
-    "-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors duration-200 outline-none rounded-t-md focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40",
+    "-mb-px cursor-pointer border-b-2 px-4 py-2 text-sm font-medium transition-colors duration-200 outline-none rounded-t-md focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40",
   // * "border" (width) is static here — only the border *color* toggles
   //   between active/inactive below, so the runtime script can flip just
   //   the color utility without touching the shared width class.
-  pill: "flex-1 justify-center rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40",
+  pill: "flex-1 cursor-pointer justify-center rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40",
 }
 
 const tabActiveClasses: Record<string, string> = {
