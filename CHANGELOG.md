@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.20.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.20.1...core-boilerplate-v1.20.2) (2026-07-29)
+
+
+### Bug Fixes
+
+* allow standard HTML attributes on Props for rest-spreading components ([#203](https://github.com/zsoltrigler/core-boilerplate-astro/issues/203)) ([1676520](https://github.com/zsoltrigler/core-boilerplate-astro/commit/16765204656179b5ae69d4c96b340883bf82df94))
+
 ## [1.20.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.20.0...core-boilerplate-v1.20.1) (2026-07-29)
 
 
