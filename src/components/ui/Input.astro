@@ -1,9 +1,17 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { ariaDescribedBy } from "../../utils/aria"
 import { fieldStateClasses, FIELD_SIZES } from "../../utils/fieldStyles"
 import FormField from "./FormField.astro"
 
-export interface Props {
+// * HTMLAttributes<"div"> is used purely for its attribute set — "div" has no
+//   attributes beyond the global ones (data-*, title, etc.), so standard
+//   attributes type-check through the ...rest spread below without listing
+//   each one by hand. Deliberately NOT HTMLAttributes<"input"> — the native
+//   <input> attribute set declares `size` as a number and `type` as a broad
+//   string, both of which conflict with this component's own narrower
+//   `size`/`type` unions below.
+export interface Props extends HTMLAttributes<"div"> {
   /** Input type — covers the most common use cases. */
   type?: "text" | "email" | "password" | "search" | "url" | "tel" | "number"
   name: string
