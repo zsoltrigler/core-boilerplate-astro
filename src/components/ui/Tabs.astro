@@ -8,17 +8,43 @@ export interface Props {
   tabs: Tab[]
   /** ID of the tab that is active on first render. Defaults to the first tab. */
   defaultTab?: string
+  /** Visual style — "underline" (default) keeps the existing border-bottom indicator, "pill" renders each tab as a filled pill button. */
+  variant?: "underline" | "pill"
   class?: string
 }
 
-const { tabs, defaultTab, class: className = "" } = Astro.props
+const { tabs, defaultTab, variant = "underline", class: className = "" } = Astro.props
 
 const activeId = defaultTab ?? tabs[0]?.id
+
+const tablistClasses: Record<string, string> = {
+  underline: "flex gap-1 border-b border-(--color-border-base)",
+  pill: "flex gap-1.5",
+}
+
+const tabBaseClasses: Record<string, string> = {
+  underline:
+    "-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors duration-200 outline-none rounded-t-md focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40",
+  // * "border" (width) is static here — only the border *color* toggles
+  //   between active/inactive below, so the runtime script can flip just
+  //   the color utility without touching the shared width class.
+  pill: "flex-1 justify-center rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40",
+}
+
+const tabActiveClasses: Record<string, string> = {
+  underline: "border-(--color-brand-primary) text-(--color-brand-primary)",
+  pill: "bg-(--color-bg-elevated) text-(--color-brand-primary) border-(--color-border-strong)",
+}
+
+const tabInactiveClasses: Record<string, string> = {
+  underline: "border-transparent text-(--color-text-muted) hover:text-(--color-text-base)",
+  pill: "bg-transparent text-(--color-text-muted) border-transparent hover:text-(--color-text-base)",
+}
 ---
 
 <div class={`w-full ${className}`}>
   <!-- Tab list -->
-  <div role="tablist" class="flex gap-1 border-b border-(--color-border-base)">
+  <div role="tablist" data-variant={variant} class={tablistClasses[variant]}>
     {
       tabs.map((tab) => (
         <button
@@ -28,11 +54,8 @@ const activeId = defaultTab ?? tabs[0]?.id
           aria-selected={tab.id === activeId ? "true" : "false"}
           data-tab={tab.id}
           class={[
-            "-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors duration-200 outline-none",
-            "rounded-t-md focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40",
-            tab.id === activeId
-              ? "border-(--color-brand-primary) text-(--color-brand-primary)"
-              : "border-transparent text-(--color-text-muted) hover:text-(--color-text-base)",
+            tabBaseClasses[variant],
+            tab.id === activeId ? tabActiveClasses[variant] : tabInactiveClasses[variant],
           ].join(" ")}
         >
           {tab.label}
@@ -58,19 +81,39 @@ const activeId = defaultTab ?? tabs[0]?.id
 </div>
 
 <script>
+  // * Active/inactive class sets per variant — must mirror tabActiveClasses/
+  //   tabInactiveClasses above. Read at runtime from the tablist's
+  //   server-rendered data-variant attribute rather than hardcoded, so a
+  //   "pill" instance toggles its bg-*/border-* classes instead of the
+  //   "underline" variant's border-b-*.
+  const VARIANT_CLASSES: Record<string, { active: string[]; inactive: string[] }> = {
+    underline: {
+      active: ["border-(--color-brand-primary)", "text-(--color-brand-primary)"],
+      inactive: ["border-transparent", "text-(--color-text-muted)"],
+    },
+    pill: {
+      active: [
+        "bg-(--color-bg-elevated)",
+        "text-(--color-brand-primary)",
+        "border-(--color-border-strong)",
+      ],
+      inactive: ["bg-transparent", "text-(--color-text-muted)", "border-transparent"],
+    },
+  }
+
   function initTabs(root: Document | HTMLElement = document) {
     root.querySelectorAll<HTMLElement>("[role='tablist']").forEach((tablist) => {
       const tabs = Array.from(tablist.querySelectorAll<HTMLElement>("[role='tab']"))
       const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")!))
+      const variant =
+        VARIANT_CLASSES[tablist.dataset.variant ?? "underline"] ?? VARIANT_CLASSES.underline
 
       function activate(tab: HTMLElement) {
         tabs.forEach((t, i) => {
           const active = t === tab
           t.setAttribute("aria-selected", active ? "true" : "false")
-          t.classList.toggle("border-(--color-brand-primary)", active)
-          t.classList.toggle("text-(--color-brand-primary)", active)
-          t.classList.toggle("border-transparent", !active)
-          t.classList.toggle("text-(--color-text-muted)", !active)
+          variant.active.forEach((c) => t.classList.toggle(c, active))
+          variant.inactive.forEach((c) => t.classList.toggle(c, !active))
           if (panels[i]) panels[i]!.hidden = !active
         })
         tab.focus()
