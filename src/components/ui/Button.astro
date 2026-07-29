@@ -1,5 +1,15 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types"
+
+// * HTMLAttributes<"div"> is used purely for its attribute set — "div" has no
+//   attributes beyond the global ones (id, data-*, aria-*, title, etc.), so this
+//   is equivalent to a tag-agnostic "global HTML attributes" type, letting
+//   standard attributes type-check through the ...rest spread below without
+//   listing each one by hand. Deliberately NOT HTMLAttributes<"a"> /
+//   HTMLAttributes<"button"> — this component renders either tag, and those
+//   tag-specific variants declare incompatible `href`/`type` shapes that would
+//   conflict with this component's own narrower href/type/disabled below.
+export interface Props extends HTMLAttributes<"div"> {
   href?: string
   type?: "button" | "submit" | "reset"
   variant?: "primary" | "secondary" | "ghost" | "danger"

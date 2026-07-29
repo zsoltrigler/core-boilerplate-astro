@@ -1,5 +1,11 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types"
+
+// * HTMLAttributes<"div"> is used purely for its attribute set — "div" has no
+//   attributes beyond the global ones (id, data-*, aria-*, title, etc.), so
+//   standard attributes type-check through the ...rest spread below without
+//   listing each one by hand.
+export interface Props extends HTMLAttributes<"div"> {
   variant?: "default" | "primary" | "success" | "warning" | "error" | "info"
   size?: "sm" | "md" | "lg"
   /** Show a pulsing dot before the label — useful for live / status indicators. */
