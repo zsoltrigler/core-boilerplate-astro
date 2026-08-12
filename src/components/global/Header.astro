@@ -49,6 +49,15 @@ function isActivePath(href: string): boolean {
 }
 ---
 
+<!--
+  ? sticky (not fixed) top-0 — in a normal browser tab the address bar already
+    reserves the notch/Dynamic Island area, so no --safe-area-top padding is
+    needed here (see global.css / CONTRIBUTING.md → "Mobile safe-area
+    insets"). Revisit if this boilerplate ever gains standalone/fullscreen
+    PWA support (display: standalone in a manifest) — in that mode the OS
+    chrome no longer reserves that space, and a stuck sticky header would sit
+    under the notch the same way Toast did before its fix.
+-->
 <header
   class={[
     "sticky top-0 z-50 w-full border-b border-(--color-border-base) bg-(--color-bg-base)/80 backdrop-blur-sm transition-colors duration-200",

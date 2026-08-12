@@ -35,6 +35,10 @@ All icons are [line-md](https://icon-sets.iconify.design/line-md/) via `astro-ic
 
 `cssCodeSplit: false` in Vite config — all CSS lands in one file, preventing render-blocking component CSS chunks.
 
+### Mobile safe-area insets
+
+`BaseLayout.astro`'s viewport meta sets `viewport-fit=cover` (required for `env(safe-area-inset-*)` to resolve to non-zero) and `global.css` exposes it as four reusable `:root` custom properties — `--safe-area-top`, `--safe-area-right`, `--safe-area-bottom`, `--safe-area-left`. Any new `position: fixed` component flush against a physical screen edge (not `absolute`-relative-to-trigger like `Dropdown`/`Tooltip`, not centered like `Modal`) must add the matching inset via a Tailwind arbitrary value, e.g. `pb-[calc(1rem+var(--safe-area-bottom))]` — see `Toast.astro`/`Drawer.astro` for worked examples, and CONTRIBUTING.md → "Mobile safe-area insets" for the full writeup.
+
 ### Prefetch
 
 `prefetch: { prefetchAll: true }` in `astro.config.mjs` — every same-origin link prefetches its target HTML on hover/focus by default. Plain `prefetch: true` alone would only add the prefetch script without prefetching anything, since it requires opting in each link via `data-astro-prefetch`; `prefetchAll` is what makes every link opt-in by default (opt a link back out with `data-astro-prefetch="false"`).

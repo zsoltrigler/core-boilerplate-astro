@@ -21,6 +21,23 @@ const {
   closeLabel = "Close drawer",
   class: className = "",
 } = Astro.props
+
+const hasHeader = Boolean(title || Astro.slots.has("title"))
+const hasFooter = Astro.slots.has("footer")
+
+// * inset-block:0 in the <style> block below puts this dialog flush against
+//   the physical top/bottom edges, and against the physical left/right edge
+//   matching `side` — all three need the matching env(safe-area-inset-*) via
+//   the --safe-area-* tokens (global.css) so content doesn't sit under the
+//   notch/Dynamic Island, home-indicator bar, or a landscape-mode rounded
+//   corner. Only the section actually touching an edge gets the extra inset —
+//   e.g. the header absorbs the top inset when present, otherwise the body does.
+const sideSafeAreaClass =
+  side === "right"
+    ? "pr-[calc(1.5rem+var(--safe-area-right))] pl-6"
+    : "pl-[calc(1.5rem+var(--safe-area-left))] pr-6"
+const bodyTopClass = hasHeader ? "pt-5" : "pt-[calc(1.25rem+var(--safe-area-top))]"
+const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-bottom))]"
 ---
 
 <!--
@@ -45,8 +62,10 @@ const {
   <div class="flex h-full w-full flex-col">
     <!-- Header -->
     {
-      (title || Astro.slots.has("title")) && (
-        <div class="flex shrink-0 items-center justify-between border-b border-(--color-border-base) px-6 py-4">
+      hasHeader && (
+        <div
+          class={`flex shrink-0 items-center justify-between border-b border-(--color-border-base) pt-[calc(1rem+var(--safe-area-top))] pb-4 ${sideSafeAreaClass}`}
+        >
           <h2 class="text-lg font-semibold text-(--color-text-base)">
             {Astro.slots.has("title") ? <slot name="title" /> : title}
           </h2>
@@ -59,14 +78,18 @@ const {
     }
 
     <!-- Body -->
-    <div class="flex-1 overflow-y-auto px-6 py-5 text-(--color-text-base)">
+    <div
+      class={`flex-1 overflow-y-auto text-(--color-text-base) ${sideSafeAreaClass} ${bodyTopClass} ${bodyBottomClass}`}
+    >
       <slot />
     </div>
 
     <!-- Footer -->
     {
-      Astro.slots.has("footer") && (
-        <div class="flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) px-6 py-4">
+      hasFooter && (
+        <div
+          class={`flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) pt-4 pb-[calc(1rem+var(--safe-area-bottom))] ${sideSafeAreaClass}`}
+        >
           <slot name="footer" />
         </div>
       )

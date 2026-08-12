@@ -156,6 +156,19 @@
     transition: --grid-line 0.2s ease;
   }
 
+  /* * Reusable safe-area tokens — resolve to the notch/Dynamic Island and
+     home-indicator insets on phones (requires viewport-fit=cover, set in
+     BaseLayout.astro; without it these env() calls always report 0). Use in
+     any fixed/edge-anchored component via Tailwind arbitrary values, e.g.
+     pb-[calc(1rem+var(--safe-area-bottom))] — see CONTRIBUTING.md → "Mobile
+     safe-area insets" for the full pattern and when to apply it. */
+  :root {
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+  }
+
   /* ── Shiki syntax highlight tokens — mapped to project color tokens ── */
   :root {
     --shiki-foreground: var(--color-text-base);
