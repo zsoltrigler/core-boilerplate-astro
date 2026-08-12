@@ -81,7 +81,7 @@ jobs:
       #   cache the browser binaries themselves; on a hit, skip the ~250-500MB
       #   re-download and only run the (much faster) OS-dependency install below.
       - name: Cache Playwright browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
