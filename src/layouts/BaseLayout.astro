@@ -123,7 +123,10 @@ const foucScript = SITE.singleTheme
 <html lang={lang} dir={resolvedDir}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- * viewport-fit=cover lets the page extend under the notch/Dynamic Island and
+         home-indicator area on modern phones — required for env(safe-area-inset-*) to
+         resolve to non-zero values; without it those always report 0. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- FOUC prevention: read theme before first paint (see foucScript above) -->
     <Fragment set:html={foucScript} />

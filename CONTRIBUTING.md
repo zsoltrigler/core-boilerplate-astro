@@ -80,6 +80,21 @@ Edit colors **only** in `src/config.ts`. They are injected into CSS at build tim
 
 WCAG AA contrast is checked automatically at build time. Fix any warnings before opening a PR.
 
+## Mobile safe-area insets
+
+`BaseLayout.astro`'s viewport meta includes `viewport-fit=cover`, which lets the page draw under the notch/Dynamic Island and home-indicator bar on modern phones — required for `env(safe-area-inset-*)` to resolve to anything other than `0`.
+
+`global.css` registers four reusable `:root` custom properties from those `env()` values: `--safe-area-top`, `--safe-area-right`, `--safe-area-bottom`, `--safe-area-left` (each falls back to `0px` when unsupported). Any component that's `position: fixed` and flush against a physical screen edge should add the matching inset to its padding/offset via a Tailwind arbitrary value, e.g.:
+
+```
+top-[calc(1rem+var(--safe-area-top))]
+pb-[calc(1rem+var(--safe-area-bottom))]
+```
+
+The `calc()` is additive on top of the component's normal spacing, not a replacement for it — this guarantees a minimum gap from the notch/indicator even when the inset itself is `0` (desktop browsers, older phones). `Toast.astro` (top-anchored) and `Drawer.astro` (edge-to-edge top/bottom, plus whichever side it slides in from) both use this pattern — check them for a worked example before adding a new fixed-position component.
+
+Components positioned `absolute` relative to a trigger element (`Dropdown`, `Tooltip`) or centered via the global `dialog` rule (`Modal`) don't need this — they aren't flush against a physical screen edge.
+
 ## Testing
 
 - **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
