@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.21.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.20.2...core-boilerplate-v1.21.0) (2026-08-12)
+
+
+### Features
+
+* support mobile safe-area insets (notch/Dynamic Island, home indicator) ([#214](https://github.com/zsoltrigler/core-boilerplate-astro/issues/214)) ([8dd86fd](https://github.com/zsoltrigler/core-boilerplate-astro/commit/8dd86fd9024d6733a6b6206affce98aea70da1bb))
+
 ## [1.20.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.20.1...core-boilerplate-v1.20.2) (2026-07-29)
 
 
