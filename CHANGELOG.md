@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.21.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.21.1...core-boilerplate-v1.21.2) (2026-08-12)
+
+
+### Bug Fixes
+
+* fainter input placeholders, add proper hover state to Tabs ([#218](https://github.com/zsoltrigler/core-boilerplate-astro/issues/218)) ([d2c9c1d](https://github.com/zsoltrigler/core-boilerplate-astro/commit/d2c9c1d513ead109a09d489d99ee05d1a70d0dea))
+
 ## [1.21.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.21.0...core-boilerplate-v1.21.1) (2026-08-12)
 
 
