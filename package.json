@@ -36,7 +36,7 @@
     "@astrojs/check": "^0.9.9",
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.62.0",
+    "@playwright/test": "^1.62.1",
     "@types/wcag-contrast": "^3.0.3",
     "eslint": "^10.8.0",
     "eslint-plugin-astro": "^3.0.1",
