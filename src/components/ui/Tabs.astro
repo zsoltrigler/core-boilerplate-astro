@@ -37,8 +37,9 @@ const tabActiveClasses: Record<string, string> = {
 }
 
 const tabInactiveClasses: Record<string, string> = {
-  underline: "border-transparent text-(--color-text-muted) hover:text-(--color-text-base)",
-  pill: "bg-transparent text-(--color-text-muted) border-transparent hover:text-(--color-text-base)",
+  underline:
+    "border-transparent text-(--color-text-muted) hover:bg-(--color-bg-surface) hover:text-(--color-text-base)",
+  pill: "bg-transparent text-(--color-text-muted) border-transparent hover:bg-(--color-bg-surface) hover:text-(--color-text-base)",
 }
 ---
 
@@ -89,7 +90,12 @@ const tabInactiveClasses: Record<string, string> = {
   const VARIANT_CLASSES: Record<string, { active: string[]; inactive: string[] }> = {
     underline: {
       active: ["border-(--color-brand-primary)", "text-(--color-brand-primary)"],
-      inactive: ["border-transparent", "text-(--color-text-muted)"],
+      inactive: [
+        "border-transparent",
+        "text-(--color-text-muted)",
+        "hover:bg-(--color-bg-surface)",
+        "hover:text-(--color-text-base)",
+      ],
     },
     pill: {
       active: [
@@ -97,7 +103,13 @@ const tabInactiveClasses: Record<string, string> = {
         "text-(--color-brand-primary)",
         "border-(--color-border-strong)",
       ],
-      inactive: ["bg-transparent", "text-(--color-text-muted)", "border-transparent"],
+      inactive: [
+        "bg-transparent",
+        "text-(--color-text-muted)",
+        "border-transparent",
+        "hover:bg-(--color-bg-surface)",
+        "hover:text-(--color-text-base)",
+      ],
     },
   }
 
