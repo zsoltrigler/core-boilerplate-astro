@@ -1191,7 +1191,11 @@ const components = [
             <Fragment slot="description">
               Responsive wrapper with consistent thead/tbody/tfoot styling. Add <code
                 class="rounded bg-(--color-bg-surface) px-1">striped</code
-              > for alternating row backgrounds. Standard HTML elements go inside the slot.
+              > for alternating row backgrounds, or <code
+                class="rounded bg-(--color-bg-surface) px-1">layout="fixed"</code
+              > with your own <code class="rounded bg-(--color-bg-surface) px-1"
+                >&lt;colgroup&gt;</code
+              > to lock column widths. Standard HTML elements go inside the slot.
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
@@ -1257,6 +1261,39 @@ const components = [
                   </tr>
                 </tbody>
               </Table>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Fixed layout
+                </p>
+
+                <Table layout="fixed">
+                  <colgroup>
+                    <col style="width: 50%" />
+                    <col style="width: 25%" />
+                    <col style="width: 25%" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th>Task</th>
+                      <th>Owner</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Write the quarterly report and circulate for review</td>
+                      <td>Alice</td>
+                      <td>In progress</td>
+                    </tr>
+                    <tr>
+                      <td>Fix</td>
+                      <td>Bob</td>
+                      <td>Done</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
             </div>
           </ShowcaseSection>
 

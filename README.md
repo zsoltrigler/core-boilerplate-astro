@@ -638,7 +638,7 @@ Styled wrapper for standard `<table>` markup — write normal `<thead>`/`<tbody>
 </Table>
 ```
 
-**Props:** `striped`
+**Props:** `striped` · `layout` (`auto` | `fixed` — `"fixed"` locks column widths via your own `<colgroup>`/`<col>` so they don't reflow when dynamic content, e.g. an expandable row, changes)
 
 ---
 
