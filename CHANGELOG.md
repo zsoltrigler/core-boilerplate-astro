@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.21.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.21.2...core-boilerplate-v1.21.3) (2026-08-13)
+
+
+### Bug Fixes
+
+* wrap-instead-of-scroll and column-width jump in Table ([#220](https://github.com/zsoltrigler/core-boilerplate-astro/issues/220)) ([85f0ffc](https://github.com/zsoltrigler/core-boilerplate-astro/commit/85f0ffc3e9acc13c983ec819c92d2fcf13ac41ea))
+
 ## [1.21.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.21.1...core-boilerplate-v1.21.2) (2026-08-12)
 
 
