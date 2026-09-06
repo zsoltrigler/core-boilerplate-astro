@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.22.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.21.3...core-boilerplate-v1.22.0) (2026-09-06)
+
+
+### Features
+
+* add imagePosition prop to Avatar for runtime object-position ([#238](https://github.com/zsoltrigler/core-boilerplate-astro/issues/238)) ([41208fb](https://github.com/zsoltrigler/core-boilerplate-astro/commit/41208fb74b54bf66685486bb262c0e72182afdf5))
+
+
+### Bug Fixes
+
+* bump fast-uri override to patch 4 new high-severity alerts ([#239](https://github.com/zsoltrigler/core-boilerplate-astro/issues/239)) ([c4f2ff2](https://github.com/zsoltrigler/core-boilerplate-astro/commit/c4f2ff27e23b3a01424f71038a604d8a66c40dfa))
+
 ## [1.21.3](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.21.2...core-boilerplate-v1.21.3) (2026-08-13)
 
 
