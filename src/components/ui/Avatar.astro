@@ -6,6 +6,10 @@ export interface Props {
   alt?: string
   /** Explicit initials shown when no image is available (up to 2 characters). */
   initials?: string
+  /** CSS `object-position` value (e.g. "62% 30%") for the image's focal point —
+   *  only has an effect when `src` is also set. When omitted, no style
+   *  attribute is added to the image (current default behavior is unchanged). */
+  imagePosition?: string
   size?: "xs" | "sm" | "md" | "lg" | "xl"
   shape?: "circle" | "square"
   class?: string
@@ -15,6 +19,7 @@ const {
   src,
   alt = "",
   initials,
+  imagePosition,
   size = "md",
   shape = "circle",
   class: className = "",
@@ -58,7 +63,13 @@ const base = `inline-flex shrink-0 items-center justify-center overflow-hidden b
 -->{
   src ? (
     <Fragment>
-      <img src={src} alt={alt} class={base} data-avatar-img />
+      <img
+        src={src}
+        alt={alt}
+        class={base}
+        style={imagePosition ? `object-position: ${imagePosition};` : undefined}
+        data-avatar-img
+      />
       <span class={base} style="display:none" aria-hidden="true" data-avatar-fallback>
         {derivedInitials}
       </span>
