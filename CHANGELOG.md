@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.23.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.22.0...core-boilerplate-v1.23.0) (2026-09-10)
+
+
+### Features
+
+* **ui:** add Radio component and value prop to Checkbox ([#241](https://github.com/zsoltrigler/core-boilerplate-astro/issues/241)) ([a75461e](https://github.com/zsoltrigler/core-boilerplate-astro/commit/a75461e10ac0482dfc01c808359414e3211e67e2))
+
 ## [1.22.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.21.3...core-boilerplate-v1.22.0) (2026-09-06)
 
 
