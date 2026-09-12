@@ -171,3 +171,27 @@ There's no compile-time check tying `tabs` to your slots — a typo'd or
 renamed `id` just renders an empty panel with no error. Keep the `tabs`
 array and the slotted content next to each other in the file so they're
 easy to eyeball together, and grep for the `id` string when you rename one.
+
+**Gotcha: dynamically generated tab lists.** If your `tabs` array itself
+comes from a `.map()` (not hand-written like above), you can't tag the
+matching content with `slot={tab.id}` inside another `.map()` — Astro's
+compiler loses the closure scope of a dynamically computed `slot` attribute
+on a mapped child and throws a `ReferenceError` at render time. Use the
+`render` field on each `Tab` instead, which Astro renders as a normal
+component reference (no slot assignment involved):
+
+```astro
+---
+const tabs = data.map((d) => ({
+  id: d.id,
+  label: d.label,
+  render: TabPanel, // an imported .astro component
+}))
+---
+
+<Tabs tabs={tabs} />
+```
+
+`TabPanel` receives no props from `Tabs` — read whatever it needs from
+module-level state or wrap it per-item with a small factory if it needs
+per-tab data.
