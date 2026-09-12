@@ -78,7 +78,7 @@ pnpm rename         # rename the project safely (package.json name, manifest, re
 
 ## Component locations
 
-- `src/components/ui/` — Accordion, Alert, Avatar, Badge, Breadcrumb, Button, Card, Checkbox, CodeWindow, Combobox, Divider, Drawer, Dropdown, FormField, IconButton, Input, Modal, Pagination, Progress, Select, Skeleton, Spinner, Stepper, Table, Tabs, Textarea, Toast, Toggle, Tooltip
+- `src/components/ui/` — Accordion, Alert, Avatar, Badge, Breadcrumb, Button, Card, Checkbox, CodeWindow, Combobox, Divider, Drawer, Dropdown, EmptyState, FormField, IconButton, Input, Modal, Pagination, Progress, Radio, Select, Skeleton, Spinner, StatTile, Stepper, Table, Tabs, Textarea, Toast, Toggle, Tooltip
 - `src/components/layout/` — Container, Section
 - `src/components/sections/` — page-level sections (hero, pricing, testimonials, …) composed from `ui/` + `layout/` — see CONTRIBUTING.md for the convention
 - `src/components/global/` — Header, Footer, ThemeToggle (**not** wired into Header automatically — add it via `<Header><ThemeToggle slot="nav-end" /></Header>`)
