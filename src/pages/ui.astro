@@ -18,6 +18,7 @@ import CodeWindow from "../components/ui/CodeWindow.astro"
 import Divider from "../components/ui/Divider.astro"
 import Drawer from "../components/ui/Drawer.astro"
 import Dropdown from "../components/ui/Dropdown.astro"
+import EmptyState from "../components/ui/EmptyState.astro"
 import IconButton from "../components/ui/IconButton.astro"
 import Input from "../components/ui/Input.astro"
 import Modal from "../components/ui/Modal.astro"
@@ -26,9 +27,12 @@ import Progress from "../components/ui/Progress.astro"
 import Select from "../components/ui/Select.astro"
 import Skeleton from "../components/ui/Skeleton.astro"
 import Spinner from "../components/ui/Spinner.astro"
+import StatTile from "../components/ui/StatTile.astro"
 import Stepper from "../components/ui/Stepper.astro"
 import Table from "../components/ui/Table.astro"
 import Tabs from "../components/ui/Tabs.astro"
+import TabsDynamicPanelA from "../components/showcase/TabsDynamicPanelA.astro"
+import TabsDynamicPanelB from "../components/showcase/TabsDynamicPanelB.astro"
 import Textarea from "../components/ui/Textarea.astro"
 import Toast from "../components/ui/Toast.astro"
 import Toggle from "../components/ui/Toggle.astro"
@@ -55,6 +59,11 @@ const countries = [
   { value: "pt", label: "Portugal" },
 ]
 
+const dynamicPanels = [
+  { id: "dyn-a", label: "Panel A", render: TabsDynamicPanelA },
+  { id: "dyn-b", label: "Panel B", render: TabsDynamicPanelB },
+]
+
 const steps = [
   { label: "Account", description: "Basic info" },
   { label: "Profile", description: "About you" },
@@ -75,6 +84,7 @@ const components = [
   { id: "divider", label: "Divider" },
   { id: "drawer", label: "Drawer" },
   { id: "dropdown", label: "Dropdown" },
+  { id: "empty-state", label: "EmptyState" },
   { id: "icon-button", label: "IconButton" },
   { id: "input", label: "Input" },
   { id: "modal", label: "Modal" },
@@ -83,6 +93,7 @@ const components = [
   { id: "select", label: "Select" },
   { id: "skeleton", label: "Skeleton" },
   { id: "spinner", label: "Spinner" },
+  { id: "stat-tile", label: "StatTile" },
   { id: "stepper", label: "Stepper" },
   { id: "table", label: "Table" },
   { id: "tabs", label: "Tabs" },
@@ -541,6 +552,22 @@ const components = [
                 </p>
                 <Button variant="primary" size="sm">Action</Button>
               </Card>
+
+              <Card
+                title="Collapsible"
+                desc="collapsible renders a native <details>/<summary> — click or keyboard to expand, no JS."
+                collapsible
+              >
+                <span slot="icon">📖</span>
+                <p class="text-sm text-(--color-text-muted)">
+                  This content is hidden until the card is expanded.
+                </p>
+              </Card>
+
+              <Card title="Collapsible, open by default" collapsible open>
+                <span slot="icon">📖</span>
+                <p class="text-sm text-(--color-text-muted)">The open prop starts it expanded.</p>
+              </Card>
             </div>
           </ShowcaseSection>
 
@@ -731,6 +758,26 @@ const components = [
                   </button>
                 </div>
               </Dropdown>
+            </div>
+          </ShowcaseSection>
+
+          <!-- ── EmptyState ─────────────────────────────────────────── -->
+          <ShowcaseSection id="empty-state" title="EmptyState">
+            <Fragment slot="description">
+              "No data yet" placeholder for empty lists/tables. <code
+                class="rounded bg-(--color-bg-surface) px-1">icon</code
+              > is a line-md name without the <code class="rounded bg-(--color-bg-surface) px-1"
+                >line-md:</code
+              > prefix.
+            </Fragment>
+
+            <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2">
+              <EmptyState
+                icon="folder"
+                title="No projects yet"
+                description="Create your first project to get started."
+              />
+              <EmptyState icon="search" title="No results found" />
             </div>
           </ShowcaseSection>
 
@@ -1148,6 +1195,44 @@ const components = [
             </div>
           </ShowcaseSection>
 
+          <!-- ── StatTile ───────────────────────────────────────────── -->
+          <ShowcaseSection id="stat-tile" title="StatTile">
+            <Fragment slot="description">
+              KPI/stat tile with an icon, label, value, and optional caption. <code
+                class="rounded bg-(--color-bg-surface) px-1">href</code
+              > renders it as a link; <code class="rounded bg-(--color-bg-surface) px-1"
+                >urgent</code
+              > and <code class="rounded bg-(--color-bg-surface) px-1">pulse</code> flag attention-needing
+              or in-progress state.
+            </Fragment>
+
+            <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 lg:grid-cols-4">
+              <StatTile icon="account" color="brand" label="Users" value="1,204" />
+              <StatTile
+                icon="confirm-circle"
+                color="success"
+                label="Completed"
+                value="98%"
+                caption="last 30 days"
+              />
+              <StatTile
+                icon="alert-circle"
+                color="error"
+                label="Failed jobs"
+                value="3"
+                urgent
+                href="#stat-tile"
+              />
+              <StatTile
+                icon="loading-twotone-loop"
+                color="warning"
+                label="Syncing"
+                value="42"
+                pulse
+              />
+            </div>
+          </ShowcaseSection>
+
           <!-- ── Stepper ────────────────────────────────────────────── -->
           <ShowcaseSection id="stepper" title="Stepper">
             <Fragment slot="description">
@@ -1389,6 +1474,25 @@ const components = [
                   </div>
                 </Tabs>
               </div>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Dynamic tab list (render prop)
+                </p>
+
+                <p class="text-sm text-(--color-text-muted)">
+                  When <code class="rounded bg-(--color-bg-surface) px-1">tabs</code> itself comes from
+                  a <code class="rounded bg-(--color-bg-surface) px-1">.map()</code>, tagging
+                  content with a dynamic <code class="rounded bg-(--color-bg-surface) px-1"
+                    >slot={"{tab.id}"}</code
+                  > breaks — use the <code class="rounded bg-(--color-bg-surface) px-1">render</code
+                  > field instead.
+                </p>
+
+                <Tabs
+                  tabs={dynamicPanels.map((p) => ({ id: p.id, label: p.label, render: p.render }))}
+                />
+              </div>
             </div>
           </ShowcaseSection>
 
@@ -1467,16 +1571,34 @@ const components = [
               > from any script. Auto-dismisses after 4 seconds.
             </Fragment>
 
-            <div class="flex flex-col gap-3 p-6">
-              <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
-                Variants
-              </p>
+            <div class="flex flex-col gap-6 p-6">
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Variants
+                </p>
 
-              <div class="flex flex-wrap gap-3">
-                <Button variant="secondary" data-toast="info">Info toast</Button>
-                <Button variant="secondary" data-toast="success">Success toast</Button>
-                <Button variant="secondary" data-toast="warning">Warning toast</Button>
-                <Button variant="secondary" data-toast="error">Error toast</Button>
+                <div class="flex flex-wrap gap-3">
+                  <Button variant="secondary" data-toast="info">Info toast</Button>
+                  <Button variant="secondary" data-toast="success">Success toast</Button>
+                  <Button variant="secondary" data-toast="warning">Warning toast</Button>
+                  <Button variant="secondary" data-toast="error">Error toast</Button>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  With action
+                </p>
+
+                <p class="text-sm text-(--color-text-muted)">
+                  <code class="rounded bg-(--color-bg-surface) px-1"
+                    >window.toast(msg, {"{ action: { label, onClick } }"})</code
+                  > renders a button that dismisses the toast and fires the callback.
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                  <Button variant="secondary" id="toast-undo-trigger">Delete row</Button>
+                </div>
               </div>
             </div>
           </ShowcaseSection>
@@ -1674,6 +1796,26 @@ const components = [
           messages[variant],
           { variant }
         )
+      })
+    })
+
+    document.getElementById("toast-undo-trigger")?.addEventListener("click", () => {
+      ;(
+        window as unknown as {
+          toast: (msg: string, opts: object) => void
+        }
+      ).toast?.("Row deleted.", {
+        variant: "info",
+        duration: 6000,
+        action: {
+          label: "Undo",
+          onClick: () => {
+            ;(window as unknown as Record<string, (msg: string, opts: object) => void>).toast?.(
+              "Delete undone.",
+              { variant: "success" }
+            )
+          },
+        },
       })
     })
   </script>

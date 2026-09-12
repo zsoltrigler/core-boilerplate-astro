@@ -27,3 +27,44 @@ test("supports multiple simultaneous toasts", async ({ page }) => {
   await expect(page.locator("#toast-container").getByText("First")).toBeVisible()
   await expect(page.locator("#toast-container").getByText("Second")).toBeVisible()
 })
+
+test("action button fires onClick and dismisses immediately", async ({ page }) => {
+  await page.evaluate(() => {
+    const w = window as unknown as {
+      toast: (msg: string, opts?: object) => void
+      __undoClicked?: boolean
+    }
+    w.toast("Row deleted.", {
+      duration: 10000,
+      action: {
+        label: "Undo",
+        onClick: () => {
+          w.__undoClicked = true
+        },
+      },
+    })
+  })
+
+  const toast = page.locator("#toast-container").getByText("Row deleted.")
+  await expect(toast).toBeVisible()
+
+  await page.locator("#toast-container").getByRole("button", { name: "Undo" }).click()
+
+  await expect(toast).toBeHidden()
+  await expect
+    .poll(() =>
+      page.evaluate(() => (window as unknown as { __undoClicked?: boolean }).__undoClicked)
+    )
+    .toBe(true)
+})
+
+test("showcase undo trigger renders an actionable toast", async ({ page }) => {
+  await page.getByRole("button", { name: "Delete row" }).click()
+
+  const toast = page.locator("#toast-container").getByText("Row deleted.")
+  await expect(toast).toBeVisible()
+
+  await page.locator("#toast-container").getByRole("button", { name: "Undo" }).click()
+  await expect(toast).toBeHidden()
+  await expect(page.locator("#toast-container").getByText("Delete undone.")).toBeVisible()
+})

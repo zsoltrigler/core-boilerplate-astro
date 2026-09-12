@@ -1,0 +1,91 @@
+---
+import { Icon } from "astro-icon/components"
+
+export interface Props {
+  /** line-md icon name without the "line-md:" prefix. */
+  icon: string
+  color: "brand" | "success" | "warning" | "error"
+  label: string
+  value: string
+  caption?: string
+  /** Renders the tile as a link when set. */
+  href?: string
+  /** Draws attention to a state that needs review — red border + tinted background. */
+  urgent?: boolean
+  /** Pulsing status dot next to the value — signals an in-progress operation. */
+  pulse?: boolean
+  class?: string
+}
+
+const {
+  icon,
+  color,
+  label,
+  value,
+  caption,
+  href,
+  urgent = false,
+  pulse = false,
+  class: className = "",
+} = Astro.props
+
+const iconColors: Record<string, string> = {
+  brand: "bg-(--color-brand-primary)/10 text-(--color-brand-primary)",
+  success: "bg-(--color-status-success)/10 text-(--color-status-success)",
+  warning: "bg-(--color-status-warning)/10 text-(--color-status-warning)",
+  error: "bg-(--color-status-error)/10 text-(--color-status-error)",
+}
+
+const dotColors: Record<string, string> = {
+  brand: "bg-(--color-brand-primary)",
+  success: "bg-(--color-status-success)",
+  warning: "bg-(--color-status-warning)",
+  error: "bg-(--color-status-error)",
+}
+
+const base = [
+  "flex items-center gap-3 rounded-2xl border p-4 transition-colors duration-200",
+  urgent
+    ? "border-(--color-status-error)/50 bg-(--color-status-error)/5"
+    : "border-(--color-border-base) bg-(--color-bg-surface)",
+  className,
+].join(" ")
+
+const Tag = href ? "a" : "div"
+---
+
+<Tag
+  href={href}
+  class={href ? `${base} group cursor-pointer hover:border-(--color-border-strong)` : base}
+>
+  <span
+    class={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${iconColors[color]}`}
+  >
+    <Icon name={`line-md:${icon}`} width="18" height="18" aria-hidden="true" />
+  </span>
+
+  <span class="flex min-w-0 flex-col gap-0.5">
+    <span class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
+      >{label}</span
+    >
+
+    <span class="flex items-center gap-1.5">
+      {
+        pulse && (
+          <span class="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+            <span
+              class={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 motion-reduce:animate-none ${dotColors[color]}`}
+            />
+            <span class={`relative inline-flex h-2 w-2 rounded-full ${dotColors[color]}`} />
+          </span>
+        )
+      }
+      <span
+        class={`truncate text-base font-semibold text-(--color-text-base) ${href ? "group-hover:underline" : ""}`}
+        >{value}</span
+      >
+    </span>
+
+    {caption && <span class="font-mono text-xs text-(--color-text-muted)">{caption}</span>}
+  </span>
+</Tag>

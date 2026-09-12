@@ -1,7 +1,19 @@
 ---
+import type { AstroComponentFactory } from "astro/runtime/server/index.js"
+
 export interface Tab {
   id: string
   label: string
+  /**
+   * Alternative to `<slot name={tab.id}>` for tab lists built from a
+   * dynamic array (e.g. `.map()`) — assigning a dynamic `slot` attribute to
+   * mapped JSX children hits an Astro compiler limitation (the generated
+   * slot-name expression loses its closure scope and throws at render time).
+   * Pass a component reference here instead; Tabs renders it directly, which
+   * doesn't go through slot assignment at all. See CONTRIBUTING.md → "Gotcha:
+   * components with dynamic named slots."
+   */
+  render?: AstroComponentFactory
 }
 
 export interface Props {
@@ -67,17 +79,20 @@ const tabInactiveClasses: Record<string, string> = {
 
   <!-- Tab panels -->
   {
-    tabs.map((tab) => (
-      <div
-        role="tabpanel"
-        id={`panel-${tab.id}`}
-        aria-labelledby={`tab-${tab.id}`}
-        hidden={tab.id !== activeId}
-        class="pt-4"
-      >
-        <slot name={tab.id} />
-      </div>
-    ))
+    tabs.map((tab) => {
+      const Render = tab.render
+      return (
+        <div
+          role="tabpanel"
+          id={`panel-${tab.id}`}
+          aria-labelledby={`tab-${tab.id}`}
+          hidden={tab.id !== activeId}
+          class="pt-4"
+        >
+          {Render ? <Render /> : <slot name={tab.id} />}
+        </div>
+      )
+    })
   }
 </div>
 

@@ -1,7 +1,8 @@
 ---
 // * This component renders the toast container and injects the global toast API.
-// * Usage: call window.toast("message", { variant, duration }) from any script.
+// * Usage: call window.toast("message", { variant, duration, action }) from any script.
 // * Variants: "info" | "success" | "warning" | "error"
+// * action: { label, onClick } renders a button that fires onClick and dismisses immediately.
 ---
 
 <div
@@ -18,6 +19,11 @@
   interface ToastOptions {
     variant?: ToastVariant
     duration?: number
+    /** Renders a button inside the toast — e.g. "Undo". Clicking it fires onClick and dismisses the toast immediately, bypassing the auto-dismiss timer. */
+    action?: {
+      label: string
+      onClick: () => void
+    }
   }
 
   // * astro-icon's <Icon> only resolves at build time — these toasts are inserted
@@ -37,7 +43,19 @@
     error: "border-(--color-status-error) text-(--color-status-error)",
   }
 
-  function showToast(message: string, { variant = "info", duration = 4000 }: ToastOptions = {}) {
+  function dismiss(toast: HTMLElement) {
+    if (!toast.isConnected) return
+    toast.style.opacity = "0"
+    toast.style.transform = "translateY(-100%)"
+    setTimeout(() => {
+      if (toast.isConnected) toast.remove()
+    }, 300)
+  }
+
+  function showToast(
+    message: string,
+    { variant = "info", duration = 4000, action }: ToastOptions = {}
+  ) {
     const container = document.getElementById("toast-container")
     if (!container) return
 
@@ -49,7 +67,7 @@
       variantClasses[variant],
     ].join(" ")
 
-    // * Build DOM nodes instead of innerHTML to prevent XSS from caller-supplied message strings.
+    // * Build DOM nodes instead of innerHTML to prevent XSS from caller-supplied message/label strings.
     const iconWrapper = document.createElement("span")
     iconWrapper.innerHTML = icons[variant]
 
@@ -59,20 +77,28 @@
 
     toast.appendChild(iconWrapper)
     toast.appendChild(label)
-    container.appendChild(toast)
 
     // * Auto-dismiss after duration ms.
     // ! isConnected guards against a stray timer firing on a toast whose
     //   container (and possibly the whole page) is already gone — e.g. a
     //   toast shown right before a View Transitions navigation away.
-    setTimeout(() => {
-      if (!toast.isConnected) return
-      toast.style.opacity = "0"
-      toast.style.transform = "translateY(-100%)"
-      setTimeout(() => {
-        if (toast.isConnected) toast.remove()
-      }, 300)
-    }, duration)
+    const dismissTimer = setTimeout(() => dismiss(toast), duration)
+
+    if (action) {
+      const button = document.createElement("button")
+      button.type = "button"
+      button.className =
+        "ml-auto shrink-0 cursor-pointer font-semibold text-(--color-text-base) underline decoration-from-font underline-offset-2 hover:opacity-80"
+      button.textContent = action.label
+      button.addEventListener("click", () => {
+        clearTimeout(dismissTimer)
+        action.onClick()
+        dismiss(toast)
+      })
+      toast.appendChild(button)
+    }
+
+    container.appendChild(toast)
   }
 
   // * Expose as window.toast so any inline script can call it.

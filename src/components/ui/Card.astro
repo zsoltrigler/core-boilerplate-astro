@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components"
+
 export interface Props {
   title?: string
   desc?: string
@@ -7,8 +9,12 @@ export interface Props {
   /** Highlight the border on hover — enabled by default. */
   hover?: boolean
   shadow?: boolean
-  /** "horizontal" stacks icon left, title+desc right — falls back to vertical below the sm breakpoint. */
+  /** "horizontal" stacks icon left, title+desc right — falls back to vertical below the sm breakpoint. Ignored when collapsible (the header is always a single row so the chevron has a fixed anchor). */
   layout?: "vertical" | "horizontal"
+  /** Renders the root as a native <details>/<summary> — click-to-expand, keyboard accessible, no JS. The icon/title/desc become the always-visible summary; the default slot and trailing slot become the collapsible body. */
+  collapsible?: boolean
+  /** Only applies when collapsible — open by default. */
+  open?: boolean
   class?: string
 }
 
@@ -20,6 +26,8 @@ const {
   hover = true,
   shadow = false,
   layout = "vertical",
+  collapsible = false,
+  open = false,
   class: className = "",
 } = Astro.props
 
@@ -37,9 +45,13 @@ const roundeds: Record<string, string> = {
   xl: "rounded-xl",
   "2xl": "rounded-2xl",
 }
+
+const RootTag = collapsible ? "details" : "div"
+const HeaderTag = collapsible ? "summary" : "div"
 ---
 
-<div
+<RootTag
+  open={collapsible ? open : undefined}
   class={[
     "flex flex-col gap-2",
     "border border-(--color-border-base) bg-(--color-bg-surface) transition-colors duration-200",
@@ -47,14 +59,19 @@ const roundeds: Record<string, string> = {
     roundeds[rounded],
     hover ? "hover:border-(--color-border-strong)" : "",
     shadow ? "shadow-sm" : "",
+    collapsible ? "group [&[open]]:border-(--color-border-strong)" : "",
     className,
   ].join(" ")}
 >
-  <!-- * layout="horizontal" groups icon + title/desc into a row from the sm breakpoint up, staying stacked below it. -->
-  <div
-    class={layout === "horizontal"
-      ? "flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3"
-      : "contents"}
+  <!-- * layout="horizontal" groups icon + title/desc into a row from the sm breakpoint up, staying stacked below it. Collapsible always uses a single row so the chevron has a fixed right-hand anchor. -->
+  <HeaderTag
+    class={[
+      collapsible
+        ? "flex cursor-pointer list-none items-center gap-3 [&::-webkit-details-marker]:hidden"
+        : layout === "horizontal"
+          ? "flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3"
+          : "contents",
+    ].join(" ")}
   >
     <!-- * Named slot takes priority over the prop — use slot="icon" for custom markup. -->
     {
@@ -65,7 +82,7 @@ const roundeds: Record<string, string> = {
       )
     }
 
-    <div class={layout === "horizontal" ? "flex flex-col gap-2" : "contents"}>
+    <div class={collapsible || layout === "horizontal" ? "flex flex-col gap-2" : "contents"}>
       <!-- * Named slot takes priority over the title prop. -->
       {
         (Astro.slots.has("title") || title) && (
@@ -85,19 +102,32 @@ const roundeds: Record<string, string> = {
       }
     </div>
 
-    <!-- * Only rendered here in horizontal layout — sits at the row's right edge, e.g. a chevron for clickable rows. -->
+    <!-- * Non-collapsible horizontal layout only — sits at the row's right edge, e.g. a chevron for clickable rows. -->
     {
-      layout === "horizontal" && hasTrailing && (
+      !collapsible && layout === "horizontal" && hasTrailing && (
         <div class="shrink-0 sm:ml-auto sm:self-center">
           <slot name="trailing" />
         </div>
       )
     }
-  </div>
+
+    <!-- * Collapsible chevron — rotates 180° when open via the group-open Tailwind variant on the details element above. -->
+    {
+      collapsible && (
+        <Icon
+          name="line-md:chevron-down"
+          width="16"
+          height="16"
+          aria-hidden="true"
+          class="ml-auto shrink-0 text-(--color-text-muted) transition-transform duration-200 group-open:rotate-180"
+        />
+      )
+    }
+  </HeaderTag>
 
   <!-- Default slot for fully custom card content -->
   <slot />
 
-  <!-- * Vertical layout keeps trailing content at the bottom of the card, same as before this slot existed. -->
-  {layout === "vertical" && hasTrailing && <slot name="trailing" />}
-</div>
+  <!-- * Vertical layout (and collapsible, which always stacks its body) keeps trailing content at the bottom of the card. -->
+  {(collapsible || layout === "vertical") && hasTrailing && <slot name="trailing" />}
+</RootTag>
