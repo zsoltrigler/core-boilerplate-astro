@@ -1,5 +1,14 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types"
+
+// * Omits the props this component already declares explicitly below —
+//   HTMLAttributes<"input"> types them identically (string/boolean), so this
+//   is purely to avoid duplicate keys between the extend and the explicit
+//   props, not a type-conflict workaround like Button's/Input's HTMLAttributes<"div"> choice.
+export interface Props extends Omit<
+  HTMLAttributes<"input">,
+  "name" | "value" | "id" | "checked" | "disabled" | "required" | "class" | "type"
+> {
   name: string
   value: string
   id?: string
@@ -27,6 +36,7 @@ const {
   required = false,
   error,
   class: className = "",
+  ...rest
 } = Astro.props
 
 const radioId = id ?? `${name}-${value}`
@@ -48,6 +58,7 @@ const radioId = id ?? `${name}-${value}`
       aria-invalid={error ? "true" : undefined}
       aria-describedby={error ? `${radioId}-error` : undefined}
       class="h-4 w-4 cursor-pointer rounded-full border-(--color-border-base) bg-(--color-bg-base) accent-(--color-brand-primary) disabled:cursor-not-allowed"
+      {...rest}
     />
 
     {
