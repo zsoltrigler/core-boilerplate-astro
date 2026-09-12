@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.24.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.23.0...core-boilerplate-v1.24.0) (2026-09-12)
+
+
+### Features
+
+* **ui:** add Toast action, EmptyState, Card collapsible, StatTile, Tabs render-prop panels; fix Radio/Checkbox attribute forwarding ([#243](https://github.com/zsoltrigler/core-boilerplate-astro/issues/243)) ([e1d706d](https://github.com/zsoltrigler/core-boilerplate-astro/commit/e1d706d0d7f6660c74dd6e98e9fecdc459b990b9))
+
 ## [1.23.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.22.0...core-boilerplate-v1.23.0) (2026-09-10)
 
 
