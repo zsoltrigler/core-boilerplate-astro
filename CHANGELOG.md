@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.24.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.24.0...core-boilerplate-v1.24.1) (2026-09-12)
+
+
+### Bug Fixes
+
+* **ui:** forward native input attributes on Toggle ([#245](https://github.com/zsoltrigler/core-boilerplate-astro/issues/245)) ([d92033a](https://github.com/zsoltrigler/core-boilerplate-astro/commit/d92033a2db9377609ef95f4ba8a92875549c5c6f))
+
 ## [1.24.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.23.0...core-boilerplate-v1.24.0) (2026-09-12)
 
 
