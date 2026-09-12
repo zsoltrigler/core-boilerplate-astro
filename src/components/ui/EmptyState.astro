@@ -1,0 +1,23 @@
+---
+import { Icon } from "astro-icon/components"
+
+export interface Props {
+  /** line-md icon name without the "line-md:" prefix. */
+  icon: string
+  title: string
+  description?: string
+  class?: string
+}
+
+const { icon, title, description, class: className = "" } = Astro.props
+---
+
+<div class={`flex flex-col items-center gap-2 px-5 py-10 text-center ${className}`}>
+  <span
+    class="flex h-11 w-11 items-center justify-center rounded-full bg-(--color-bg-elevated) text-(--color-text-muted)"
+  >
+    <Icon name={`line-md:${icon}`} width="20" height="20" aria-hidden="true" />
+  </span>
+  <p class="text-sm font-semibold text-(--color-text-base)">{title}</p>
+  {description && <p class="max-w-sm text-xs text-(--color-text-muted)">{description}</p>}
+</div>
