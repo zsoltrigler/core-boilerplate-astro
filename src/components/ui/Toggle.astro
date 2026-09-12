@@ -1,5 +1,15 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types"
+
+// * Omits the props this component already declares explicitly below —
+//   "size" is excluded because the native <input> attribute declares it as a
+//   number (text-input character width), which conflicts with this
+//   component's own "sm" | "md" | "lg" union, same reasoning as Input's
+//   HTMLAttributes<"div"> choice.
+export interface Props extends Omit<
+  HTMLAttributes<"input">,
+  "name" | "id" | "checked" | "disabled" | "class" | "type" | "size"
+> {
   name: string
   id?: string
   /** Visible label rendered next to the switch. */
@@ -18,6 +28,7 @@ const {
   disabled = false,
   size = "md",
   class: className = "",
+  ...rest
 } = Astro.props
 
 const toggleId = id ?? name
@@ -60,6 +71,7 @@ const thumbs: Record<string, string> = {
       checked={checked}
       disabled={disabled}
       class="peer sr-only"
+      {...rest}
     />
 
     <!-- * Visual thumb — translates right when checked. -->
