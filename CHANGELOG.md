@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.24.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.24.1...core-boilerplate-v1.24.2) (2026-09-14)
+
+
+### Bug Fixes
+
+* **ui:** render EmptyState icon inline to preserve SMIL draw animations ([#255](https://github.com/zsoltrigler/core-boilerplate-astro/issues/255)) ([2f09893](https://github.com/zsoltrigler/core-boilerplate-astro/commit/2f0989376b265cf5c9e4ab13e7333bad3bac8fb5))
+* **ui:** render StatTile icon inline to preserve SMIL draw animations ([#254](https://github.com/zsoltrigler/core-boilerplate-astro/issues/254)) ([b4dc871](https://github.com/zsoltrigler/core-boilerplate-astro/commit/b4dc871aa48ff171f5055bfc2f5323389143b388))
+
 ## [1.24.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.24.0...core-boilerplate-v1.24.1) (2026-09-12)
 
 
