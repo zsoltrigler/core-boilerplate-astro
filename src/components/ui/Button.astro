@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types"
+import { Icon } from "astro-icon/components"
 
 // * HTMLAttributes<"div"> is used purely for its attribute set — "div" has no
 //   attributes beyond the global ones (id, data-*, aria-*, title, etc.), so this
@@ -18,6 +19,8 @@ export interface Props extends HTMLAttributes<"div"> {
   /** Opens the link in a new tab with rel="noopener noreferrer". */
   external?: boolean
   disabled?: boolean
+  /** Replaces icon-left with a spinner and blocks interaction — for in-flight async actions (e.g. form submits). Doesn't dim opacity like disabled, so the button still reads as "working" rather than "unavailable". */
+  loading?: boolean
   class?: string
 }
 
@@ -29,9 +32,21 @@ const {
   fullWidth = false,
   external = false,
   disabled = false,
+  loading = false,
   class: className = "",
   ...rest
 } = Astro.props
+
+// * loading blocks interaction the same way disabled does, but is tracked
+//   separately so only `disabled` drives the opacity dim below — a loading
+//   button should still read as "in progress", not "unavailable".
+const interactionDisabled = disabled || loading
+
+const spinnerSizes: Record<string, string> = {
+  sm: "14",
+  md: "16",
+  lg: "18",
+}
 
 const variants: Record<string, string> = {
   primary:
@@ -52,7 +67,9 @@ const sizes: Record<string, string> = {
 
 const base = [
   "inline-flex items-center justify-center font-semibold cursor-pointer",
-  "disabled:opacity-50 disabled:pointer-events-none",
+  disabled ? "opacity-50" : "",
+  interactionDisabled ? "pointer-events-none" : "",
+  loading ? "cursor-wait" : "",
   "duration-200",
   fullWidth ? "w-full" : "",
   variants[variant],
@@ -64,27 +81,56 @@ const base = [
 // ! Never pass both href and type together — type is ignored on anchor elements.
 // ! <a> does not support the disabled attribute — use aria-disabled + pointer-events-none instead.
 const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
-const disabledLinkProps = disabled ? { "aria-disabled": true as const, tabindex: "-1" } : {}
+const disabledLinkProps = interactionDisabled
+  ? { "aria-disabled": true as const, tabindex: "-1" }
+  : {}
 ---
 
 {
   href ? (
     <a
-      href={disabled ? undefined : href}
-      class={`${base} ${disabled ? "pointer-events-none opacity-50" : ""}`}
+      href={interactionDisabled ? undefined : href}
+      class={base}
+      aria-busy={loading || undefined}
       {...externalProps}
       {...disabledLinkProps}
       {...rest}
     >
-      <slot name="icon-left" />
+      {loading ? (
+        <Icon
+          is:inline
+          name="line-md:loading-twotone-loop"
+          width={spinnerSizes[size]}
+          height={spinnerSizes[size]}
+          aria-hidden="true"
+        />
+      ) : (
+        <slot name="icon-left" />
+      )}
       <slot />
-      <slot name="icon-right" />
+      {!loading && <slot name="icon-right" />}
     </a>
   ) : (
-    <button type={type} class={base} disabled={disabled} {...rest}>
-      <slot name="icon-left" />
+    <button
+      type={type}
+      class={base}
+      disabled={interactionDisabled}
+      aria-busy={loading || undefined}
+      {...rest}
+    >
+      {loading ? (
+        <Icon
+          is:inline
+          name="line-md:loading-twotone-loop"
+          width={spinnerSizes[size]}
+          height={spinnerSizes[size]}
+          aria-hidden="true"
+        />
+      ) : (
+        <slot name="icon-left" />
+      )}
       <slot />
-      <slot name="icon-right" />
+      {!loading && <slot name="icon-right" />}
     </button>
   )
 }
