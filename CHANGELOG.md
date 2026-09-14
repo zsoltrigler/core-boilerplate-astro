@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.25.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.25.0...core-boilerplate-v1.25.1) (2026-09-14)
+
+
+### Bug Fixes
+
+* **ui:** strip HTML comments from rendered output across all components ([#259](https://github.com/zsoltrigler/core-boilerplate-astro/issues/259)) ([6ae4c1f](https://github.com/zsoltrigler/core-boilerplate-astro/commit/6ae4c1f05f9a3a198a70987badba91f09b3e940b))
+
 ## [1.25.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.24.2...core-boilerplate-v1.25.0) (2026-09-14)
 
 
