@@ -62,7 +62,6 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
   class={`w-full max-w-sm overflow-hidden border-0 bg-(--color-bg-base) p-0 shadow-2xl backdrop:bg-(--color-overlay)/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${className}`}
 >
   <div class="flex h-full w-full flex-col">
-    {/* Header */}
     {
       hasHeader && (
         <div
@@ -79,14 +78,12 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
       )
     }
 
-    {/* Body */}
     <div
       class={`flex-1 overflow-y-auto text-(--color-text-base) ${sideSafeAreaClass} ${bodyTopClass} ${bodyBottomClass}`}
     >
       <slot />
     </div>
 
-    {/* Footer */}
     {
       hasFooter && (
         <div
@@ -184,7 +181,6 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
 
 <script>
   function initDrawers() {
-    // * Open: any element with [data-drawer-open="<id>"] triggers the matching drawer.
     document.querySelectorAll<HTMLElement>("[data-drawer-open]").forEach((trigger) => {
       trigger.addEventListener("click", () => {
         const drawer = document.getElementById(

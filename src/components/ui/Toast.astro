@@ -101,6 +101,5 @@
     container.appendChild(toast)
   }
 
-  // * Expose as window.toast so any inline script can call it.
   ;(window as unknown as Record<string, unknown>).toast = showToast
 </script>

@@ -69,7 +69,6 @@ const disabledArrow =
 ---
 
 <nav aria-label={ariaLabel} class={`flex items-center gap-1 ${className}`}>
-  {/* Previous */}
   {
     currentPage > 1 ? (
       <IconButton
@@ -88,7 +87,6 @@ const disabledArrow =
     )
   }
 
-  {/* Page numbers */}
   {
     pages.map((p) =>
       p === "..." ? (
@@ -105,7 +103,6 @@ const disabledArrow =
     )
   }
 
-  {/* Next */}
   {
     currentPage < totalPages ? (
       <IconButton

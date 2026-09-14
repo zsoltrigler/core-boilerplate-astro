@@ -45,7 +45,6 @@ const { "aria-label": ariaLabel = "Toggle dark/light mode", class: className = "
 </button>
 
 <script>
-  // * Syncs both icon states for every toggle instance on the page.
   function syncIcons(btn: HTMLElement, isDark: boolean) {
     btn.querySelector("[data-icon-sun]")?.classList.toggle("hidden", !isDark)
     btn.querySelector("[data-icon-moon]")?.classList.toggle("hidden", isDark)
@@ -65,7 +64,6 @@ const { "aria-label": ariaLabel = "Toggle dark/light mode", class: className = "
     document.documentElement.classList.add("theme-switching")
     document.documentElement.classList.toggle("dark", currentIsDark)
     localStorage.setItem("theme", theme)
-    // * Sync all toggle instances on the page (e.g. mobile + desktop header).
     buttons.forEach((btn) => syncIcons(btn, currentIsDark))
     requestAnimationFrame(() => document.documentElement.classList.remove("theme-switching"))
   }

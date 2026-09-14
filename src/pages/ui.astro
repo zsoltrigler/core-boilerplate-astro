@@ -126,10 +126,8 @@ const components = [
   <main id="main-content" class="flex flex-1 flex-col">
     {/* ── Page header ───────────────────────────────────────────── */}
     <div class="relative overflow-hidden border-b border-(--color-border-base)">
-      {/* Top accent line */}
       <div class="absolute inset-x-0 top-0 h-1 bg-(--color-brand-primary)"></div>
 
-      {/* Radial glow */}
       <div
         class="pointer-events-none absolute inset-0"
         style="background: radial-gradient(ellipse 60% 80% at 80% 50%, color-mix(in srgb, var(--color-brand-primary) 10%, transparent) 0%, transparent 70%);"
@@ -138,7 +136,6 @@ const components = [
 
       <Container class="relative z-10">
         <div class="grid grid-cols-1 gap-10 py-16 lg:grid-cols-2 lg:items-center">
-          {/* Left: title */}
           <div class="flex flex-col gap-4">
             <div>
               <Badge variant="default">Component library</Badge>
@@ -151,7 +148,6 @@ const components = [
             </p>
           </div>
 
-          {/* Right: quick jump links */}
           <div class="hidden lg:block">
             <CodeWindow label="Quick jump">
               <div class="grid grid-cols-2 gap-2 p-4">
@@ -176,7 +172,6 @@ const components = [
     {/* ── Two-column layout ─────────────────────────────────────── */}
     <Container>
       <div class="flex gap-12 py-16">
-        {/* Sidebar */}
         <aside class="hidden w-44 shrink-0 lg:block">
           <nav
             aria-label="Component navigation"
@@ -201,7 +196,6 @@ const components = [
           </nav>
         </aside>
 
-        {/* Component sections */}
         <div class="flex min-w-0 flex-1 flex-col gap-20">
           {/* ── Accordion ─────────────────────────────────────────── */}
           <ShowcaseSection id="accordion" title="Accordion">
@@ -278,7 +272,6 @@ const components = [
             </Fragment>
 
             <div class="flex flex-wrap items-end gap-6 p-6">
-              {/* Sizes */}
               <div class="flex items-end gap-3">
                 <Avatar alt="Xavier Small" size="xs" />
                 <Avatar alt="Susan M" size="sm" />
@@ -287,13 +280,11 @@ const components = [
                 <Avatar alt="Thomas A" size="xl" />
               </div>
 
-              {/* Shapes */}
               <div class="flex items-center gap-3">
                 <Avatar alt="Circle" size="md" />
                 <Avatar alt="Square" size="md" shape="square" />
               </div>
 
-              {/* Explicit initials */}
               <div class="flex items-center gap-3">
                 <Avatar initials="AB" size="md" alt="AB initials" />
                 <Avatar initials="?" size="md" alt="Unknown user" />
@@ -1137,7 +1128,6 @@ const components = [
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
-              {/* Card skeleton */}
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Card skeleton
@@ -1158,7 +1148,6 @@ const components = [
                 </div>
               </div>
 
-              {/* Avatar + text skeleton */}
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Profile row skeleton

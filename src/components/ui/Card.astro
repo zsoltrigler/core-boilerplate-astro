@@ -63,9 +63,6 @@ const HeaderTag = collapsible ? "summary" : "div"
     className,
   ].join(" ")}
 >
-  {
-    /* * layout="horizontal" groups icon + title/desc into a row from the sm breakpoint up, staying stacked below it. Collapsible always uses a single row so the chevron has a fixed right-hand anchor. */
-  }
   <HeaderTag
     class={[
       collapsible
@@ -75,7 +72,6 @@ const HeaderTag = collapsible ? "summary" : "div"
           : "contents",
     ].join(" ")}
   >
-    {/* * Named slot takes priority over the prop — use slot="icon" for custom markup. */}
     {
       Astro.slots.has("icon") && (
         <div class="self-start text-2xl" aria-hidden="true">
@@ -85,7 +81,6 @@ const HeaderTag = collapsible ? "summary" : "div"
     }
 
     <div class={collapsible || layout === "horizontal" ? "flex flex-col gap-2" : "contents"}>
-      {/* * Named slot takes priority over the title prop. */}
       {
         (Astro.slots.has("title") || title) && (
           <div class="self-start font-semibold text-(--color-text-base)">
@@ -94,7 +89,6 @@ const HeaderTag = collapsible ? "summary" : "div"
         )
       }
 
-      {/* * Named slot takes priority over the desc prop. */}
       {
         (Astro.slots.has("desc") || desc) && (
           <div class="self-start text-sm leading-relaxed text-(--color-text-muted)">
@@ -131,7 +125,6 @@ const HeaderTag = collapsible ? "summary" : "div"
     }
   </HeaderTag>
 
-  {/* Default slot for fully custom card content */}
   <slot />
 
   {

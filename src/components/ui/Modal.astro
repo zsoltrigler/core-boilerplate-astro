@@ -39,7 +39,6 @@ const sizes: Record<string, string> = {
        the dialog element — overflow-hidden on <dialog> would prevent body scroll. */
   }
   <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
-    {/* Header */}
     {
       (title || Astro.slots.has("title")) && (
         <div class="flex shrink-0 items-center justify-between border-b border-(--color-border-base) px-6 py-4">
@@ -54,12 +53,10 @@ const sizes: Record<string, string> = {
       )
     }
 
-    {/* Body */}
     <div class="flex-1 overflow-y-auto px-6 py-5 text-(--color-text-base)">
       <slot />
     </div>
 
-    {/* Footer */}
     {
       Astro.slots.has("footer") && (
         <div class="flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) px-6 py-4">
@@ -71,7 +68,6 @@ const sizes: Record<string, string> = {
 </dialog>
 
 <script>
-  // * Open: any element with [data-modal-open="<id>"] triggers the matching dialog.
   document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((trigger) => {
     trigger.addEventListener("click", () => {
       const modal = document.getElementById(trigger.dataset.modalOpen!) as HTMLDialogElement | null
@@ -83,7 +79,6 @@ const sizes: Record<string, string> = {
     })
   })
 
-  // * Close: the × button and backdrop clicks close the open dialog.
   document.querySelectorAll<HTMLDialogElement>("[data-modal]").forEach((modal) => {
     modal.querySelectorAll("[data-modal-close]").forEach((btn) => {
       btn.addEventListener("click", () => modal.close())
