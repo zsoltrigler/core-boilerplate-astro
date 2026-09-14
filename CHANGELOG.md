@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.25.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.24.2...core-boilerplate-v1.25.0) (2026-09-14)
+
+
+### Features
+
+* **ui:** add loading state to Button ([#257](https://github.com/zsoltrigler/core-boilerplate-astro/issues/257)) ([dbdcdba](https://github.com/zsoltrigler/core-boilerplate-astro/commit/dbdcdba5f37ba25f75353a91a68859c8a9844741))
+
 ## [1.24.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.24.1...core-boilerplate-v1.24.2) (2026-09-14)
 
 
