@@ -10,11 +10,13 @@ export interface Props {
 const { striped = false, layout = "auto", class: className = "" } = Astro.props
 ---
 
-<!--
-  * Wrapper handles horizontal overflow on narrow viewports.
-  * Users write standard <thead>, <tbody>, <tr>, <th>, <td> inside the slot —
-  *   global CSS classes are applied via the [&_*] selector pattern below.
--->
+{
+  /*
+   * Wrapper handles horizontal overflow on narrow viewports.
+   * Users write standard <thead>, <tbody>, <tr>, <th>, <td> inside the slot —
+   *   global CSS classes are applied via the [&_*] selector pattern below.
+   */
+}
 <div class={`w-full overflow-x-auto rounded-xl border border-(--color-border-base) ${className}`}>
   <table
     class={[

@@ -56,7 +56,6 @@ const tabInactiveClasses: Record<string, string> = {
 ---
 
 <div class={`w-full ${className}`}>
-  <!-- Tab list -->
   <div role="tablist" data-variant={variant} class={tablistClasses[variant]}>
     {
       tabs.map((tab) => (
@@ -77,7 +76,6 @@ const tabInactiveClasses: Record<string, string> = {
     }
   </div>
 
-  <!-- Tab panels -->
   {
     tabs.map((tab) => {
       const Render = tab.render

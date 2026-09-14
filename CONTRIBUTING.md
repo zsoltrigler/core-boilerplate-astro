@@ -69,6 +69,7 @@ chore: update Tailwind to v4.1
   - `// ! ` warning or critical constraint
   - `// ? ` open question or consideration
   - `// TODO:` future improvement
+- **Template comments** — never use `<!-- -->` inside a component's template (the part after the frontmatter's closing `---`). Astro ships HTML comments verbatim into the rendered page, so anyone opening dev tools or "View Source" sees them. Use the expression form instead — `{/* * note */}` — which is a plain JS comment inside a `{}` expression and compiles away to nothing. `<!-- -->` is only fine inside a frontmatter comment's own example code block (i.e. as text, not as a live comment) and is never fine as an actual template comment, template-level or JS.
 - **Blank lines** — always add a blank line between sibling HTML elements.
 - **Icons** — use `astro-icon` with the [line-md](https://icon-sets.iconify.design/line-md/) set (`<Icon name="line-md:..." />` from `"astro-icon/components"`). Never hand-write inline `<svg>` markup for a new icon; only fall back to a raw SVG string when the icon must be inserted at runtime via plain DOM APIs (e.g. `Toast.astro`'s dismiss icons), since `<Icon>` only resolves at build time.
 

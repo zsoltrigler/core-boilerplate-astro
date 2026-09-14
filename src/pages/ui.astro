@@ -124,12 +124,10 @@ const components = [
   </Header>
 
   <main id="main-content" class="flex flex-1 flex-col">
-    <!-- ── Page header ───────────────────────────────────────────── -->
+    {/* ── Page header ───────────────────────────────────────────── */}
     <div class="relative overflow-hidden border-b border-(--color-border-base)">
-      <!-- Top accent line -->
       <div class="absolute inset-x-0 top-0 h-1 bg-(--color-brand-primary)"></div>
 
-      <!-- Radial glow -->
       <div
         class="pointer-events-none absolute inset-0"
         style="background: radial-gradient(ellipse 60% 80% at 80% 50%, color-mix(in srgb, var(--color-brand-primary) 10%, transparent) 0%, transparent 70%);"
@@ -138,7 +136,6 @@ const components = [
 
       <Container class="relative z-10">
         <div class="grid grid-cols-1 gap-10 py-16 lg:grid-cols-2 lg:items-center">
-          <!-- Left: title -->
           <div class="flex flex-col gap-4">
             <div>
               <Badge variant="default">Component library</Badge>
@@ -151,7 +148,6 @@ const components = [
             </p>
           </div>
 
-          <!-- Right: quick jump links -->
           <div class="hidden lg:block">
             <CodeWindow label="Quick jump">
               <div class="grid grid-cols-2 gap-2 p-4">
@@ -173,10 +169,9 @@ const components = [
       </Container>
     </div>
 
-    <!-- ── Two-column layout ─────────────────────────────────────── -->
+    {/* ── Two-column layout ─────────────────────────────────────── */}
     <Container>
       <div class="flex gap-12 py-16">
-        <!-- Sidebar -->
         <aside class="hidden w-44 shrink-0 lg:block">
           <nav
             aria-label="Component navigation"
@@ -201,9 +196,8 @@ const components = [
           </nav>
         </aside>
 
-        <!-- Component sections -->
         <div class="flex min-w-0 flex-1 flex-col gap-20">
-          <!-- ── Accordion ─────────────────────────────────────────── -->
+          {/* ── Accordion ─────────────────────────────────────────── */}
           <ShowcaseSection id="accordion" title="Accordion">
             <Fragment slot="description">
               Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;details&gt;</code>/<code
@@ -243,7 +237,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Alert ─────────────────────────────────────────────── -->
+          {/* ── Alert ─────────────────────────────────────────────── */}
           <ShowcaseSection id="alert" title="Alert">
             <Fragment slot="description">
               Contextual feedback messages. Supports custom icon and title via named slots.
@@ -267,7 +261,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Avatar ─────────────────────────────────────────────── -->
+          {/* ── Avatar ─────────────────────────────────────────────── */}
           <ShowcaseSection id="avatar" title="Avatar">
             <Fragment slot="description">
               Shows an image when <code class="rounded bg-(--color-bg-surface) px-1">src</code> is set;
@@ -278,7 +272,6 @@ const components = [
             </Fragment>
 
             <div class="flex flex-wrap items-end gap-6 p-6">
-              <!-- Sizes -->
               <div class="flex items-end gap-3">
                 <Avatar alt="Xavier Small" size="xs" />
                 <Avatar alt="Susan M" size="sm" />
@@ -287,26 +280,24 @@ const components = [
                 <Avatar alt="Thomas A" size="xl" />
               </div>
 
-              <!-- Shapes -->
               <div class="flex items-center gap-3">
                 <Avatar alt="Circle" size="md" />
                 <Avatar alt="Square" size="md" shape="square" />
               </div>
 
-              <!-- Explicit initials -->
               <div class="flex items-center gap-3">
                 <Avatar initials="AB" size="md" alt="AB initials" />
                 <Avatar initials="?" size="md" alt="Unknown user" />
               </div>
 
-              <!-- Broken src → falls back to initials on image load error -->
+              {/* Broken src → falls back to initials on image load error */}
               <div class="flex items-center gap-3">
                 <Avatar src="/does-not-exist.jpg" alt="Broken Image" size="md" />
               </div>
             </div>
           </ShowcaseSection>
 
-          <!-- ── Badge ──────────────────────────────────────────────── -->
+          {/* ── Badge ──────────────────────────────────────────────── */}
           <ShowcaseSection id="badge" title="Badge">
             <Fragment slot="description">Inline label for status, category, or emphasis.</Fragment>
 
@@ -353,7 +344,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Breadcrumb ──────────────────────────────────────────── -->
+          {/* ── Breadcrumb ──────────────────────────────────────────── */}
           <ShowcaseSection id="breadcrumb" title="Breadcrumb">
             <Fragment slot="description">
               Accessible navigation trail using a <code class="rounded bg-(--color-bg-surface) px-1"
@@ -403,7 +394,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Button ─────────────────────────────────────────────── -->
+          {/* ── Button ─────────────────────────────────────────────── */}
           <ShowcaseSection id="button" title="Button">
             <Fragment slot="description">
               Renders as <code class="rounded bg-(--color-bg-surface) px-1">&lt;a&gt;</code> when
@@ -486,7 +477,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Card ───────────────────────────────────────────────── -->
+          {/* ── Card ───────────────────────────────────────────────── */}
           <ShowcaseSection id="card" title="Card">
             <Fragment slot="description">
               Flexible content container. <code class="rounded bg-(--color-bg-surface) px-1"
@@ -573,7 +564,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Checkbox ───────────────────────────────────────────── -->
+          {/* ── Checkbox ───────────────────────────────────────────── */}
           <ShowcaseSection id="checkbox" title="Checkbox">
             <Fragment slot="description">
               Accessible checkbox with label, error state, and disabled support.
@@ -613,7 +604,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Combobox ───────────────────────────────────────────── -->
+          {/* ── Combobox ───────────────────────────────────────────── */}
           <ShowcaseSection id="combobox" title="Combobox">
             <Fragment slot="description">
               Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;input&gt;</code> + <code
@@ -648,7 +639,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Divider ────────────────────────────────────────────── -->
+          {/* ── Divider ────────────────────────────────────────────── */}
           <ShowcaseSection id="divider" title="Divider">
             <Fragment slot="description">
               Horizontal rule with an optional centered label, or a vertical separator for inline
@@ -672,7 +663,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Drawer ─────────────────────────────────────────────── -->
+          {/* ── Drawer ─────────────────────────────────────────────── */}
           <ShowcaseSection id="drawer" title="Drawer">
             <Fragment slot="description">
               Slide-in panel based on native <code class="rounded bg-(--color-bg-surface) px-1"
@@ -691,7 +682,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Dropdown ───────────────────────────────────────────── -->
+          {/* ── Dropdown ───────────────────────────────────────────── */}
           <ShowcaseSection id="dropdown" title="Dropdown">
             <Fragment slot="description">
               JS-powered menu panel. Place the trigger in <code
@@ -763,7 +754,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── EmptyState ─────────────────────────────────────────── -->
+          {/* ── EmptyState ─────────────────────────────────────────── */}
           <ShowcaseSection id="empty-state" title="EmptyState">
             <Fragment slot="description">
               "No data yet" placeholder for empty lists/tables. <code
@@ -783,7 +774,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── IconButton ─────────────────────────────────────────── -->
+          {/* ── IconButton ─────────────────────────────────────────── */}
           <ShowcaseSection id="icon-button" title="IconButton">
             <Fragment slot="description">
               Square icon-only button. <code class="rounded bg-(--color-bg-surface) px-1"
@@ -867,7 +858,9 @@ const components = [
                     data-label-open="Open panel"
                     data-label-close="Close panel"
                   >
-                    <!-- * Rotated via group-aria-expanded: (IconButton sets "group" + aria-expanded) — no icon-swap JS needed. -->
+                    {
+                      /* * Rotated via group-aria-expanded: (IconButton sets "group" + aria-expanded) — no icon-swap JS needed. */
+                    }
                     <Icon
                       name="line-md:chevron-down"
                       width="18"
@@ -902,7 +895,7 @@ const components = [
             }
           </script>
 
-          <!-- ── Input ──────────────────────────────────────────────── -->
+          {/* ── Input ──────────────────────────────────────────────── */}
           <ShowcaseSection id="input" title="Input">
             <Fragment slot="description">
               Text input with label, hint, error state and size variants. The <code
@@ -986,7 +979,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Modal ──────────────────────────────────────────────── -->
+          {/* ── Modal ──────────────────────────────────────────────── */}
           <ShowcaseSection id="modal" title="Modal">
             <Fragment slot="description">
               Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop,
@@ -1003,7 +996,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Pagination ─────────────────────────────────────────── -->
+          {/* ── Pagination ─────────────────────────────────────────── */}
           <ShowcaseSection id="pagination" title="Pagination">
             <Fragment slot="description">
               Static link-based pagination for SSG. Pass <code
@@ -1022,7 +1015,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Progress ───────────────────────────────────────────── -->
+          {/* ── Progress ───────────────────────────────────────────── */}
           <ShowcaseSection id="progress" title="Progress">
             <Fragment slot="description">
               Accessible <code class="rounded bg-(--color-bg-surface) px-1">role="progressbar"</code
@@ -1049,7 +1042,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Select ─────────────────────────────────────────────── -->
+          {/* ── Select ─────────────────────────────────────────────── */}
           <ShowcaseSection id="select" title="Select">
             <Fragment slot="description">
               Dropdown select with label, hint, and error state. Uses the same size and styling
@@ -1127,7 +1120,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Skeleton ───────────────────────────────────────────── -->
+          {/* ── Skeleton ───────────────────────────────────────────── */}
           <ShowcaseSection id="skeleton" title="Skeleton">
             <Fragment slot="description">
               Pulsing placeholder for loading states. Combine multiple skeletons to match the shape
@@ -1135,7 +1128,6 @@ const components = [
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
-              <!-- Card skeleton -->
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Card skeleton
@@ -1156,7 +1148,6 @@ const components = [
                 </div>
               </div>
 
-              <!-- Avatar + text skeleton -->
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Profile row skeleton
@@ -1172,7 +1163,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Spinner ────────────────────────────────────────────── -->
+          {/* ── Spinner ────────────────────────────────────────────── */}
           <ShowcaseSection id="spinner" title="Spinner">
             <Fragment slot="description">
               SVG arc spinner with <code class="rounded bg-(--color-bg-surface) px-1"
@@ -1197,7 +1188,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── StatTile ───────────────────────────────────────────── -->
+          {/* ── StatTile ───────────────────────────────────────────── */}
           <ShowcaseSection id="stat-tile" title="StatTile">
             <Fragment slot="description">
               KPI/stat tile with an icon, label, value, and optional caption. <code
@@ -1235,7 +1226,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Stepper ────────────────────────────────────────────── -->
+          {/* ── Stepper ────────────────────────────────────────────── */}
           <ShowcaseSection id="stepper" title="Stepper">
             <Fragment slot="description">
               Multi-step progress indicator. Pass <code class="rounded bg-(--color-bg-surface) px-1"
@@ -1273,7 +1264,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Table ──────────────────────────────────────────────── -->
+          {/* ── Table ──────────────────────────────────────────────── */}
           <ShowcaseSection id="table" title="Table">
             <Fragment slot="description">
               Responsive wrapper with consistent thead/tbody/tfoot styling. Add <code
@@ -1384,7 +1375,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Tabs ───────────────────────────────────────────────── -->
+          {/* ── Tabs ───────────────────────────────────────────────── */}
           <ShowcaseSection id="tabs" title="Tabs">
             <Fragment slot="description">
               Accessible tabbed interface. Supports arrow-key navigation per the WAI-ARIA tabs
@@ -1498,7 +1489,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Textarea ───────────────────────────────────────────── -->
+          {/* ── Textarea ───────────────────────────────────────────── */}
           <ShowcaseSection id="textarea" title="Textarea">
             <Fragment slot="description">
               Multiline text input with label, hint, and error state. Vertically resizable by
@@ -1563,7 +1554,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Toast ─────────────────────────────────────────────── -->
+          {/* ── Toast ─────────────────────────────────────────────── */}
           <ShowcaseSection id="toast" title="Toast">
             <Fragment slot="description">
               Non-blocking notification. Add <code class="rounded bg-(--color-bg-surface) px-1"
@@ -1605,7 +1596,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Toggle ─────────────────────────────────────────────── -->
+          {/* ── Toggle ─────────────────────────────────────────────── */}
           <ShowcaseSection id="toggle" title="Toggle">
             <Fragment slot="description">
               Checkbox-based switch with custom CSS styling. Fully keyboard-accessible — space bar
@@ -1630,7 +1621,7 @@ const components = [
             </div>
           </ShowcaseSection>
 
-          <!-- ── Tooltip ────────────────────────────────────────────── -->
+          {/* ── Tooltip ────────────────────────────────────────────── */}
           <ShowcaseSection id="tooltip" title="Tooltip">
             <Fragment slot="description">
               CSS-only tooltip — no JS. Shows on hover and keyboard focus. Pass <code
@@ -1668,7 +1659,7 @@ const components = [
       </div>
     </Container>
 
-    <!-- ── Dialogs (viewport-level) ─────────────────────────────── -->
+    {/* ── Dialogs (viewport-level) ─────────────────────────────── */}
     <Modal id="modal-default" title="Confirm action" size="md">
       <p class="text-(--color-text-muted)">
         Are you sure you want to continue? This action cannot be undone.

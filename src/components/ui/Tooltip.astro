@@ -8,7 +8,6 @@ export interface Props {
 
 const { tip, placement = "top", class: className = "" } = Astro.props
 
-// * Position offsets for each placement direction.
 const positions: Record<string, string> = {
   top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
   bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
@@ -17,11 +16,13 @@ const positions: Record<string, string> = {
 }
 ---
 
-<!--
-  * CSS-only tooltip — no JS required.
-  * Shows on hover and on keyboard focus-within (group-focus-within).
-  * The wrapping span is inline-flex so it doesn't break text flow.
--->
+{
+  /*
+   * CSS-only tooltip — no JS required.
+   * Shows on hover and on keyboard focus-within (group-focus-within).
+   * The wrapping span is inline-flex so it doesn't break text flow.
+   */
+}
 <span class={`group relative inline-flex ${className}`}>
   <slot />
   <span
