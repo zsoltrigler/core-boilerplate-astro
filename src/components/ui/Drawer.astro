@@ -40,7 +40,8 @@ const bodyTopClass = hasHeader ? "pt-5" : "pt-[calc(1.25rem+var(--safe-area-top)
 const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-bottom))]"
 ---
 
-<!--
+{
+  /*
   * Usage: add data-drawer-open="<id>" to any button to open this drawer.
   * Close via the × button, backdrop click, or Escape.
   * Uses native <dialog> for its backdrop, focus trap, and Escape handling.
@@ -52,7 +53,8 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
     requestAnimationFrame timing games. The browser handles both the enter
     and exit transition natively from a single source of truth: the `open`
     attribute that showModal()/close() already set.
--->
+*/
+}
 <dialog
   id={id}
   data-drawer
@@ -60,7 +62,7 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
   class={`w-full max-w-sm overflow-hidden border-0 bg-(--color-bg-base) p-0 shadow-2xl backdrop:bg-(--color-overlay)/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${className}`}
 >
   <div class="flex h-full w-full flex-col">
-    <!-- Header -->
+    {/* Header */}
     {
       hasHeader && (
         <div
@@ -77,14 +79,14 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
       )
     }
 
-    <!-- Body -->
+    {/* Body */}
     <div
       class={`flex-1 overflow-y-auto text-(--color-text-base) ${sideSafeAreaClass} ${bodyTopClass} ${bodyBottomClass}`}
     >
       <slot />
     </div>
 
-    <!-- Footer -->
+    {/* Footer */}
     {
       hasFooter && (
         <div

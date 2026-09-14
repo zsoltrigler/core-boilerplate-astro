@@ -23,19 +23,23 @@ const sizes: Record<string, string> = {
 }
 ---
 
-<!--
+{
+  /*
   * Native <dialog> element — provides built-in accessibility (role, aria-modal,
     focus trap) without JavaScript polyfills. Open via showModal(), close via close().
--->
+*/
+}
 <dialog
   id={id}
   data-modal
   class={`w-full rounded-2xl border border-(--color-border-base) bg-(--color-bg-base) p-0 shadow-2xl mx-auto my-auto max-h-[90dvh] backdrop:bg-(--color-overlay)/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${sizes[size]} ${className}`}
 >
-  <!-- * Inner wrapper handles flex layout and overflow clipping separately from
-       the dialog element — overflow-hidden on <dialog> would prevent body scroll. -->
+  {
+    /* * Inner wrapper handles flex layout and overflow clipping separately from
+       the dialog element — overflow-hidden on <dialog> would prevent body scroll. */
+  }
   <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
-    <!-- Header -->
+    {/* Header */}
     {
       (title || Astro.slots.has("title")) && (
         <div class="flex shrink-0 items-center justify-between border-b border-(--color-border-base) px-6 py-4">
@@ -50,12 +54,12 @@ const sizes: Record<string, string> = {
       )
     }
 
-    <!-- Body -->
+    {/* Body */}
     <div class="flex-1 overflow-y-auto px-6 py-5 text-(--color-text-base)">
       <slot />
     </div>
 
-    <!-- Footer -->
+    {/* Footer */}
     {
       Astro.slots.has("footer") && (
         <div class="flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) px-6 py-4">

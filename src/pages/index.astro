@@ -62,12 +62,12 @@ const stats = [
   </Header>
 
   <main id="main-content" class="flex flex-1 flex-col">
-    <!-- ── Hero ─────────────────────────────────────────────────────── -->
+    {/* ── Hero ─────────────────────────────────────────────────────── */}
     <Section class="relative overflow-hidden">
-      <!-- Top accent line -->
+      {/* Top accent line */}
       <div class="absolute inset-x-0 top-0 h-1 bg-(--color-brand-primary)"></div>
 
-      <!-- Radial glow -->
+      {/* Radial glow */}
       <div
         class="pointer-events-none absolute inset-0"
         style="background: radial-gradient(ellipse 70% 70% at 70% 50%, color-mix(in srgb, var(--color-brand-primary) 10%, transparent) 0%, transparent 70%);"
@@ -76,7 +76,7 @@ const stats = [
 
       <Container class="relative z-10">
         <div class="grid grid-cols-1 gap-12 py-24 lg:grid-cols-2 lg:items-center">
-          <!-- Left: text -->
+          {/* Left: text */}
           <div class="flex flex-col gap-6">
             <div>
               <Badge variant="info" pulse>Astro 7 · Tailwind 4</Badge>
@@ -114,7 +114,7 @@ const stats = [
             </div>
           </div>
 
-          <!-- Right: code snippet -->
+          {/* Right: code snippet */}
           <div class="hidden lg:block">
             <CodeWindow label="src/config.ts">
               <Code
@@ -129,7 +129,7 @@ const stats = [
       </Container>
     </Section>
 
-    <!-- ── Stats bar ─────────────────────────────────────────────────── -->
+    {/* ── Stats bar ─────────────────────────────────────────────────── */}
     <Section class="bg-(--color-bg-surface)">
       <Container>
         <div class="grid grid-cols-1 gap-6 py-8 sm:grid-cols-3">
@@ -151,7 +151,7 @@ const stats = [
       </Container>
     </Section>
 
-    <!-- ── What's included ──────────────────────────────────────────── -->
+    {/* ── What's included ──────────────────────────────────────────── */}
     <Section id="features" class="scroll-mt-20">
       <Container>
         <div class="flex flex-col gap-8 py-20">
@@ -256,7 +256,7 @@ const stats = [
       </Container>
     </Section>
 
-    <!-- ── Component preview ────────────────────────────────────────── -->
+    {/* ── Component preview ────────────────────────────────────────── */}
     <Section>
       <Container>
         <div class="flex flex-col gap-8 py-20">
@@ -279,11 +279,11 @@ const stats = [
             </Button>
           </div>
 
-          <!-- Showcase frame -->
+          {/* Showcase frame */}
           <CodeWindow label="Component showcase">
-            <!-- Frame content -->
+            {/* Frame content */}
             <div class="flex flex-col gap-10 p-6">
-              <!-- Buttons -->
+              {/* Buttons */}
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Button
@@ -298,7 +298,7 @@ const stats = [
                 </div>
               </div>
 
-              <!-- Badges -->
+              {/* Badges */}
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Badge
@@ -315,7 +315,7 @@ const stats = [
                 </div>
               </div>
 
-              <!-- Alerts -->
+              {/* Alerts */}
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Alert
@@ -329,7 +329,7 @@ const stats = [
                 </div>
               </div>
 
-              <!-- Inputs -->
+              {/* Inputs */}
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Input
@@ -366,7 +366,7 @@ const stats = [
       </Container>
     </Section>
 
-    <!-- ── Quick start ──────────────────────────────────────────────── -->
+    {/* ── Quick start ──────────────────────────────────────────────── */}
     <Section>
       <Container size="md">
         <div class="flex flex-col gap-6 py-20">
@@ -376,7 +376,7 @@ const stats = [
             <p class="text-(--color-text-muted)">Clone, install, and start building.</p>
           </div>
 
-          <!-- Code block -->
+          {/* Code block */}
           <CodeWindow label="Terminal">
             <pre
               class="overflow-x-auto p-5 text-sm leading-loose"><code><span class="text-(--color-text-muted)"># Clone the repo</span>

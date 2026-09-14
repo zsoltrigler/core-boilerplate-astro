@@ -10,16 +10,18 @@ const { align = "left", class: className = "" } = Astro.props
 const menuAlign = align === "right" ? "right-0" : "left-0"
 ---
 
-<!--
-  * Usage:
-  *   <Dropdown>
-  *     <button slot="trigger">Open</button>
-  *     <a href="#" data-dropdown-item>Item</a>
-  *   </Dropdown>
-  *
-  * The trigger receives aria-haspopup + aria-expanded automatically via the script.
-  * Close on: trigger click, Escape, click outside, item selection.
--->
+{
+  /*
+   * Usage:
+   *   <Dropdown>
+   *     <button slot="trigger">Open</button>
+   *     <a href="#" data-dropdown-item>Item</a>
+   *   </Dropdown>
+   *
+   * The trigger receives aria-haspopup + aria-expanded automatically via the script.
+   * Close on: trigger click, Escape, click outside, item selection.
+   */
+}
 <div data-dropdown class={`relative inline-flex ${className}`}>
   <div data-dropdown-trigger>
     <slot name="trigger" />

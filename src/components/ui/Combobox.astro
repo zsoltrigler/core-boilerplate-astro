@@ -47,12 +47,14 @@ const comboId = id ?? name
 const listId = `${comboId}-list`
 ---
 
-<!--
+{
+  /*
   * Composes Input for the field chrome and styling, adding only the native
     <input list> + <datalist> combo on top — zero JS, works everywhere.
   * For a fully custom filterable dropdown, replace <datalist> with a JS-driven
     listbox — this covers the most common "search from a fixed list" use case.
--->
+*/
+}
 <Input
   type="text"
   name={name}

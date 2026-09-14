@@ -17,11 +17,13 @@ const positions: Record<string, string> = {
 }
 ---
 
-<!--
-  * CSS-only tooltip — no JS required.
-  * Shows on hover and on keyboard focus-within (group-focus-within).
-  * The wrapping span is inline-flex so it doesn't break text flow.
--->
+{
+  /*
+   * CSS-only tooltip — no JS required.
+   * Shows on hover and on keyboard focus-within (group-focus-within).
+   * The wrapping span is inline-flex so it doesn't break text flow.
+   */
+}
 <span class={`group relative inline-flex ${className}`}>
   <slot />
   <span

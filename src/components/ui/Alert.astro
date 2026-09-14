@@ -59,7 +59,7 @@ const { border, text, bg } = styles[variant]
   data-alert
   class={`flex items-start gap-3 p-4 rounded-lg border ${border} ${bg} ${className}`}
 >
-  <!-- Icon: override with <slot name="icon"> for a custom icon -->
+  {/* Icon: override with <slot name="icon"> for a custom icon */}
   {
     Astro.slots.has("icon") ? (
       <slot name="icon" />
@@ -75,7 +75,7 @@ const { border, text, bg } = styles[variant]
   }
 
   <div class="flex flex-1 flex-col gap-1">
-    <!-- Title: override with <slot name="title"> for custom markup -->
+    {/* Title: override with <slot name="title"> for custom markup */}
     {
       (Astro.slots.has("title") || title) && (
         <p class={`text-sm font-semibold ${text}`}>

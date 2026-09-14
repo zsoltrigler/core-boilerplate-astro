@@ -49,7 +49,8 @@ function isActivePath(href: string): boolean {
 }
 ---
 
-<!--
+{
+  /*
   ? sticky (not fixed) top-0 — in a normal browser tab the address bar already
     reserves the notch/Dynamic Island area, so no --safe-area-top padding is
     needed here (see global.css / CONTRIBUTING.md → "Mobile safe-area
@@ -57,7 +58,8 @@ function isActivePath(href: string): boolean {
     PWA support (display: standalone in a manifest) — in that mode the OS
     chrome no longer reserves that space, and a stuck sticky header would sit
     under the notch the same way Toast did before its fix.
--->
+*/
+}
 <header
   class={[
     "sticky top-0 z-50 w-full border-b border-(--color-border-base) bg-(--color-bg-base)/80 backdrop-blur-sm transition-colors duration-200",
@@ -65,7 +67,7 @@ function isActivePath(href: string): boolean {
   ].join(" ")}
 >
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-    <!-- Logo: override with <slot name="logo"> for a custom logo element -->
+    {/* Logo: override with <slot name="logo"> for a custom logo element */}
     <a
       href="/"
       class="flex items-center gap-2 text-lg font-bold tracking-tight text-(--color-text-base) transition-colors hover:text-(--color-brand-primary)"
@@ -93,9 +95,9 @@ function isActivePath(href: string): boolean {
       }
     </a>
 
-    <!-- Right side: nav + optional extra slot + theme toggle + mobile menu button -->
+    {/* Right side: nav + optional extra slot + theme toggle + mobile menu button */}
     <div class="flex items-center gap-2">
-      <!-- Desktop navigation — hidden on mobile, visible md and up -->
+      {/* Desktop navigation — hidden on mobile, visible md and up */}
       <nav
         aria-label={navLabel}
         class="mr-4 hidden items-center gap-6 text-sm font-medium text-(--color-text-muted) md:flex"
@@ -117,10 +119,10 @@ function isActivePath(href: string): boolean {
         }
       </nav>
 
-      <!-- Optional slot for extra header actions (e.g. a CTA button) -->
+      {/* Optional slot for extra header actions (e.g. a CTA button) */}
       <slot name="nav-end" />
 
-      <!-- Mobile menu toggle — visible below md breakpoint -->
+      {/* Mobile menu toggle — visible below md breakpoint */}
       <IconButton
         data-mobile-menu-toggle
         label={menuOpenLabel}
@@ -131,16 +133,18 @@ function isActivePath(href: string): boolean {
         data-label-close={menuCloseLabel}
         class="bg-(--color-bg-surface) hover:!bg-(--color-bg-elevated) md:hidden"
       >
-        <!--
-          * Hand-built hamburger→X, not a pre-made icon — driven purely by
-          * IconButton's "group" class + its own aria-expanded, via
-          * group-aria-expanded:* variants below. Each bar's rotate/translate
-          * is written as a single raw "transform:" value (not Tailwind's
-          * rotate-*/translate-* utilities) because those utilities drive CSS
-          * custom properties registered with `@property { syntax: "*" }`,
-          * which per the CSS Houdini spec can't be transitioned smoothly —
-          * they just snap. A literal "transform" value is always animatable.
-        -->
+        {
+          /*
+           * Hand-built hamburger→X, not a pre-made icon — driven purely by
+           * IconButton's "group" class + its own aria-expanded, via
+           * group-aria-expanded:* variants below. Each bar's rotate/translate
+           * is written as a single raw "transform:" value (not Tailwind's
+           * rotate-* / translate-* utilities) because those utilities drive CSS
+           * custom properties registered with `@property { syntax: "*" }`,
+           * which per the CSS Houdini spec can't be transitioned smoothly —
+           * they just snap. A literal "transform" value is always animatable.
+           */
+        }
         <span class="relative block h-4 w-5" aria-hidden="true">
           <span
             class="absolute inset-x-0 top-0 h-0.5 rounded-full bg-current transition-transform duration-200 ease-out group-aria-expanded:[transform:translateY(7px)_rotate(45deg)]"
@@ -156,7 +160,7 @@ function isActivePath(href: string): boolean {
     </div>
   </div>
 
-  <!-- Mobile navigation drawer -->
+  {/* Mobile navigation drawer */}
   <div
     id="mobile-menu"
     data-mobile-menu

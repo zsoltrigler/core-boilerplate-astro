@@ -12,11 +12,13 @@ export interface Props {
 const { title, open = false, class: className = "" } = Astro.props
 ---
 
-<!--
-  * Native <details>/<summary> accordion — no JS required.
-  * Multiple items can be open simultaneously. Wrap in a parent if you need
-  *   exclusive open behaviour and wire via JS.
--->
+{
+  /*
+   * Native <details>/<summary> accordion — no JS required.
+   * Multiple items can be open simultaneously. Wrap in a parent if you need
+   *   exclusive open behaviour and wire via JS.
+   */
+}
 <details
   open={open}
   class={`group rounded-xl border border-(--color-border-base) bg-(--color-bg-base) [&[open]]:border-(--color-border-strong) ${className}`}
@@ -26,7 +28,7 @@ const { title, open = false, class: className = "" } = Astro.props
   >
     {title}
 
-    <!-- * Chevron rotates 180° when open via group-open Tailwind variant. -->
+    {/* * Chevron rotates 180° when open via group-open Tailwind variant. */}
     <Icon
       name="line-md:chevron-down"
       width="16"
