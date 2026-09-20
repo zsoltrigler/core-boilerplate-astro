@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.25.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.25.1...core-boilerplate-v1.25.2) (2026-09-20)
+
+
+### Bug Fixes
+
+* **ui:** add data-align opt-in API for Table header/cell alignment ([#261](https://github.com/zsoltrigler/core-boilerplate-astro/issues/261)) ([1351538](https://github.com/zsoltrigler/core-boilerplate-astro/commit/1351538705d35c8724ccc5dd3da10be3dffeb6d9))
+
 ## [1.25.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.25.0...core-boilerplate-v1.25.1) (2026-09-14)
 
 
