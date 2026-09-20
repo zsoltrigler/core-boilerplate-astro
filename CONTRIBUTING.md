@@ -96,6 +96,12 @@ The `calc()` is additive on top of the component's normal spacing, not a replace
 
 Components positioned `absolute` relative to a trigger element (`Dropdown`, `Tooltip`) or centered via the global `dialog` rule (`Modal`) don't need this — they aren't flush against a physical screen edge.
 
+## Table column alignment
+
+`Table.astro` is a slot-based wrapper — you write plain `<thead>`/`<tbody>`/`<tfoot>`/`<tr>`/`<th>`/`<td>` inside it, and it applies global styling (padding, borders, uppercase headers, etc.) via `[&_thead_th]`-style descendant selectors on the `<table>` itself. Header cells default to left-aligned text.
+
+To right- or center-align an individual header/cell (e.g. a numeric column, or an "Actions" header), add `data-align="right"` or `data-align="center"` directly to that `<th>`/`<td>` — don't reach for a plain `class="text-right"` on the cell, since it has lower CSS specificity than the component's own `[&_thead_th]`/`[&_tbody_td]` rules and gets silently overridden. `data-align` works because `Table.astro` pairs it with a selector scoped to the same element (e.g. `[&_thead_th[data-align="right"]]`), which is inherently more specific than the base rule, so it wins without `!important`. See the "Table" section on `/ui` for a worked example.
+
 ## Testing
 
 - **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
