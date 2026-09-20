@@ -15,6 +15,10 @@ const { striped = false, layout = "auto", class: className = "" } = Astro.props
    * Wrapper handles horizontal overflow on narrow viewports.
    * Users write standard <thead>, <tbody>, <tr>, <th>, <td> inside the slot —
    *   global CSS classes are applied via the [&_*] selector pattern below.
+   * To align an individual header/cell, add data-align="right" or data-align="center"
+   *   to that <th>/<td> — this opts into a selector scoped to the same element
+   *   (e.g. [&_thead_th[data-align="right"]]), which is inherently more specific
+   *   than the base [&_thead_th] rule, so it wins without !important.
    */
 }
 <div class={`w-full overflow-x-auto rounded-xl border border-(--color-border-base) ${className}`}>
@@ -23,11 +27,14 @@ const { striped = false, layout = "auto", class: className = "" } = Astro.props
       "w-full border-collapse text-sm",
       "[&_thead_tr]:border-b [&_thead_tr]:border-(--color-border-base) [&_thead_tr]:bg-(--color-bg-surface)",
       "[&_thead_th]:px-4 [&_thead_th]:py-3 [&_thead_th]:text-left [&_thead_th]:text-xs [&_thead_th]:font-semibold [&_thead_th]:tracking-wider [&_thead_th]:text-(--color-text-muted) [&_thead_th]:whitespace-nowrap [&_thead_th]:uppercase",
+      '[&_thead_th[data-align="right"]]:text-right [&_thead_th[data-align="center"]]:text-center',
       "[&_tbody_tr]:border-b [&_tbody_tr]:border-(--color-border-base) [&_tbody_tr:last-child]:border-0",
       "[&_tbody_tr]:transition-colors [&_tbody_tr]:duration-150 [&_tbody_tr:hover]:bg-(--color-bg-surface)",
       "[&_tbody_td]:px-4 [&_tbody_td]:py-3 [&_tbody_td]:whitespace-nowrap [&_tbody_td]:text-(--color-text-base)",
+      '[&_tbody_td[data-align="right"]]:text-right [&_tbody_td[data-align="center"]]:text-center',
       "[&_tfoot_tr]:border-t [&_tfoot_tr]:border-(--color-border-strong) [&_tfoot_tr]:bg-(--color-bg-surface)",
       "[&_tfoot_td]:px-4 [&_tfoot_td]:py-3 [&_tfoot_td]:text-sm [&_tfoot_td]:font-medium [&_tfoot_td]:whitespace-nowrap [&_tfoot_td]:text-(--color-text-base)",
+      '[&_tfoot_td[data-align="right"]]:text-right [&_tfoot_td[data-align="center"]]:text-center',
       striped ? "[&_tbody_tr:nth-child(even)]:bg-(--color-bg-surface)" : "",
       layout === "fixed" ? "table-fixed" : "",
     ]

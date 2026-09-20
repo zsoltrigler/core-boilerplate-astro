@@ -1273,7 +1273,10 @@ const components = [
                 class="rounded bg-(--color-bg-surface) px-1">layout="fixed"</code
               > with your own <code class="rounded bg-(--color-bg-surface) px-1"
                 >&lt;colgroup&gt;</code
-              > to lock column widths. Standard HTML elements go inside the slot.
+              > to lock column widths. Standard HTML elements go inside the slot — align an individual
+              header/cell with <code class="rounded bg-(--color-bg-surface) px-1"
+                >data-align="right"</code
+              > or <code class="rounded bg-(--color-bg-surface) px-1">data-align="center"</code>.
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
@@ -1312,29 +1315,29 @@ const components = [
                 <thead>
                   <tr>
                     <th>Package</th>
-                    <th>Version</th>
+                    <th data-align="right">Version</th>
                     <th>License</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>astro</td>
-                    <td>7.0.6</td>
+                    <td data-align="right">7.0.6</td>
                     <td>MIT</td>
                   </tr>
                   <tr>
                     <td>tailwindcss</td>
-                    <td>4.3.2</td>
+                    <td data-align="right">4.3.2</td>
                     <td>MIT</td>
                   </tr>
                   <tr>
                     <td>typescript</td>
-                    <td>5.x</td>
+                    <td data-align="right">5.x</td>
                     <td>Apache-2.0</td>
                   </tr>
                   <tr>
                     <td>prettier</td>
-                    <td>3.9.4</td>
+                    <td data-align="right">3.9.4</td>
                     <td>MIT</td>
                   </tr>
                 </tbody>
