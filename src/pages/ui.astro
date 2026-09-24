@@ -112,6 +112,7 @@ const components = [
   <Header>
     <Button slot="nav-end" href="/" variant="ghost" size="md">
       <Icon
+        is:inline
         slot="icon-left"
         name="line-md:chevron-left"
         width="16"
@@ -453,6 +454,7 @@ const components = [
                 <div class="flex flex-wrap gap-3">
                   <Button variant="primary">
                     <Icon
+                      is:inline
                       slot="icon-left"
                       name="line-md:download"
                       width="16"
@@ -465,6 +467,7 @@ const components = [
                   <Button variant="secondary">
                     Send
                     <Icon
+                      is:inline
                       slot="icon-right"
                       name="line-md:telegram"
                       width="16"
@@ -517,6 +520,7 @@ const components = [
                 layout="horizontal"
               >
                 <Icon
+                  is:inline
                   slot="icon"
                   name="line-md:chevron-right"
                   width="24"
@@ -532,6 +536,7 @@ const components = [
               >
                 <span slot="icon">📋</span>
                 <Icon
+                  is:inline
                   slot="trailing"
                   name="line-md:chevron-right"
                   class="text-(--color-text-muted)"
@@ -713,6 +718,7 @@ const components = [
                 <Button slot="trigger" variant="secondary" size="md">
                   Actions
                   <Icon
+                    is:inline
                     slot="icon-right"
                     name="line-md:chevron-down"
                     width="14"
@@ -774,6 +780,7 @@ const components = [
                 <Button slot="trigger" variant="secondary" size="md">
                   Condition
                   <Icon
+                    is:inline
                     slot="icon-right"
                     name="line-md:chevron-down"
                     width="14"
@@ -827,19 +834,43 @@ const components = [
 
                 <div class="flex flex-wrap gap-3">
                   <IconButton label="Primary" variant="primary">
-                    <Icon name="line-md:chevron-right" width="18" height="18" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:chevron-right"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    />
                   </IconButton>
 
                   <IconButton label="Secondary" variant="secondary">
-                    <Icon name="line-md:watch" width="18" height="18" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:watch"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    />
                   </IconButton>
 
                   <IconButton label="Ghost" variant="ghost">
-                    <Icon name="line-md:heart" width="18" height="18" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:heart"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    />
                   </IconButton>
 
                   <IconButton label="Delete" variant="danger">
-                    <Icon name="line-md:trash" width="18" height="18" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:trash"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    />
                   </IconButton>
                 </div>
               </div>
@@ -851,15 +882,33 @@ const components = [
 
                 <div class="flex flex-wrap items-center gap-3">
                   <IconButton label="Small" variant="ghost" size="sm">
-                    <Icon name="line-md:search" width="14" height="14" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:search"
+                      width="14"
+                      height="14"
+                      aria-hidden="true"
+                    />
                   </IconButton>
 
                   <IconButton label="Medium" variant="ghost" size="md">
-                    <Icon name="line-md:search" width="18" height="18" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:search"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    />
                   </IconButton>
 
                   <IconButton label="Large" variant="ghost" size="lg">
-                    <Icon name="line-md:search" width="22" height="22" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:search"
+                      width="22"
+                      height="22"
+                      aria-hidden="true"
+                    />
                   </IconButton>
                 </div>
               </div>
@@ -871,11 +920,23 @@ const components = [
 
                 <div class="flex flex-wrap gap-3">
                   <IconButton label="Disabled primary" variant="primary" disabled>
-                    <Icon name="line-md:chevron-right" width="18" height="18" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:chevron-right"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    />
                   </IconButton>
 
                   <IconButton label="Disabled ghost" variant="ghost" disabled>
-                    <Icon name="line-md:search" width="18" height="18" aria-hidden="true" />
+                    <Icon
+                      is:inline
+                      name="line-md:search"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    />
                   </IconButton>
                 </div>
               </div>
@@ -899,6 +960,7 @@ const components = [
                       /* * Rotated via group-aria-expanded: (IconButton sets "group" + aria-expanded) — no icon-swap JS needed. */
                     }
                     <Icon
+                      is:inline
                       name="line-md:chevron-down"
                       width="18"
                       height="18"

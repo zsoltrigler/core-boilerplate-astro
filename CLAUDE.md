@@ -21,7 +21,7 @@ All colors live in `src/config.ts` → `COLORS`. A Vite plugin in `astro.config.
 
 ### Icons
 
-All icons are [line-md](https://icon-sets.iconify.design/line-md/) via `astro-icon` (`import { Icon } from "astro-icon/components"`, `<Icon name="line-md:..." />`) — inlined at build time, zero runtime JS. Icons inserted at runtime via plain DOM APIs (e.g. `Toast.astro`'s dismiss icons) can't use `<Icon>` since it only resolves at build time — embed the SVG markup as a string literal instead.
+All icons are [line-md](https://icon-sets.iconify.design/line-md/) via `astro-icon` (`import { Icon } from "astro-icon/components"`, `<Icon name="line-md:..." />`) — inlined at build time, zero runtime JS. **Every `<Icon>` must be `is:inline`** — astro-icon's dedupe (a per-request counter per icon name that emits the `<symbol>` only for the first non-inline instance, the rest just `<use href>`) is unreliable under Astro's parallel sibling rendering: an `is:inline` icon elsewhere on the page can consume the first slot before e.g. the Header renders, leaving its `<use>` pointing at an undefined symbol (blank icon). `is:inline` always emits the full SVG regardless of the counter. Icons inserted at runtime via plain DOM APIs (e.g. `Toast.astro`'s dismiss icons) can't use `<Icon>` since it only resolves at build time — embed the SVG markup as a string literal instead.
 
 ### WCAG AA enforcement
 

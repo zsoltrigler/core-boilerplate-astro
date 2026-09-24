@@ -73,7 +73,7 @@ const circleClasses = (completed: boolean, active: boolean) =>
           >
             <div class={circleClasses(isCompleted, isActive)} aria-hidden="true">
               {isCompleted ? (
-                <Icon name="line-md:confirm" width="14" height="14" aria-hidden="true" />
+                <Icon is:inline name="line-md:confirm" width="14" height="14" aria-hidden="true" />
               ) : (
                 stepNum
               )}
@@ -109,7 +109,13 @@ const circleClasses = (completed: boolean, active: boolean) =>
                 aria-hidden="true"
               >
                 {isCompleted ? (
-                  <Icon name="line-md:confirm" width="14" height="14" aria-hidden="true" />
+                  <Icon
+                    is:inline
+                    name="line-md:confirm"
+                    width="14"
+                    height="14"
+                    aria-hidden="true"
+                  />
                 ) : (
                   stepNum
                 )}

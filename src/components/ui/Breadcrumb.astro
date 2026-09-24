@@ -24,7 +24,13 @@ const { items, "aria-label": ariaLabel = "Breadcrumb", class: className = "" } =
         return (
           <li class="flex items-center gap-1.5">
             {index > 0 && (
-              <Icon name="line-md:chevron-right" width="14" height="14" aria-hidden="true" />
+              <Icon
+                is:inline
+                name="line-md:chevron-right"
+                width="14"
+                height="14"
+                aria-hidden="true"
+              />
             )}
 
             {isLast || !item.href ? (

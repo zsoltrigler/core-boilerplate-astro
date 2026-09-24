@@ -63,6 +63,7 @@ const { border, text, bg } = styles[variant]
       <slot name="icon" />
     ) : (
       <Icon
+        is:inline
         name={defaultIcons[variant]}
         width="20"
         height="20"
@@ -94,7 +95,7 @@ const { border, text, bg } = styles[variant]
         aria-label={dismissLabel}
         class={`shrink-0 ${text} cursor-pointer transition-opacity hover:opacity-70`}
       >
-        <Icon name="line-md:close-small" width="16" height="16" aria-hidden="true" />
+        <Icon is:inline name="line-md:close-small" width="16" height="16" aria-hidden="true" />
       </button>
     )
   }
