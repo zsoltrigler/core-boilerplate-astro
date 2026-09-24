@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.26.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.26.0...core-boilerplate-v1.26.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **ui:** style native type=search clear button with design tokens ([#271](https://github.com/zsoltrigler/core-boilerplate-astro/issues/271)) ([4f73f7d](https://github.com/zsoltrigler/core-boilerplate-astro/commit/4f73f7d3828e77f84bd715af574c6d83ad42f025))
+
 ## [1.26.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.25.2...core-boilerplate-v1.26.0) (2026-09-24)
 
 
