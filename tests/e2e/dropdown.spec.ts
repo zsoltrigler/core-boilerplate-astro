@@ -45,3 +45,20 @@ test("closes when an item is clicked", async ({ page }) => {
   await page.getByRole("link", { name: "Edit" }).click()
   await expect(trigger).toHaveAttribute("aria-expanded", "false")
 })
+
+test("closeOnSelect={false} keeps the panel open while toggling Checkboxes", async ({ page }) => {
+  const trigger = page.getByRole("button", { name: "Condition" })
+  await trigger.click()
+  await expect(trigger).toHaveAttribute("aria-haspopup", "dialog")
+
+  const panel = page.getByRole("dialog", { name: "Filter by condition" })
+  await expect(panel).toBeVisible()
+
+  await panel.getByLabel("New").check()
+  await panel.getByLabel("Used").check()
+  await expect(panel).toBeVisible()
+  await expect(trigger).toHaveAttribute("aria-expanded", "true")
+
+  await page.keyboard.press("Escape")
+  await expect(panel).toBeHidden()
+})

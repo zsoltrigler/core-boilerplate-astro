@@ -670,7 +670,15 @@ const components = [
                 >&lt;dialog&gt;</code
               > — built-in focus trap and Escape to close. Add <code
                 class="rounded bg-(--color-bg-surface) px-1">data-drawer-open="&lt;id&gt;"</code
-              > to any trigger element.
+              > to any trigger element. It can also be opened from code: dispatch <code
+                class="rounded bg-(--color-bg-surface) px-1"
+                >document.dispatchEvent(new CustomEvent("drawer:open", {
+                  "{ detail: { id } }"
+                }))</code
+              > (<code class="rounded bg-(--color-bg-surface) px-1">drawer:close</code> closes it), or
+              set
+              <code class="rounded bg-(--color-bg-surface) px-1">openOnLoad</code> to open it on page
+              load — e.g. after a POST → redirect.
             </Fragment>
 
             <div class="flex flex-wrap gap-3 p-6">
@@ -679,6 +687,10 @@ const components = [
               </Button>
 
               <Button variant="secondary" data-drawer-open="drawer-left"> Open left drawer </Button>
+
+              <Button variant="ghost" data-open-via-event="drawer-right">
+                Open via drawer:open event
+              </Button>
             </div>
           </ShowcaseSection>
 
@@ -687,7 +699,13 @@ const components = [
             <Fragment slot="description">
               JS-powered menu panel. Place the trigger in <code
                 class="rounded bg-(--color-bg-surface) px-1">slot="trigger"</code
-              > and menu items in the default slot. Closes on item click, Escape, and outside click.
+              > and menu items in the default slot. Closes on item click, Escape, and outside click. Set
+              <code class="rounded bg-(--color-bg-surface) px-1"
+                >closeOnSelect=&#123;false&#125;</code
+              > for a panel of form controls (e.g. filter Checkboxes) that should stay open between clicks
+              — the panel then gets <code class="rounded bg-(--color-bg-surface) px-1"
+                >role="dialog"</code
+              > and needs a <code class="rounded bg-(--color-bg-surface) px-1">label</code>.
             </Fragment>
 
             <div class="flex flex-wrap items-start gap-6 p-8">
@@ -749,6 +767,25 @@ const components = [
                   >
                     Sign out
                   </button>
+                </div>
+              </Dropdown>
+
+              <Dropdown closeOnSelect={false} label="Filter by condition">
+                <Button slot="trigger" variant="secondary" size="md">
+                  Condition
+                  <Icon
+                    slot="icon-right"
+                    name="line-md:chevron-down"
+                    width="14"
+                    height="14"
+                    aria-hidden="true"
+                  />
+                </Button>
+
+                <div class="flex flex-col gap-3 p-3">
+                  <Checkbox name="condition-new" label="New" />
+                  <Checkbox name="condition-refurbished" label="Refurbished" />
+                  <Checkbox name="condition-used" label="Used" />
                 </div>
               </Dropdown>
             </div>
@@ -985,7 +1022,13 @@ const components = [
               Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop,
               ESC and backdrop-click to close. Open with <code
                 class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code
-              > on any element.
+              > on any element, dispatch <code class="rounded bg-(--color-bg-surface) px-1"
+                >modal:open</code
+              > / <code class="rounded bg-(--color-bg-surface) px-1">modal:close</code> with <code
+                class="rounded bg-(--color-bg-surface) px-1">{"detail: { id }"}</code
+              > on <code class="rounded bg-(--color-bg-surface) px-1">document</code>, or set <code
+                class="rounded bg-(--color-bg-surface) px-1">openOnLoad</code
+              > to open it on page load.
             </Fragment>
 
             <div class="flex flex-wrap gap-3 p-6">
@@ -993,6 +1036,9 @@ const components = [
               <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
               <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
               <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
+              <Button variant="ghost" data-open-via-event="modal-default">
+                Open via modal:open event
+              </Button>
             </div>
           </ShowcaseSection>
 
@@ -1732,6 +1778,17 @@ const components = [
       </nav>
     </Drawer>
   </main>
+
+  <script>
+    // * Showcase-only: demonstrates the drawer:open / modal:open programmatic API.
+    document.querySelectorAll<HTMLElement>("[data-open-via-event]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.openViaEvent!
+        const type = id.startsWith("drawer") ? "drawer:open" : "modal:open"
+        document.dispatchEvent(new CustomEvent(type, { detail: { id } }))
+      })
+    })
+  </script>
 
   <script>
     // * Intersection Observer highlights the active sidebar link as the user scrolls.

@@ -29,3 +29,14 @@ test("closes on Escape", async ({ page }) => {
   await page.keyboard.press("Escape")
   await expect(drawer).not.toBeVisible()
 })
+
+test("opens via the drawer:open event and closes via drawer:close", async ({ page }) => {
+  const drawer = page.locator("#drawer-right")
+  await page.getByRole("button", { name: "Open via drawer:open event" }).click()
+  await expect(drawer).toBeVisible()
+
+  await page.evaluate(() =>
+    document.dispatchEvent(new CustomEvent("drawer:close", { detail: { id: "drawer-right" } }))
+  )
+  await expect(drawer).not.toBeVisible()
+})

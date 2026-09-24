@@ -2,10 +2,18 @@
 export interface Props {
   /** Alignment of the menu panel relative to the trigger. */
   align?: "left" | "right"
+  /**
+   * Close the panel when anything inside it is clicked. Set to `false` for a
+   * panel of form controls (e.g. a group of Checkboxes) that should stay open
+   * between clicks — the panel then uses `role="dialog"` instead of `role="menu"`.
+   */
+  closeOnSelect?: boolean
+  /** Accessible name for the panel — used when `closeOnSelect` is `false` (`role="dialog"` needs one). */
+  label?: string
   class?: string
 }
 
-const { align = "left", class: className = "" } = Astro.props
+const { align = "left", closeOnSelect = true, label, class: className = "" } = Astro.props
 
 const menuAlign = align === "right" ? "right-0" : "left-0"
 ---
@@ -20,9 +28,17 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
    *
    * The trigger receives aria-haspopup + aria-expanded automatically via the script.
    * Close on: trigger click, Escape, click outside, item selection.
+   *
+   * closeOnSelect={false} keeps the panel open on clicks inside it — for form-control
+   * groups (e.g. filter Checkboxes). ! The panel then isn't a menu, so it gets
+   * role="dialog" (+ aria-label from `label`) and the trigger announces aria-haspopup="dialog".
    */
 }
-<div data-dropdown class={`relative inline-flex ${className}`}>
+<div
+  data-dropdown
+  data-dropdown-close-on-select={closeOnSelect ? undefined : "false"}
+  class={`relative inline-flex ${className}`}
+>
   <div data-dropdown-trigger>
     <slot name="trigger" />
   </div>
@@ -30,7 +46,8 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
   <div
     data-dropdown-menu
     hidden
-    role="menu"
+    role={closeOnSelect ? "menu" : "dialog"}
+    aria-label={closeOnSelect ? undefined : label}
     class={`absolute top-full ${menuAlign} z-50 mt-1 min-w-44 rounded-xl border border-(--color-border-base) bg-(--color-bg-base) p-1 shadow-lg`}
   >
     <slot />
@@ -47,7 +64,8 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
       if (!trigger || !menu) return
 
       // * Wire ARIA attributes so the trigger announces its state to screen readers.
-      trigger.setAttribute("aria-haspopup", "true")
+      const closeOnSelect = dropdown.dataset.dropdownCloseOnSelect !== "false"
+      trigger.setAttribute("aria-haspopup", closeOnSelect ? "true" : "dialog")
       trigger.setAttribute("aria-expanded", "false")
 
       function open() {
@@ -74,8 +92,11 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
         toggle()
       })
 
-      dropdown.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
+      // ! Listens on document, not `dropdown`: Safari/WebKit doesn't focus a Checkbox
+      //   on click either, so after toggling one the keydown target is <body> and a
+      //   listener scoped to `dropdown` would never see Escape.
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !menu.hidden) {
           close()
           trigger!.focus()
         }
@@ -86,7 +107,8 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
       })
 
       // ! Close when any item inside the menu is clicked — covers both <a> and buttons.
-      menu.addEventListener("click", () => close())
+      //   Skipped for closeOnSelect={false} so form controls inside can be toggled repeatedly.
+      if (closeOnSelect) menu.addEventListener("click", () => close())
     })
   }
 

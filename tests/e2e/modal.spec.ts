@@ -33,3 +33,9 @@ test("closes on Escape", async ({ page }) => {
   await page.keyboard.press("Escape")
   await expect(modal).not.toBeVisible()
 })
+
+test("opens via the modal:open event", async ({ page }) => {
+  await page.goto("/ui#modal")
+  await page.getByRole("button", { name: "Open via modal:open event" }).click()
+  await expect(page.locator("#modal-default")).toBeVisible()
+})

@@ -102,6 +102,16 @@ Components positioned `absolute` relative to a trigger element (`Dropdown`, `Too
 
 To right- or center-align an individual header/cell (e.g. a numeric column, or an "Actions" header), add `data-align="right"` or `data-align="center"` directly to that `<th>`/`<td>` — don't reach for a plain `class="text-right"` on the cell, since it has lower CSS specificity than the component's own `[&_thead_th]`/`[&_tbody_td]` rules and gets silently overridden. `data-align` works because `Table.astro` pairs it with a selector scoped to the same element (e.g. `[&_thead_th[data-align="right"]]`), which is inherently more specific than the base rule, so it wins without `!important`. See the "Table" section on `/ui` for a worked example.
 
+## Opening Modal/Drawer from code, and Dropdown `closeOnSelect`
+
+`Modal.astro` and `Drawer.astro` share the same three ways to open, all routed through one internal `open…()` function per component (so scroll-locking can't drift between them):
+
+- **Trigger** — `data-modal-open="<id>"` / `data-drawer-open="<id>"` on any element.
+- **`openOnLoad` prop** — opens on page load. Use it when the server decides the panel should be visible, e.g. a "Added to cart" drawer after a POST → redirect.
+- **Custom events** — `document.dispatchEvent(new CustomEvent("drawer:open", { detail: { id: "cart" } }))`; same for `modal:open`. `drawer:close` / `modal:close` close the panel the same way.
+
+`Dropdown.astro` closes on any click inside its panel by default. Pass `closeOnSelect={false}` for a panel of form controls (e.g. filter Checkboxes) — clicks inside no longer close it, while outside click, Escape and the trigger still do. Because such a panel isn't a menu, it switches to `role="dialog"` (give it a `label` for its accessible name) and the trigger announces `aria-haspopup="dialog"`. The setting is exposed as `data-dropdown-close-on-select="false"` on the root element.
+
 ## Testing
 
 - **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
