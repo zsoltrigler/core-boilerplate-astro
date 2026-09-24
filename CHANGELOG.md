@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.27.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.27.0...core-boilerplate-v1.27.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **ui:** make every Icon is:inline to avoid astro-icon symbol dedupe race ([#275](https://github.com/zsoltrigler/core-boilerplate-astro/issues/275)) ([5145855](https://github.com/zsoltrigler/core-boilerplate-astro/commit/5145855384f67cd99472c0ff75deff7678d95739))
+
 ## [1.27.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.26.1...core-boilerplate-v1.27.0) (2026-09-24)
 
 
