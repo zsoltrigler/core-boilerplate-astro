@@ -1673,9 +1673,13 @@ const components = [
           {/* ── Tooltip ────────────────────────────────────────────── */}
           <ShowcaseSection id="tooltip" title="Tooltip">
             <Fragment slot="description">
-              CSS-only tooltip — no JS. Shows on hover and keyboard focus. Pass <code
+              Shows on hover and keyboard focus; Esc dismisses it. Pass <code
                 class="rounded bg-(--color-bg-surface) px-1">tip</code
-              > and optionally <code class="rounded bg-(--color-bg-surface) px-1">placement</code>.
+              >, and optionally <code class="rounded bg-(--color-bg-surface) px-1">placement</code>
+              or <code class="rounded bg-(--color-bg-surface) px-1">multiline</code>. The trigger
+              must be focusable (e.g. <code class="rounded bg-(--color-bg-surface) px-1"
+                >&lt;button type="button"&gt;</code
+              >) so keyboard and touch users can reach it.
             </Fragment>
 
             <div class="flex flex-wrap items-center justify-center gap-6 p-8">
@@ -1702,6 +1706,27 @@ const components = [
                   Focus me
                 </button>
               </Tooltip>
+            </div>
+
+            <div class="flex justify-center p-8">
+              <Card
+                title="Clickable card"
+                desc="Hovering the card must not open the tooltip."
+                class="group max-w-sm"
+              >
+                <Tooltip
+                  multiline
+                  placement="bottom"
+                  tip="Multi-line explanation: the status badge tells the buyer whether the product ships now. Hover or focus the badge to read it."
+                >
+                  <button
+                    type="button"
+                    class="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-(--color-brand-primary)/40"
+                  >
+                    <Badge variant="info">In stock</Badge>
+                  </button>
+                </Tooltip>
+              </Card>
             </div>
           </ShowcaseSection>
         </div>

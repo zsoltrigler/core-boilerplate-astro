@@ -181,7 +181,7 @@ src/
 │       ├── Textarea.astro     # Multiline input with label, hint, and error state
 │       ├── Toast.astro        # Programmatic toast notifications
 │       ├── Toggle.astro       # Switch / checkbox alternative
-│       └── Tooltip.astro      # CSS-only tooltip on hover/focus
+│       └── Tooltip.astro      # Tooltip on hover/focus, Esc-dismissible
 ├── layouts/
 │   └── BaseLayout.astro       # HTML shell: meta tags, OG, dark mode
 ├── pages/
@@ -656,7 +656,7 @@ Switch-style checkbox alternative.
 
 ### Tooltip
 
-CSS-only tooltip — shows on hover and keyboard focus, no JS.
+Shows on hover and keyboard focus; Esc dismisses it and the bubble stays open while hovered (WCAG 1.4.13). Uses a named `group/tooltip`, so it never reacts to an ancestor `group` (e.g. a clickable card). The script links the trigger to the bubble via `aria-describedby`.
 
 ```astro
 <Tooltip tip="Copy to clipboard" placement="top">
@@ -664,9 +664,15 @@ CSS-only tooltip — shows on hover and keyboard focus, no JS.
     <svg>...</svg>
   </IconButton>
 </Tooltip>
+
+<Tooltip multiline tip="A longer, two-sentence explanation. It wraps at 16rem.">
+  <button type="button">Status</button>
+</Tooltip>
 ```
 
-**Props:** `tip` (required) · `placement` (top | bottom | left | right)
+The trigger must be focusable (e.g. `<button type="button">`) — that is what makes the tooltip reachable by keyboard and by tap on touch screens.
+
+**Props:** `tip` (required) · `placement` (top | bottom | left | right) · `multiline` · `id`
 
 ---
 
