@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.26.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.25.2...core-boilerplate-v1.26.0) (2026-09-24)
+
+
+### Features
+
+* **ui:** add Dropdown closeOnSelect and Drawer/Modal programmatic open API ([#269](https://github.com/zsoltrigler/core-boilerplate-astro/issues/269)) ([26140a0](https://github.com/zsoltrigler/core-boilerplate-astro/commit/26140a01619157d61640c66e90b0d5e37055b5b4))
+
 ## [1.25.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.25.1...core-boilerplate-v1.25.2) (2026-09-20)
 
 
