@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.27.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.26.1...core-boilerplate-v1.27.0) (2026-09-24)
+
+
+### Features
+
+* **ui:** add Tooltip multiline mode, named group and WCAG 1.4.13 behavior ([#273](https://github.com/zsoltrigler/core-boilerplate-astro/issues/273)) ([92e9860](https://github.com/zsoltrigler/core-boilerplate-astro/commit/92e9860b53ba34a15989f9f6bc825a4970f0b85f))
+
 ## [1.26.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.26.0...core-boilerplate-v1.26.1) (2026-09-24)
 
 
