@@ -10,10 +10,19 @@ export interface Props {
   size?: "sm" | "md" | "lg" | "xl"
   /** aria-label for the × close button — override for a non-English site. */
   closeLabel?: string
+  /** Open the modal as soon as the page loads — e.g. after a POST → redirect the server decides it should show. */
+  openOnLoad?: boolean
   class?: string
 }
 
-const { id, title, size = "md", closeLabel = "Close modal", class: className = "" } = Astro.props
+const {
+  id,
+  title,
+  size = "md",
+  closeLabel = "Close modal",
+  openOnLoad = false,
+  class: className = "",
+} = Astro.props
 
 const sizes: Record<string, string> = {
   sm: "max-w-sm",
@@ -27,11 +36,16 @@ const sizes: Record<string, string> = {
   /*
   * Native <dialog> element — provides built-in accessibility (role, aria-modal,
     focus trap) without JavaScript polyfills. Open via showModal(), close via close().
+  * Other ways to open it (all share one openModal() in the script below):
+  *   - openOnLoad prop → opens on page load.
+  *   - document.dispatchEvent(new CustomEvent("modal:open", { detail: { id } }));
+  *     "modal:close" closes it the same way.
 */
 }
 <dialog
   id={id}
   data-modal
+  data-open-on-load={openOnLoad ? "" : undefined}
   class={`w-full rounded-2xl border border-(--color-border-base) bg-(--color-bg-base) p-0 shadow-2xl mx-auto my-auto max-h-[90dvh] backdrop:bg-(--color-overlay)/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${sizes[size]} ${className}`}
 >
   {
@@ -68,15 +82,24 @@ const sizes: Record<string, string> = {
 </dialog>
 
 <script>
+  // * Single open path — the trigger click, openOnLoad and the modal:open event all call this.
+  function openModal(id: string) {
+    const modal = document.getElementById(id) as HTMLDialogElement | null
+    if (!modal || !modal.matches("[data-modal]") || modal.open) return
+
+    modal.showModal()
+    // ! showModal() does not lock body scroll by default — the page
+    //   behind stays scrollable via wheel/touch unless done manually.
+    document.documentElement.classList.add("overflow-hidden")
+  }
+
+  function closeModal(id: string) {
+    const modal = document.getElementById(id) as HTMLDialogElement | null
+    if (modal?.matches("[data-modal]")) modal.close()
+  }
+
   document.querySelectorAll<HTMLElement>("[data-modal-open]").forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      const modal = document.getElementById(trigger.dataset.modalOpen!) as HTMLDialogElement | null
-      if (!modal) return
-      modal.showModal()
-      // ! showModal() does not lock body scroll by default — the page
-      //   behind stays scrollable via wheel/touch unless done manually.
-      document.documentElement.classList.add("overflow-hidden")
-    })
+    trigger.addEventListener("click", () => openModal(trigger.dataset.modalOpen!))
   })
 
   document.querySelectorAll<HTMLDialogElement>("[data-modal]").forEach((modal) => {
@@ -98,5 +121,15 @@ const sizes: Record<string, string> = {
     modal.addEventListener("close", () => {
       document.documentElement.classList.remove("overflow-hidden")
     })
+
+    if (modal.hasAttribute("data-open-on-load")) openModal(modal.id)
   })
+
+  // * Programmatic API: document.dispatchEvent(new CustomEvent("modal:open", { detail: { id } }))
+  document.addEventListener("modal:open", (e) =>
+    openModal((e as CustomEvent<{ id: string }>).detail.id)
+  )
+  document.addEventListener("modal:close", (e) =>
+    closeModal((e as CustomEvent<{ id: string }>).detail.id)
+  )
 </script>

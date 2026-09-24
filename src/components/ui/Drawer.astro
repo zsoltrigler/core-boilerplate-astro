@@ -11,6 +11,8 @@ export interface Props {
   side?: "left" | "right"
   /** aria-label for the × close button — override for a non-English site. */
   closeLabel?: string
+  /** Open the drawer as soon as the page loads — e.g. after a POST → redirect the server decides it should show. */
+  openOnLoad?: boolean
   class?: string
 }
 
@@ -19,6 +21,7 @@ const {
   title,
   side = "right",
   closeLabel = "Close drawer",
+  openOnLoad = false,
   class: className = "",
 } = Astro.props
 
@@ -44,6 +47,10 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
   /*
   * Usage: add data-drawer-open="<id>" to any button to open this drawer.
   * Close via the × button, backdrop click, or Escape.
+  * Other ways to open it (all share one openDrawer() in the script below):
+  *   - openOnLoad prop → opens on page load (server-decided, e.g. after a PRG redirect).
+  *   - document.dispatchEvent(new CustomEvent("drawer:open", { detail: { id } }))
+  *     from any script; "drawer:close" closes it the same way.
   * Uses native <dialog> for its backdrop, focus trap, and Escape handling.
   ! The global `dialog { ... }` rule in global.css (Modal's default centering)
     excludes [data-drawer] so it doesn't fight this component's own
@@ -59,6 +66,7 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
   id={id}
   data-drawer
   data-side={side}
+  data-open-on-load={openOnLoad ? "" : undefined}
   class={`w-full max-w-sm overflow-hidden border-0 bg-(--color-bg-base) p-0 shadow-2xl backdrop:bg-(--color-overlay)/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${className}`}
 >
   <div class="flex h-full w-full flex-col">
@@ -180,19 +188,25 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
 </style>
 
 <script>
+  // * Single open path — the trigger click, openOnLoad and the drawer:open event all call this.
+  function openDrawer(id: string) {
+    const drawer = document.getElementById(id) as HTMLDialogElement | null
+    if (!drawer || !drawer.matches("[data-drawer]") || drawer.open) return
+
+    drawer.showModal()
+    // ! showModal() does not lock body scroll by default — the page
+    //   behind stays scrollable via wheel/touch unless done manually.
+    document.documentElement.classList.add("overflow-hidden")
+  }
+
+  function closeDrawer(id: string) {
+    const drawer = document.getElementById(id) as HTMLDialogElement | null
+    if (drawer?.matches("[data-drawer]")) drawer.close()
+  }
+
   function initDrawers() {
     document.querySelectorAll<HTMLElement>("[data-drawer-open]").forEach((trigger) => {
-      trigger.addEventListener("click", () => {
-        const drawer = document.getElementById(
-          trigger.dataset.drawerOpen!
-        ) as HTMLDialogElement | null
-        if (!drawer) return
-
-        drawer.showModal()
-        // ! showModal() does not lock body scroll by default — the page
-        //   behind stays scrollable via wheel/touch unless done manually.
-        document.documentElement.classList.add("overflow-hidden")
-      })
+      trigger.addEventListener("click", () => openDrawer(trigger.dataset.drawerOpen!))
     })
 
     document.querySelectorAll<HTMLDialogElement>("[data-drawer]").forEach((drawer) => {
@@ -215,7 +229,17 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
       drawer.addEventListener("close", () => {
         document.documentElement.classList.remove("overflow-hidden")
       })
+
+      if (drawer.hasAttribute("data-open-on-load")) openDrawer(drawer.id)
     })
+
+    // * Programmatic API: document.dispatchEvent(new CustomEvent("drawer:open", { detail: { id } }))
+    document.addEventListener("drawer:open", (e) =>
+      openDrawer((e as CustomEvent<{ id: string }>).detail.id)
+    )
+    document.addEventListener("drawer:close", (e) =>
+      closeDrawer((e as CustomEvent<{ id: string }>).detail.id)
+    )
   }
 
   initDrawers()
