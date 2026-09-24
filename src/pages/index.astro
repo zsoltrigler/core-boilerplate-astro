@@ -92,6 +92,7 @@ const stats = [
               <Button href="/ui" variant="primary" size="md">
                 Browse components
                 <Icon
+                  is:inline
                   slot="icon-right"
                   name="line-md:chevron-right"
                   width="16"
@@ -133,7 +134,7 @@ const stats = [
             stats.map((s) => (
               <div class="flex flex-col items-center gap-3 text-center">
                 <span class="text-(--color-brand-primary)">
-                  <Icon name={s.icon} width="20" height="20" aria-hidden="true" />
+                  <Icon is:inline name={s.icon} width="20" height="20" aria-hidden="true" />
                 </span>
 
                 <div class="flex flex-col gap-1">
@@ -164,6 +165,7 @@ const stats = [
               hover
             >
               <Icon
+                is:inline
                 slot="icon"
                 name="line-md:grid-3"
                 width="22"
@@ -179,6 +181,7 @@ const stats = [
               hover
             >
               <Icon
+                is:inline
                 slot="icon"
                 name="line-md:moon-loop"
                 width="22"
@@ -194,6 +197,7 @@ const stats = [
               hover
             >
               <Icon
+                is:inline
                 slot="icon"
                 name="line-md:cog"
                 width="22"
@@ -209,6 +213,7 @@ const stats = [
               hover
             >
               <Icon
+                is:inline
                 slot="icon"
                 name="line-md:document-code"
                 width="22"
@@ -224,6 +229,7 @@ const stats = [
               hover
             >
               <Icon
+                is:inline
                 slot="icon"
                 name="line-md:list-3"
                 width="22"
@@ -239,6 +245,7 @@ const stats = [
               hover
             >
               <Icon
+                is:inline
                 slot="icon"
                 name="line-md:search"
                 width="22"
@@ -266,6 +273,7 @@ const stats = [
             <Button href="/ui" variant="ghost" size="sm">
               See all
               <Icon
+                is:inline
                 slot="icon-right"
                 name="line-md:chevron-right"
                 width="16"

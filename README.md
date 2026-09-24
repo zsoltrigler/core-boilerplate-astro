@@ -232,6 +232,7 @@ For toggle buttons (e.g. a menu open/close control, or a disclosure chevron), pa
 ```astro
 <IconButton label="Open menu" expanded={false} controls="mobile-menu" data-menu-toggle>
   <Icon
+    is:inline
     name="line-md:chevron-down"
     class="transition-transform duration-200 ease-out group-aria-expanded:[transform:rotate(180deg)]"
   />
@@ -707,8 +708,10 @@ All icons throughout the boilerplate come from [line-md](https://icon-sets.iconi
 import { Icon } from "astro-icon/components"
 ---
 
-<Icon name="line-md:heart" width="20" height="20" />
+<Icon is:inline name="line-md:heart" width="20" height="20" />
 ```
+
+> Always pass `is:inline`. Without it, astro-icon emits the `<symbol>` only for the first non-inline instance of a given icon per request and `<use>` references for the rest — but Astro renders sibling components in parallel, so an `is:inline` icon in page content can claim that first slot before the header does, leaving the header's `<use>` pointing at a symbol that is never defined (the icon renders blank).
 
 Browse the full set at [icon-sets.iconify.design/line-md](https://icon-sets.iconify.design/line-md/) — any icon name from there works with `name="line-md:<icon-name>"`. Many icons are self-animating (stroke-draw on mount). Some, like `menu-to-close-transition`, come in matched reverse pairs (`close-to-menu-transition`) meant for two-state toggle controls (see `ThemeToggle.astro`) — but they only auto-play their morph once, on mount, and freeze there; they don't replay when an already-mounted instance is shown/hidden again, so they're a poor fit for a "both icons present, toggle visibility" button like `Header.astro`'s mobile menu toggle, which uses plain `menu`/`close` instead.
 
