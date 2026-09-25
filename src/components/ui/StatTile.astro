@@ -1,6 +1,10 @@
 ---
 import { Icon } from "astro-icon/components"
 
+// * Usage — external / out-of-app links: set `newTab` together with `href` to open the tile in a new
+//   tab (target="_blank" + rel="noopener noreferrer"). It appends a screen-reader-only
+//   "(opens in a new tab)" to the link's name and shows a small external-link icon next to the value.
+//   Override `newTabLabel` for a non-English site. `newTab` has no effect without `href`.
 export interface Props {
   /** line-md icon name without the "line-md:" prefix. */
   icon: string
@@ -10,6 +14,10 @@ export interface Props {
   caption?: string
   /** Renders the tile as a link when set. */
   href?: string
+  /** Opens the link in a new tab (target="_blank", rel="noopener noreferrer") and flags it to screen readers and sighted users. Requires `href`. */
+  newTab?: boolean
+  /** Screen-reader text appended to the link name when `newTab` is set — override for a non-English site. */
+  newTabLabel?: string
   /** Draws attention to a state that needs review — red border + tinted background. */
   urgent?: boolean
   /** Pulsing status dot next to the value — signals an in-progress operation. */
@@ -24,6 +32,8 @@ const {
   value,
   caption,
   href,
+  newTab = false,
+  newTabLabel = "(opens in a new tab)",
   urgent = false,
   pulse = false,
   class: className = "",
@@ -52,10 +62,13 @@ const base = [
 ].join(" ")
 
 const Tag = href ? "a" : "div"
+const opensInNewTab = Boolean(href) && newTab
 ---
 
 <Tag
   href={href}
+  target={opensInNewTab ? "_blank" : undefined}
+  rel={opensInNewTab ? "noopener noreferrer" : undefined}
   class={href ? `${base} group cursor-pointer hover:border-(--color-border-strong)` : base}
 >
   <span
@@ -84,8 +97,26 @@ const Tag = href ? "a" : "div"
         class={`truncate text-base font-semibold text-(--color-text-base) ${href ? "group-hover:underline" : ""}`}
         >{value}</span
       >
+
+      {
+        opensInNewTab && (
+          <Icon
+            is:inline
+            name="line-md:external-link"
+            width="14"
+            height="14"
+            aria-hidden="true"
+            class="shrink-0 text-(--color-text-muted)"
+          />
+        )
+      }
     </span>
 
     {caption && <span class="font-mono text-xs text-(--color-text-muted)">{caption}</span>}
+
+    {
+      /* * Last in the link so the accessible name reads "label value caption (opens in a new tab)". */
+    }
+    {opensInNewTab && <span class="sr-only">{newTabLabel}</span>}
   </span>
 </Tag>

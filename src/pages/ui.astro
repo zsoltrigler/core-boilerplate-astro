@@ -1364,8 +1364,10 @@ const components = [
             <Fragment slot="description">
               KPI/stat tile with an icon, label, value, and optional caption. <code
                 class="rounded bg-(--color-bg-surface) px-1">href</code
-              > renders it as a link; <code class="rounded bg-(--color-bg-surface) px-1"
-                >urgent</code
+              > renders it as a link (add <code class="rounded bg-(--color-bg-surface) px-1"
+                >newTab</code
+              > to open it in a new tab, flagged for screen readers and with an icon); <code
+                class="rounded bg-(--color-bg-surface) px-1">urgent</code
               > and <code class="rounded bg-(--color-bg-surface) px-1">pulse</code> flag attention-needing
               or in-progress state.
             </Fragment>
@@ -1393,6 +1395,14 @@ const components = [
                 label="Syncing"
                 value="42"
                 pulse
+              />
+              <StatTile
+                icon="link"
+                color="brand"
+                label="Live site"
+                value="example.com"
+                href="https://example.com"
+                newTab
               />
             </div>
           </ShowcaseSection>
