@@ -12,8 +12,18 @@ import FormField from "./FormField.astro"
 //   string, both of which conflict with this component's own narrower
 //   `size`/`type` unions below.
 export interface Props extends HTMLAttributes<"div"> {
-  /** Input type — covers the most common use cases. */
-  type?: "text" | "email" | "password" | "search" | "url" | "tel" | "number"
+  /** Input type — covers the most common use cases, including native date/time pickers. */
+  type?:
+    | "text"
+    | "email"
+    | "password"
+    | "search"
+    | "url"
+    | "tel"
+    | "number"
+    | "date"
+    | "datetime-local"
+    | "time"
   name: string
   id?: string
   label?: string
@@ -21,6 +31,12 @@ export interface Props extends HTMLAttributes<"div"> {
   "aria-label"?: string
   placeholder?: string
   value?: string | number
+  /** Lower bound — a number for type="number", an ISO string (e.g. "2026-01-31") for date/time types. */
+  min?: string | number
+  /** Upper bound — same format as `min`. */
+  max?: string | number
+  /** Granularity for number/date/time types (e.g. `step={900}` for 15-minute time slots). */
+  step?: string | number
   /** Hint text displayed below the input. */
   hint?: string
   /** Error message — switches the input to error state when set. */
@@ -46,6 +62,9 @@ const {
   "aria-label": ariaLabel,
   placeholder,
   value,
+  min,
+  max,
+  step,
   hint,
   error,
   size = "md",
@@ -85,6 +104,9 @@ const base = [
     name={name}
     placeholder={placeholder}
     value={value}
+    min={min}
+    max={max}
+    step={step}
     list={list}
     autocomplete={autocomplete}
     aria-label={!label ? ariaLabel : undefined}
@@ -98,6 +120,32 @@ const base = [
 </FormField>
 
 <style>
+  /*
+    * Native date/time pickers — the browser paints the calendar/clock indicator and
+      the segmented text itself, so without a matching color-scheme the icon stays
+      dark-on-dark in dark mode. color-scheme flips the native glyph (and the picker
+      popup) to the right palette; the theme is class-based (.dark on <html>), so
+      it can't rely on the prefers-color-scheme media query. Single-theme templates
+      never get .dark, so they stay on the light scheme.
+  */
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="time"] {
+    color-scheme: light;
+  }
+
+  :global(.dark) input[type="date"],
+  :global(.dark) input[type="datetime-local"],
+  :global(.dark) input[type="time"] {
+    color-scheme: dark;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+
   /*
     * Native type="search" clear button (Chrome/Safari/Edge) — the browser default
       is a blue, fixed-size glyph outside the design system. appearance:none strips

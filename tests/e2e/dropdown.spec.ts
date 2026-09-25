@@ -62,3 +62,15 @@ test("closeOnSelect={false} keeps the panel open while toggling Checkboxes", asy
   await page.keyboard.press("Escape")
   await expect(panel).toBeHidden()
 })
+
+test("opening another Dropdown closes the one that was open", async ({ page }) => {
+  const actions = page.getByRole("button", { name: "Actions" })
+  const condition = page.getByRole("button", { name: "Condition" })
+
+  await actions.click()
+  await expect(actions).toHaveAttribute("aria-expanded", "true")
+
+  await condition.click()
+  await expect(condition).toHaveAttribute("aria-expanded", "true")
+  await expect(actions).toHaveAttribute("aria-expanded", "false")
+})

@@ -704,7 +704,8 @@ const components = [
             <Fragment slot="description">
               JS-powered menu panel. Place the trigger in <code
                 class="rounded bg-(--color-bg-surface) px-1">slot="trigger"</code
-              > and menu items in the default slot. Closes on item click, Escape, and outside click. Set
+              > and menu items in the default slot. Closes on item click, Escape, and outside click, and
+              opening one closes any other open Dropdown. Set
               <code class="rounded bg-(--color-bg-surface) px-1"
                 >closeOnSelect=&#123;false&#125;</code
               > for a panel of form controls (e.g. filter Checkboxes) that should stay open between clicks
@@ -997,10 +998,17 @@ const components = [
           {/* ── Input ──────────────────────────────────────────────── */}
           <ShowcaseSection id="input" title="Input">
             <Fragment slot="description">
-              Text input with label, hint, error state and size variants. The <code
+              Text input with label, hint, error state and size variants. Supports native date/time
+              pickers (<code class="rounded bg-(--color-bg-surface) px-1">date</code>, <code
+                class="rounded bg-(--color-bg-surface) px-1">datetime-local</code
+              >, <code class="rounded bg-(--color-bg-surface) px-1">time</code>) with <code
+                class="rounded bg-(--color-bg-surface) px-1">min</code
+              >/<code class="rounded bg-(--color-bg-surface) px-1">max</code>/<code
+                class="rounded bg-(--color-bg-surface) px-1">step</code
+              >. The <code class="rounded bg-(--color-bg-surface) px-1">name</code> prop is required —
+              <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls back to <code
                 class="rounded bg-(--color-bg-surface) px-1">name</code
-              > prop is required — <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls
-              back to <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
+              > when omitted.
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
@@ -1038,6 +1046,25 @@ const components = [
                     required
                     fullWidth
                   />
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Date and time
+                </p>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <Input
+                    name="date-from"
+                    type="date"
+                    label="From"
+                    min="2026-01-01"
+                    max="2026-12-31"
+                    fullWidth
+                  />
+                  <Input name="date-time" type="datetime-local" label="Date and time" fullWidth />
+                  <Input name="time" type="time" label="Time" step="900" fullWidth />
                 </div>
               </div>
 
