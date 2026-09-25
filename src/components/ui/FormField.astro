@@ -1,4 +1,6 @@
 ---
+import { errorId, hintId } from "../../utils/aria"
+
 // * Shared label + error + hint wrapper for Input, Select, Textarea, Combobox —
 //   keeps their field chrome (not the control element itself) in one place.
 export interface Props {
@@ -38,16 +40,16 @@ const {
   <slot />
 
   {
-    error && (
-      <p id={`${id}-error`} class="text-sm text-(--color-status-error)" role="alert">
-        {error}
-      </p>
-    )
+    /* * Always rendered (empty + hidden without an error) so client-side validation can fill it and un-hide it —
+       a role="alert" region that already exists is announced reliably, one inserted with its text is not. See setFieldError in src/utils/fieldError.ts. */
   }
+  <p id={errorId(id)} class="text-sm text-(--color-status-error)" role="alert" hidden={!error}>
+    {error}
+  </p>
 
   {
     hint && (
-      <p id={`${id}-hint`} class="text-sm text-(--color-text-muted)">
+      <p id={hintId(id)} class="text-sm text-(--color-text-muted)">
         {hint}
       </p>
     )

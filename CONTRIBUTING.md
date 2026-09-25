@@ -82,6 +82,20 @@ Edit colors **only** in `src/config.ts`. They are injected into CSS at build tim
 
 WCAG AA contrast is checked automatically at build time. Fix any warnings before opening a PR.
 
+## Client-side (live) form validation
+
+`FormField` (used by `Input`, `Select`, `Textarea` and `Combobox`) always renders its error element — `<p id="{id}-error" role="alert">`, empty and `hidden` until there is an error — so client code has somewhere to write to. Use `setFieldError` from `src/utils/fieldError.ts` instead of wiring the ARIA attributes by hand:
+
+```ts
+import { setFieldError } from "../utils/fieldError"
+
+input.addEventListener("blur", () =>
+  setFieldError(input, input.validity.valid ? null : "Enter a valid email address.")
+)
+```
+
+`setFieldError(control, message)` shows the message (un-hides the error element so screen readers announce it), sets `aria-invalid="true"` on the control — which also switches on the red field styling — and puts the error id first in `aria-describedby`, keeping the hint id. `setFieldError(control, null)` reverts all three, so no `aria-describedby` reference is left dangling. It works the same for an error that was rendered on the server via the `error` prop. The control needs an `id` (the `name` fallback counts) and must be rendered through `FormField`; otherwise the call is a no-op. See the "Live validation" example in the `/ui` Input section.
+
 ## Mobile safe-area insets
 
 `BaseLayout.astro`'s viewport meta includes `viewport-fit=cover`, which lets the page draw under the notch/Dynamic Island and home-indicator bar on modern phones — required for `env(safe-area-inset-*)` to resolve to anything other than `0`.
@@ -115,7 +129,7 @@ To right- or center-align an individual header/cell (e.g. a numeric column, or a
 
 ## Testing
 
-- **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
+- **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`, `fieldError.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
 - **Playwright** (`pnpm test:e2e`) — cross-browser (Chromium, Firefox, WebKit) interaction tests, in `tests/e2e/`, for every JS-powered component (`Modal`, `Drawer`, `Dropdown`, `Tabs`, `Toast`, `Combobox`, `ThemeToggle`). These drive the real `/ui` showcase page in a real browser rather than mocking the DOM — Astro's inline component `<script>` blocks rely on native browser APIs (`<dialog>`, focus, `astro:page-load`) that jsdom doesn't faithfully emulate. When you add a new interactive component, add its spec here instead of reaching for Vitest + jsdom.
 - Both suites run in CI on every PR. Run `pnpm exec playwright install --with-deps chromium firefox webkit` once locally before your first `pnpm test:e2e`.
 
