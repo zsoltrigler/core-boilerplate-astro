@@ -16,7 +16,14 @@ export interface Props extends HTMLAttributes<"div"> {
   variant?: "primary" | "secondary" | "ghost" | "danger"
   size?: "sm" | "md" | "lg"
   fullWidth?: boolean
-  /** Opens the link in a new tab with rel="noopener noreferrer". */
+  /** Opens the link in a new tab (target="_blank", rel="noopener noreferrer") and flags it: a screen-reader-only "(opens in a new tab)" is appended to the link name and a small external-link icon is shown — the icon is skipped when an `icon-right` slot is given, so you keep control of the visual cue. Requires `href`. */
+  newTab?: boolean
+  /** Screen-reader text appended to the link name when `newTab` is set — override for a non-English site. */
+  newTabLabel?: string
+  /**
+   * @deprecated Use `newTab`. `external` only adds target="_blank" and rel="noopener noreferrer" — no
+   * screen-reader hint and no icon. Kept unchanged for backwards compatibility.
+   */
   external?: boolean
   disabled?: boolean
   /** Replaces icon-left with a spinner and blocks interaction — for in-flight async actions (e.g. form submits). Doesn't dim opacity like disabled, so the button still reads as "working" rather than "unavailable". */
@@ -30,6 +37,8 @@ const {
   variant = "primary",
   size = "md",
   fullWidth = false,
+  newTab = false,
+  newTabLabel = "(opens in a new tab)",
   external = false,
   disabled = false,
   loading = false,
@@ -80,7 +89,10 @@ const base = [
 // * Renders as <a> when href is provided, <button> otherwise.
 // ! Never pass both href and type together — type is ignored on anchor elements.
 // ! <a> does not support the disabled attribute — use aria-disabled + pointer-events-none instead.
-const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {}
+const externalProps = newTab || external ? { target: "_blank", rel: "noopener noreferrer" } : {}
+const opensInNewTab = Boolean(href) && newTab
+// * The auto icon yields to a caller-supplied icon-right, and to the loading spinner state.
+const showNewTabIcon = opensInNewTab && !loading && !Astro.slots.has("icon-right")
 const disabledLinkProps = interactionDisabled
   ? { "aria-disabled": true as const, tabindex: "-1" }
   : {}
@@ -109,6 +121,17 @@ const disabledLinkProps = interactionDisabled
       )}
       <slot />
       {!loading && <slot name="icon-right" />}
+      {showNewTabIcon && (
+        <Icon
+          is:inline
+          name="line-md:external-link"
+          width={spinnerSizes[size]}
+          height={spinnerSizes[size]}
+          aria-hidden="true"
+        />
+      )}
+      {/* * Last in the link so the accessible name reads "label (opens in a new tab)". */}
+      {opensInNewTab && <span class="sr-only">{newTabLabel}</span>}
     </a>
   ) : (
     <button
