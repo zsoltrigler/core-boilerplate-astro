@@ -18,63 +18,180 @@ const {
   class: className = "",
 } = Astro.props
 
-// * The bubble sits 0.5rem off the trigger via calc() (no margin); the `before:` bridge fills that
-// * gap so the pointer can travel onto the bubble without losing :hover (WCAG 1.4.13 hoverable).
-const positions: Record<string, string> = {
-  top: "bottom-[calc(100%+0.5rem)] left-1/2 -translate-x-1/2 before:inset-x-0 before:top-full before:h-2",
-  bottom:
-    "top-[calc(100%+0.5rem)] left-1/2 -translate-x-1/2 before:inset-x-0 before:bottom-full before:h-2",
-  left: "right-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 before:inset-y-0 before:left-full before:w-2",
-  right:
-    "left-[calc(100%+0.5rem)] top-1/2 -translate-y-1/2 before:inset-y-0 before:right-full before:w-2",
-}
+// * Anchor names are per instance (derived from the bubble id) so several tooltips on one page never
+// * share an anchor. dashed-ident only allows [a-zA-Z0-9_-], so a user-supplied id is sanitised.
+const anchorName = `--${id.replace(/[^a-zA-Z0-9_-]/g, "-")}`
 ---
 
 {
   /*
-   * CSS-driven tooltip; a tiny script adds Escape-to-dismiss and the aria link.
-   * Shows on hover and on keyboard focus-within. The wrapping span is inline-flex so it doesn't break text flow.
+   * CSS-driven tooltip; a tiny script shows/hides the bubble and adds Escape-to-dismiss and the aria link.
+   * The wrapping span is inline-flex so it doesn't break text flow.
    *
-   * ! Uses a NAMED group (group/tooltip) so it never reacts to an ancestor's own `group` (e.g. a clickable card).
+   * ! The bubble is a `popover="manual"` element, so it renders in the TOP LAYER: no `overflow-hidden`
+   *   ancestor can clip it, and while hidden it is `display: none` (no layout footprint → no phantom
+   *   horizontal scroll). `manual` (not `auto`) because `auto` light-dismisses on outside clicks and
+   *   closes other open popovers (Dropdown, Modal…); `hint` is Chrome-only, not Baseline.
+   * ! Placement uses CSS Anchor Positioning (see the <style> block): the preferred side comes from
+   *   `placement`, the browser flips / slides the bubble so it always stays inside the viewport.
    * ! The trigger must be focusable (e.g. <button type="button">) — that's what makes the tooltip
    *   reachable by keyboard and by tap on touch screens. The script sets aria-describedby on the
    *   first focusable element in the slot (WCAG 1.3.1 / 4.1.2), unless it already has one.
    */
 }
-<span data-tooltip class={`group/tooltip relative inline-flex ${className}`}>
+<span data-tooltip class={`relative inline-flex ${className}`} style={`anchor-name: ${anchorName}`}>
   <slot />
   <span
     {id}
     role="tooltip"
-    class={`pointer-events-none absolute before:absolute before:content-[''] ${positions[placement]} z-50 ${multiline ? "w-max max-w-64 whitespace-normal text-left" : "whitespace-nowrap"} rounded-md border border-(--color-border-base) bg-(--color-bg-elevated) px-2.5 py-1.5 text-xs font-medium text-(--color-text-base) shadow-sm opacity-0 transition-opacity duration-150 group-hover/tooltip:pointer-events-auto group-hover/tooltip:opacity-100 group-focus-within/tooltip:pointer-events-auto group-focus-within/tooltip:opacity-100 group-data-dismissed/tooltip:pointer-events-none! group-data-dismissed/tooltip:opacity-0!`}
+    popover="manual"
+    data-tooltip-bubble
+    data-placement={placement}
+    data-multiline={multiline || undefined}
+    style={`position-anchor: ${anchorName}`}
+    class="z-50 rounded-md border border-(--color-border-base) bg-(--color-bg-elevated) px-2.5 py-1.5 text-xs font-medium text-(--color-text-base) shadow-sm not-supports-[selector(:popover-open)]:hidden"
   >
     {tip}
   </span>
 </span>
 
+<style>
+  /* ? UA popover styles (inset: 0, margin: auto, overflow: auto) are reset so our positioning wins. */
+  [data-tooltip-bubble] {
+    --tooltip-gap: 0.5rem;
+    /* * Side gutter matches Container's px-6, so the bubble never touches the screen edge. */
+    --tooltip-gutter: 1.5rem;
+    inset: auto;
+    margin: 0;
+    overflow: visible;
+    width: max-content;
+    max-width: calc(100vw - 2 * var(--tooltip-gutter));
+    white-space: normal;
+    opacity: 0;
+    transition:
+      opacity 150ms,
+      display 150ms allow-discrete,
+      overlay 150ms allow-discrete;
+  }
+
+  [data-tooltip-bubble]:popover-open {
+    opacity: 1;
+  }
+
+  @starting-style {
+    [data-tooltip-bubble]:popover-open {
+      opacity: 0;
+    }
+  }
+
+  [data-tooltip-bubble][data-multiline] {
+    max-width: min(16rem, calc(100vw - 2 * var(--tooltip-gutter)));
+    text-align: left;
+  }
+
+  /* * Anchor-positioned: the offset from the trigger is an inset on the anchor-facing side of the
+     position-area cell (no margin), and `flip-*` swaps it together with the side. */
+  @supports (position-area: top) {
+    [data-tooltip-bubble] {
+      position-try-fallbacks: flip-block, flip-inline;
+    }
+
+    [data-tooltip-bubble][data-placement="top"] {
+      position-area: top;
+      bottom: var(--tooltip-gap);
+    }
+
+    [data-tooltip-bubble][data-placement="bottom"] {
+      position-area: bottom;
+      top: var(--tooltip-gap);
+    }
+
+    [data-tooltip-bubble][data-placement="left"] {
+      position-area: left;
+      right: var(--tooltip-gap);
+    }
+
+    [data-tooltip-bubble][data-placement="right"] {
+      position-area: right;
+      left: var(--tooltip-gap);
+    }
+  }
+
+  /* ! No anchor positioning (older Firefox / Safari): we can't know where the trigger is without JS
+     measuring, so the bubble docks to the bottom of the viewport like a toast — still top layer, so it
+     is never clipped and never causes horizontal scroll. */
+  @supports not (position-area: top) {
+    [data-tooltip-bubble] {
+      position: fixed;
+      inset-inline: var(--tooltip-gutter);
+      inset-block: auto calc(var(--tooltip-gutter) + var(--safe-area-bottom));
+      margin-inline: auto;
+    }
+  }
+</style>
+
 <script>
+  // * Grace period so the pointer can cross the gap between trigger and bubble without the bubble
+  // * vanishing (WCAG 1.4.13 hoverable). Cancelled as soon as the wrapper is re-entered.
+  const HIDE_DELAY_MS = 120
+
   function initTooltips() {
-    document.querySelectorAll<HTMLElement>("[data-tooltip]").forEach((wrapper) => {
+    // ! Popover API missing → leave the bubbles hidden (the component's CSS hides them too).
+    if (!("popover" in HTMLElement.prototype)) return
+
+    const wrappers = document.querySelectorAll<HTMLElement>("[data-tooltip]")
+
+    wrappers.forEach((wrapper) => {
+      if (wrapper.dataset.tooltipReady) return
+      wrapper.dataset.tooltipReady = ""
+
       const bubble = wrapper.querySelector<HTMLElement>("[role='tooltip']")
+      if (!bubble) return
       const trigger = wrapper.querySelector<HTMLElement>(
         "button, a[href], input, select, textarea, [tabindex]:not([tabindex='-1'])"
       )
-      if (bubble?.id && trigger && !trigger.hasAttribute("aria-describedby")) {
+      if (bubble.id && trigger && !trigger.hasAttribute("aria-describedby")) {
         trigger.setAttribute("aria-describedby", bubble.id)
       }
 
-      // * Escape hides the bubble until the pointer/focus leaves and comes back (WCAG 1.4.13 dismissible).
-      const reset = () => wrapper.removeAttribute("data-dismissed")
-      ;["mouseenter", "mouseleave", "focusin", "focusout"].forEach((type) =>
-        wrapper.addEventListener(type, reset)
-      )
+      let hideTimer: number | undefined
+
+      const show = () => {
+        window.clearTimeout(hideTimer)
+        // * Only the active tooltip is visible at a time.
+        document
+          .querySelectorAll<HTMLElement>("[data-tooltip-bubble]:popover-open")
+          .forEach((other) => {
+            if (other !== bubble) other.hidePopover()
+          })
+        if (!bubble.matches(":popover-open")) bubble.showPopover()
+      }
+
+      // * The top-layer bubble is still a DOM descendant of the wrapper, but engines differ in whether
+      // * hovering it keeps the wrapper's :hover — so the bubble gets its own enter/leave listeners and
+      // * the check at the end of the delay looks at both.
+      const scheduleHide = () => {
+        window.clearTimeout(hideTimer)
+        hideTimer = window.setTimeout(() => {
+          if (wrapper.matches(":hover, :focus-within") || bubble.matches(":hover")) return
+          if (bubble.matches(":popover-open")) bubble.hidePopover()
+        }, HIDE_DELAY_MS)
+      }
+
+      wrapper.addEventListener("mouseenter", show)
+      wrapper.addEventListener("focusin", show)
+      wrapper.addEventListener("mouseleave", scheduleHide)
+      bubble.addEventListener("mouseenter", show)
+      bubble.addEventListener("mouseleave", scheduleHide)
+      wrapper.addEventListener("focusout", scheduleHide)
     })
 
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape") return
-      document.querySelectorAll<HTMLElement>("[data-tooltip]").forEach((wrapper) => {
-        if (wrapper.matches(":hover, :focus-within")) wrapper.setAttribute("data-dismissed", "")
-      })
+      // * Escape hides the bubble until the pointer/focus leaves and comes back (WCAG 1.4.13 dismissible).
+      document
+        .querySelectorAll<HTMLElement>("[data-tooltip-bubble]:popover-open")
+        .forEach((bubble) => bubble.hidePopover())
     })
   }
 

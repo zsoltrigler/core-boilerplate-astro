@@ -181,7 +181,7 @@ src/
 │       ├── Textarea.astro     # Multiline input with label, hint, and error state
 │       ├── Toast.astro        # Programmatic toast notifications
 │       ├── Toggle.astro       # Switch / checkbox alternative
-│       └── Tooltip.astro      # Tooltip on hover/focus, Esc-dismissible
+│       └── Tooltip.astro      # Tooltip on hover/focus, Esc-dismissible, always inside the viewport
 ├── layouts/
 │   └── BaseLayout.astro       # HTML shell: meta tags, OG, dark mode
 ├── pages/
@@ -657,7 +657,11 @@ Switch-style checkbox alternative.
 
 ### Tooltip
 
-Shows on hover and keyboard focus; Esc dismisses it and the bubble stays open while hovered (WCAG 1.4.13). Uses a named `group/tooltip`, so it never reacts to an ancestor `group` (e.g. a clickable card). The script links the trigger to the bubble via `aria-describedby`.
+Shows on hover and keyboard focus; Esc dismisses it and the bubble stays open while hovered (WCAG 1.4.13). The script links the trigger to the bubble via `aria-describedby` and only one bubble is visible at a time.
+
+The bubble is a `popover="manual"` element, so it renders in the **top layer**: no `overflow-hidden` ancestor can clip it, and while hidden it is `display: none` (no phantom horizontal scroll). It is placed with **CSS Anchor Positioning** — `placement` sets the preferred side, and the browser flips it to the opposite side (`position-try-fallbacks`) and slides it sideways when it would leave the viewport. Multiline width is capped at `min(16rem, 100vw − 2 × gutter)`, so it fits 320–360px phones. No alignment prop or manual placement is ever needed.
+
+Browser support: Popover API is Baseline; CSS Anchor Positioning is only Baseline _newly available_ (Chrome 125+, Safari 26+, Firefox 147+). Where it is missing, an `@supports` fallback docks the bubble to the bottom of the viewport like a toast — still top layer, so it is never clipped and never overflows. `popover="hint"` is deliberately not used (Chrome-only).
 
 ```astro
 <Tooltip tip="Copy to clipboard" placement="top">
@@ -673,7 +677,7 @@ Shows on hover and keyboard focus; Esc dismisses it and the bubble stays open wh
 
 The trigger must be focusable (e.g. `<button type="button">`) — that is what makes the tooltip reachable by keyboard and by tap on touch screens.
 
-**Props:** `tip` (required) · `placement` (top | bottom | left | right) · `multiline` · `id`
+**Props:** `tip` (required) · `placement` (top | bottom | left | right) · `multiline` · `id` · `class`
 
 ---
 

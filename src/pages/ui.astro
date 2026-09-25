@@ -1770,6 +1770,43 @@ const components = [
               </Tooltip>
             </div>
 
+            <div class="flex flex-col gap-6 p-8">
+              <p class="text-sm text-(--color-text-muted)">
+                Edge cases — the bubble always stays inside the viewport and is never clipped by an <code
+                  class="rounded bg-(--color-bg-surface) px-1">overflow-hidden</code
+                > parent.
+              </p>
+              <div class="flex items-center justify-between gap-6">
+                <Tooltip
+                  multiline
+                  tip="Left edge: the bubble slides inward instead of overflowing the screen."
+                >
+                  <Button variant="secondary" size="sm">Left edge</Button>
+                </Tooltip>
+                <Tooltip
+                  multiline
+                  tip="Right edge: the bubble slides inward instead of overflowing the screen."
+                >
+                  <Button variant="secondary" size="sm">Right edge</Button>
+                </Tooltip>
+              </div>
+              <Card
+                title="Overflow-hidden card"
+                desc="The card clips its content, yet the bubble is not cut off."
+                class="max-w-sm overflow-hidden"
+              >
+                <div class="flex justify-end">
+                  <Tooltip
+                    multiline
+                    placement="bottom"
+                    tip="Rendered in the top layer, so this parent's overflow-hidden cannot clip it."
+                  >
+                    <Button variant="secondary" size="sm">Clipped parent</Button>
+                  </Tooltip>
+                </div>
+              </Card>
+            </div>
+
             <div class="flex justify-center p-8">
               <Card
                 title="Clickable card"

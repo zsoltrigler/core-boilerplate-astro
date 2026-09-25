@@ -94,7 +94,7 @@ pb-[calc(1rem+var(--safe-area-bottom))]
 
 The `calc()` is additive on top of the component's normal spacing, not a replacement for it — this guarantees a minimum gap from the notch/indicator even when the inset itself is `0` (desktop browsers, older phones). `Toast.astro` (top-anchored) and `Drawer.astro` (edge-to-edge top/bottom, plus whichever side it slides in from) both use this pattern — check them for a worked example before adding a new fixed-position component.
 
-Components positioned `absolute` relative to a trigger element (`Dropdown`, `Tooltip`) or centered via the global `dialog` rule (`Modal`) don't need this — they aren't flush against a physical screen edge.
+Components positioned `absolute` relative to a trigger element (`Dropdown`) or centered via the global `dialog` rule (`Modal`) don't need this — they aren't flush against a physical screen edge.
 
 ## Table column alignment
 

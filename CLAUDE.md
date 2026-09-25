@@ -37,7 +37,11 @@ All icons are [line-md](https://icon-sets.iconify.design/line-md/) via `astro-ic
 
 ### Mobile safe-area insets
 
-`BaseLayout.astro`'s viewport meta sets `viewport-fit=cover` (required for `env(safe-area-inset-*)` to resolve to non-zero) and `global.css` exposes it as four reusable `:root` custom properties — `--safe-area-top`, `--safe-area-right`, `--safe-area-bottom`, `--safe-area-left`. Any new `position: fixed` component flush against a physical screen edge (not `absolute`-relative-to-trigger like `Dropdown`/`Tooltip`, not centered like `Modal`) must add the matching inset via a Tailwind arbitrary value, e.g. `pb-[calc(1rem+var(--safe-area-bottom))]` — see `Toast.astro`/`Drawer.astro` for worked examples, and CONTRIBUTING.md → "Mobile safe-area insets" for the full writeup.
+`BaseLayout.astro`'s viewport meta sets `viewport-fit=cover` (required for `env(safe-area-inset-*)` to resolve to non-zero) and `global.css` exposes it as four reusable `:root` custom properties — `--safe-area-top`, `--safe-area-right`, `--safe-area-bottom`, `--safe-area-left`. Any new `position: fixed` component flush against a physical screen edge (not `absolute`-relative-to-trigger like `Dropdown`, not a top-layer popover like `Tooltip`, not centered like `Modal`) must add the matching inset via a Tailwind arbitrary value, e.g. `pb-[calc(1rem+var(--safe-area-bottom))]` — see `Toast.astro`/`Drawer.astro` for worked examples, and CONTRIBUTING.md → "Mobile safe-area insets" for the full writeup.
+
+### Tooltip — top layer + anchor positioning
+
+`Tooltip.astro`'s bubble is a `popover="manual"` element positioned with CSS Anchor Positioning (`anchor-name` per instance from the bubble id, `position-area` from `placement`, `position-try-fallbacks: flip-block, flip-inline`). Top layer means no `overflow-hidden` ancestor can clip it and hidden bubbles are `display: none`. `manual` because `auto` light-dismisses/closes other popovers and `hint` isn't Baseline. Show/hide is done in the component script (hover/focus with a short hide delay for WCAG 1.4.13 hoverability, Esc dismisses). Without anchor positioning an `@supports` fallback docks the bubble to the viewport bottom. Don't reintroduce `absolute` + `group-hover` positioning or JS `getBoundingClientRect` placement.
 
 ### Prefetch
 
