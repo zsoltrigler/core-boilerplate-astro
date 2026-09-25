@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.27.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.27.1...core-boilerplate-v1.27.2) (2026-09-25)
+
+
+### Bug Fixes
+
+* **ui:** keep Tooltip bubble inside the viewport via popover and anchor positioning ([#277](https://github.com/zsoltrigler/core-boilerplate-astro/issues/277)) ([3b496a3](https://github.com/zsoltrigler/core-boilerplate-astro/commit/3b496a3ad1efd9f5e6a6c9c185bb667cc104d00b))
+
 ## [1.27.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.27.0...core-boilerplate-v1.27.1) (2026-09-24)
 
 
