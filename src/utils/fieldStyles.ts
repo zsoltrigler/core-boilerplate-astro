@@ -5,6 +5,9 @@ export function fieldStateClasses(error?: string): string {
     "outline-none transition-colors duration-200",
     "focus:ring-2 focus:ring-(--color-brand-primary)/40 focus:border-(--color-brand-primary)",
     "disabled:opacity-50 disabled:cursor-not-allowed",
+    // * aria-invalid mirrors the server-side `error` branch below, so an error set from the client
+    //   (setFieldError in fieldError.ts) gets the same red border/ring without a re-render.
+    "aria-invalid:border-(--color-status-error) aria-invalid:hover:border-(--color-status-error) aria-invalid:focus:border-(--color-status-error) aria-invalid:focus:ring-(--color-status-error)/40",
     error
       ? "border-(--color-status-error) focus:ring-(--color-status-error)/40 focus:border-(--color-status-error)"
       : "border-(--color-border-base) hover:border-(--color-border-strong)",

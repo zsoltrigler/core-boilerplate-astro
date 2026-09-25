@@ -1084,6 +1084,24 @@ const components = [
 
               <div class="flex flex-col gap-3">
                 <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Live validation
+                </p>
+
+                {
+                  /* * Client-side validation: setFieldError (src/utils/fieldError.ts) fills the always-rendered error element and syncs aria-invalid / aria-describedby. Works the same on Select, Textarea and Combobox. */
+                }
+                <Input
+                  name="live-email"
+                  type="email"
+                  label="Email address"
+                  placeholder="you@example.com"
+                  hint="Checked when you leave the field."
+                  fullWidth
+                />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
                   Disabled
                 </p>
 
@@ -1929,6 +1947,32 @@ const components = [
       </nav>
     </Drawer>
   </main>
+
+  <script>
+    // * Showcase-only: demonstrates setFieldError for client-side (live) validation.
+    import { setFieldError } from "../utils/fieldError"
+
+    const liveEmail = document.querySelector<HTMLInputElement>("#live-email")
+
+    function validateEmail(value: string): string | null {
+      if (!value.trim()) return "Enter your email address."
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+        ? null
+        : "Enter a valid email address, e.g. name@example.com."
+    }
+
+    if (liveEmail) {
+      // * Validate when the user leaves the field; once an error is showing, re-check on every keystroke so it clears as soon as it's fixed.
+      liveEmail.addEventListener("blur", () =>
+        setFieldError(liveEmail, validateEmail(liveEmail.value))
+      )
+      liveEmail.addEventListener("input", () => {
+        if (liveEmail.hasAttribute("aria-invalid")) {
+          setFieldError(liveEmail, validateEmail(liveEmail.value))
+        }
+      })
+    }
+  </script>
 
   <script>
     // * Showcase-only: demonstrates the drawer:open / modal:open programmatic API.
