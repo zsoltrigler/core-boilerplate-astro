@@ -77,7 +77,7 @@ chore: update Tailwind to v4.1
 
 Edit colors **only** in `src/config.ts`. They are injected into CSS at build time — never edit the generated `@theme` block in `global.css` directly. Never hardcode a color anywhere else, including named Tailwind colors (`bg-white`, `bg-black`) and `rgba()`/hex literals — even UI chrome like the modal backdrop scrim goes through a token (`COLORS.overlay`).
 
-`COLORS.dark` is optional — single-theme templates can omit it entirely (pair with `SITE.singleTheme = true`, which skips the FOUC-prevention script and dark `theme-color` meta in `BaseLayout.astro`). If you touch `scripts/contrast-check.mjs`, keep dark-mode pairs guarded behind a `COLORS.dark` check so it doesn't crash for single-theme configs.
+`COLORS.dark` is optional — single-theme templates can omit it entirely (pair with `SITE.singleTheme = true`, which skips the FOUC-prevention script and dark `theme-color` meta in `BaseLayout.astro`, and puts `class="single-theme"` on `<html>`). That class switches off the global 0.2s light/dark colour transition on `*` (plus the `--grid-line` and `html.theme-switching` rules) in `global.css` — with a single theme they would only delay every hover/state change. Components' own Tailwind `transition-*` utilities and the `prefers-reduced-motion` rule are unaffected; two-theme templates behave exactly as before. If you touch `scripts/contrast-check.mjs`, keep dark-mode pairs guarded behind a `COLORS.dark` check so it doesn't crash for single-theme configs.
 
 WCAG AA contrast is checked automatically at build time. Fix any warnings before opening a PR.
 
