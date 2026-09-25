@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.28.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.27.2...core-boilerplate-v1.28.0) (2026-09-25)
+
+
+### Features
+
+* **ui:** add date/time Input types and close other Dropdowns on open ([#279](https://github.com/zsoltrigler/core-boilerplate-astro/issues/279)) ([34cbae1](https://github.com/zsoltrigler/core-boilerplate-astro/commit/34cbae1ecc3b401d554d1f0d8e547db6c8b8438d))
+
 ## [1.27.2](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.27.1...core-boilerplate-v1.27.2) (2026-09-25)
 
 
