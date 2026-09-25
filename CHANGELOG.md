@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.30.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.29.0...core-boilerplate-v1.30.0) (2026-09-25)
+
+
+### Features
+
+* **ui:** add newTab prop to StatTile for links that open in a new tab ([#286](https://github.com/zsoltrigler/core-boilerplate-astro/issues/286)) ([00d8946](https://github.com/zsoltrigler/core-boilerplate-astro/commit/00d8946a13cbe2fe0a225854a8a563ba63d15c48))
+
 ## [1.29.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.28.1...core-boilerplate-v1.29.0) (2026-09-25)
 
 
