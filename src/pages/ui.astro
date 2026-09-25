@@ -551,7 +551,25 @@ const components = [
                 <Button variant="primary" size="sm">Action</Button>
               </Card>
 
+              {
+                /* * Global HTML attributes (id, data-*, aria-*, hidden, …) are forwarded to the root element by every UI component. */
+              }
               <Card
+                id="card-forwarded"
+                data-example="forwarded"
+                title="Attribute forwarding"
+                desc="Extra attributes land on the root element — this Card has an id, so the link below can anchor to it."
+              >
+                <a
+                  href="#card-forwarded"
+                  class="text-sm text-(--color-brand-primary) underline underline-offset-2"
+                >
+                  Link to this Card (#card-forwarded)
+                </a>
+              </Card>
+
+              <Card
+                id="card-collapsible"
                 title="Collapsible"
                 desc="collapsible renders a native <details>/<summary> — click or keyboard to expand, no JS."
                 collapsible

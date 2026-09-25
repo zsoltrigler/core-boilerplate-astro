@@ -1,14 +1,18 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <svg> icon via ...rest.
+//   width/height are omitted: the size prop owns them, and astro-icon's Icon types
+//   them without `null`, which HTMLAttributes<"svg"> allows.
+export interface Props extends Omit<HTMLAttributes<"svg">, "width" | "height"> {
   size?: "sm" | "md" | "lg"
   /** Screen-reader label — defaults to "Loading". */
   label?: string
   class?: string
 }
 
-const { size = "md", label = "Loading", class: className = "" } = Astro.props
+const { size = "md", label = "Loading", class: className = "", ...rest } = Astro.props
 
 const sizes: Record<string, string> = {
   sm: "h-4 w-4",
@@ -19,6 +23,7 @@ const sizes: Record<string, string> = {
 
 {/* * line-md loading icon — self-animating, uses currentColor so it inherits text color. */}
 <Icon
+  {...rest}
   is:inline
   name="line-md:loading-twotone-loop"
   aria-label={label}

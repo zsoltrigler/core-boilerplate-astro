@@ -1,7 +1,9 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <div> via ...rest.
+export interface Props extends HTMLAttributes<"div"> {
   /** line-md icon name without the "line-md:" prefix. */
   icon: string
   title: string
@@ -9,10 +11,10 @@ export interface Props {
   class?: string
 }
 
-const { icon, title, description, class: className = "" } = Astro.props
+const { icon, title, description, class: className = "", ...rest } = Astro.props
 ---
 
-<div class={`flex flex-col items-center gap-2 px-5 py-10 text-center ${className}`}>
+<div class={`flex flex-col items-center gap-2 px-5 py-10 text-center ${className}`} {...rest}>
   <span
     class="flex h-11 w-11 items-center justify-center rounded-full bg-(--color-bg-elevated) text-(--color-text-muted)"
   >

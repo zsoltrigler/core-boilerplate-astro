@@ -1,4 +1,5 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import type { AstroComponentFactory } from "astro/runtime/server/index.js"
 
 export interface Tab {
@@ -16,7 +17,8 @@ export interface Tab {
   render?: AstroComponentFactory
 }
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <div> via ...rest.
+export interface Props extends HTMLAttributes<"div"> {
   tabs: Tab[]
   /** ID of the tab that is active on first render. Defaults to the first tab. */
   defaultTab?: string
@@ -25,7 +27,7 @@ export interface Props {
   class?: string
 }
 
-const { tabs, defaultTab, variant = "underline", class: className = "" } = Astro.props
+const { tabs, defaultTab, variant = "underline", class: className = "", ...rest } = Astro.props
 
 const activeId = defaultTab ?? tabs[0]?.id
 
@@ -55,7 +57,7 @@ const tabInactiveClasses: Record<string, string> = {
 }
 ---
 
-<div class={`w-full ${className}`}>
+<div class={`w-full ${className}`} {...rest}>
   <div role="tablist" data-variant={variant} class={tablistClasses[variant]}>
     {
       tabs.map((tab) => (

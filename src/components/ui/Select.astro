@@ -1,10 +1,15 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 import { ariaDescribedBy } from "../../utils/aria"
 import { fieldStateClasses, FIELD_SIZES } from "../../utils/fieldStyles"
 import FormField from "./FormField.astro"
 
-export interface Props {
+// * HTMLAttributes<"div"> is used purely for its attribute set — see Input.astro
+//   for why it is deliberately not the native <select> set (`size` collides with the
+//   size union below). Extra attributes (id, data-*, aria-*, etc.) are forwarded
+//   to the underlying <select> via ...rest.
+export interface Props extends HTMLAttributes<"div"> {
   name: string
   id?: string
   /** Visible label rendered above the select. */
@@ -37,6 +42,7 @@ const {
   required = false,
   fullWidth = false,
   class: className = "",
+  ...rest
 } = Astro.props
 
 // * id falls back to name so label[for] always resolves even when id is omitted.
@@ -88,6 +94,7 @@ const base = [
       aria-invalid={error ? "true" : undefined}
       aria-describedby={ariaDescribedBy(selectId, { error, hint })}
       class={base}
+      {...rest}
     >
       {
         placeholder && (

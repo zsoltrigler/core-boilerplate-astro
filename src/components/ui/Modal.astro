@@ -1,8 +1,11 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import IconButton from "./IconButton.astro"
 import { Icon } from "astro-icon/components"
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <dialog> via ...rest.
+// ! Spread before the data-* hooks the component's script relies on.
+export interface Props extends HTMLAttributes<"dialog"> {
   /** Unique id — used to wire the trigger button to this modal via data-modal-open. */
   id: string
   /** Modal heading shown in the header bar. */
@@ -22,6 +25,7 @@ const {
   closeLabel = "Close modal",
   openOnLoad = false,
   class: className = "",
+  ...rest
 } = Astro.props
 
 const sizes: Record<string, string> = {
@@ -43,6 +47,7 @@ const sizes: Record<string, string> = {
 */
 }
 <dialog
+  {...rest}
   id={id}
   data-modal
   data-open-on-load={openOnLoad ? "" : undefined}

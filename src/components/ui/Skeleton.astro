@@ -1,5 +1,8 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types"
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <div> via ...rest.
+// ! Spread before style / aria-hidden so the sizing and decorative semantics can't be overridden.
+export interface Props extends HTMLAttributes<"div"> {
   /** CSS height value — e.g. "1rem", "40px", "2lh". */
   height?: string
   /** CSS width value — e.g. "100%", "12rem". */
@@ -8,7 +11,13 @@ export interface Props {
   class?: string
 }
 
-const { height = "1rem", width = "100%", rounded = "md", class: className = "" } = Astro.props
+const {
+  height = "1rem",
+  width = "100%",
+  rounded = "md",
+  class: className = "",
+  ...rest
+} = Astro.props
 
 const roundedMap: Record<string, string> = {
   none: "rounded-none",
@@ -22,6 +31,7 @@ const roundedMap: Record<string, string> = {
 ---
 
 <div
+  {...rest}
   class={`animate-pulse bg-(--color-bg-elevated) ${roundedMap[rounded]} ${className}`}
   style={`height: ${height}; width: ${width};`}
   aria-hidden="true"

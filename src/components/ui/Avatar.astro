@@ -1,5 +1,8 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types"
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the visible element — the <img> when src is set, otherwise the initials <span>.
+//   (The hidden initials fallback that shows after an image load error is not given the attributes, so an id stays unique.) via ...rest.
+export interface Props extends HTMLAttributes<"img"> {
   /** Image source URL. Falls back to initials when omitted or on load error. */
   src?: string
   /** Alt text — also used to auto-derive initials when `initials` is not set. */
@@ -23,6 +26,7 @@ const {
   size = "md",
   shape = "circle",
   class: className = "",
+  ...rest
 } = Astro.props
 
 const sizes: Record<string, string> = {
@@ -70,13 +74,14 @@ const base = `inline-flex shrink-0 items-center justify-center overflow-hidden b
         class={base}
         style={imagePosition ? `object-position: ${imagePosition};` : undefined}
         data-avatar-img
+        {...rest}
       />
       <span class={base} style="display:none" aria-hidden="true" data-avatar-fallback>
         {derivedInitials}
       </span>
     </Fragment>
   ) : (
-    <span class={base} aria-label={alt || derivedInitials}>
+    <span class={base} aria-label={alt || derivedInitials} {...rest}>
       {derivedInitials}
     </span>
   )

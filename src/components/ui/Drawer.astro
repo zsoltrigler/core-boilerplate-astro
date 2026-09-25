@@ -1,8 +1,11 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import IconButton from "./IconButton.astro"
 import { Icon } from "astro-icon/components"
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <dialog> via ...rest.
+// ! Spread before the data-* hooks the component's script relies on.
+export interface Props extends HTMLAttributes<"dialog"> {
   /** Unique id — wire the trigger via data-drawer-open="<id>". */
   id: string
   /** Drawer heading shown in the header bar. */
@@ -23,6 +26,7 @@ const {
   closeLabel = "Close drawer",
   openOnLoad = false,
   class: className = "",
+  ...rest
 } = Astro.props
 
 const hasHeader = Boolean(title || Astro.slots.has("title"))
@@ -63,6 +67,7 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
 */
 }
 <dialog
+  {...rest}
   id={id}
   data-drawer
   data-side={side}

@@ -1,5 +1,8 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from "astro/types"
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <div> via ...rest.
+// ! Spread before data-dropdown so the script's hook can't be overridden.
+export interface Props extends HTMLAttributes<"div"> {
   /** Alignment of the menu panel relative to the trigger. */
   align?: "left" | "right"
   /**
@@ -13,7 +16,7 @@ export interface Props {
   class?: string
 }
 
-const { align = "left", closeOnSelect = true, label, class: className = "" } = Astro.props
+const { align = "left", closeOnSelect = true, label, class: className = "", ...rest } = Astro.props
 
 const menuAlign = align === "right" ? "right-0" : "left-0"
 ---
@@ -36,6 +39,7 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
    */
 }
 <div
+  {...rest}
   data-dropdown
   data-dropdown-close-on-select={closeOnSelect ? undefined : "false"}
   class={`relative inline-flex ${className}`}
