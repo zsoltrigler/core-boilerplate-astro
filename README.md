@@ -208,10 +208,10 @@ Renders as `<a>` when `href` is set, otherwise `<button>`.
 ```astro
 <Button variant="primary" size="md" href="/page">Label</Button>
 <Button variant="secondary" disabled>Label</Button>
-<Button variant="ghost" href="https://..." external>External ↗</Button>
+<Button variant="ghost" href="https://..." newTab>Docs</Button>
 ```
 
-**Props:** `variant` (primary | secondary | ghost | danger) · `size` (sm | md | lg) · `href` · `external` · `disabled` · `fullWidth`
+**Props:** `variant` (primary | secondary | ghost | danger) · `size` (sm | md | lg) · `href` · `newTab` · `newTabLabel` · `disabled` · `fullWidth` (`external` is deprecated — use `newTab`)
 
 **Slots:** `icon-left` · default · `icon-right`
 
@@ -245,7 +245,7 @@ btn.setAttribute("aria-expanded", String(open))
 
 > Write the transform as a literal `[transform:rotate(...)]` / `[transform:scale(...)]` arbitrary value, not Tailwind's `rotate-*`/`scale-*`/`translate-*` utilities — those drive CSS custom properties registered with `@property { syntax: "*" }`, and per the CSS Houdini spec, `"*"`-syntax custom properties aren't animatable (the value just snaps instead of transitioning). A literal `transform` value is a native, always-interpolable property. This also means line-md's `-transition` morph-pair icons (e.g. `menu-to-close-transition`) are a poor fit here: they rely on a one-shot SMIL `<animate>` that auto-plays once on mount and freezes — it never replays on toggle, and forcing a replay via `beginElement()` is both mechanical-feeling (fixed duration, linear easing) and unsafe if the same icon name is reused elsewhere on the page (astro-icon dedupes repeated names into one shared `<symbol>`, so a second `<use>` shares — and fights over — the same timeline). See `Header.astro`'s mobile menu toggle for a hand-built hamburger→X built the same way (three `group-aria-expanded:`-driven bars, no icon at all).
 
-**Props:** `variant` · `size` · `label` · `href` · `external` · `disabled` · `expanded` · `controls`
+**Props:** `variant` · `size` · `label` · `href` · `newTab` · `newTabLabel` · `disabled` · `expanded` · `controls`
 
 **Slots:** default (icon)
 

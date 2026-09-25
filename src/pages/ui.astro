@@ -438,7 +438,19 @@ const components = [
                   <Button variant="primary" disabled>Disabled</Button>
                   <Button variant="primary" loading>Loading</Button>
                   <Button variant="secondary" loading>Loading</Button>
-                  <Button variant="primary" href="/ui" external>External ↗</Button>
+                  <Button variant="primary" href="/ui" newTab>New tab</Button>
+                  <Button variant="secondary" href="/ui" newTab>
+                    Custom icon
+                    <Icon
+                      is:inline
+                      slot="icon-right"
+                      name="line-md:arrow-right"
+                      width="16"
+                      height="16"
+                      aria-hidden="true"
+                    />
+                  </Button>
+                  <Button variant="ghost" href="/ui" external>External (deprecated)</Button>
                 </div>
 
                 <div class="flex flex-wrap gap-3">
@@ -886,6 +898,16 @@ const components = [
                     <Icon
                       is:inline
                       name="line-md:trash"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                    />
+                  </IconButton>
+
+                  <IconButton label="Open docs" variant="secondary" href="/ui" newTab>
+                    <Icon
+                      is:inline
+                      name="line-md:external-link"
                       width="18"
                       height="18"
                       aria-hidden="true"

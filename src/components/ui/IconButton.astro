@@ -15,7 +15,14 @@ export interface Props extends HTMLAttributes<"div"> {
   type?: "button" | "submit" | "reset"
   variant?: "primary" | "secondary" | "ghost" | "danger"
   size?: "sm" | "md" | "lg"
-  /** Opens the link in a new tab with rel="noopener noreferrer". */
+  /** Opens the link in a new tab (target="_blank", rel="noopener noreferrer") and appends `newTabLabel` to the aria-label. Requires `href`. */
+  newTab?: boolean
+  /** Text appended to the aria-label when `newTab` is set — override for a non-English site. */
+  newTabLabel?: string
+  /**
+   * @deprecated Use `newTab`. `external` only adds target="_blank" and rel="noopener noreferrer" — no
+   * new-tab hint in the aria-label. Kept unchanged for backwards compatibility.
+   */
   external?: boolean
   /** rel attribute for link mode — e.g. "prev" / "next" for pagination controls. */
   rel?: string
@@ -39,6 +46,8 @@ const {
   type = "button",
   variant = "ghost",
   size = "md",
+  newTab = false,
+  newTabLabel = "(opens in a new tab)",
   external = false,
   rel,
   disabled = false,
@@ -76,11 +85,10 @@ const base = [
 
 // * Renders as <a> when href is provided, <button> otherwise.
 // ! external always forces a safe rel — it isn't overridable via the rel prop.
-const externalProps = external
-  ? { target: "_blank", rel: "noopener noreferrer" }
-  : rel
-    ? { rel }
-    : {}
+const externalProps =
+  newTab || external ? { target: "_blank", rel: "noopener noreferrer" } : rel ? { rel } : {}
+// * aria-label overrides the element's content, so the new-tab hint has to be part of the label itself.
+const linkLabel = newTab ? `${label} ${newTabLabel}` : label
 ---
 
 {
@@ -88,7 +96,7 @@ const externalProps = external
     <a
       href={href}
       class={base}
-      aria-label={label}
+      aria-label={linkLabel}
       aria-expanded={expanded}
       aria-controls={controls}
       {...externalProps}
