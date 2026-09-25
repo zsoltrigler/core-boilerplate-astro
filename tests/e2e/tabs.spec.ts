@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#tabs")
+  await gotoSection(page, "tabs")
 })
 
 test("clicking a tab activates it and shows its panel", async ({ page }) => {

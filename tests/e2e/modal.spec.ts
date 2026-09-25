@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#modal")
+  await gotoSection(page, "modal")
 })
 
 test("opens on trigger click and closes on the × button", async ({ page }) => {
@@ -35,7 +36,7 @@ test("closes on Escape", async ({ page }) => {
 })
 
 test("opens via the modal:open event", async ({ page }) => {
-  await page.goto("/ui#modal")
+  await gotoSection(page, "modal")
   await page.getByRole("button", { name: "Open via modal:open event" }).click()
   await expect(page.locator("#modal-default")).toBeVisible()
 })

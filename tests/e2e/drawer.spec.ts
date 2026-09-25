@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#drawer")
+  await gotoSection(page, "drawer")
 })
 
 test("opens from the right and closes on the × button", async ({ page }) => {
