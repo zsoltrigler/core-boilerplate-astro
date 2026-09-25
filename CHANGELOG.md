@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.31.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.30.0...core-boilerplate-v1.31.0) (2026-09-25)
+
+
+### Features
+
+* **ui:** add newTab prop to Button and IconButton and deprecate external ([#289](https://github.com/zsoltrigler/core-boilerplate-astro/issues/289)) ([866fe22](https://github.com/zsoltrigler/core-boilerplate-astro/commit/866fe2293c0a6a1f034d571eb928b9750eba9483))
+
 ## [1.30.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.29.0...core-boilerplate-v1.30.0) (2026-09-25)
 
 
