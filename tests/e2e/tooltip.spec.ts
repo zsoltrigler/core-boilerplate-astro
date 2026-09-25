@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#tooltip")
+  await gotoSection(page, "tooltip")
 })
 
 const cardTrigger = (page: import("@playwright/test").Page) =>

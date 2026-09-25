@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#dropdown")
+  await gotoSection(page, "dropdown")
 })
 
 test("opens on trigger click and sets aria-expanded", async ({ page }) => {

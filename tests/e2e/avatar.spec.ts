@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#avatar")
+  await gotoSection(page, "avatar")
 })
 
 test("falls back to initials when the image fails to load", async ({ page }) => {

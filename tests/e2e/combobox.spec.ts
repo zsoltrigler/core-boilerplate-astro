@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#combobox")
+  await gotoSection(page, "combobox")
 })
 
 test("filters the native datalist as the user types", async ({ page }) => {

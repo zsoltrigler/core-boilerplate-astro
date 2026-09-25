@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#alert")
+  await gotoSection(page, "alert")
 })
 
 test("dismissible alert is removed from the DOM on dismiss-button click", async ({ page }) => {

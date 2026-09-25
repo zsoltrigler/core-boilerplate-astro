@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test"
+import { gotoSection } from "./helpers"
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/ui#toast")
+  await gotoSection(page, "toast")
 })
 
 test("window.toast renders a toast with the message and auto-dismisses", async ({ page }) => {
