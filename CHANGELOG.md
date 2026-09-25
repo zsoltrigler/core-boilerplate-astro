@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.29.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.28.1...core-boilerplate-v1.29.0) (2026-09-25)
+
+
+### Features
+
+* **ui:** forward global HTML attributes to the root element of every UI component ([#284](https://github.com/zsoltrigler/core-boilerplate-astro/issues/284)) ([dcf2bed](https://github.com/zsoltrigler/core-boilerplate-astro/commit/dcf2bed8fd1f75721411c904e711c62c57ecd89b))
+* **ui:** support client-side live validation in FormField-based fields ([#285](https://github.com/zsoltrigler/core-boilerplate-astro/issues/285)) ([2a1d4db](https://github.com/zsoltrigler/core-boilerplate-astro/commit/2a1d4db77cb0fef3a8c6b4dcd81cf5d6d96dc757))
+
+
+### Bug Fixes
+
+* **ui:** disable global theme transitions for single-theme templates ([#283](https://github.com/zsoltrigler/core-boilerplate-astro/issues/283)) ([daca9fc](https://github.com/zsoltrigler/core-boilerplate-astro/commit/daca9fcb1fbe8d7d9653b9ec22ad50ad2f51e19e))
+
 ## [1.28.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.28.0...core-boilerplate-v1.28.1) (2026-09-25)
 
 
