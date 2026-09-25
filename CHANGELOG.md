@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.28.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.28.0...core-boilerplate-v1.28.1) (2026-09-25)
+
+
+### Bug Fixes
+
+* **e2e:** wait for smooth hash scroll to finish before interacting with showcase sections ([#281](https://github.com/zsoltrigler/core-boilerplate-astro/issues/281)) ([3d97b0e](https://github.com/zsoltrigler/core-boilerplate-astro/commit/3d97b0ea5ec16a846adde17b6ab46283dab3a55f))
+
 ## [1.28.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.27.2...core-boilerplate-v1.28.0) (2026-09-25)
 
 
