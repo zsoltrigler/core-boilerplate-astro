@@ -111,7 +111,16 @@
   *::before,
   *::after {
     box-sizing: border-box;
-    /* * Uniform theme transition — fires on every element simultaneously when .dark toggles */
+  }
+
+  /* * Uniform theme transition — fires on every element simultaneously when .dark toggles.
+     ! Skipped for single-theme templates (SITE.singleTheme): BaseLayout puts
+       .single-theme on <html> there, since with no dark palette or ThemeToggle
+       this would only delay every hover/state change by 0.2s. Components' own
+       Tailwind transition-* utilities (utilities layer) are unaffected either way. */
+  :root:not(.single-theme) *,
+  :root:not(.single-theme) *::before,
+  :root:not(.single-theme) *::after {
     transition:
       color 0.2s ease,
       background-color 0.2s ease,
@@ -138,21 +147,25 @@
   /* * Suppress all transitions for exactly one frame during theme switch —
      prevents per-element CSS transitions from firing simultaneously,
      which causes choppiness on complex pages. Removed via rAF in ThemeToggle. */
-  html.theme-switching,
-  html.theme-switching *,
-  html.theme-switching *::before,
-  html.theme-switching *::after {
+  html.theme-switching:not(.single-theme),
+  html.theme-switching:not(.single-theme) *,
+  html.theme-switching:not(.single-theme) *::before,
+  html.theme-switching:not(.single-theme) *::after {
     transition: none !important;
   }
 
   /* * :root transition animates --grid-line so background-image recomputes
-     each frame — the only way to animate a CSS gradient.
+     each frame — the only way to animate a CSS gradient. Not applied for
+     .single-theme (see above); the --grid-line value itself is always set.
      * Derived from --color-border-base via color-mix() rather than a
        hardcoded rgba() literal — color-mix() re-resolves whenever the
        referenced custom property changes, so this alone tracks light/dark
        (and any custom borderBase) without a separate .dark override. */
   :root {
     --grid-line: color-mix(in srgb, var(--color-border-base) 30%, transparent);
+  }
+
+  :root:not(.single-theme) {
     transition: --grid-line 0.2s ease;
   }
 
