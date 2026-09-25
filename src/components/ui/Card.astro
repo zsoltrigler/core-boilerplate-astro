@@ -1,7 +1,12 @@
 ---
 import { Icon } from "astro-icon/components"
+import type { HTMLAttributes } from "astro/types"
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root
+//   element via ...rest. HTMLAttributes<"details"> is the superset of the "div"
+//   set (it only adds `open`), so it type-checks both root tags — the root is
+//   <details> when collapsible, <div> otherwise. `open` is redeclared below.
+export interface Props extends HTMLAttributes<"details"> {
   title?: string
   desc?: string
   padding?: "sm" | "md" | "lg"
@@ -29,6 +34,7 @@ const {
   collapsible = false,
   open = false,
   class: className = "",
+  ...rest
 } = Astro.props
 
 const hasTrailing = Astro.slots.has("trailing")
@@ -62,6 +68,7 @@ const HeaderTag = collapsible ? "summary" : "div"
     collapsible ? "group [&[open]]:border-(--color-border-strong)" : "",
     className,
   ].join(" ")}
+  {...rest}
 >
   <HeaderTag
     class={[

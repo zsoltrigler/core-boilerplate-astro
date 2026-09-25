@@ -1,7 +1,9 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <details> via ...rest.
+export interface Props extends HTMLAttributes<"details"> {
   /** Accordion item heading. */
   title: string
   /** Open by default. */
@@ -9,7 +11,7 @@ export interface Props {
   class?: string
 }
 
-const { title, open = false, class: className = "" } = Astro.props
+const { title, open = false, class: className = "", ...rest } = Astro.props
 ---
 
 {
@@ -22,6 +24,7 @@ const { title, open = false, class: className = "" } = Astro.props
 <details
   open={open}
   class={`group rounded-xl border border-(--color-border-base) bg-(--color-bg-base) [&[open]]:border-(--color-border-strong) ${className}`}
+  {...rest}
 >
   <summary
     class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-(--color-text-base) transition-colors duration-150 hover:bg-(--color-bg-surface) [&::-webkit-details-marker]:hidden"

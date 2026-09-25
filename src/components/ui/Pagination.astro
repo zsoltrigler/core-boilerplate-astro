@@ -1,8 +1,10 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import IconButton from "./IconButton.astro"
 import { Icon } from "astro-icon/components"
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <nav> via ...rest.
+export interface Props extends HTMLAttributes<"nav"> {
   currentPage: number
   totalPages: number
   /**
@@ -31,6 +33,7 @@ const {
   nextLabel = "Next page",
   pageLabel = "Page {n}",
   class: className = "",
+  ...rest
 } = Astro.props
 
 function pageUrl(n: number): string {
@@ -68,7 +71,7 @@ const disabledArrow =
   "flex h-8 w-8 items-center justify-center rounded-md text-(--color-text-muted) opacity-40"
 ---
 
-<nav aria-label={ariaLabel} class={`flex items-center gap-1 ${className}`}>
+<nav aria-label={ariaLabel} class={`flex items-center gap-1 ${className}`} {...rest}>
   {
     currentPage > 1 ? (
       <IconButton

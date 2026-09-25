@@ -1,7 +1,10 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <div> via ...rest.
+// ! Spread before role / data-alert so the dismiss script's [data-alert] hook and the alert role can't be overridden.
+export interface Props extends HTMLAttributes<"div"> {
   variant?: "info" | "success" | "warning" | "error"
   /** Alert heading. Use <slot name="title"> for custom markup. */
   title?: string
@@ -18,6 +21,7 @@ const {
   dismissible = false,
   dismissLabel = "Dismiss",
   class: className = "",
+  ...rest
 } = Astro.props
 
 const styles: Record<string, { border: string; text: string; bg: string }> = {
@@ -54,6 +58,7 @@ const { border, text, bg } = styles[variant]
 ---
 
 <div
+  {...rest}
   role="alert"
   data-alert
   class={`flex items-start gap-3 p-4 rounded-lg border ${border} ${bg} ${className}`}

@@ -1,4 +1,5 @@
 ---
+import type { HTMLAttributes } from "astro/types"
 import { Icon } from "astro-icon/components"
 
 export interface BreadcrumbItem {
@@ -6,17 +7,23 @@ export interface BreadcrumbItem {
   href?: string
 }
 
-export interface Props {
+// * Extra attributes (id, data-*, aria-*, hidden, etc.) are forwarded to the root <nav> via ...rest.
+export interface Props extends HTMLAttributes<"nav"> {
   items: BreadcrumbItem[]
   /** aria-label for the nav landmark — override for a non-English site. */
   "aria-label"?: string
   class?: string
 }
 
-const { items, "aria-label": ariaLabel = "Breadcrumb", class: className = "" } = Astro.props
+const {
+  items,
+  "aria-label": ariaLabel = "Breadcrumb",
+  class: className = "",
+  ...rest
+} = Astro.props
 ---
 
-<nav aria-label={ariaLabel} class={className}>
+<nav aria-label={ariaLabel} class={className} {...rest}>
   <ol class="flex flex-wrap items-center gap-1.5 text-sm text-(--color-text-muted)">
     {
       items.map((item, index) => {
