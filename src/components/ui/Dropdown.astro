@@ -27,7 +27,8 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
    *   </Dropdown>
    *
    * The trigger receives aria-haspopup + aria-expanded automatically via the script.
-   * Close on: trigger click, Escape, click outside, item selection.
+   * Close on: trigger click, Escape, click outside, item selection, or another
+   * Dropdown opening (only one panel is open at a time).
    *
    * closeOnSelect={false} keeps the panel open on clicks inside it — for form-control
    * groups (e.g. filter Checkboxes). ! The panel then isn't a menu, so it gets
@@ -55,6 +56,11 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
 </div>
 
 <script>
+  // * Broadcast on open so sibling Dropdowns close themselves. Needed because the trigger
+  //   click calls stopPropagation() (see below), which hides it from every other
+  //   Dropdown's document-level "click outside" listener.
+  const OPEN_EVENT = "dropdown:open"
+
   function initDropdowns() {
     document.querySelectorAll<HTMLElement>("[data-dropdown]").forEach((dropdown) => {
       const triggerWrapper = dropdown.querySelector<HTMLElement>("[data-dropdown-trigger]")
@@ -69,6 +75,7 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
       trigger.setAttribute("aria-expanded", "false")
 
       function open() {
+        document.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: dropdown }))
         menu!.hidden = false
         trigger!.setAttribute("aria-expanded", "true")
       }
@@ -100,6 +107,10 @@ const menuAlign = align === "right" ? "right-0" : "left-0"
           close()
           trigger!.focus()
         }
+      })
+
+      document.addEventListener(OPEN_EVENT, (e) => {
+        if ((e as CustomEvent<HTMLElement>).detail !== dropdown) close()
       })
 
       document.addEventListener("click", (e) => {
