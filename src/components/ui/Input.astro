@@ -37,6 +37,15 @@ export interface Props extends HTMLAttributes<"div"> {
   max?: string | number
   /** Granularity for number/date/time types (e.g. `step={900}` for 15-minute time slots). */
   step?: string | number
+  /**
+   * Maximum number of characters — the browser blocks typing past it. Only applies to the
+   * text-like types (text, email, password, search, url, tel), as natively.
+   */
+  maxlength?: number
+  /** Minimum number of characters — checked by native constraint validation on submit. */
+  minlength?: number
+  /** Shows a live character counter in the hint row ("12 / 50" with `maxlength`, "12" without). */
+  showCount?: boolean
   /** Hint text displayed below the input. */
   hint?: string
   /** Error message — switches the input to error state when set. */
@@ -65,6 +74,9 @@ const {
   min,
   max,
   step,
+  maxlength,
+  minlength,
+  showCount = false,
   hint,
   error,
   size = "md",
@@ -95,6 +107,7 @@ const base = [
   required={required}
   error={error}
   hint={hint}
+  count={showCount ? { current: String(value ?? "").length, max: maxlength } : undefined}
   fullWidth={fullWidth}
   class={className}
 >
@@ -107,6 +120,8 @@ const base = [
     min={min}
     max={max}
     step={step}
+    maxlength={maxlength}
+    minlength={minlength}
     list={list}
     autocomplete={autocomplete}
     aria-label={!label ? ariaLabel : undefined}

@@ -1,5 +1,5 @@
 ---
-import { errorId, hintId } from "../../utils/aria"
+import { countId, errorId, hintId } from "../../utils/aria"
 
 // * Shared label + error + hint wrapper for Input, Select, Textarea, Combobox —
 //   keeps their field chrome (not the control element itself) in one place.
@@ -10,6 +10,11 @@ export interface Props {
   required?: boolean
   error?: string
   hint?: string
+  /**
+   * Character counter in the hint row — `current` is the initial value length, `max` the
+   * control's maxlength (omit it for a plain count). Kept live by the script below.
+   */
+  count?: { current: number; max?: number }
   fullWidth?: boolean
   class?: string
 }
@@ -20,9 +25,17 @@ const {
   required = false,
   error,
   hint,
+  count,
   fullWidth = false,
   class: className = "",
 } = Astro.props
+
+const formatCount = (current: number, max?: number) =>
+  max === undefined ? `${current}` : `${current} / ${max}`
+// * Same thresholds as countLevel in the script below — seeds data-level so a prefilled value
+//   near the limit isn't announced on its first keystroke.
+const countLevel = (current: number, max: number) =>
+  current >= max ? 2 : current >= max * 0.9 ? 1 : 0
 ---
 
 <div class={`flex flex-col gap-1.5 ${fullWidth ? "w-full" : "w-fit"} ${className}`}>
@@ -48,10 +61,83 @@ const {
   </p>
 
   {
-    hint && (
-      <p id={hintId(id)} class="text-sm text-(--color-text-muted)">
-        {hint}
-      </p>
+    count ? (
+      <div class="flex items-start justify-between gap-3">
+        {hint && (
+          <p id={hintId(id)} class="text-sm text-(--color-text-muted)">
+            {hint}
+          </p>
+        )}
+        {/* * The visible count is aria-hidden — announcing every keystroke would flood screen readers.
+            The sr-only live region is only filled when the value crosses 90% / 100% of max (see script). */}
+        <p
+          id={countId(id)}
+          class="ml-auto shrink-0 text-sm text-(--color-text-muted) tabular-nums data-at-limit:text-(--color-status-warning)"
+          data-field-count
+          data-max={count.max}
+          data-level={count.max !== undefined ? countLevel(count.current, count.max) : undefined}
+          data-at-limit={count.max !== undefined && count.current >= count.max ? "" : undefined}
+        >
+          <span aria-hidden="true" data-field-count-visible>
+            {formatCount(count.current, count.max)}
+          </span>
+          <span class="sr-only" aria-live="polite" data-field-count-live />
+        </p>
+      </div>
+    ) : (
+      hint && (
+        <p id={hintId(id)} class="text-sm text-(--color-text-muted)">
+          {hint}
+        </p>
+      )
     )
   }
 </div>
+
+<script>
+  import { countId } from "../../utils/aria"
+
+  // * Announcement thresholds as a fraction of max — 0 = below 90%, 1 = near the limit, 2 = at it.
+  const countLevel = (current: number, max: number) =>
+    current >= max ? 2 : current >= max * 0.9 ? 1 : 0
+
+  function update(control: HTMLInputElement | HTMLTextAreaElement) {
+    if (!control.id) return
+    const counter = document.getElementById(countId(control.id))
+    if (!counter?.hasAttribute("data-field-count")) return
+
+    const current = control.value.length
+    const max = counter.dataset.max ? Number(counter.dataset.max) : undefined
+    const text = max === undefined ? `${current}` : `${current} / ${max}`
+
+    counter.querySelector("[data-field-count-visible]")!.textContent = text
+    if (max === undefined) return
+
+    counter.toggleAttribute("data-at-limit", current >= max)
+
+    // * Announce only when the level rises — not on every keystroke, and not when deleting back down.
+    const next = countLevel(current, max)
+    const prev = Number(counter.dataset.level ?? 0)
+    counter.dataset.level = `${next}`
+    const live = counter.querySelector("[data-field-count-live]")!
+    live.textContent = next > prev ? text : next === 0 ? "" : live.textContent
+  }
+
+  // * Delegated on document — one listener for every counter on the page, no per-instance init
+  //   (module scripts run once, so this is idempotent by construction).
+  document.addEventListener("input", (e) => {
+    const t = e.target
+    if (t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement) update(t)
+  })
+
+  // * form.reset() restores values without firing "input" — and the reset event fires before
+  //   the values change, so re-read them on the next frame.
+  document.addEventListener("reset", (e) => {
+    const form = e.target
+    if (!(form instanceof HTMLFormElement)) return
+    requestAnimationFrame(() => {
+      for (const el of form.elements)
+        if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) update(el)
+    })
+  })
+</script>

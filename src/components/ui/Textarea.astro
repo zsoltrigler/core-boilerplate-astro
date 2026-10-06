@@ -17,6 +17,12 @@ export interface Props extends HTMLAttributes<"div"> {
   value?: string
   /** Number of visible text rows. */
   rows?: number
+  /** Maximum number of characters — the browser blocks typing past it. */
+  maxlength?: number
+  /** Minimum number of characters — checked by native constraint validation on submit. */
+  minlength?: number
+  /** Shows a live character counter in the hint row ("12 / 2000" with `maxlength`, "12" without). */
+  showCount?: boolean
   /** Hint text displayed below the textarea. */
   hint?: string
   /** Error message — switches the textarea to error state when set. */
@@ -34,6 +40,9 @@ const {
   placeholder,
   value,
   rows = 4,
+  maxlength,
+  minlength,
+  showCount = false,
   hint,
   error,
   disabled = false,
@@ -59,6 +68,7 @@ const base = [
   required={required}
   error={error}
   hint={hint}
+  count={showCount ? { current: (value ?? "").length, max: maxlength } : undefined}
   fullWidth={fullWidth}
   class={className}
 >
@@ -67,6 +77,8 @@ const base = [
     name={name}
     rows={rows}
     placeholder={placeholder}
+    maxlength={maxlength}
+    minlength={minlength}
     disabled={disabled}
     required={required}
     aria-invalid={error ? "true" : undefined}
