@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.32.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.31.0...core-boilerplate-v1.32.0) (2026-10-06)
+
+
+### Features
+
+* **ui:** add maxlength, minlength and showCount to Input and Textarea ([#291](https://github.com/zsoltrigler/core-boilerplate-astro/issues/291)) ([a9b0fd2](https://github.com/zsoltrigler/core-boilerplate-astro/commit/a9b0fd24e5e3c8914c40e0bf35470d75ab58092f))
+
 ## [1.31.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.30.0...core-boilerplate-v1.31.0) (2026-09-25)
 
 
