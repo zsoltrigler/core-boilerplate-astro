@@ -1160,6 +1160,22 @@ const components = [
                   fullWidth
                 />
               </div>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Character limit
+                </p>
+
+                <Input
+                  name="username-count"
+                  label="Username"
+                  placeholder="3–20 characters"
+                  minlength={3}
+                  maxlength={20}
+                  showCount
+                  fullWidth
+                />
+              </div>
             </div>
           </ShowcaseSection>
 
@@ -1754,6 +1770,23 @@ const components = [
                   label="Disabled textarea"
                   value="This content cannot be edited."
                   disabled
+                  fullWidth
+                />
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <p class="text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
+                  Character counter
+                </p>
+
+                <Textarea
+                  name="textarea-count"
+                  label="Feedback"
+                  placeholder="What could we improve?"
+                  hint="Be as specific as you can."
+                  maxlength={200}
+                  showCount
+                  rows={3}
                   fullWidth
                 />
               </div>

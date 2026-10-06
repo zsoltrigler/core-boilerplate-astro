@@ -3,6 +3,7 @@
 //   three can never drift apart.
 export const errorId = (id: string): string => `${id}-error`
 export const hintId = (id: string): string => `${id}-hint`
+export const countId = (id: string): string => `${id}-count`
 
 export function ariaDescribedBy(
   id: string,

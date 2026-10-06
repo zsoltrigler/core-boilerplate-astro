@@ -334,9 +334,12 @@ Text input with label, hint text, and error state.
 <Input name="email" type="email" label="Email" placeholder="you@example.com" required />
 <Input name="age" type="number" label="Age" value={30} hint="Must be 18 or older" />
 <Input name="username" label="Username" error="Username is already taken" />
+<Input name="handle" label="Handle" minlength={3} maxlength={20} showCount />
 ```
 
-**Props:** `type` (text | email | password | search | url | tel | number) · `name` · `id` · `label` · `placeholder` · `value` · `hint` · `error` · `size` (sm | md | lg) · `disabled` · `required` · `fullWidth`
+**Props:** `type` (text | email | password | search | url | tel | number) · `name` · `id` · `label` · `placeholder` · `value` · `maxlength` · `minlength` · `showCount` · `hint` · `error` · `size` (sm | md | lg) · `disabled` · `required` · `fullWidth`
+
+`showCount` renders a live `12 / 20` counter in the hint row (just `12` without `maxlength`). The visible count is hidden from screen readers; a polite live region announces it only when the value reaches 90% and 100% of `maxlength`. The counter tracks typing and `form.reset()` — after setting `.value` programmatically, dispatch an `input` event to refresh it.
 
 ---
 
@@ -398,9 +401,12 @@ Multiline text input with label, hint text, and error state.
 ```astro
 <Textarea name="message" label="Message" placeholder="Your message..." rows={5} required />
 <Textarea name="bio" label="Bio" hint="Max 200 characters" error="Bio is required" />
+<Textarea name="feedback" label="Feedback" maxlength={2000} showCount />
 ```
 
-**Props:** `name` · `id` · `label` · `placeholder` · `value` · `rows` · `hint` · `error` · `disabled` · `required` · `fullWidth`
+**Props:** `name` · `id` · `label` · `placeholder` · `value` · `rows` · `maxlength` · `minlength` · `showCount` · `hint` · `error` · `disabled` · `required` · `fullWidth`
+
+`showCount` works the same as on [Input](#input).
 
 ---
 
