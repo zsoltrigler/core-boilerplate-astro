@@ -57,35 +57,32 @@ const derivedInitials =
 const base = `inline-flex shrink-0 items-center justify-center overflow-hidden border border-(--color-border-base) bg-(--color-bg-elevated) font-semibold text-(--color-text-muted) object-cover ${sizes[size]} ${shapes[shape]} ${className}`
 ---
 
-{
-  /*
+{/*
   ! When src is provided, an error listener (wired up below, not an inline
     onerror= attribute — that's a string-eval'd handler that would need
     unsafe-inline under a strict script-src CSP) swaps to the initials
     fallback if the image fails to load.
   * Both <img> and the fallback <span> are rendered; the span is hidden until the error fires.
-*/
-}{
-  src ? (
-    <Fragment>
-      <img
-        src={src}
-        alt={alt}
-        class={base}
-        style={imagePosition ? `object-position: ${imagePosition};` : undefined}
-        data-avatar-img
-        {...rest}
-      />
-      <span class={base} style="display:none" aria-hidden="true" data-avatar-fallback>
-        {derivedInitials}
-      </span>
-    </Fragment>
-  ) : (
-    <span class={base} aria-label={alt || derivedInitials} {...rest}>
+*/}
+{src ? (
+  <Fragment>
+    <img
+      src={src}
+      alt={alt}
+      class={base}
+      style={imagePosition ? `object-position: ${imagePosition};` : undefined}
+      data-avatar-img
+      {...rest}
+    />
+    <span class={base} style="display:none" aria-hidden="true" data-avatar-fallback>
       {derivedInitials}
     </span>
-  )
-}
+  </Fragment>
+) : (
+  <span class={base} aria-label={alt || derivedInitials} {...rest}>
+    {derivedInitials}
+  </span>
+)}
 
 <script>
   document.querySelectorAll<HTMLImageElement>("[data-avatar-img]").forEach((img) => {

@@ -14,21 +14,17 @@ export interface Props extends HTMLAttributes<"details"> {
 const { title, open = false, class: className = "", ...rest } = Astro.props
 ---
 
-{
-  /*
-   * Native <details>/<summary> accordion — no JS required.
-   * Multiple items can be open simultaneously. Wrap in a parent if you need
-   *   exclusive open behaviour and wire via JS.
-   */
-}
+{/*
+ * Native <details>/<summary> accordion — no JS required.
+ * Multiple items can be open simultaneously. Wrap in a parent if you need
+ *   exclusive open behaviour and wire via JS.
+ */}
 <details
   open={open}
   class={`group rounded-xl border border-(--color-border-base) bg-(--color-bg-base) [&[open]]:border-(--color-border-strong) ${className}`}
   {...rest}
 >
-  <summary
-    class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-(--color-text-base) transition-colors duration-150 hover:bg-(--color-bg-surface) [&::-webkit-details-marker]:hidden"
-  >
+  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-(--color-text-base) transition-colors duration-150 hover:bg-(--color-bg-surface) [&::-webkit-details-marker]:hidden">
     {title}
 
     {/* * Chevron rotates 180° when open via group-open Tailwind variant. */}

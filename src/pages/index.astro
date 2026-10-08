@@ -69,14 +69,15 @@ const stats = [
       <div
         class="pointer-events-none absolute inset-0"
         style="background: radial-gradient(ellipse 70% 70% at 70% 50%, color-mix(in srgb, var(--color-brand-primary) 10%, transparent) 0%, transparent 70%);"
-      >
-      </div>
+      ></div>
 
       <Container class="relative z-10">
         <div class="grid grid-cols-1 gap-12 py-24 lg:grid-cols-2 lg:items-center">
           <div class="flex flex-col gap-6">
             <div>
-              <Badge variant="info" pulse>Astro 7 · Tailwind 4</Badge>
+              <Badge variant="info" pulse>
+                Astro 7 · Tailwind 4
+              </Badge>
             </div>
 
             <h1 class="text-5xl leading-tight font-bold text-(--color-text-base)">{SITE.name}</h1>
@@ -101,14 +102,12 @@ const stats = [
                 />
               </Button>
 
-              {
-                github && (
-                  <Button href={github.href} variant="secondary" size="md" newTab>
-                    <Fragment slot="icon-left" set:html={github.icon} />
-                    View on GitHub
-                  </Button>
-                )
-              }
+              {github && (
+                <Button href={github.href} variant="secondary" size="md" newTab>
+                  <Fragment slot="icon-left" set:html={github.icon} />
+                  View on GitHub
+                </Button>
+              )}
             </div>
           </div>
 
@@ -130,20 +129,18 @@ const stats = [
     <Section class="bg-(--color-bg-surface)">
       <Container>
         <div class="grid grid-cols-1 gap-6 py-8 sm:grid-cols-3">
-          {
-            stats.map((s) => (
-              <div class="flex flex-col items-center gap-3 text-center">
-                <span class="text-(--color-brand-primary)">
-                  <Icon is:inline name={s.icon} width="20" height="20" aria-hidden="true" />
-                </span>
+          {stats.map((s) => (
+            <div class="flex flex-col items-center gap-3 text-center">
+              <span class="text-(--color-brand-primary)">
+                <Icon is:inline name={s.icon} width="20" height="20" aria-hidden="true" />
+              </span>
 
-                <div class="flex flex-col gap-1">
-                  <span class="text-sm font-semibold text-(--color-text-base)">{s.label}</span>
-                  <span class="text-xs text-(--color-text-muted)">{s.desc}</span>
-                </div>
+              <div class="flex flex-col gap-1">
+                <span class="text-sm font-semibold text-(--color-text-base)">{s.label}</span>
+                <span class="text-xs text-(--color-text-muted)">{s.desc}</span>
               </div>
-            ))
-          }
+            </div>
+          ))}
         </div>
       </Container>
     </Section>
@@ -295,7 +292,9 @@ const stats = [
                   <Button variant="secondary">Secondary</Button>
                   <Button variant="ghost">Ghost</Button>
                   <Button variant="danger">Danger</Button>
-                  <Button variant="primary" disabled>Disabled</Button>
+                  <Button variant="primary" disabled>
+                    Disabled
+                  </Button>
                 </div>
               </div>
 
@@ -311,7 +310,9 @@ const stats = [
                   <Badge variant="warning">Warning</Badge>
                   <Badge variant="error">Error</Badge>
                   <Badge variant="info">Info</Badge>
-                  <Badge variant="info" pulse>Live</Badge>
+                  <Badge variant="info" pulse>
+                    Live
+                  </Badge>
                 </div>
               </div>
 
@@ -321,10 +322,18 @@ const stats = [
                 </p>
 
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <Alert variant="info" title="Information">This is an info alert.</Alert>
-                  <Alert variant="success" title="Success">Operation completed.</Alert>
-                  <Alert variant="warning" title="Warning">Check your settings.</Alert>
-                  <Alert variant="error" title="Error" dismissible>Something went wrong.</Alert>
+                  <Alert variant="info" title="Information">
+                    This is an info alert.
+                  </Alert>
+                  <Alert variant="success" title="Success">
+                    Operation completed.
+                  </Alert>
+                  <Alert variant="warning" title="Warning">
+                    Check your settings.
+                  </Alert>
+                  <Alert variant="error" title="Error" dismissible>
+                    Something went wrong.
+                  </Alert>
                 </div>
               </div>
 
@@ -375,8 +384,7 @@ const stats = [
           </div>
 
           <CodeWindow label="Terminal">
-            <pre
-              class="overflow-x-auto p-5 text-sm leading-loose"><code><span class="text-(--color-text-muted)"># Clone the repo</span>
+            <pre class="overflow-x-auto p-5 text-sm leading-loose"><code><span class="text-(--color-text-muted)"># Clone the repo</span>
 <span class="text-(--color-brand-primary)">git clone</span> <span class="text-(--color-text-base)">https://github.com/zsoltrigler/core-boilerplate-astro.git my-project</span>
 
 <span class="text-(--color-text-muted)"># Install dependencies</span>

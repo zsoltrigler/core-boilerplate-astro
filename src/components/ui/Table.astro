@@ -12,17 +12,15 @@ export interface Props extends HTMLAttributes<"div"> {
 const { striped = false, layout = "auto", class: className = "", ...rest } = Astro.props
 ---
 
-{
-  /*
-   * Wrapper handles horizontal overflow on narrow viewports.
-   * Users write standard <thead>, <tbody>, <tr>, <th>, <td> inside the slot —
-   *   global CSS classes are applied via the [&_*] selector pattern below.
-   * To align an individual header/cell, add data-align="right" or data-align="center"
-   *   to that <th>/<td> — this opts into a selector scoped to the same element
-   *   (e.g. [&_thead_th[data-align="right"]]), which is inherently more specific
-   *   than the base [&_thead_th] rule, so it wins without !important.
-   */
-}
+{/*
+ * Wrapper handles horizontal overflow on narrow viewports.
+ * Users write standard <thead>, <tbody>, <tr>, <th>, <td> inside the slot —
+ *   global CSS classes are applied via the [&_*] selector pattern below.
+ * To align an individual header/cell, add data-align="right" or data-align="center"
+ *   to that <th>/<td> — this opts into a selector scoped to the same element
+ *   (e.g. [&_thead_th[data-align="right"]]), which is inherently more specific
+ *   than the base [&_thead_th] rule, so it wins without !important.
+ */}
 <div
   class={`w-full overflow-x-auto rounded-xl border border-(--color-border-base) ${className}`}
   {...rest}

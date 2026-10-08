@@ -91,30 +91,28 @@ const externalProps =
 const linkLabel = newTab ? `${label} ${newTabLabel}` : label
 ---
 
-{
-  href ? (
-    <a
-      href={href}
-      class={base}
-      aria-label={linkLabel}
-      aria-expanded={expanded}
-      aria-controls={controls}
-      {...externalProps}
-      {...rest}
-    >
-      <slot />
-    </a>
-  ) : (
-    <button
-      type={type}
-      class={base}
-      aria-label={label}
-      aria-expanded={expanded}
-      aria-controls={controls}
-      disabled={disabled}
-      {...rest}
-    >
-      <slot />
-    </button>
-  )
-}
+{href ? (
+  <a
+    href={href}
+    class={base}
+    aria-label={linkLabel}
+    aria-expanded={expanded}
+    aria-controls={controls}
+    {...externalProps}
+    {...rest}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    type={type}
+    class={base}
+    aria-label={label}
+    aria-expanded={expanded}
+    aria-controls={controls}
+    disabled={disabled}
+    {...rest}
+  >
+    <slot />
+  </button>
+)}

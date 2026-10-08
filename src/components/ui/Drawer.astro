@@ -47,8 +47,7 @@ const bodyTopClass = hasHeader ? "pt-5" : "pt-[calc(1.25rem+var(--safe-area-top)
 const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-bottom))]"
 ---
 
-{
-  /*
+{/*
   * Usage: add data-drawer-open="<id>" to any button to open this drawer.
   * Close via the × button, backdrop click, or Escape.
   * Other ways to open it (all share one openDrawer() in the script below):
@@ -64,8 +63,7 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
     requestAnimationFrame timing games. The browser handles both the enter
     and exit transition natively from a single source of truth: the `open`
     attribute that showModal()/close() already set.
-*/
-}
+*/}
 <dialog
   {...rest}
   id={id}
@@ -75,21 +73,19 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
   class={`w-full max-w-sm overflow-hidden border-0 bg-(--color-bg-base) p-0 shadow-2xl backdrop:bg-(--color-overlay)/60 backdrop:backdrop-blur-sm open:flex open:flex-col ${className}`}
 >
   <div class="flex h-full w-full flex-col">
-    {
-      hasHeader && (
-        <div
-          class={`flex shrink-0 items-center justify-between border-b border-(--color-border-base) pt-[calc(1rem+var(--safe-area-top))] pb-4 ${sideSafeAreaClass}`}
-        >
-          <h2 class="text-lg font-semibold text-(--color-text-base)">
-            {Astro.slots.has("title") ? <slot name="title" /> : title}
-          </h2>
+    {hasHeader && (
+      <div
+        class={`flex shrink-0 items-center justify-between border-b border-(--color-border-base) pt-[calc(1rem+var(--safe-area-top))] pb-4 ${sideSafeAreaClass}`}
+      >
+        <h2 class="text-lg font-semibold text-(--color-text-base)">
+          {Astro.slots.has("title") ? <slot name="title" /> : title}
+        </h2>
 
-          <IconButton data-drawer-close label={closeLabel} variant="ghost" size="sm">
-            <Icon is:inline name="line-md:close" width="16" height="16" aria-hidden="true" />
-          </IconButton>
-        </div>
-      )
-    }
+        <IconButton data-drawer-close label={closeLabel} variant="ghost" size="sm">
+          <Icon is:inline name="line-md:close" width="16" height="16" aria-hidden="true" />
+        </IconButton>
+      </div>
+    )}
 
     <div
       class={`flex-1 overflow-y-auto text-(--color-text-base) ${sideSafeAreaClass} ${bodyTopClass} ${bodyBottomClass}`}
@@ -97,15 +93,13 @@ const bodyBottomClass = hasFooter ? "pb-5" : "pb-[calc(1.25rem+var(--safe-area-b
       <slot />
     </div>
 
-    {
-      hasFooter && (
-        <div
-          class={`flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) pt-4 pb-[calc(1rem+var(--safe-area-bottom))] ${sideSafeAreaClass}`}
-        >
-          <slot name="footer" />
-        </div>
-      )
-    }
+    {hasFooter && (
+      <div
+        class={`flex shrink-0 items-center justify-end gap-3 border-t border-(--color-border-base) pt-4 pb-[calc(1rem+var(--safe-area-bottom))] ${sideSafeAreaClass}`}
+      >
+        <slot name="footer" />
+      </div>
+    )}
   </div>
 </dialog>
 

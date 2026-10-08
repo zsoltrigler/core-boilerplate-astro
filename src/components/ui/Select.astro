@@ -96,13 +96,11 @@ const base = [
       class={base}
       {...rest}
     >
-      {
-        placeholder && (
-          <option value="" disabled selected>
-            {placeholder}
-          </option>
-        )
-      }
+      {placeholder && (
+        <option value="" disabled selected>
+          {placeholder}
+        </option>
+      )}
       <slot />
     </select>
 
