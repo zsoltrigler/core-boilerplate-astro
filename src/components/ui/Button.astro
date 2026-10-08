@@ -98,62 +98,60 @@ const disabledLinkProps = interactionDisabled
   : {}
 ---
 
-{
-  href ? (
-    <a
-      href={interactionDisabled ? undefined : href}
-      class={base}
-      aria-busy={loading || undefined}
-      {...externalProps}
-      {...disabledLinkProps}
-      {...rest}
-    >
-      {loading ? (
-        <Icon
-          is:inline
-          name="line-md:loading-twotone-loop"
-          width={spinnerSizes[size]}
-          height={spinnerSizes[size]}
-          aria-hidden="true"
-        />
-      ) : (
-        <slot name="icon-left" />
-      )}
-      <slot />
-      {!loading && <slot name="icon-right" />}
-      {showNewTabIcon && (
-        <Icon
-          is:inline
-          name="line-md:external-link"
-          width={spinnerSizes[size]}
-          height={spinnerSizes[size]}
-          aria-hidden="true"
-        />
-      )}
-      {/* * Last in the link so the accessible name reads "label (opens in a new tab)". */}
-      {opensInNewTab && <span class="sr-only">{newTabLabel}</span>}
-    </a>
-  ) : (
-    <button
-      type={type}
-      class={base}
-      disabled={interactionDisabled}
-      aria-busy={loading || undefined}
-      {...rest}
-    >
-      {loading ? (
-        <Icon
-          is:inline
-          name="line-md:loading-twotone-loop"
-          width={spinnerSizes[size]}
-          height={spinnerSizes[size]}
-          aria-hidden="true"
-        />
-      ) : (
-        <slot name="icon-left" />
-      )}
-      <slot />
-      {!loading && <slot name="icon-right" />}
-    </button>
-  )
-}
+{href ? (
+  <a
+    href={interactionDisabled ? undefined : href}
+    class={base}
+    aria-busy={loading || undefined}
+    {...externalProps}
+    {...disabledLinkProps}
+    {...rest}
+  >
+    {loading ? (
+      <Icon
+        is:inline
+        name="line-md:loading-twotone-loop"
+        width={spinnerSizes[size]}
+        height={spinnerSizes[size]}
+        aria-hidden="true"
+      />
+    ) : (
+      <slot name="icon-left" />
+    )}
+    <slot />
+    {!loading && <slot name="icon-right" />}
+    {showNewTabIcon && (
+      <Icon
+        is:inline
+        name="line-md:external-link"
+        width={spinnerSizes[size]}
+        height={spinnerSizes[size]}
+        aria-hidden="true"
+      />
+    )}
+    {/* * Last in the link so the accessible name reads "label (opens in a new tab)". */}
+    {opensInNewTab && <span class="sr-only">{newTabLabel}</span>}
+  </a>
+) : (
+  <button
+    type={type}
+    class={base}
+    disabled={interactionDisabled}
+    aria-busy={loading || undefined}
+    {...rest}
+  >
+    {loading ? (
+      <Icon
+        is:inline
+        name="line-md:loading-twotone-loop"
+        width={spinnerSizes[size]}
+        height={spinnerSizes[size]}
+        aria-hidden="true"
+      />
+    ) : (
+      <slot name="icon-left" />
+    )}
+    <slot />
+    {!loading && <slot name="icon-right" />}
+  </button>
+)}

@@ -61,21 +61,17 @@ const radioId = id ?? `${name}-${value}`
       {...rest}
     />
 
-    {
-      label && (
-        <span class="text-sm font-medium text-(--color-text-base)">
-          {label}
-          {required && <span class="ml-0.5 text-(--color-status-error)">*</span>}
-        </span>
-      )
-    }
+    {label && (
+      <span class="text-sm font-medium text-(--color-text-base)">
+        {label}
+        {required && <span class="ml-0.5 text-(--color-status-error)">*</span>}
+      </span>
+    )}
   </label>
 
-  {
-    error && (
-      <p id={`${radioId}-error`} class="text-sm text-(--color-status-error)" role="alert">
-        {error}
-      </p>
-    )
-  }
+  {error && (
+    <p id={`${radioId}-error`} class="text-sm text-(--color-status-error)" role="alert">
+      {error}
+    </p>
+  )}
 </div>

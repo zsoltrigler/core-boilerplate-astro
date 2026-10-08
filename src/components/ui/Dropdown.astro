@@ -21,23 +21,21 @@ const { align = "left", closeOnSelect = true, label, class: className = "", ...r
 const menuAlign = align === "right" ? "right-0" : "left-0"
 ---
 
-{
-  /*
-   * Usage:
-   *   <Dropdown>
-   *     <button slot="trigger">Open</button>
-   *     <a href="#" data-dropdown-item>Item</a>
-   *   </Dropdown>
-   *
-   * The trigger receives aria-haspopup + aria-expanded automatically via the script.
-   * Close on: trigger click, Escape, click outside, item selection, or another
-   * Dropdown opening (only one panel is open at a time).
-   *
-   * closeOnSelect={false} keeps the panel open on clicks inside it — for form-control
-   * groups (e.g. filter Checkboxes). ! The panel then isn't a menu, so it gets
-   * role="dialog" (+ aria-label from `label`) and the trigger announces aria-haspopup="dialog".
-   */
-}
+{/*
+ * Usage:
+ *   <Dropdown>
+ *     <button slot="trigger">Open</button>
+ *     <a href="#" data-dropdown-item>Item</a>
+ *   </Dropdown>
+ *
+ * The trigger receives aria-haspopup + aria-expanded automatically via the script.
+ * Close on: trigger click, Escape, click outside, item selection, or another
+ * Dropdown opening (only one panel is open at a time).
+ *
+ * closeOnSelect={false} keeps the panel open on clicks inside it — for form-control
+ * groups (e.g. filter Checkboxes). ! The panel then isn't a menu, so it gets
+ * role="dialog" (+ aria-label from `label`) and the trigger announces aria-haspopup="dialog".
+ */}
 <div
   {...rest}
   data-dropdown

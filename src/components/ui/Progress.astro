@@ -41,16 +41,14 @@ const fills: Record<string, string> = {
 ---
 
 <div class={`flex flex-col gap-1.5 ${className}`} {...rest}>
-  {
-    (label || showPercent) && (
-      <div class="flex items-center justify-between">
-        {label && <span class="text-sm font-medium text-(--color-text-base)">{label}</span>}
-        {showPercent && (
-          <span class="text-sm text-(--color-text-muted) tabular-nums">{clamped}%</span>
-        )}
-      </div>
-    )
-  }
+  {(label || showPercent) && (
+    <div class="flex items-center justify-between">
+      {label && <span class="text-sm font-medium text-(--color-text-base)">{label}</span>}
+      {showPercent && (
+        <span class="text-sm text-(--color-text-muted) tabular-nums">{clamped}%</span>
+      )}
+    </div>
+  )}
 
   <div
     role="progressbar"
@@ -63,7 +61,6 @@ const fills: Record<string, string> = {
     <div
       class={`h-full rounded-full transition-[width] duration-500 ${fills[variant]}`}
       style={`width: ${clamped}%`}
-    >
-    </div>
+    ></div>
   </div>
 </div>

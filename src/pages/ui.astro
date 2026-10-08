@@ -132,8 +132,7 @@ const components = [
       <div
         class="pointer-events-none absolute inset-0"
         style="background: radial-gradient(ellipse 60% 80% at 80% 50%, color-mix(in srgb, var(--color-brand-primary) 10%, transparent) 0%, transparent 70%);"
-      >
-      </div>
+      ></div>
 
       <Container class="relative z-10">
         <div class="grid grid-cols-1 gap-10 py-16 lg:grid-cols-2 lg:items-center">
@@ -152,17 +151,15 @@ const components = [
           <div class="hidden lg:block">
             <CodeWindow label="Quick jump">
               <div class="grid grid-cols-2 gap-2 p-4">
-                {
-                  components.map((c) => (
-                    <a
-                      href={`#${c.id}`}
-                      class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-muted) transition-colors hover:bg-(--color-bg-elevated) hover:text-(--color-text-base)"
-                    >
-                      <span class="h-1.5 w-1.5 rounded-full bg-(--color-brand-primary)" />
-                      {c.label}
-                    </a>
-                  ))
-                }
+                {components.map((c) => (
+                  <a
+                    href={`#${c.id}`}
+                    class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-muted) transition-colors hover:bg-(--color-bg-elevated) hover:text-(--color-text-base)"
+                  >
+                    <span class="h-1.5 w-1.5 rounded-full bg-(--color-brand-primary)" />
+                    {c.label}
+                  </a>
+                ))}
               </div>
             </CodeWindow>
           </div>
@@ -178,22 +175,18 @@ const components = [
             aria-label="Component navigation"
             class="sticky top-24 flex max-h-[calc(100dvh-8rem)] flex-col gap-1 overflow-y-auto overscroll-contain pr-1"
           >
-            <p
-              class="mb-2 text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase"
-            >
+            <p class="mb-2 text-xs font-semibold tracking-wider text-(--color-text-muted) uppercase">
               Components
             </p>
 
-            {
-              components.map((c) => (
-                <a
-                  href={`#${c.id}`}
-                  class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
-                >
-                  {c.label}
-                </a>
-              ))
-            }
+            {components.map((c) => (
+              <a
+                href={`#${c.id}`}
+                class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-muted) transition-colors hover:bg-(--color-bg-surface) hover:text-(--color-text-base)"
+              >
+                {c.label}
+              </a>
+            ))}
           </nav>
         </aside>
 
@@ -201,11 +194,10 @@ const components = [
           {/* ── Accordion ─────────────────────────────────────────── */}
           <ShowcaseSection id="accordion" title="Accordion">
             <Fragment slot="description">
-              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;details&gt;</code>/<code
-                class="rounded bg-(--color-bg-surface) px-1">&lt;summary&gt;</code
-              > accordion — no JS. Multiple items can be open simultaneously. Pass <code
-                class="rounded bg-(--color-bg-surface) px-1">open</code
-              > to expand by default.
+              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;details&gt;</code>/
+              <code class="rounded bg-(--color-bg-surface) px-1">&lt;summary&gt;</code> accordion —
+              no JS. Multiple items can be open simultaneously. Pass{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">open</code> to expand by default.
             </Fragment>
 
             <div class="flex flex-col gap-2 p-6">
@@ -220,20 +212,25 @@ const components = [
               </Accordion>
 
               <Accordion title="Can I add my own components?">
-                Absolutely. Every component lives in <code
-                  class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs"
-                  >src/components/ui/</code
-                > — just drop a new <code
-                  class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">.astro</code
-                > file there.
+                Absolutely. Every component lives in{" "}
+                <code class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">
+                  src/components/ui/
+                </code>{" "}
+                — just drop a new{" "}
+                <code class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">.astro</code>{" "}
+                file there.
               </Accordion>
 
               <Accordion title="Is dark mode supported?">
-                Yes — all color tokens have dark-mode overrides in <code
-                  class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">src/config.ts</code
-                >. The <code class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs"
-                  >ThemeToggle</code
-                > component handles switching.
+                Yes — all color tokens have dark-mode overrides in{" "}
+                <code class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">
+                  src/config.ts
+                </code>
+                . The{" "}
+                <code class="rounded bg-(--color-bg-surface) px-1 font-mono text-xs">
+                  ThemeToggle
+                </code>{" "}
+                component handles switching.
               </Accordion>
             </div>
           </ShowcaseSection>
@@ -245,19 +242,21 @@ const components = [
             </Fragment>
 
             <div class="flex flex-col gap-4 p-6">
-              <Alert variant="info" title="Information"
-                >This is an informational message with some useful context for the user.</Alert
-              >
-              <Alert variant="success" title="Success"
-                >Your changes have been saved successfully.</Alert
-              >
-              <Alert variant="warning" title="Warning"
-                >Please review your input before continuing.</Alert
-              >
-              <Alert variant="error" title="Error">Something went wrong. Please try again.</Alert>
-              <Alert variant="info" title="Dismissible" dismissible
-                >Click the × to dismiss this alert.</Alert
-              >
+              <Alert variant="info" title="Information">
+                This is an informational message with some useful context for the user.
+              </Alert>
+              <Alert variant="success" title="Success">
+                Your changes have been saved successfully.
+              </Alert>
+              <Alert variant="warning" title="Warning">
+                Please review your input before continuing.
+              </Alert>
+              <Alert variant="error" title="Error">
+                Something went wrong. Please try again.
+              </Alert>
+              <Alert variant="info" title="Dismissible" dismissible>
+                Click the × to dismiss this alert.
+              </Alert>
               <Alert variant="success">Alert without a title — just body text.</Alert>
             </div>
           </ShowcaseSection>
@@ -265,11 +264,12 @@ const components = [
           {/* ── Avatar ─────────────────────────────────────────────── */}
           <ShowcaseSection id="avatar" title="Avatar">
             <Fragment slot="description">
-              Shows an image when <code class="rounded bg-(--color-bg-surface) px-1">src</code> is set;
-              falls back to initials derived from <code class="rounded bg-(--color-bg-surface) px-1"
-                >alt</code
-              > or the explicit <code class="rounded bg-(--color-bg-surface) px-1">initials</code> prop.
-              Use <code class="rounded bg-(--color-bg-surface) px-1">shape="square"</code> for app icons.
+              Shows an image when <code class="rounded bg-(--color-bg-surface) px-1">src</code> is
+              set; falls back to initials derived from{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">alt</code> or the explicit{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">initials</code> prop. Use{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">shape="square"</code> for app
+              icons.
             </Fragment>
 
             <div class="flex flex-wrap items-end gap-6 p-6">
@@ -336,10 +336,18 @@ const components = [
                 </p>
 
                 <div class="flex flex-wrap gap-3">
-                  <Badge variant="primary" pulse>Live</Badge>
-                  <Badge variant="success" pulse>Online</Badge>
-                  <Badge variant="error" pulse>Alert</Badge>
-                  <Badge variant="warning" pulse>Pending</Badge>
+                  <Badge variant="primary" pulse>
+                    Live
+                  </Badge>
+                  <Badge variant="success" pulse>
+                    Online
+                  </Badge>
+                  <Badge variant="error" pulse>
+                    Alert
+                  </Badge>
+                  <Badge variant="warning" pulse>
+                    Pending
+                  </Badge>
                 </div>
               </div>
             </div>
@@ -348,11 +356,13 @@ const components = [
           {/* ── Breadcrumb ──────────────────────────────────────────── */}
           <ShowcaseSection id="breadcrumb" title="Breadcrumb">
             <Fragment slot="description">
-              Accessible navigation trail using a <code class="rounded bg-(--color-bg-surface) px-1"
-                >&lt;nav aria-label="Breadcrumb"&gt;</code
-              > with an ordered list. The last item renders as a <code
-                class="rounded bg-(--color-bg-surface) px-1">span</code
-              > with <code class="rounded bg-(--color-bg-surface) px-1">aria-current="page"</code>.
+              Accessible navigation trail using a{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">
+                &lt;nav aria-label="Breadcrumb"&gt;
+              </code>{" "}
+              with an ordered list. The last item renders as a{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">span</code> with{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">aria-current="page"</code>.
             </Fragment>
 
             <div class="flex flex-col gap-6 p-6">
@@ -423,9 +433,15 @@ const components = [
                 </p>
 
                 <div class="flex flex-wrap items-center gap-3">
-                  <Button variant="primary" size="sm">Small</Button>
-                  <Button variant="primary" size="md">Medium</Button>
-                  <Button variant="primary" size="lg">Large</Button>
+                  <Button variant="primary" size="sm">
+                    Small
+                  </Button>
+                  <Button variant="primary" size="md">
+                    Medium
+                  </Button>
+                  <Button variant="primary" size="lg">
+                    Large
+                  </Button>
                 </div>
               </div>
 
@@ -435,10 +451,18 @@ const components = [
                 </p>
 
                 <div class="flex flex-wrap gap-3">
-                  <Button variant="primary" disabled>Disabled</Button>
-                  <Button variant="primary" loading>Loading</Button>
-                  <Button variant="secondary" loading>Loading</Button>
-                  <Button variant="primary" href="/ui" newTab>New tab</Button>
+                  <Button variant="primary" disabled>
+                    Disabled
+                  </Button>
+                  <Button variant="primary" loading>
+                    Loading
+                  </Button>
+                  <Button variant="secondary" loading>
+                    Loading
+                  </Button>
+                  <Button variant="primary" href="/ui" newTab>
+                    New tab
+                  </Button>
                   <Button variant="secondary" href="/ui" newTab>
                     Custom icon
                     <Icon
@@ -450,11 +474,15 @@ const components = [
                       aria-hidden="true"
                     />
                   </Button>
-                  <Button variant="ghost" href="/ui" external>External (deprecated)</Button>
+                  <Button variant="ghost" href="/ui" external>
+                    External (deprecated)
+                  </Button>
                 </div>
 
                 <div class="flex flex-wrap gap-3">
-                  <Button variant="secondary" fullWidth>Full width</Button>
+                  <Button variant="secondary" fullWidth>
+                    Full width
+                  </Button>
                 </div>
               </div>
 
@@ -495,12 +523,11 @@ const components = [
           {/* ── Card ───────────────────────────────────────────────── */}
           <ShowcaseSection id="card" title="Card">
             <Fragment slot="description">
-              Flexible content container. <code class="rounded bg-(--color-bg-surface) px-1"
-                >title</code
-              > and <code class="rounded bg-(--color-bg-surface) px-1">desc</code> accept props or named
-              slots. Icon always via <code class="rounded bg-(--color-bg-surface) px-1"
-                >slot="icon"</code
-              >.
+              Flexible content container.{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">title</code> and{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">desc</code> accept props or named
+              slots. Icon always via{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">slot="icon"</code>.
             </Fragment>
 
             <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -557,15 +584,15 @@ const components = [
 
               <Card padding="md">
                 <p class="text-sm text-(--color-text-muted)">
-                  Card with only a <strong class="text-(--color-text-base)">default slot</strong> — fully
-                  custom content.
+                  Card with only a <strong class="text-(--color-text-base)">default slot</strong> —
+                  fully custom content.
                 </p>
-                <Button variant="primary" size="sm">Action</Button>
+                <Button variant="primary" size="sm">
+                  Action
+                </Button>
               </Card>
 
-              {
-                /* * Global HTML attributes (id, data-*, aria-*, hidden, …) are forwarded to the root element by every UI component. */
-              }
+              {/* * Global HTML attributes (id, data-*, aria-*, hidden, …) are forwarded to the root element by every UI component. */}
               <Card
                 id="card-forwarded"
                 data-example="forwarded"
@@ -642,10 +669,10 @@ const components = [
           {/* ── Combobox ───────────────────────────────────────────── */}
           <ShowcaseSection id="combobox" title="Combobox">
             <Fragment slot="description">
-              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;input&gt;</code> + <code
-                class="rounded bg-(--color-bg-surface) px-1">&lt;datalist&gt;</code
-              > — zero JS, works everywhere. Type to filter suggestions. For fully custom filtering, swap
-              the datalist for a JS-driven listbox.
+              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;input&gt;</code> +{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">&lt;datalist&gt;</code> — zero JS,
+              works everywhere. Type to filter suggestions. For fully custom filtering, swap the
+              datalist for a JS-driven listbox.
             </Fragment>
 
             <div class="flex flex-wrap items-start gap-6 p-6">
@@ -701,19 +728,20 @@ const components = [
           {/* ── Drawer ─────────────────────────────────────────────── */}
           <ShowcaseSection id="drawer" title="Drawer">
             <Fragment slot="description">
-              Slide-in panel based on native <code class="rounded bg-(--color-bg-surface) px-1"
-                >&lt;dialog&gt;</code
-              > — built-in focus trap and Escape to close. Add <code
-                class="rounded bg-(--color-bg-surface) px-1">data-drawer-open="&lt;id&gt;"</code
-              > to any trigger element. It can also be opened from code: dispatch <code
-                class="rounded bg-(--color-bg-surface) px-1"
-                >document.dispatchEvent(new CustomEvent("drawer:open", {
-                  "{ detail: { id } }"
-                }))</code
-              > (<code class="rounded bg-(--color-bg-surface) px-1">drawer:close</code> closes it), or
+              Slide-in panel based on native{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> — built-in
+              focus trap and Escape to close. Add{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">
+                data-drawer-open="&lt;id&gt;"
+              </code>{" "}
+              to any trigger element. It can also be opened from code: dispatch{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">
+                document.dispatchEvent(new CustomEvent("drawer:open", {"{ detail: { id } }"}))
+              </code>{" "}
+              (<code class="rounded bg-(--color-bg-surface) px-1">drawer:close</code> closes it), or
               set
-              <code class="rounded bg-(--color-bg-surface) px-1">openOnLoad</code> to open it on page
-              load — e.g. after a POST → redirect.
+              <code class="rounded bg-(--color-bg-surface) px-1">openOnLoad</code> to open it on
+              page load — e.g. after a POST → redirect.
             </Fragment>
 
             <div class="flex flex-wrap gap-3 p-6">
@@ -721,7 +749,10 @@ const components = [
                 Open right drawer
               </Button>
 
-              <Button variant="secondary" data-drawer-open="drawer-left"> Open left drawer </Button>
+              <Button variant="secondary" data-drawer-open="drawer-left">
+                {" "}
+                Open left drawer{" "}
+              </Button>
 
               <Button variant="ghost" data-open-via-event="drawer-right">
                 Open via drawer:open event
@@ -732,16 +763,17 @@ const components = [
           {/* ── Dropdown ───────────────────────────────────────────── */}
           <ShowcaseSection id="dropdown" title="Dropdown">
             <Fragment slot="description">
-              JS-powered menu panel. Place the trigger in <code
-                class="rounded bg-(--color-bg-surface) px-1">slot="trigger"</code
-              > and menu items in the default slot. Closes on item click, Escape, and outside click, and
+              JS-powered menu panel. Place the trigger in{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">slot="trigger"</code> and menu
+              items in the default slot. Closes on item click, Escape, and outside click, and
               opening one closes any other open Dropdown. Set
-              <code class="rounded bg-(--color-bg-surface) px-1"
-                >closeOnSelect=&#123;false&#125;</code
-              > for a panel of form controls (e.g. filter Checkboxes) that should stay open between clicks
-              — the panel then gets <code class="rounded bg-(--color-bg-surface) px-1"
-                >role="dialog"</code
-              > and needs a <code class="rounded bg-(--color-bg-surface) px-1">label</code>.
+              <code class="rounded bg-(--color-bg-surface) px-1">
+                closeOnSelect=&#123;false&#125;
+              </code>{" "}
+              for a panel of form controls (e.g. filter Checkboxes) that should stay open between
+              clicks — the panel then gets{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">role="dialog"</code> and needs a{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">label</code>.
             </Fragment>
 
             <div class="flex flex-wrap items-start gap-6 p-8">
@@ -782,7 +814,9 @@ const components = [
               </Dropdown>
 
               <Dropdown align="right">
-                <Button slot="trigger" variant="primary" size="md">Right-aligned</Button>
+                <Button slot="trigger" variant="primary" size="md">
+                  Right-aligned
+                </Button>
 
                 <div class="flex flex-col">
                   <button
@@ -832,11 +866,9 @@ const components = [
           {/* ── EmptyState ─────────────────────────────────────────── */}
           <ShowcaseSection id="empty-state" title="EmptyState">
             <Fragment slot="description">
-              "No data yet" placeholder for empty lists/tables. <code
-                class="rounded bg-(--color-bg-surface) px-1">icon</code
-              > is a line-md name without the <code class="rounded bg-(--color-bg-surface) px-1"
-                >line-md:</code
-              > prefix.
+              "No data yet" placeholder for empty lists/tables.{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">icon</code> is a line-md name
+              without the <code class="rounded bg-(--color-bg-surface) px-1">line-md:</code> prefix.
             </Fragment>
 
             <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2">
@@ -852,9 +884,9 @@ const components = [
           {/* ── IconButton ─────────────────────────────────────────── */}
           <ShowcaseSection id="icon-button" title="IconButton">
             <Fragment slot="description">
-              Square icon-only button. <code class="rounded bg-(--color-bg-surface) px-1"
-                >label</code
-              > is required for accessibility.
+              Square icon-only button.{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">label</code> is required for
+              accessibility.
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
@@ -997,9 +1029,7 @@ const components = [
                     data-label-open="Open panel"
                     data-label-close="Close panel"
                   >
-                    {
-                      /* * Rotated via group-aria-expanded: (IconButton sets "group" + aria-expanded) — no icon-swap JS needed. */
-                    }
+                    {/* * Rotated via group-aria-expanded: (IconButton sets "group" + aria-expanded) — no icon-swap JS needed. */}
                     <Icon
                       is:inline
                       name="line-md:chevron-down"
@@ -1034,21 +1064,19 @@ const components = [
               })
             }
           </script>
-
           {/* ── Input ──────────────────────────────────────────────── */}
           <ShowcaseSection id="input" title="Input">
             <Fragment slot="description">
               Text input with label, hint, error state and size variants. Supports native date/time
-              pickers (<code class="rounded bg-(--color-bg-surface) px-1">date</code>, <code
-                class="rounded bg-(--color-bg-surface) px-1">datetime-local</code
-              >, <code class="rounded bg-(--color-bg-surface) px-1">time</code>) with <code
-                class="rounded bg-(--color-bg-surface) px-1">min</code
-              >/<code class="rounded bg-(--color-bg-surface) px-1">max</code>/<code
-                class="rounded bg-(--color-bg-surface) px-1">step</code
-              >. The <code class="rounded bg-(--color-bg-surface) px-1">name</code> prop is required —
-              <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls back to <code
-                class="rounded bg-(--color-bg-surface) px-1">name</code
-              > when omitted.
+              pickers (<code class="rounded bg-(--color-bg-surface) px-1">date</code>,{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">datetime-local</code>,{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">time</code>) with{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">min</code>/
+              <code class="rounded bg-(--color-bg-surface) px-1">max</code>/
+              <code class="rounded bg-(--color-bg-surface) px-1">step</code>. The{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">name</code> prop is required —
+              <code class="rounded bg-(--color-bg-surface) px-1">id</code> falls back to{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">name</code> when omitted.
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
@@ -1127,9 +1155,7 @@ const components = [
                   Live validation
                 </p>
 
-                {
-                  /* * Client-side validation: setFieldError (src/utils/fieldError.ts) fills the always-rendered error element and syncs aria-invalid / aria-describedby. Works the same on Select, Textarea and Combobox. */
-                }
+                {/* * Client-side validation: setFieldError (src/utils/fieldError.ts) fills the always-rendered error element and syncs aria-invalid / aria-describedby. Works the same on Select, Textarea and Combobox. */}
                 <Input
                   name="live-email"
                   type="email"
@@ -1182,23 +1208,30 @@ const components = [
           {/* ── Modal ──────────────────────────────────────────────── */}
           <ShowcaseSection id="modal" title="Modal">
             <Fragment slot="description">
-              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with backdrop,
-              ESC and backdrop-click to close. Open with <code
-                class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code
-              > on any element, dispatch <code class="rounded bg-(--color-bg-surface) px-1"
-                >modal:open</code
-              > / <code class="rounded bg-(--color-bg-surface) px-1">modal:close</code> with <code
-                class="rounded bg-(--color-bg-surface) px-1">{"detail: { id }"}</code
-              > on <code class="rounded bg-(--color-bg-surface) px-1">document</code>, or set <code
-                class="rounded bg-(--color-bg-surface) px-1">openOnLoad</code
-              > to open it on page load.
+              Native <code class="rounded bg-(--color-bg-surface) px-1">&lt;dialog&gt;</code> with
+              backdrop, ESC and backdrop-click to close. Open with{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">data-modal-open="id"</code> on any
+              element, dispatch <code class="rounded bg-(--color-bg-surface) px-1">modal:open</code>{" "}
+              / <code class="rounded bg-(--color-bg-surface) px-1">modal:close</code> with{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">{"detail: { id }"}</code> on{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">document</code>, or set{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">openOnLoad</code> to open it on
+              page load.
             </Fragment>
 
             <div class="flex flex-wrap gap-3 p-6">
-              <Button variant="primary" data-modal-open="modal-default">Open modal</Button>
-              <Button variant="secondary" data-modal-open="modal-sm">Small</Button>
-              <Button variant="secondary" data-modal-open="modal-lg">Large</Button>
-              <Button variant="ghost" data-modal-open="modal-no-footer">No footer</Button>
+              <Button variant="primary" data-modal-open="modal-default">
+                Open modal
+              </Button>
+              <Button variant="secondary" data-modal-open="modal-sm">
+                Small
+              </Button>
+              <Button variant="secondary" data-modal-open="modal-lg">
+                Large
+              </Button>
+              <Button variant="ghost" data-modal-open="modal-no-footer">
+                No footer
+              </Button>
               <Button variant="ghost" data-open-via-event="modal-default">
                 Open via modal:open event
               </Button>
@@ -1208,12 +1241,12 @@ const components = [
           {/* ── Pagination ─────────────────────────────────────────── */}
           <ShowcaseSection id="pagination" title="Pagination">
             <Fragment slot="description">
-              Static link-based pagination for SSG. Pass <code
-                class="rounded bg-(--color-bg-surface) px-1">currentPage</code
-              >, <code class="rounded bg-(--color-bg-surface) px-1">totalPages</code>, and <code
-                class="rounded bg-(--color-bg-surface) px-1">baseUrl</code
-              >. Page 1 links to <code class="rounded bg-(--color-bg-surface) px-1">baseUrl</code> directly
-              — no <code class="rounded bg-(--color-bg-surface) px-1">/1</code> suffix.
+              Static link-based pagination for SSG. Pass{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">currentPage</code>,{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">totalPages</code>, and{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">baseUrl</code>. Page 1 links to{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">baseUrl</code> directly — no{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">/1</code> suffix.
             </Fragment>
 
             <div class="flex flex-col items-start gap-6 p-6">
@@ -1227,10 +1260,10 @@ const components = [
           {/* ── Progress ───────────────────────────────────────────── */}
           <ShowcaseSection id="progress" title="Progress">
             <Fragment slot="description">
-              Accessible <code class="rounded bg-(--color-bg-surface) px-1">role="progressbar"</code
-              >
-              with smooth fill transition. Supports four variants and three sizes. Value is clamped to
-              0–100.
+              Accessible{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">role="progressbar"</code>
+              with smooth fill transition. Supports four variants and three sizes. Value is clamped
+              to 0–100.
             </Fragment>
 
             <div class="flex flex-col gap-6 p-6">
@@ -1375,11 +1408,10 @@ const components = [
           {/* ── Spinner ────────────────────────────────────────────── */}
           <ShowcaseSection id="spinner" title="Spinner">
             <Fragment slot="description">
-              SVG arc spinner with <code class="rounded bg-(--color-bg-surface) px-1"
-                >animate-spin</code
-              >. Inherits color via <code class="rounded bg-(--color-bg-surface) px-1"
-                >currentColor</code
-              > — wrap in a colored parent or override with a text-color class.
+              SVG arc spinner with{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">animate-spin</code>. Inherits color
+              via <code class="rounded bg-(--color-bg-surface) px-1">currentColor</code> — wrap in a
+              colored parent or override with a text-color class.
             </Fragment>
 
             <div class="flex flex-wrap items-center gap-8 p-8">
@@ -1390,9 +1422,15 @@ const components = [
               </div>
 
               <div class="flex items-center gap-4">
-                <span class="text-(--color-status-success)"><Spinner size="md" /></span>
-                <span class="text-(--color-status-warning)"><Spinner size="md" /></span>
-                <span class="text-(--color-status-error)"><Spinner size="md" /></span>
+                <span class="text-(--color-status-success)">
+                  <Spinner size="md" />
+                </span>
+                <span class="text-(--color-status-warning)">
+                  <Spinner size="md" />
+                </span>
+                <span class="text-(--color-status-error)">
+                  <Spinner size="md" />
+                </span>
               </div>
             </div>
           </ShowcaseSection>
@@ -1400,13 +1438,12 @@ const components = [
           {/* ── StatTile ───────────────────────────────────────────── */}
           <ShowcaseSection id="stat-tile" title="StatTile">
             <Fragment slot="description">
-              KPI/stat tile with an icon, label, value, and optional caption. <code
-                class="rounded bg-(--color-bg-surface) px-1">href</code
-              > renders it as a link (add <code class="rounded bg-(--color-bg-surface) px-1"
-                >newTab</code
-              > to open it in a new tab, flagged for screen readers and with an icon); <code
-                class="rounded bg-(--color-bg-surface) px-1">urgent</code
-              > and <code class="rounded bg-(--color-bg-surface) px-1">pulse</code> flag attention-needing
+              KPI/stat tile with an icon, label, value, and optional caption.{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">href</code> renders it as a link
+              (add <code class="rounded bg-(--color-bg-surface) px-1">newTab</code> to open it in a
+              new tab, flagged for screen readers and with an icon);{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">urgent</code> and{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">pulse</code> flag attention-needing
               or in-progress state.
             </Fragment>
 
@@ -1448,11 +1485,11 @@ const components = [
           {/* ── Stepper ────────────────────────────────────────────── */}
           <ShowcaseSection id="stepper" title="Stepper">
             <Fragment slot="description">
-              Multi-step progress indicator. Pass <code class="rounded bg-(--color-bg-surface) px-1"
-                >currentStep</code
-              > (1-based). Completed steps show a checkmark. Supports <code
-                class="rounded bg-(--color-bg-surface) px-1">horizontal</code
-              > (default) and <code class="rounded bg-(--color-bg-surface) px-1">vertical</code> orientations.
+              Multi-step progress indicator. Pass{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">currentStep</code> (1-based).
+              Completed steps show a checkmark. Supports{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">horizontal</code> (default) and{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">vertical</code> orientations.
             </Fragment>
 
             <div class="flex flex-col gap-8 p-8">
@@ -1486,16 +1523,15 @@ const components = [
           {/* ── Table ──────────────────────────────────────────────── */}
           <ShowcaseSection id="table" title="Table">
             <Fragment slot="description">
-              Responsive wrapper with consistent thead/tbody/tfoot styling. Add <code
-                class="rounded bg-(--color-bg-surface) px-1">striped</code
-              > for alternating row backgrounds, or <code
-                class="rounded bg-(--color-bg-surface) px-1">layout="fixed"</code
-              > with your own <code class="rounded bg-(--color-bg-surface) px-1"
-                >&lt;colgroup&gt;</code
-              > to lock column widths. Standard HTML elements go inside the slot — align an individual
-              header/cell with <code class="rounded bg-(--color-bg-surface) px-1"
-                >data-align="right"</code
-              > or <code class="rounded bg-(--color-bg-surface) px-1">data-align="center"</code>.
+              Responsive wrapper with consistent thead/tbody/tfoot styling. Add{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">striped</code> for alternating row
+              backgrounds, or{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">layout="fixed"</code> with your own{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">&lt;colgroup&gt;</code> to lock
+              column widths. Standard HTML elements go inside the slot — align an individual
+              header/cell with{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">data-align="right"</code> or{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">data-align="center"</code>.
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
@@ -1601,9 +1637,8 @@ const components = [
           <ShowcaseSection id="tabs" title="Tabs">
             <Fragment slot="description">
               Accessible tabbed interface. Supports arrow-key navigation per the WAI-ARIA tabs
-              pattern. Each tab panel is a named slot matching the tab <code
-                class="rounded bg-(--color-bg-surface) px-1">id</code
-              >.
+              pattern. Each tab panel is a named slot matching the tab{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">id</code>.
             </Fragment>
 
             <div class="flex flex-col gap-8 p-6">
@@ -1621,16 +1656,15 @@ const components = [
                 >
                   <div slot="overview" class="text-sm text-(--color-text-muted)">
                     <p>
-                      The <strong class="text-(--color-text-base)">Tabs</strong> component renders an
-                      accessible tab list and matching panels. Pass an array of <code
-                        class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code
-                      > objects and provide a named slot for each tab ID.
+                      The <strong class="text-(--color-text-base)">Tabs</strong> component renders
+                      an accessible tab list and matching panels. Pass an array of{" "}
+                      <code class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code>{" "}
+                      objects and provide a named slot for each tab ID.
                     </p>
                   </div>
 
                   <div slot="usage" class="text-sm text-(--color-text-muted)">
-                    <pre
-                      class="overflow-x-auto rounded-lg bg-(--color-bg-elevated) p-4 text-xs"><code>{`<Tabs tabs={[
+                    <pre class="overflow-x-auto rounded-lg bg-(--color-bg-elevated) p-4 text-xs"><code>{`<Tabs tabs={[
   { id: "tab1", label: "Tab 1" },
   { id: "tab2", label: "Tab 2" },
 ]}>
@@ -1642,20 +1676,19 @@ const components = [
                   <div slot="props" class="text-sm text-(--color-text-muted)">
                     <ul class="flex flex-col gap-1">
                       <li>
-                        <code class="rounded bg-(--color-bg-surface) px-1">tabs</code> — array of <code
-                          class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code
-                        > objects (required)
+                        <code class="rounded bg-(--color-bg-surface) px-1">tabs</code> — array of{" "}
+                        <code class="rounded bg-(--color-bg-surface) px-1">{"{ id, label }"}</code>{" "}
+                        objects (required)
                       </li>
                       <li>
-                        <code class="rounded bg-(--color-bg-surface) px-1">defaultTab</code> — ID of the
-                        initially active tab (defaults to first)
+                        <code class="rounded bg-(--color-bg-surface) px-1">defaultTab</code> — ID of
+                        the initially active tab (defaults to first)
                       </li>
                       <li>
-                        <code class="rounded bg-(--color-bg-surface) px-1">variant</code> — <code
-                          class="rounded bg-(--color-bg-surface) px-1">"underline"</code
-                        > (default) or <code class="rounded bg-(--color-bg-surface) px-1"
-                          >"pill"</code
-                        >
+                        <code class="rounded bg-(--color-bg-surface) px-1">variant</code> —{" "}
+                        <code class="rounded bg-(--color-bg-surface) px-1">"underline"</code>{" "}
+                        (default) or{" "}
+                        <code class="rounded bg-(--color-bg-surface) px-1">"pill"</code>
                       </li>
                     </ul>
                   </div>
@@ -1676,13 +1709,12 @@ const components = [
                   ]}
                 >
                   <div slot="pill-daily" class="text-sm text-(--color-text-muted)">
-                    Same component, <code class="rounded bg-(--color-bg-surface) px-1"
-                      >variant="pill"</code
-                    > — each tab renders as a filled pill instead of the border-bottom indicator.
+                    Same component,{" "}
+                    <code class="rounded bg-(--color-bg-surface) px-1">variant="pill"</code> — each
+                    tab renders as a filled pill instead of the border-bottom indicator.
                   </div>
                   <div slot="pill-weekly" class="text-sm text-(--color-text-muted)">
-                    <pre
-                      class="overflow-x-auto rounded-lg bg-(--color-bg-elevated) p-4 text-xs"><code>{`<Tabs variant="pill" tabs={[...]}>...</Tabs>`}</code></pre>
+                    <pre class="overflow-x-auto rounded-lg bg-(--color-bg-elevated) p-4 text-xs"><code>{`<Tabs variant="pill" tabs={[...]}>...</Tabs>`}</code></pre>
                   </div>
                   <div slot="pill-monthly" class="text-sm text-(--color-text-muted)">
                     Same props as the underline variant above.
@@ -1696,12 +1728,12 @@ const components = [
                 </p>
 
                 <p class="text-sm text-(--color-text-muted)">
-                  When <code class="rounded bg-(--color-bg-surface) px-1">tabs</code> itself comes from
-                  a <code class="rounded bg-(--color-bg-surface) px-1">.map()</code>, tagging
-                  content with a dynamic <code class="rounded bg-(--color-bg-surface) px-1"
-                    >slot={"{tab.id}"}</code
-                  > breaks — use the <code class="rounded bg-(--color-bg-surface) px-1">render</code
-                  > field instead.
+                  When <code class="rounded bg-(--color-bg-surface) px-1">tabs</code> itself comes
+                  from a <code class="rounded bg-(--color-bg-surface) px-1">.map()</code>, tagging
+                  content with a dynamic{" "}
+                  <code class="rounded bg-(--color-bg-surface) px-1">slot={"{tab.id}"}</code> breaks
+                  — use the <code class="rounded bg-(--color-bg-surface) px-1">render</code> field
+                  instead.
                 </p>
 
                 <Tabs
@@ -1796,11 +1828,13 @@ const components = [
           {/* ── Toast ─────────────────────────────────────────────── */}
           <ShowcaseSection id="toast" title="Toast">
             <Fragment slot="description">
-              Non-blocking notification. Add <code class="rounded bg-(--color-bg-surface) px-1"
-                >&lt;Toast /&gt;</code
-              > once to your layout, then call <code class="rounded bg-(--color-bg-surface) px-1"
-                >window.toast("message", {"{ variant }"} )</code
-              > from any script. Auto-dismisses after 4 seconds.
+              Non-blocking notification. Add{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">&lt;Toast /&gt;</code> once to your
+              layout, then call{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">
+                window.toast("message", {"{ variant }"} )
+              </code>{" "}
+              from any script. Auto-dismisses after 4 seconds.
             </Fragment>
 
             <div class="flex flex-col gap-6 p-6">
@@ -1810,10 +1844,18 @@ const components = [
                 </p>
 
                 <div class="flex flex-wrap gap-3">
-                  <Button variant="secondary" data-toast="info">Info toast</Button>
-                  <Button variant="secondary" data-toast="success">Success toast</Button>
-                  <Button variant="secondary" data-toast="warning">Warning toast</Button>
-                  <Button variant="secondary" data-toast="error">Error toast</Button>
+                  <Button variant="secondary" data-toast="info">
+                    Info toast
+                  </Button>
+                  <Button variant="secondary" data-toast="success">
+                    Success toast
+                  </Button>
+                  <Button variant="secondary" data-toast="warning">
+                    Warning toast
+                  </Button>
+                  <Button variant="secondary" data-toast="error">
+                    Error toast
+                  </Button>
                 </div>
               </div>
 
@@ -1823,13 +1865,16 @@ const components = [
                 </p>
 
                 <p class="text-sm text-(--color-text-muted)">
-                  <code class="rounded bg-(--color-bg-surface) px-1"
-                    >window.toast(msg, {"{ action: { label, onClick } }"})</code
-                  > renders a button that dismisses the toast and fires the callback.
+                  <code class="rounded bg-(--color-bg-surface) px-1">
+                    window.toast(msg, {"{ action: { label, onClick } }"})
+                  </code>{" "}
+                  renders a button that dismisses the toast and fires the callback.
                 </p>
 
                 <div class="flex flex-wrap gap-3">
-                  <Button variant="secondary" id="toast-undo-trigger">Delete row</Button>
+                  <Button variant="secondary" id="toast-undo-trigger">
+                    Delete row
+                  </Button>
                 </div>
               </div>
             </div>
@@ -1839,9 +1884,9 @@ const components = [
           <ShowcaseSection id="toggle" title="Toggle">
             <Fragment slot="description">
               Checkbox-based switch with custom CSS styling. Fully keyboard-accessible — space bar
-              toggles. Use instead of <code class="rounded bg-(--color-bg-surface) px-1"
-                >Checkbox</code
-              > for on/off settings.
+              toggles. Use instead of{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">Checkbox</code> for on/off
+              settings.
             </Fragment>
 
             <div class="flex flex-wrap items-start gap-6 p-6">
@@ -1863,36 +1908,42 @@ const components = [
           {/* ── Tooltip ────────────────────────────────────────────── */}
           <ShowcaseSection id="tooltip" title="Tooltip">
             <Fragment slot="description">
-              Shows on hover and keyboard focus; Esc dismisses it. Pass <code
-                class="rounded bg-(--color-bg-surface) px-1">tip</code
-              >, and optionally <code class="rounded bg-(--color-bg-surface) px-1">placement</code>
+              Shows on hover and keyboard focus; Esc dismisses it. Pass{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">tip</code>, and optionally{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">placement</code>
               or <code class="rounded bg-(--color-bg-surface) px-1">multiline</code>. The trigger
-              must be focusable (e.g. <code class="rounded bg-(--color-bg-surface) px-1"
-                >&lt;button type="button"&gt;</code
-              >) so keyboard and touch users can reach it.
+              must be focusable (e.g.{" "}
+              <code class="rounded bg-(--color-bg-surface) px-1">&lt;button type="button"&gt;</code>
+              ) so keyboard and touch users can reach it.
             </Fragment>
 
             <div class="flex flex-wrap items-center justify-center gap-6 p-8">
               <Tooltip tip="Top tooltip (default)">
-                <Button variant="secondary" size="sm">Top</Button>
+                <Button variant="secondary" size="sm">
+                  Top
+                </Button>
               </Tooltip>
 
               <Tooltip tip="Bottom tooltip" placement="bottom">
-                <Button variant="secondary" size="sm">Bottom</Button>
+                <Button variant="secondary" size="sm">
+                  Bottom
+                </Button>
               </Tooltip>
 
               <Tooltip tip="Left tooltip" placement="left">
-                <Button variant="secondary" size="sm">Left</Button>
+                <Button variant="secondary" size="sm">
+                  Left
+                </Button>
               </Tooltip>
 
               <Tooltip tip="Right tooltip" placement="right">
-                <Button variant="secondary" size="sm">Right</Button>
+                <Button variant="secondary" size="sm">
+                  Right
+                </Button>
               </Tooltip>
 
               <Tooltip tip="Keyboard-accessible — try tabbing here">
-                <button
-                  class="rounded-lg border border-(--color-border-base) px-3 py-1.5 text-sm text-(--color-text-muted) outline-none focus:ring-2 focus:ring-(--color-brand-primary)/40"
-                >
+                <button class="rounded-lg border border-(--color-border-base) px-3 py-1.5 text-sm text-(--color-text-muted) outline-none focus:ring-2 focus:ring-(--color-brand-primary)/40">
                   Focus me
                 </button>
               </Tooltip>
@@ -1900,22 +1951,25 @@ const components = [
 
             <div class="flex flex-col gap-6 p-8">
               <p class="text-sm text-(--color-text-muted)">
-                Edge cases — the bubble always stays inside the viewport and is never clipped by an <code
-                  class="rounded bg-(--color-bg-surface) px-1">overflow-hidden</code
-                > parent.
+                Edge cases — the bubble always stays inside the viewport and is never clipped by an{" "}
+                <code class="rounded bg-(--color-bg-surface) px-1">overflow-hidden</code> parent.
               </p>
               <div class="flex items-center justify-between gap-6">
                 <Tooltip
                   multiline
                   tip="Left edge: the bubble slides inward instead of overflowing the screen."
                 >
-                  <Button variant="secondary" size="sm">Left edge</Button>
+                  <Button variant="secondary" size="sm">
+                    Left edge
+                  </Button>
                 </Tooltip>
                 <Tooltip
                   multiline
                   tip="Right edge: the bubble slides inward instead of overflowing the screen."
                 >
-                  <Button variant="secondary" size="sm">Right edge</Button>
+                  <Button variant="secondary" size="sm">
+                    Right edge
+                  </Button>
                 </Tooltip>
               </div>
               <Card
@@ -1929,7 +1983,9 @@ const components = [
                     placement="bottom"
                     tip="Rendered in the top layer, so this parent's overflow-hidden cannot clip it."
                   >
-                    <Button variant="secondary" size="sm">Clipped parent</Button>
+                    <Button variant="secondary" size="sm">
+                      Clipped parent
+                    </Button>
                   </Tooltip>
                 </div>
               </Card>
@@ -1965,13 +2021,19 @@ const components = [
       <p class="text-(--color-text-muted)">
         Are you sure you want to continue? This action cannot be undone.
       </p>
-      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
-      <Button slot="footer" variant="danger">Delete</Button>
+      <Button slot="footer" variant="secondary" data-modal-close>
+        Cancel
+      </Button>
+      <Button slot="footer" variant="danger">
+        Delete
+      </Button>
     </Modal>
 
     <Modal id="modal-sm" title="Quick note" size="sm">
       <p class="text-(--color-text-muted)">A compact modal for short confirmations or notices.</p>
-      <Button slot="footer" variant="primary" data-modal-close>Got it</Button>
+      <Button slot="footer" variant="primary" data-modal-close>
+        Got it
+      </Button>
     </Modal>
 
     <Modal id="modal-lg" title="Edit profile" size="lg">
@@ -1986,8 +2048,12 @@ const components = [
         />
         <Input name="modal-bio" label="Bio" placeholder="Tell us about yourself…" fullWidth />
       </div>
-      <Button slot="footer" variant="secondary" data-modal-close>Cancel</Button>
-      <Button slot="footer" variant="primary">Save changes</Button>
+      <Button slot="footer" variant="secondary" data-modal-close>
+        Cancel
+      </Button>
+      <Button slot="footer" variant="primary">
+        Save changes
+      </Button>
     </Modal>
 
     <Modal id="modal-no-footer" title="Information">
@@ -2006,8 +2072,12 @@ const components = [
           Close with the × button, Escape, or backdrop click.
         </p>
       </div>
-      <Button slot="footer" data-drawer-close variant="secondary" size="md">Cancel</Button>
-      <Button slot="footer" variant="primary" size="md">Save</Button>
+      <Button slot="footer" data-drawer-close variant="secondary" size="md">
+        Cancel
+      </Button>
+      <Button slot="footer" variant="primary" size="md">
+        Save
+      </Button>
     </Drawer>
 
     <Drawer id="drawer-left" title="Left Drawer" side="left">
@@ -2015,18 +2085,21 @@ const components = [
         <a
           href="#"
           class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-base) hover:bg-(--color-bg-surface)"
-          >Dashboard</a
         >
+          Dashboard
+        </a>
         <a
           href="#"
           class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-base) hover:bg-(--color-bg-surface)"
-          >Projects</a
         >
+          Projects
+        </a>
         <a
           href="#"
           class="rounded-lg px-3 py-2 text-sm font-medium text-(--color-text-base) hover:bg-(--color-bg-surface)"
-          >Settings</a
         >
+          Settings
+        </a>
       </nav>
     </Drawer>
   </main>
@@ -2056,7 +2129,6 @@ const components = [
       })
     }
   </script>
-
   <script>
     // * Showcase-only: demonstrates the drawer:open / modal:open programmatic API.
     document.querySelectorAll<HTMLElement>("[data-open-via-event]").forEach((btn) => {
@@ -2067,7 +2139,6 @@ const components = [
       })
     })
   </script>
-
   <script>
     // * Intersection Observer highlights the active sidebar link as the user scrolls.
     function initSidebarNav() {
@@ -2111,7 +2182,6 @@ const components = [
 
     initSidebarNav()
   </script>
-
   <script>
     const messages: Record<string, string> = {
       info: "Here is some useful information.",
@@ -2150,7 +2220,6 @@ const components = [
       })
     })
   </script>
-
   <Toast />
   <Footer />
 </BaseLayout>

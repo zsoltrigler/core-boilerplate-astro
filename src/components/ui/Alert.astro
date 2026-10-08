@@ -63,47 +63,41 @@ const { border, text, bg } = styles[variant]
   data-alert
   class={`flex items-start gap-3 p-4 rounded-lg border ${border} ${bg} ${className}`}
 >
-  {
-    Astro.slots.has("icon") ? (
-      <slot name="icon" />
-    ) : (
-      <Icon
-        is:inline
-        name={defaultIcons[variant]}
-        width="20"
-        height="20"
-        class={`shrink-0 ${text}`}
-        aria-hidden="true"
-      />
-    )
-  }
+  {Astro.slots.has("icon") ? (
+    <slot name="icon" />
+  ) : (
+    <Icon
+      is:inline
+      name={defaultIcons[variant]}
+      width="20"
+      height="20"
+      class={`shrink-0 ${text}`}
+      aria-hidden="true"
+    />
+  )}
 
   <div class="flex flex-1 flex-col gap-1">
-    {
-      (Astro.slots.has("title") || title) && (
-        <p class={`text-sm font-semibold ${text}`}>
-          {Astro.slots.has("title") ? <slot name="title" /> : title}
-        </p>
-      )
-    }
+    {(Astro.slots.has("title") || title) && (
+      <p class={`text-sm font-semibold ${text}`}>
+        {Astro.slots.has("title") ? <slot name="title" /> : title}
+      </p>
+    )}
 
     <div class="text-sm text-(--color-text-base)">
       <slot />
     </div>
   </div>
 
-  {
-    dismissible && (
-      <button
-        data-alert-dismiss
-        type="button"
-        aria-label={dismissLabel}
-        class={`shrink-0 ${text} cursor-pointer transition-opacity hover:opacity-70`}
-      >
-        <Icon is:inline name="line-md:close-small" width="16" height="16" aria-hidden="true" />
-      </button>
-    )
-  }
+  {dismissible && (
+    <button
+      data-alert-dismiss
+      type="button"
+      aria-label={dismissLabel}
+      class={`shrink-0 ${text} cursor-pointer transition-opacity hover:opacity-70`}
+    >
+      <Icon is:inline name="line-md:close-small" width="16" height="16" aria-hidden="true" />
+    </button>
+  )}
 </div>
 
 <script>

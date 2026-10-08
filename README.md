@@ -206,9 +206,15 @@ Visit `/ui` in the dev server to see every component with all its variants and p
 Renders as `<a>` when `href` is set, otherwise `<button>`.
 
 ```astro
-<Button variant="primary" size="md" href="/page">Label</Button>
-<Button variant="secondary" disabled>Label</Button>
-<Button variant="ghost" href="https://..." newTab>Docs</Button>
+<Button variant="primary" size="md" href="/page">
+  Label
+</Button>
+<Button variant="secondary" disabled>
+  Label
+</Button>
+<Button variant="ghost" href="https://..." newTab>
+  Docs
+</Button>
 ```
 
 **Props:** `variant` (primary | secondary | ghost | danger) · `size` (sm | md | lg) · `href` · `newTab` · `newTabLabel` · `disabled` · `fullWidth` (`external` is deprecated — use `newTab`)
@@ -256,7 +262,9 @@ btn.setAttribute("aria-expanded", String(open))
 Inline label for status, category, or emphasis.
 
 ```astro
-<Badge variant="success" size="md" pulse>Live</Badge>
+<Badge variant="success" size="md" pulse>
+  Live
+</Badge>
 ```
 
 **Props:** `variant` (default | primary | success | warning | error | info) · `size` (sm | md | lg) · `pulse`
@@ -268,7 +276,10 @@ Inline label for status, category, or emphasis.
 Contextual feedback with optional title and dismiss button.
 
 ```astro
-<Alert variant="info" title="Heads up" dismissible> Your message here. </Alert>
+<Alert variant="info" title="Heads up" dismissible>
+  {" "}
+  Your message here.{" "}
+</Alert>
 ```
 
 **Props:** `variant` (info | success | warning | error) · `title` · `dismissible` · `dismissLabel` (aria-label for the dismiss button, default `"Dismiss"`)
@@ -353,7 +364,9 @@ Native `<dialog>`-based modal. Open it by adding `data-modal-open="<id>"` to any
 <Modal id="confirm-modal" title="Confirm action" size="md">
   <p>Are you sure you want to continue?</p>
   <div slot="footer">
-    <Button data-modal-close variant="secondary">Cancel</Button>
+    <Button data-modal-close variant="secondary">
+      Cancel
+    </Button>
     <Button variant="primary">Confirm</Button>
   </div>
 </Modal>
@@ -548,7 +561,9 @@ JS-powered menu panel. Closes on item click, Escape, or clicking outside.
 
 ```astro
 <Dropdown>
-  <Button slot="trigger" variant="secondary">Actions</Button>
+  <Button slot="trigger" variant="secondary">
+    Actions
+  </Button>
   <a href="/edit">Edit</a>
   <a href="/duplicate">Duplicate</a>
 </Dropdown>

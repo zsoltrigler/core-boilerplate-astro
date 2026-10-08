@@ -119,11 +119,9 @@ const foucScript = SITE.singleTheme
 <html lang={lang} dir={resolvedDir} class:list={[SITE.singleTheme && "single-theme"]}>
   <head>
     <meta charset="UTF-8" />
-    {
-      /* * viewport-fit=cover lets the page extend under the notch/Dynamic Island and
+    {/* * viewport-fit=cover lets the page extend under the notch/Dynamic Island and
          home-indicator area on modern phones — required for env(safe-area-inset-*) to
-         resolve to non-zero values; without it those always report 0. */
-    }
+         resolve to non-zero values; without it those always report 0. */}
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     {/* FOUC prevention: read theme before first paint (see foucScript above) */}
@@ -147,16 +145,12 @@ const foucScript = SITE.singleTheme
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={ogImageAlt ?? title ?? siteName} />
-    {
-      ogType === "article" && publishedDate && (
-        <meta property="article:published_time" content={publishedDate} />
-      )
-    }
-    {
-      ogType === "article" && modifiedDate && (
-        <meta property="article:modified_time" content={modifiedDate} />
-      )
-    }
+    {ogType === "article" && publishedDate && (
+      <meta property="article:published_time" content={publishedDate} />
+    )}
+    {ogType === "article" && modifiedDate && (
+      <meta property="article:modified_time" content={modifiedDate} />
+    )}
 
     {/* Twitter Card */}
     <meta name="twitter:card" content="summary_large_image" />
@@ -172,40 +166,36 @@ const foucScript = SITE.singleTheme
     {/* * 180×180 icon used by iOS when added to home screen. */}
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    {
-      SITE.singleTheme ? (
-        <meta name="theme-color" content={COLORS.bgBase} />
-      ) : (
-        <>
-          <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
-          <meta
-            name="theme-color"
-            media="(prefers-color-scheme: dark)"
-            content={COLORS.dark?.bgBase ?? COLORS.bgBase}
-          />
-        </>
-      )
-    }
-
-    {
-      jsonLd && (
-        <script
-          is:inline
-          type="application/ld+json"
-          set:html={JSON.stringify({ ...jsonLd, "@context": "https://schema.org" }).replace(
-            /[<>&\u2028\u2029]/g,
-            (c) =>
-              ({
-                "<": "\\u003c",
-                ">": "\\u003e",
-                "&": "\\u0026",
-                "\u2028": "\\u2028",
-                "\u2029": "\\u2029",
-              })[c]!
-          )}
+    {SITE.singleTheme ? (
+      <meta name="theme-color" content={COLORS.bgBase} />
+    ) : (
+      <>
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content={COLORS.bgBase} />
+        <meta
+          name="theme-color"
+          media="(prefers-color-scheme: dark)"
+          content={COLORS.dark?.bgBase ?? COLORS.bgBase}
         />
-      )
-    }
+      </>
+    )}
+
+    {jsonLd && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify({ ...jsonLd, "@context": "https://schema.org" }).replace(
+          /[<>&\u2028\u2029]/g,
+          (c) =>
+            ({
+              "<": "\\u003c",
+              ">": "\\u003e",
+              "&": "\\u0026",
+              "\u2028": "\\u2028",
+              "\u2029": "\\u2029",
+            })[c]!
+        )}
+      />
+    )}
 
     {/* Per-page head injection (extra <link>, <script>, JSON-LD, etc.) */}
     <slot name="head" />

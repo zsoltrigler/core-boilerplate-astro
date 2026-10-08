@@ -72,55 +72,49 @@ const disabledArrow =
 ---
 
 <nav aria-label={ariaLabel} class={`flex items-center gap-1 ${className}`} {...rest}>
-  {
-    currentPage > 1 ? (
-      <IconButton
-        href={pageUrl(currentPage - 1)}
-        rel="prev"
-        label={previousLabel}
-        variant="ghost"
-        size="sm"
-      >
-        <Icon is:inline name="line-md:chevron-left" width="16" height="16" aria-hidden="true" />
-      </IconButton>
-    ) : (
-      <span aria-disabled="true" class={disabledArrow}>
-        <Icon is:inline name="line-md:chevron-left" width="16" height="16" aria-hidden="true" />
-      </span>
-    )
-  }
+  {currentPage > 1 ? (
+    <IconButton
+      href={pageUrl(currentPage - 1)}
+      rel="prev"
+      label={previousLabel}
+      variant="ghost"
+      size="sm"
+    >
+      <Icon is:inline name="line-md:chevron-left" width="16" height="16" aria-hidden="true" />
+    </IconButton>
+  ) : (
+    <span aria-disabled="true" class={disabledArrow}>
+      <Icon is:inline name="line-md:chevron-left" width="16" height="16" aria-hidden="true" />
+    </span>
+  )}
 
-  {
-    pages.map((p) =>
-      p === "..." ? (
-        <span class={`${pillBase} pointer-events-none text-(--color-text-muted)`}>…</span>
-      ) : p === currentPage ? (
-        <span aria-current="page" class={pillActive}>
-          {p}
-        </span>
-      ) : (
-        <a href={pageUrl(p)} aria-label={pageLabel.replace("{n}", String(p))} class={pillIdle}>
-          {p}
-        </a>
-      )
-    )
-  }
-
-  {
-    currentPage < totalPages ? (
-      <IconButton
-        href={pageUrl(currentPage + 1)}
-        rel="next"
-        label={nextLabel}
-        variant="ghost"
-        size="sm"
-      >
-        <Icon is:inline name="line-md:chevron-right" width="16" height="16" aria-hidden="true" />
-      </IconButton>
-    ) : (
-      <span aria-disabled="true" class={disabledArrow}>
-        <Icon is:inline name="line-md:chevron-right" width="16" height="16" aria-hidden="true" />
+  {pages.map((p) =>
+    p === "..." ? (
+      <span class={`${pillBase} pointer-events-none text-(--color-text-muted)`}>…</span>
+    ) : p === currentPage ? (
+      <span aria-current="page" class={pillActive}>
+        {p}
       </span>
+    ) : (
+      <a href={pageUrl(p)} aria-label={pageLabel.replace("{n}", String(p))} class={pillIdle}>
+        {p}
+      </a>
     )
-  }
+  )}
+
+  {currentPage < totalPages ? (
+    <IconButton
+      href={pageUrl(currentPage + 1)}
+      rel="next"
+      label={nextLabel}
+      variant="ghost"
+      size="sm"
+    >
+      <Icon is:inline name="line-md:chevron-right" width="16" height="16" aria-hidden="true" />
+    </IconButton>
+  ) : (
+    <span aria-disabled="true" class={disabledArrow}>
+      <Icon is:inline name="line-md:chevron-right" width="16" height="16" aria-hidden="true" />
+    </span>
+  )}
 </nav>

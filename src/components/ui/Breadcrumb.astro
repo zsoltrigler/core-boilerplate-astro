@@ -25,36 +25,34 @@ const {
 
 <nav aria-label={ariaLabel} class={className} {...rest}>
   <ol class="flex flex-wrap items-center gap-1.5 text-sm text-(--color-text-muted)">
-    {
-      items.map((item, index) => {
-        const isLast = index === items.length - 1
-        return (
-          <li class="flex items-center gap-1.5">
-            {index > 0 && (
-              <Icon
-                is:inline
-                name="line-md:chevron-right"
-                width="14"
-                height="14"
-                aria-hidden="true"
-              />
-            )}
+    {items.map((item, index) => {
+      const isLast = index === items.length - 1
+      return (
+        <li class="flex items-center gap-1.5">
+          {index > 0 && (
+            <Icon
+              is:inline
+              name="line-md:chevron-right"
+              width="14"
+              height="14"
+              aria-hidden="true"
+            />
+          )}
 
-            {isLast || !item.href ? (
-              <span
-                class={isLast ? "font-medium text-(--color-text-base)" : ""}
-                aria-current={isLast ? "page" : undefined}
-              >
-                {item.label}
-              </span>
-            ) : (
-              <a href={item.href} class="transition-colors hover:text-(--color-text-base)">
-                {item.label}
-              </a>
-            )}
-          </li>
-        )
-      })
-    }
+          {isLast || !item.href ? (
+            <span
+              class={isLast ? "font-medium text-(--color-text-base)" : ""}
+              aria-current={isLast ? "page" : undefined}
+            >
+              {item.label}
+            </span>
+          ) : (
+            <a href={item.href} class="transition-colors hover:text-(--color-text-base)">
+              {item.label}
+            </a>
+          )}
+        </li>
+      )
+    })}
   </ol>
 </nav>

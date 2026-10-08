@@ -59,41 +59,37 @@ const tabInactiveClasses: Record<string, string> = {
 
 <div class={`w-full ${className}`} {...rest}>
   <div role="tablist" data-variant={variant} class={tablistClasses[variant]}>
-    {
-      tabs.map((tab) => (
-        <button
-          role="tab"
-          id={`tab-${tab.id}`}
-          aria-controls={`panel-${tab.id}`}
-          aria-selected={tab.id === activeId ? "true" : "false"}
-          data-tab={tab.id}
-          class={[
-            tabBaseClasses[variant],
-            tab.id === activeId ? tabActiveClasses[variant] : tabInactiveClasses[variant],
-          ].join(" ")}
-        >
-          {tab.label}
-        </button>
-      ))
-    }
+    {tabs.map((tab) => (
+      <button
+        role="tab"
+        id={`tab-${tab.id}`}
+        aria-controls={`panel-${tab.id}`}
+        aria-selected={tab.id === activeId ? "true" : "false"}
+        data-tab={tab.id}
+        class={[
+          tabBaseClasses[variant],
+          tab.id === activeId ? tabActiveClasses[variant] : tabInactiveClasses[variant],
+        ].join(" ")}
+      >
+        {tab.label}
+      </button>
+    ))}
   </div>
 
-  {
-    tabs.map((tab) => {
-      const Render = tab.render
-      return (
-        <div
-          role="tabpanel"
-          id={`panel-${tab.id}`}
-          aria-labelledby={`tab-${tab.id}`}
-          hidden={tab.id !== activeId}
-          class="pt-4"
-        >
-          {Render ? <Render /> : <slot name={tab.id} />}
-        </div>
-      )
-    })
-  }
+  {tabs.map((tab) => {
+    const Render = tab.render
+    return (
+      <div
+        role="tabpanel"
+        id={`panel-${tab.id}`}
+        aria-labelledby={`tab-${tab.id}`}
+        hidden={tab.id !== activeId}
+        class="pt-4"
+      >
+        {Render ? <Render /> : <slot name={tab.id} />}
+      </div>
+    )
+  })}
 </div>
 
 <script>
