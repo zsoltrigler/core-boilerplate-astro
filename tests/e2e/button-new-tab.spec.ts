@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 test("Button newTab opens in a new tab and flags it to screen readers and sighted users", async ({
   page,
 }) => {
-  const button = page.locator("#button a", { hasText: /^New tab/ })
+  const button = page.locator("#button a", { hasText: /^\s*New tab/ })
 
   await expect(button).toHaveAttribute("target", "_blank")
   await expect(button).toHaveAttribute("rel", "noopener noreferrer")
@@ -20,7 +20,7 @@ test("Button newTab opens in a new tab and flags it to screen readers and sighte
 test("Button newTab keeps a caller-supplied icon-right instead of adding its own", async ({
   page,
 }) => {
-  const button = page.locator("#button a", { hasText: /^Custom icon/ })
+  const button = page.locator("#button a", { hasText: /^\s*Custom icon/ })
 
   await expect(button).toHaveAttribute("target", "_blank")
   await expect(button.locator("svg")).toHaveCount(1)
@@ -28,7 +28,7 @@ test("Button newTab keeps a caller-supplied icon-right instead of adding its own
 })
 
 test("deprecated Button external still only adds target and rel", async ({ page }) => {
-  const button = page.locator("#button a", { hasText: /^External \(deprecated\)/ })
+  const button = page.locator("#button a", { hasText: /^\s*External \(deprecated\)/ })
 
   await expect(button).toHaveAttribute("target", "_blank")
   await expect(button).toHaveAttribute("rel", "noopener noreferrer")
