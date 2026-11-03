@@ -50,11 +50,48 @@ jobs:
         env:
           LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
 
+  # * Builds the site once and shares dist/ with the e2e jobs, so the build runs
+  #   outside Playwright's webServer startup window (a cold build there could
+  #   exceed it) and once instead of once per browser. Runs in parallel with
+  #   `build` so it doesn't lengthen the pipeline.
+  build-dist:
+    name: Build dist for e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+          if-no-files-found: error
+
   # * One job per browser, run in parallel — CI runners are small (1 Playwright
   #   worker), so the three browser projects would otherwise run back to back.
   #   Each job also installs and caches only its own browser.
   e2e:
     name: End-to-end tests (${{ matrix.browser }})
+    needs: build-dist
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -77,6 +114,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Download dist
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
 
       # * Resolved from node_modules (not just the package.json semver range) so the
       #   cache key always matches the version actually installed.
@@ -105,6 +148,6 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: pnpm exec playwright install-deps ${{ matrix.browser }}
 
-      # * playwright.config.ts's webServer builds and previews the site itself.
+      # * playwright.config.ts's webServer previews the downloaded dist/ — no build here.
       - name: Run Playwright tests
-        run: pnpm test:e2e --project=${{ matrix.browser }}
+        run: pnpm test:e2e:ci --project=${{ matrix.browser }}

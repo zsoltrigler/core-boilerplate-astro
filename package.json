@@ -19,7 +19,8 @@
     "check:config": "node scripts/validate-config.mjs",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:e2e": "playwright test",
+    "test:e2e": "pnpm build && playwright test",
+    "test:e2e:ci": "playwright test",
     "prepare": "husky && node scripts/enable-rerere.mjs"
   },
   "dependencies": {

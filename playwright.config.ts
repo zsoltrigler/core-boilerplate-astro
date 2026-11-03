@@ -10,11 +10,14 @@ export default defineConfig({
     baseURL: "http://localhost:4321",
     trace: "on-first-retry",
   },
+  // * Serves an existing dist/ — it does not build. `pnpm test:e2e` builds first;
+  //   CI downloads the dist/ built once by the build-dist job. Keeping the build
+  //   out of this window means the timeout only covers server startup.
   webServer: {
-    command: "pnpm build && pnpm preview",
+    command: "pnpm preview",
     url: "http://localhost:4321",
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
+    timeout: 180_000,
   },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
