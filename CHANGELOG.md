@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.32.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.32.0...core-boilerplate-v1.32.1) (2026-11-03)
+
+
+### Bug Fixes
+
+* **ci:** build once and serve dist in e2e webServer ([#296](https://github.com/zsoltrigler/core-boilerplate-astro/issues/296)) ([ecc7ce0](https://github.com/zsoltrigler/core-boilerplate-astro/commit/ecc7ce0f056215f222c5ed811111901b83e8e5c6))
+
 ## [1.32.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.31.0...core-boilerplate-v1.32.0) (2026-10-06)
 
 
