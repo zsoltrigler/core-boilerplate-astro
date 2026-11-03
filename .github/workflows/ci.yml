@@ -45,39 +45,9 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Lighthouse CI
-        run: pnpm exec lhci autorun
-        env:
-          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
-
-  # * Builds the site once and shares dist/ with the e2e jobs, so the build runs
-  #   outside Playwright's webServer startup window (a cold build there could
-  #   exceed it) and once instead of once per browser. Runs in parallel with
-  #   `build` so it doesn't lengthen the pipeline.
-  build-dist:
-    name: Build dist for e2e
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
-
+      # * The one and only build per run: the e2e jobs download this dist/ instead
+      #   of building it inside Playwright's webServer startup window (where a cold
+      #   build could exceed the timeout), once per browser.
       - name: Upload dist
         uses: actions/upload-artifact@v7
         with:
@@ -86,12 +56,17 @@ jobs:
           retention-days: 1
           if-no-files-found: error
 
+      - name: Lighthouse CI
+        run: pnpm exec lhci autorun
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
+
   # * One job per browser, run in parallel — CI runners are small (1 Playwright
   #   worker), so the three browser projects would otherwise run back to back.
   #   Each job also installs and caches only its own browser.
   e2e:
     name: End-to-end tests (${{ matrix.browser }})
-    needs: build-dist
+    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
