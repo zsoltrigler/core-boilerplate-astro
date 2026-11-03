@@ -50,10 +50,17 @@ jobs:
         env:
           LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
 
+  # * One job per browser, run in parallel — CI runners are small (1 Playwright
+  #   worker), so the three browser projects would otherwise run back to back.
+  #   Each job also installs and caches only its own browser.
   e2e:
-    name: End-to-end tests
+    name: End-to-end tests (${{ matrix.browser }})
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
 
     steps:
       - name: Checkout
@@ -85,19 +92,19 @@ jobs:
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}-${{ matrix.browser }}
 
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install --with-deps chromium firefox webkit
+        run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
 
       # ! Browser binaries came from cache, so only the apt-level OS deps
       #   (audio/video codecs, GTK, etc.) still need installing — skipping this
       #   entirely on cache hit would leave those missing on a fresh runner.
       - name: Install Playwright OS dependencies
         if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: pnpm exec playwright install-deps chromium firefox webkit
+        run: pnpm exec playwright install-deps ${{ matrix.browser }}
 
       # * playwright.config.ts's webServer builds and previews the site itself.
       - name: Run Playwright tests
-        run: pnpm test:e2e
+        run: pnpm test:e2e --project=${{ matrix.browser }}
