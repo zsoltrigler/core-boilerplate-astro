@@ -3,7 +3,9 @@ import { defineConfig } from "astro/config"
 import tailwindcss from "@tailwindcss/vite"
 import sitemap from "@astrojs/sitemap"
 import icon from "astro-icon"
-import { COLORS } from "./src/config.ts"
+import { createHash } from "node:crypto"
+import { COLORS, SITE } from "./src/config.ts"
+import { THEME_SCRIPT } from "./src/lib/theme-script.ts"
 import { runContrastChecks } from "./scripts/contrast-check.mjs"
 import { validateConfig } from "./scripts/validate-config.mjs"
 
@@ -85,6 +87,51 @@ function colorTokensPlugin() {
   }
 }
 
+// ── Content-Security-Policy ───────────────────────────────────────────────────
+// * Astro hashes every bundled script/style and emits the policy as a <meta
+//   http-equiv="content-security-policy"> tag (build/preview only — `astro dev`
+//   has none). Directives that <meta> ignores (frame-ancestors) are sent as a real
+//   header — see src/lib/security-headers.ts.
+// * The theme FOUC script must stay an inline classic script (see
+//   src/lib/theme-script.ts), so Astro can't hash it — its sha256 is added here.
+/** @type {`sha256-${string}`} */
+const themeScriptHash = `sha256-${createHash("sha256").update(THEME_SCRIPT).digest("base64")}`
+
+// ! Adding an external origin? Add it to the matching directive below, e.g.
+//     analytics script   → scriptDirective.resources: ["'self'", "https://analytics.example.com"]
+//     web-font host      → directives: ["font-src 'self' https://fonts.gstatic.com"], and its
+//                          stylesheet origin in styleDirective.resources (kind "element")
+//     Cloudflare Turnstile → script-src https://challenges.cloudflare.com
+//                          + directives: ["frame-src https://challenges.cloudflare.com"]
+//   A directive listed in `directives` replaces the default for that name — repeat 'self'.
+//   Shiki (markdown code blocks) and <ClientRouter /> are incompatible with this CSP.
+/** @type {import("astro").AstroUserConfig["security"]} */
+const security = {
+  csp: {
+    directives: [
+      "default-src 'self'",
+      "img-src 'self' data:",
+      "font-src 'self'",
+      "connect-src 'self'",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ],
+    scriptDirective: {
+      resources: ["'self'"],
+      hashes: SITE.singleTheme ? [] : [themeScriptHash],
+    },
+    styleDirective: {
+      // * 'unsafe-inline' is scoped to style="" attributes only (custom properties,
+      //   Progress/Stepper/Skeleton sizes, anchor-name) — <style> elements stay hashed.
+      resources: [
+        { resource: "'self'", kind: "element" },
+        { resource: "'unsafe-inline'", kind: "attribute" },
+      ],
+    },
+  },
+}
+
 // ── Config validation ─────────────────────────────────────────────────────────
 // * Runs at build time, always throws — an invalid shape (bad hex color, empty
 //   required field, malformed URL) is a hard error, not a style nitpick.
@@ -109,6 +156,13 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true,
   },
+
+  security,
+
+  // ! Shiki (Astro's default highlighter) emits inline style="" per token and is
+  //   incompatible with this CSP. Core ships no Markdown, so it is off; a project
+  //   with code blocks should use `syntaxHighlight: "prism"` (class-based, CSP-safe).
+  markdown: { syntaxHighlight: false },
 
   vite: {
     // * Order matters: colorTokensPlugin must run before tailwindcss

@@ -158,6 +158,15 @@ Other details:
 - **Changing the browsers:** edit `E2E_PR_BROWSERS` / `E2E_FULL_BROWSERS` at the top of `.github/workflows/ci.yml` — the only place they are defined.
 - The Playwright browser cache key uses the installed Playwright version (resolved from `pnpm-lock.yaml`) and the browser name; the pnpm store is cached via `actions/setup-node`.
 
+## Security headers and Content-Security-Policy
+
+- **CSP** is on by default (`security.csp` in `astro.config.mjs`). Astro hashes every bundled script and style and emits the policy as a `<meta>` tag, so it is **only active in `pnpm build` / `pnpm preview`** — `pnpm dev` does not enforce it. Check a CSP change against a production build, with the browser console open; `tests/e2e/csp.spec.ts` loads each page from the build and fails on any CSP violation.
+- **Adding an external origin** (analytics, web-font host, embeds, Cloudflare Turnstile): add it to the matching directive in `astro.config.mjs` — scripts to `scriptDirective.resources`, everything else (`font-src`, `frame-src`, `connect-src`, …) to `directives`, where an entry for a name replaces the default, so repeat `'self'`. A Turnstile widget needs `https://challenges.cloudflare.com` in both `script-src` and `frame-src`. The config has a commented example.
+- **Inline code:** a bundled `<script>` block is hashed automatically. An `is:inline` script, an inline event handler (`onclick=`) or a `set:html` script is not and will be blocked — move it into a bundled `<script>`. Inline `style=""` attributes are allowed (`style-src-attr 'unsafe-inline'`); `<style>` elements stay hashed. The theme script is the one exception: see `src/lib/theme-script.ts`.
+- **Incompatible with this CSP:** Shiki syntax highlighting (inline styles per token — use `syntaxHighlight: "prism"`) and Astro's `<ClientRouter />`.
+- **Static headers** are defined once in `src/lib/security-headers.ts` and rendered into `public/_headers` (Cloudflare Pages, Netlify) and `vercel.json` (`headers`). Other hosts need the same list in their own format. After editing the list, regenerate both files — `pnpm test` shows the expected output when they drift.
+- **HSTS** (`Strict-Transport-Security`) is not set in code: enable it in the hosting or DNS-zone settings (Cloudflare: SSL/TLS → Edge Certificates → HSTS; Vercel and Netlify send it on their own domains by default), and only once HTTPS works on every subdomain.
+
 ## Pull requests
 
 - Open a PR against `main`
