@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.33.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.32.1...core-boilerplate-v1.33.0) (2026-11-14)
+
+
+### Features
+
+* **security:** add Content-Security-Policy and security headers by default ([#302](https://github.com/zsoltrigler/core-boilerplate-astro/issues/302)) ([8c64793](https://github.com/zsoltrigler/core-boilerplate-astro/commit/8c64793adb2a2a13e57fb80c7663495196f89402))
+
 ## [1.32.1](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.32.0...core-boilerplate-v1.32.1) (2026-11-03)
 
 
