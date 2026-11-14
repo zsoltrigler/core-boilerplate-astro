@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css"
+import { THEME_SCRIPT } from "../lib/theme-script"
 import { SITE, PLACEHOLDER_DESCRIPTION, COLORS, OG_LOCALE_MAP, RTL_LANGUAGES } from "../config"
 
 interface Props {
@@ -86,33 +87,6 @@ if (description === PLACEHOLDER_DESCRIPTION) {
   // eslint-disable-next-line no-console
   console.warn(msg)
 }
-
-// * Built as a string (rather than a conditionally-rendered <script> element)
-//   because prettier-plugin-astro cannot format a multi-statement inline
-//   script nested inside a template expression — its brace-matching gets
-//   confused by the try/catch block. set:html sidesteps that entirely and
-//   is equivalent here: this becomes literal static HTML in the build
-//   output, parsed and executed by the browser exactly like an authored
-//   <script> tag — unlike a runtime element.innerHTML assignment, this is
-//   not something the "scripts inserted via innerHTML don't execute" rule
-//   applies to.
-// ! Skipped entirely for single-theme templates (SITE.singleTheme) — there
-//   is no dark palette or ThemeToggle to switch to, so this would just be
-//   dead work on every page load.
-const foucScript = SITE.singleTheme
-  ? ""
-  : `<script>
-      ;(function () {
-        try {
-          const stored = localStorage.getItem("theme")
-          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-          const dark = stored === "dark" || (!stored && prefersDark)
-          if (dark) document.documentElement.classList.add("dark")
-        } catch (_) {
-          /* localStorage unavailable (e.g. private browsing) */
-        }
-      })()
-    </script>`
 ---
 
 <!doctype html>
@@ -124,8 +98,9 @@ const foucScript = SITE.singleTheme
          resolve to non-zero values; without it those always report 0. */}
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-    {/* FOUC prevention: read theme before first paint (see foucScript above) */}
-    <Fragment set:html={foucScript} />
+    {/* FOUC prevention: read theme before first paint. Inline classic script on purpose —
+         its hash is added to the CSP in astro.config.mjs (see src/lib/theme-script.ts). */}
+    {!SITE.singleTheme && <script is:inline set:html={THEME_SCRIPT} />}
 
     {/* Primary Meta */}
     <title>{fullTitle}</title>
