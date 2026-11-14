@@ -5,6 +5,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  // * Private-repo CI runners have 2 vCPUs; Playwright's CI default is 1 worker.
+  workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? "line" : "html",
   use: {
     baseURL: "http://localhost:4321",
@@ -19,9 +21,21 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
   },
+  // * Tests tagged `@layout` check markup / CSS / breakpoint behaviour that does not
+  //   depend on the browser engine, so they run on Chromium only. Engine-dependent
+  //   tests (fonts, scroll-driven support, forms, JS components) stay untagged and
+  //   run everywhere. See CONTRIBUTING.md → "Testing".
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
-    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
-    { name: "webkit", use: { ...devices["Desktop Safari"] } },
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+      grepInvert: /@layout/,
+    },
+    {
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
+      grepInvert: /@layout/,
+    },
   ],
 })

@@ -1,11 +1,16 @@
 # CI pipeline — economical by default (private downstream repos pay for Actions minutes).
 #
 # What runs where:
-#   - Pull request:  lint, type-check, unit tests, build, Lighthouse CI and e2e on
-#                    Chromium only. Draft PRs are skipped until "ready for review".
-#   - Push to main:  the same, with the full browser matrix (Chromium, Firefox, WebKit).
-#   - Release PR (`release-please--*` branch), a PR labelled `full-e2e`, or a manual
-#     `workflow_dispatch` run: the full browser matrix.
+#   - Pull request:  lint, type-check, unit tests, build and e2e on Chromium only.
+#                    Draft PRs are skipped until "ready for review". Lighthouse CI does
+#                    NOT run on PRs unless the PR carries the `lighthouse` label.
+#   - Push to main:  the same, with the full browser matrix (Chromium, Firefox, WebKit)
+#                    and Lighthouse CI.
+#   - A PR labelled `full-e2e`: the full browser matrix. A PR labelled `lighthouse`:
+#     Lighthouse CI. A manual `workflow_dispatch` run: both.
+#   - Release PR (`release-please--*` branch that only bumps the version files):
+#     nothing runs — the code was already fully tested by the push to main it
+#     was built from, and the next push to main tests the merge result.
 #
 # * The browser lists live in the two `E2E_*_BROWSERS` env vars below — the one place
 #   to change them. See CONTRIBUTING.md → "CI and Actions minutes".
@@ -36,11 +41,11 @@ permissions:
 
 # * One run per branch/PR; a newer push cancels the older run. Exceptions:
 #   - main is never cancelled (every merged commit gets its full matrix run).
-#   - a `labeled` event for any label other than `full-e2e` gets its own throwaway
+#   - a `labeled` event for any label other than `full-e2e`/`lighthouse` gets its own throwaway
 #     group, so e.g. Dependabot's auto-labelling can't cancel a real in-flight run
 #     (the job below is skipped for those events anyway).
 concurrency:
-  group: ci-${{ (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name != 'full-e2e' && format('noop-{0}', github.run_id)) || github.head_ref || github.ref }}
+  group: ci-${{ (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name != 'full-e2e' && github.event.label.name != 'lighthouse' && format('noop-{0}', github.run_id)) || github.head_ref || github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
@@ -52,22 +57,24 @@ jobs:
     name: Type check & build
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # * Drafts and non-`full-e2e` label events are skipped (a skipped job satisfies
-    #   the required check).
+    # * Drafts and label events other than `full-e2e`/`lighthouse` are skipped (a
+    #   skipped job satisfies the required check).
     if: >-
       github.event_name != 'pull_request' ||
       (github.event.pull_request.draft == false &&
-      (github.event.action != 'labeled' || github.event.label.name == 'full-e2e'))
+      (github.event.action != 'labeled' || github.event.label.name == 'full-e2e' || github.event.label.name == 'lighthouse'))
     permissions:
       contents: read
       pull-requests: read
     outputs:
       run: ${{ steps.changes.outputs.run }}
       matrix: ${{ steps.changes.outputs.matrix }}
+      lighthouse: ${{ steps.changes.outputs.lighthouse }}
 
     steps:
-      # * Decides (1) whether anything CI-relevant changed and (2) which e2e browsers
-      #   to run. Runs before checkout so a docs-only PR costs only seconds.
+      # * Decides (1) whether anything CI-relevant changed, (2) which e2e browsers
+      #   to run and (3) whether Lighthouse CI runs. Runs before checkout so a
+      #   docs-only or release PR costs only seconds.
       - name: Detect changes and e2e matrix
         id: changes
         env:
@@ -79,10 +86,12 @@ jobs:
         run: |
           run=true
           matrix="$E2E_FULL_BROWSERS"
+          lighthouse=true
           if [ "$EVENT" = "pull_request" ]; then
             matrix="$E2E_PR_BROWSERS"
-            case "$HEAD_REF" in release-please--*) matrix="$E2E_FULL_BROWSERS" ;; esac
+            lighthouse=false
             case ",$LABELS," in *,full-e2e,*) matrix="$E2E_FULL_BROWSERS" ;; esac
+            case ",$LABELS," in *,lighthouse,*) lighthouse=true ;; esac
             # ! Markdown under src/ or public/ can be site content (MDX/content
             #   collections), so it is never ignored.
             # * Fetched first on its own: if the API call fails the step fails (CI
@@ -93,9 +102,25 @@ jobs:
               /\.md$/ && !/^(src|public)\// { next }
               NF { print }')
             [ -z "$relevant" ] && run=false
+            # * Release PR: skipped only if it touches nothing but the version files
+            #   AND the package.json diff is nothing but the "version" line. The
+            #   branch name alone is attacker-controllable (fork PRs), so it is
+            #   never trusted by itself.
+            case "$HEAD_REF" in
+              release-please--*)
+                other=$(printf '%s\n' "$files" | grep -vxE 'CHANGELOG\.md|\.release-please-manifest\.json|package\.json' || true)
+                if [ -z "$other" ]; then
+                  extra=$(gh api --paginate "repos/${{ github.repository }}/pulls/$PR_NUMBER/files" \
+                    --jq '.[] | select(.filename=="package.json") | .patch' \
+                    | grep -E '^[+-]' | grep -vE '^[+-][[:space:]]*"version":' || true)
+                  [ -z "$extra" ] && run=false
+                fi
+                ;;
+            esac
           fi
           echo "run=$run" >> "$GITHUB_OUTPUT"
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "lighthouse=$lighthouse" >> "$GITHUB_OUTPUT"
 
       - name: Checkout
         if: steps.changes.outputs.run == 'true'
@@ -129,6 +154,27 @@ jobs:
         if: steps.changes.outputs.run == 'true'
         run: pnpm test
 
+      # * Astro writes optimised images to node_modules/.astro/assets (content-
+      #   addressed by source + transform), and re-uses them on the next build. On a
+      #   cold runner every image is re-encoded from scratch (minutes for hundreds
+      #   of images), so the directory is cached. The key changes with the assets,
+      #   config, lockfile and Astro version; `restore-keys` restores the newest
+      #   cache for the same Astro version on a partial match — stale entries are
+      #   harmless because each file is keyed by its own content hash.
+      - name: Get installed Astro version
+        if: steps.changes.outputs.run == 'true'
+        id: astro-version
+        run: echo "version=$(node -p "require('astro/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Cache optimised images
+        if: steps.changes.outputs.run == 'true'
+        uses: actions/cache@v6
+        with:
+          path: node_modules/.astro/assets
+          key: ${{ runner.os }}-astro-assets-${{ steps.astro-version.outputs.version }}-${{ hashFiles('src/assets/**', 'public/**', 'astro.config.mjs', 'pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-astro-assets-${{ steps.astro-version.outputs.version }}-
+
       - name: Build
         if: steps.changes.outputs.run == 'true'
         run: pnpm build
@@ -145,8 +191,34 @@ jobs:
           retention-days: 1
           if-no-files-found: error
 
+  # * Lighthouse CI is its own job so PRs don't pay for it by default: it runs on
+  #   push to main, `workflow_dispatch`, and PRs labelled `lighthouse`. It boots
+  #   `astro dev` (see .lighthouserc.cjs), so it needs no dist/. The required
+  #   check is "Type check & build", which this job does not affect.
+  lighthouse:
+    name: Lighthouse CI
+    needs: build
+    if: needs.build.outputs.run == 'true' && needs.build.outputs.lighthouse == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Lighthouse CI
-        if: steps.changes.outputs.run == 'true'
         run: pnpm exec lhci autorun
         env:
           LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}

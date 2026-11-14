@@ -131,23 +131,30 @@ To right- or center-align an individual header/cell (e.g. a numeric column, or a
 
 - **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`, `fieldError.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
 - **Playwright** (`pnpm test:e2e`) — cross-browser (Chromium, Firefox, WebKit) interaction tests, in `tests/e2e/`, for every JS-powered component (`Modal`, `Drawer`, `Dropdown`, `Tabs`, `Toast`, `Combobox`, `ThemeToggle`). These drive the real `/ui` showcase page in a real browser rather than mocking the DOM — Astro's inline component `<script>` blocks rely on native browser APIs (`<dialog>`, focus, `astro:page-load`) that jsdom doesn't faithfully emulate. When you add a new interactive component, add its spec here instead of reaching for Vitest + jsdom.
+- **Width sweeps test the breakpoints, not a fixed step.** A spec that checks layout (overflow, card sizing) across widths uses a `BREAKPOINT_WIDTHS` array following the Tailwind scale — `[320, 390, 639, 640, 767, 768, 1023, 1024, 1279, 1280, 1440]` (sm 640, md 768, lg 1024, xl 1280, each one pixel below and at the breakpoint, plus a small phone, a common phone and a wide desktop). Bugs show up at the switch, so a 20 px-step sweep only adds cost. If a project defines its own breakpoints, add them the same way. Tag such sweeps `{ tag: "@layout" }` so they run on Chromium only (see [CI and Actions minutes](#ci-and-actions-minutes)).
 - Both suites run in CI (see [CI and Actions minutes](#ci-and-actions-minutes) for which browsers run where). Run `pnpm exec playwright install --with-deps chromium firefox webkit` once locally before your first `pnpm test:e2e`.
 
 ## CI and Actions minutes
 
 CI is economical by default, because private downstream repos pay for Actions minutes:
 
-| Event                                                                      | What runs                                                                                                                     |
-| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Pull request                                                               | Lint, type-check, unit tests, build, Lighthouse CI, e2e on **Chromium only**. Draft PRs are skipped until "ready for review". |
-| Push to `main`                                                             | The same, with the **full e2e matrix** (Chromium, Firefox, WebKit).                                                           |
-| Release PR (`release-please--*` branch)                                    | Full e2e matrix.                                                                                                              |
-| PR labelled `full-e2e`, or a manual **Run workflow** (`workflow_dispatch`) | Full e2e matrix.                                                                                                              |
+| Event                                         | What runs                                                                                                                                                |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pull request                                  | Lint, type-check, unit tests, build, e2e on **Chromium only**. **No Lighthouse CI.** Draft PRs are skipped until "ready for review".                     |
+| Push to `main`                                | The same, with the **full e2e matrix** (Chromium, Firefox, WebKit) **and Lighthouse CI**.                                                                |
+| Release PR (`release-please--*` branch)       | **Nothing** — the job reports success without running any step. The code was fully tested by the push to `main` it was built from.                       |
+| PR labelled `full-e2e`                        | Full e2e matrix.                                                                                                                                         |
+| PR labelled `lighthouse`                      | Lighthouse CI (a separate `Lighthouse CI` job; the required "Type check & build" check is unaffected). Adding the label re-runs the whole workflow once. |
+| Manual **Run workflow** (`workflow_dispatch`) | Full e2e matrix and Lighthouse CI.                                                                                                                       |
 
 Other details:
 
 - **One run per branch/PR** — a new push cancels the older run (`main` is never cancelled, and neither is the Release Please workflow).
 - **Docs-only PRs** (Markdown, `docs/`, `research_notes/`, `reports/`, `references/`) skip all steps. Markdown under `src/` or `public/` still counts as code, since it can be site content. The skip happens inside the `Type check & build` job, so the required check still reports and never hangs as "pending".
+- **Release PRs** are skipped the same way, but only when the PR touches nothing except `CHANGELOG.md`, `.release-please-manifest.json` and `package.json`, and the `package.json` diff is only the `"version"` line — the branch name alone is never trusted (fork PRs can pick any name). A skipped job counts as passing, so the auto-merge (`gh pr merge --auto`, or a `workflow_run`-triggered merge that checks for a `success` conclusion) still fires. After the merge, the push to `main` runs the full pipeline on the release commit.
+- **Image cache:** the `build` job caches `node_modules/.astro/assets` (Astro's optimised-image cache) with `actions/cache`. The key is the OS, the installed Astro version and a hash of `src/assets/**`, `public/**`, `astro.config.mjs` and `pnpm-lock.yaml`; `restore-keys` falls back to the newest cache for the same Astro version, so a changed asset only re-encodes that asset. On a hit the build logs `(reused cache entry)` instead of re-encoding — a project with hundreds of images saves minutes per run.
+- **Playwright workers:** `workers: 2` in CI (the private-repo runner has 2 vCPUs; Playwright's CI default is 1). Raise `retries`/lower `workers` in `playwright.config.ts` if a downstream spec turns out flaky under parallelism.
+- **`@layout` tag:** tests tagged `{ tag: "@layout" }` verify markup, CSS or breakpoint behaviour that does not depend on the browser engine (width sweeps, "every section follows the design rule" loops). The Firefox and WebKit projects have `grepInvert: /@layout/`, so these run on Chromium only. Engine-dependent tests (fonts, scroll-driven animation support, header, forms, JS components) stay untagged and run on all three browsers.
 - **Changing the browsers:** edit `E2E_PR_BROWSERS` / `E2E_FULL_BROWSERS` at the top of `.github/workflows/ci.yml` — the only place they are defined.
 - The Playwright browser cache key uses the installed Playwright version (resolved from `pnpm-lock.yaml`) and the browser name; the pnpm store is cached via `actions/setup-node`.
 
