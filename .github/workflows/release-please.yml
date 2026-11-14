@@ -40,9 +40,17 @@ permissions:
   contents: write
   pull-requests: write
 
+# * Queued, never cancelled: cancelling a run mid-way could leave a release commit
+#   without its tag/GitHub Release. Release Please is idempotent over main's state,
+#   so a superseded pending run losing to the newest one is safe.
+concurrency:
+  group: release-please
+  cancel-in-progress: false
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: googleapis/release-please-action@v5
         id: release

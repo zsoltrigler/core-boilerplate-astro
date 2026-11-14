@@ -59,6 +59,10 @@ Astro's `<ClientRouter />` (View Transitions) is not included in `BaseLayout`. D
 
 release-please anchors its version bump to a `<package.json name>-v<version>` git tag. A downstream project that keeps the full core-boilerplate git history (e.g. `git clone` + an `upstream` remote) and then hand-edits `package.json`'s `name` desyncs that anchor — release-please falls back to the oldest reachable commit and folds the entire inherited history into one release the first time its workflow runs. `scripts/rename-project.mjs` (`pnpm rename`) handles this: it detects the init mode (no git / fresh history / inherited history with old tags) and only creates an anchor tag when the dangerous case applies. See CONTRIBUTING.md → "Renaming this project" for the downstream-facing writeup.
 
+### CI cost control
+
+`ci.yml` is economical on purpose (private downstream repos burn Actions minutes): PR e2e runs Chromium only, the full 3-browser matrix runs on push to `main`, release PRs, the `full-e2e` label and `workflow_dispatch`. The browser lists are the `E2E_*_BROWSERS` env vars at the top of the file. Docs-only skipping is done _inside_ the `build` job (not via workflow-level `paths-ignore` on `pull_request`) so the required "Type check & build" check never stays pending. See CONTRIBUTING.md → "CI and Actions minutes".
+
 ### Lighthouse CI
 
 `.lighthouserc.cjs` boots the project via `astro dev`, not `astro preview` or a static `dist/` serve — those depend on the configured adapter/output mode (`static` vs a server adapter like Vercel/Cloudflare/Node), so a downstream fork adding a server adapter would otherwise break this check. `astro dev` behaves identically regardless of adapter, and this check only audits SEO/best-practices (not performance), so the dev server is sufficient.
