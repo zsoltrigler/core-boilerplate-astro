@@ -56,7 +56,8 @@ jobs:
   build:
     name: Type check & build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # * 15 min: a cold build re-encodes every image (hundreds of AVIF/WebP/JPG) and can be slow on a busy runner.
+    timeout-minutes: 15
     # * Drafts and label events other than `full-e2e`/`lighthouse` are skipped (a
     #   skipped job satisfies the required check).
     if: >-
@@ -166,9 +167,13 @@ jobs:
         id: astro-version
         run: echo "version=$(node -p "require('astro/package.json').version")" >> "$GITHUB_OUTPUT"
 
-      - name: Cache optimised images
+      # * Restore and save are split (instead of one `actions/cache` step) so the
+      # * cache is also saved when the build fails or times out: plain
+      # * `actions/cache` only saves at the end of a successful job.
+      - name: Restore optimised images cache
+        id: image-cache
         if: steps.changes.outputs.run == 'true'
-        uses: actions/cache@v6
+        uses: actions/cache/restore@v6
         with:
           path: node_modules/.astro/assets
           key: ${{ runner.os }}-astro-assets-${{ steps.astro-version.outputs.version }}-${{ hashFiles('src/assets/**', 'public/**', 'astro.config.mjs', 'pnpm-lock.yaml') }}
@@ -178,6 +183,13 @@ jobs:
       - name: Build
         if: steps.changes.outputs.run == 'true'
         run: pnpm build
+
+      - name: Save optimised images cache
+        if: always() && steps.changes.outputs.run == 'true' && steps.image-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: node_modules/.astro/assets
+          key: ${{ steps.image-cache.outputs.cache-primary-key }}
 
       # * The one and only build per run: the e2e jobs download this dist/ instead
       #   of building it inside Playwright's webServer startup window (where a cold
