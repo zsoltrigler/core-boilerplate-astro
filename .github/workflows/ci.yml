@@ -1,54 +1,143 @@
-# CI pipeline — runs on every push and pull request targeting main.
-# Installs dependencies, lints, type-checks, tests, builds, and runs Lighthouse CI.
-# Any failing step blocks the PR from being merged.
+# CI pipeline — economical by default (private downstream repos pay for Actions minutes).
+#
+# What runs where:
+#   - Pull request:  lint, type-check, unit tests, build, Lighthouse CI and e2e on
+#                    Chromium only. Draft PRs are skipped until "ready for review".
+#   - Push to main:  the same, with the full browser matrix (Chromium, Firefox, WebKit).
+#   - Release PR (`release-please--*` branch), a PR labelled `full-e2e`, or a manual
+#     `workflow_dispatch` run: the full browser matrix.
+#
+# * The browser lists live in the two `E2E_*_BROWSERS` env vars below — the one place
+#   to change them. See CONTRIBUTING.md → "CI and Actions minutes".
+# * Docs-only PRs (Markdown outside src/ and public/, docs/, research_notes/,
+#   reports/, references/) skip every step via the in-job `changes` step instead of a
+#   workflow-level `paths-ignore`: the required "Type check & build" check still
+#   reports (skipped counts as passing), so such PRs are never stuck on a pending
+#   check. Pushes to main use a plain `paths-ignore` since no check is required there.
 
 name: CI
 
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+      - "research_notes/**"
+      - "reports/**"
+      - "references/**"
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# * One run per branch/PR; a newer push cancels the older run. Exceptions:
+#   - main is never cancelled (every merged commit gets its full matrix run).
+#   - a `labeled` event for any label other than `full-e2e` gets its own throwaway
+#     group, so e.g. Dependabot's auto-labelling can't cancel a real in-flight run
+#     (the job below is skipped for those events anyway).
+concurrency:
+  group: ci-${{ (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name != 'full-e2e' && format('noop-{0}', github.run_id)) || github.head_ref || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  E2E_PR_BROWSERS: '["chromium"]'
+  E2E_FULL_BROWSERS: '["chromium","firefox","webkit"]'
 
 jobs:
   build:
     name: Type check & build
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # * Drafts and non-`full-e2e` label events are skipped (a skipped job satisfies
+    #   the required check).
+    if: >-
+      github.event_name != 'pull_request' ||
+      (github.event.pull_request.draft == false &&
+      (github.event.action != 'labeled' || github.event.label.name == 'full-e2e'))
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      run: ${{ steps.changes.outputs.run }}
+      matrix: ${{ steps.changes.outputs.matrix }}
 
     steps:
+      # * Decides (1) whether anything CI-relevant changed and (2) which e2e browsers
+      #   to run. Runs before checkout so a docs-only PR costs only seconds.
+      - name: Detect changes and e2e matrix
+        id: changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.head_ref }}
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: |
+          run=true
+          matrix="$E2E_FULL_BROWSERS"
+          if [ "$EVENT" = "pull_request" ]; then
+            matrix="$E2E_PR_BROWSERS"
+            case "$HEAD_REF" in release-please--*) matrix="$E2E_FULL_BROWSERS" ;; esac
+            case ",$LABELS," in *,full-e2e,*) matrix="$E2E_FULL_BROWSERS" ;; esac
+            # ! Markdown under src/ or public/ can be site content (MDX/content
+            #   collections), so it is never ignored.
+            # * Fetched first on its own: if the API call fails the step fails (CI
+            #   runs) instead of an empty list silently skipping CI.
+            files=$(gh api --paginate "repos/${{ github.repository }}/pulls/$PR_NUMBER/files" --jq '.[].filename')
+            relevant=$(printf '%s\n' "$files" | awk '
+              /^(docs|research_notes|reports|references)\// { next }
+              /\.md$/ && !/^(src|public)\// { next }
+              NF { print }')
+            [ -z "$relevant" ] && run=false
+          fi
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
       - name: Checkout
+        if: steps.changes.outputs.run == 'true'
         uses: actions/checkout@v7
 
       # * Version is read automatically from packageManager field in package.json
       - name: Setup pnpm
+        if: steps.changes.outputs.run == 'true'
         uses: pnpm/action-setup@v6
 
       - name: Setup Node.js
+        if: steps.changes.outputs.run == 'true'
         uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
 
       - name: Install dependencies
+        if: steps.changes.outputs.run == 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Lint
+        if: steps.changes.outputs.run == 'true'
         run: pnpm lint
 
       - name: Type check
+        if: steps.changes.outputs.run == 'true'
         run: pnpm exec astro check
 
       - name: Unit tests
+        if: steps.changes.outputs.run == 'true'
         run: pnpm test
 
       - name: Build
+        if: steps.changes.outputs.run == 'true'
         run: pnpm build
 
       # * The one and only build per run: the e2e jobs download this dist/ instead
       #   of building it inside Playwright's webServer startup window (where a cold
       #   build could exceed the timeout), once per browser.
       - name: Upload dist
+        if: steps.changes.outputs.run == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: dist
@@ -57,6 +146,7 @@ jobs:
           if-no-files-found: error
 
       - name: Lighthouse CI
+        if: steps.changes.outputs.run == 'true'
         run: pnpm exec lhci autorun
         env:
           LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
@@ -67,12 +157,13 @@ jobs:
   e2e:
     name: End-to-end tests (${{ matrix.browser }})
     needs: build
+    if: needs.build.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        browser: ${{ fromJSON(needs.build.outputs.matrix) }}
 
     steps:
       - name: Checkout

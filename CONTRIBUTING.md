@@ -131,7 +131,25 @@ To right- or center-align an individual header/cell (e.g. a numeric column, or a
 
 - **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`, `fieldError.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
 - **Playwright** (`pnpm test:e2e`) — cross-browser (Chromium, Firefox, WebKit) interaction tests, in `tests/e2e/`, for every JS-powered component (`Modal`, `Drawer`, `Dropdown`, `Tabs`, `Toast`, `Combobox`, `ThemeToggle`). These drive the real `/ui` showcase page in a real browser rather than mocking the DOM — Astro's inline component `<script>` blocks rely on native browser APIs (`<dialog>`, focus, `astro:page-load`) that jsdom doesn't faithfully emulate. When you add a new interactive component, add its spec here instead of reaching for Vitest + jsdom.
-- Both suites run in CI on every PR. Run `pnpm exec playwright install --with-deps chromium firefox webkit` once locally before your first `pnpm test:e2e`.
+- Both suites run in CI (see [CI and Actions minutes](#ci-and-actions-minutes) for which browsers run where). Run `pnpm exec playwright install --with-deps chromium firefox webkit` once locally before your first `pnpm test:e2e`.
+
+## CI and Actions minutes
+
+CI is economical by default, because private downstream repos pay for Actions minutes:
+
+| Event                                                                      | What runs                                                                                                                     |
+| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Pull request                                                               | Lint, type-check, unit tests, build, Lighthouse CI, e2e on **Chromium only**. Draft PRs are skipped until "ready for review". |
+| Push to `main`                                                             | The same, with the **full e2e matrix** (Chromium, Firefox, WebKit).                                                           |
+| Release PR (`release-please--*` branch)                                    | Full e2e matrix.                                                                                                              |
+| PR labelled `full-e2e`, or a manual **Run workflow** (`workflow_dispatch`) | Full e2e matrix.                                                                                                              |
+
+Other details:
+
+- **One run per branch/PR** — a new push cancels the older run (`main` is never cancelled, and neither is the Release Please workflow).
+- **Docs-only PRs** (Markdown, `docs/`, `research_notes/`, `reports/`, `references/`) skip all steps. Markdown under `src/` or `public/` still counts as code, since it can be site content. The skip happens inside the `Type check & build` job, so the required check still reports and never hangs as "pending".
+- **Changing the browsers:** edit `E2E_PR_BROWSERS` / `E2E_FULL_BROWSERS` at the top of `.github/workflows/ci.yml` — the only place they are defined.
+- The Playwright browser cache key uses the installed Playwright version (resolved from `pnpm-lock.yaml`) and the browser name; the pnpm store is cached via `actions/setup-node`.
 
 ## Pull requests
 
