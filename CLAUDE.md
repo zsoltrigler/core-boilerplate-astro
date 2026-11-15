@@ -95,7 +95,7 @@ pnpm rename         # rename the project safely (package.json name, manifest, re
 - `src/components/sections/` — page-level sections (hero, pricing, testimonials, …) composed from `ui/` + `layout/` — see CONTRIBUTING.md for the convention
 - `src/components/global/` — Header, Footer, ThemeToggle (**not** wired into Header automatically — add it via `<Header><ThemeToggle slot="nav-end" /></Header>`)
 - `src/components/showcase/` — `/ui` page demo sections — **delete when using as project base**
-- `src/utils/` — `aria.ts`, `fieldStyles.ts` — shared helpers for the form components (Input, Select, Textarea, Combobox)
+- `src/utils/` — `aria.ts`, `field-styles.ts` — shared helpers for the form components (Input, Select, Textarea, Combobox)
 
 ## Pages
 

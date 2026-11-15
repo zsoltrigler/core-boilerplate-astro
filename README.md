@@ -191,7 +191,7 @@ src/
 │   └── robots.txt.ts          # Dynamic robots.txt
 ├── styles/
 │   └── global.css             # Tailwind + design tokens + base styles
-├── utils/                      # aria.ts, fieldStyles.ts — shared helpers for form components
+├── utils/                      # aria.ts, field-styles.ts — shared helpers for form components
 └── config.ts                  # ← Start here
 ```
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { setFieldError } from "./fieldError"
+import { setFieldError } from "./field-error"
 
 // * Minimal stand-ins for a control and its error element — the helper only touches
 //   these members, and the real-DOM behaviour is covered by tests/e2e/form-validation.spec.ts.
