@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { FIELD_SIZES, fieldStateClasses } from "./fieldStyles"
+import { FIELD_SIZES, fieldStateClasses } from "./field-styles"
 
 describe("fieldStateClasses", () => {
   it("returns the default border classes without an error", () => {

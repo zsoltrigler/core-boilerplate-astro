@@ -1155,7 +1155,7 @@ const components = [
                   Live validation
                 </p>
 
-                {/* * Client-side validation: setFieldError (src/utils/fieldError.ts) fills the always-rendered error element and syncs aria-invalid / aria-describedby. Works the same on Select, Textarea and Combobox. */}
+                {/* * Client-side validation: setFieldError (src/utils/field-error.ts) fills the always-rendered error element and syncs aria-invalid / aria-describedby. Works the same on Select, Textarea and Combobox. */}
                 <Input
                   name="live-email"
                   type="email"
@@ -2106,7 +2106,7 @@ const components = [
 
   <script>
     // * Showcase-only: demonstrates setFieldError for client-side (live) validation.
-    import { setFieldError } from "../utils/fieldError"
+    import { setFieldError } from "../utils/field-error"
 
     const liveEmail = document.querySelector<HTMLInputElement>("#live-email")
 

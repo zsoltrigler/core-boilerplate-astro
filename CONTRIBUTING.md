@@ -84,10 +84,10 @@ WCAG AA contrast is checked automatically at build time. Fix any warnings before
 
 ## Client-side (live) form validation
 
-`FormField` (used by `Input`, `Select`, `Textarea` and `Combobox`) always renders its error element — `<p id="{id}-error" role="alert">`, empty and `hidden` until there is an error — so client code has somewhere to write to. Use `setFieldError` from `src/utils/fieldError.ts` instead of wiring the ARIA attributes by hand:
+`FormField` (used by `Input`, `Select`, `Textarea` and `Combobox`) always renders its error element — `<p id="{id}-error" role="alert">`, empty and `hidden` until there is an error — so client code has somewhere to write to. Use `setFieldError` from `src/utils/field-error.ts` instead of wiring the ARIA attributes by hand:
 
 ```ts
-import { setFieldError } from "../utils/fieldError"
+import { setFieldError } from "../utils/field-error"
 
 input.addEventListener("blur", () =>
   setFieldError(input, input.validity.valid ? null : "Enter a valid email address.")
@@ -129,7 +129,7 @@ To right- or center-align an individual header/cell (e.g. a numeric column, or a
 
 ## Testing
 
-- **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `fieldStyles.ts`, `fieldError.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
+- **Vitest** (`pnpm test`) — unit tests for framework-agnostic logic in `src/utils/` (e.g. `aria.ts`, `field-styles.ts`, `field-error.ts`). Add a `*.test.ts` file next to any new pure-logic utility.
 - **Playwright** (`pnpm test:e2e`) — cross-browser (Chromium, Firefox, WebKit) interaction tests, in `tests/e2e/`, for every JS-powered component (`Modal`, `Drawer`, `Dropdown`, `Tabs`, `Toast`, `Combobox`, `ThemeToggle`). These drive the real `/ui` showcase page in a real browser rather than mocking the DOM — Astro's inline component `<script>` blocks rely on native browser APIs (`<dialog>`, focus, `astro:page-load`) that jsdom doesn't faithfully emulate. When you add a new interactive component, add its spec here instead of reaching for Vitest + jsdom.
 - **Width sweeps test the breakpoints, not a fixed step.** A spec that checks layout (overflow, card sizing) across widths uses a `BREAKPOINT_WIDTHS` array following the Tailwind scale — `[320, 390, 639, 640, 767, 768, 1023, 1024, 1279, 1280, 1440]` (sm 640, md 768, lg 1024, xl 1280, each one pixel below and at the breakpoint, plus a small phone, a common phone and a wide desktop). Bugs show up at the switch, so a 20 px-step sweep only adds cost. If a project defines its own breakpoints, add them the same way. Tag such sweeps `{ tag: "@layout" }` so they run on Chromium only (see [CI and Actions minutes](#ci-and-actions-minutes)).
 - Both suites run in CI (see [CI and Actions minutes](#ci-and-actions-minutes) for which browsers run where). Run `pnpm exec playwright install --with-deps chromium firefox webkit` once locally before your first `pnpm test:e2e`.
@@ -191,7 +191,7 @@ src/
 ├── layouts/        # BaseLayout.astro
 ├── pages/          # index.astro, ui.astro, 404.astro
 ├── styles/         # global.css
-├── utils/          # aria.ts, fieldStyles.ts — shared helpers for form components
+├── utils/          # aria.ts, field-styles.ts — shared helpers for form components
 └── config.ts       # single source of truth for all site config
 ```
 
