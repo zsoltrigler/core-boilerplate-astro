@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.33.0...core-boilerplate-v2.0.0) (2026-11-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **utils:** rename utility modules to kebab-case ([#314](https://github.com/zsoltrigler/core-boilerplate-astro/issues/314))
+
+### Code Refactoring
+
+* **utils:** rename utility modules to kebab-case ([#314](https://github.com/zsoltrigler/core-boilerplate-astro/issues/314)) ([39420d1](https://github.com/zsoltrigler/core-boilerplate-astro/commit/39420d19d1eeacb71e901e25a332e47696107856))
+
 ## [1.33.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.32.1...core-boilerplate-v1.33.0) (2026-11-14)
 
 
