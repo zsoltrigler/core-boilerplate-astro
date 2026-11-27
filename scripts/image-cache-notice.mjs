@@ -12,19 +12,28 @@ export function isImageCacheCold(cacheDir) {
   return !existsSync(dir) || readdirSync(dir).length === 0
 }
 
-/** Astro integration: warns (never fails) when a CI/deploy build starts with an empty image cache. */
+/**
+ * Astro integration: warns (never fails) when a CI/deploy build had to encode images from scratch.
+ * It only speaks when the cache was empty at build start AND filled up during the build — i.e.
+ * images were really encoded and would be lost again. A project without optimised images keeps an
+ * empty cache either way and stays silent.
+ */
 export function imageCacheNotice() {
   let cacheDir
+  let coldAtStart = false
   return {
     name: "image-cache-notice",
     hooks: {
       "astro:config:done": ({ config }) => {
         cacheDir = config.cacheDir
       },
-      "astro:build:start": ({ logger }) => {
-        if (ON_HOST() && cacheDir && isImageCacheCold(cacheDir)) {
+      "astro:build:start": () => {
+        coldAtStart = Boolean(ON_HOST() && cacheDir && isImageCacheCold(cacheDir))
+      },
+      "astro:build:done": ({ logger }) => {
+        if (coldAtStart && !isImageCacheCold(cacheDir)) {
           logger.warn(
-            "Image cache is empty: every picture is encoded from scratch. Turn on the host's build cache (Cloudflare: Workers Builds → Settings → Build cache) so node_modules/.astro/assets is kept between builds."
+            "Image cache was empty: every picture was encoded from scratch. Turn on the host's build cache (Cloudflare: Workers Builds → Settings → Build cache) so node_modules/.astro/assets is kept between builds."
           )
         }
       },
