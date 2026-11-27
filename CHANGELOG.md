@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v2.0.0...core-boilerplate-v2.1.0) (2026-11-27)
+
+
+### Features
+
+* **build:** warn when the CI/deploy image cache is empty ([#316](https://github.com/zsoltrigler/core-boilerplate-astro/issues/316)) ([dc0f97b](https://github.com/zsoltrigler/core-boilerplate-astro/commit/dc0f97bcedbd3c018ac59e0cf2396055c0dcbfbe))
+
 ## [2.0.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v1.33.0...core-boilerplate-v2.0.0) (2026-11-15)
 
 
