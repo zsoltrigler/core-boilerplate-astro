@@ -8,6 +8,7 @@ import { COLORS, SITE } from "./src/config.ts"
 import { THEME_SCRIPT } from "./src/lib/theme-script.ts"
 import { runContrastChecks } from "./scripts/contrast-check.mjs"
 import { validateConfig } from "./scripts/validate-config.mjs"
+import { imageCacheNotice } from "./scripts/image-cache-notice.mjs"
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -177,5 +178,6 @@ export default defineConfig({
   },
 
   // * /ui is a developer-facing component showcase — exclude from sitemap and SEO.
-  integrations: [sitemap({ filter: (page) => !page.includes("/ui/") }), icon()],
+  // * imageCacheNotice() warns when a CI/deploy build starts with an empty image cache.
+  integrations: [sitemap({ filter: (page) => !page.includes("/ui/") }), icon(), imageCacheNotice()],
 })
