@@ -69,7 +69,7 @@ release-please anchors its version bump to a `<package.json name>-v<version>` gi
 
 ### Image cache notice
 
-Astro re-encodes every image on each build unless `node_modules/.astro/assets` survives between builds, and only the host's build cache can keep it (GitHub Actions `actions/cache` is already in `ci.yml`; Cloudflare Workers Builds has a "Build cache" switch on the trigger; Vercel/Netlify have their own). The build can't enforce that, so `scripts/image-cache-notice.mjs` (`imageCacheNotice()` integration) only warns via `logger.warn` when `CI`/`WORKERS_CI`/`VERCEL`/`NETLIFY` is set and `config.cacheDir/assets` is missing or empty — never fails the build, never speaks on a local build. Keep it host-agnostic: provider names appear only in the message text.
+Astro re-encodes every image on each build unless `node_modules/.astro/assets` survives between builds, and only the host's build cache can keep it (GitHub Actions `actions/cache` is already in `ci.yml`; Cloudflare Workers Builds has a "Build cache" switch on the trigger; Vercel/Netlify have their own). The build can't enforce that, so `scripts/image-cache-notice.mjs` (`imageCacheNotice()` integration) only warns via `logger.warn` (at `astro:build:done`) when `CI`/`WORKERS_CI`/`VERCEL`/`NETLIFY` is set, `config.cacheDir/assets` was missing or empty at build start and was non-empty after the build (images really were encoded — no false alarm for projects without optimised images) — never fails the build, never speaks on a local build. Keep it host-agnostic: provider names appear only in the message text.
 
 ### Lighthouse CI
 
