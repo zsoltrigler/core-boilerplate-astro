@@ -24,13 +24,13 @@
     "prepare": "husky && node scripts/enable-rerere.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/sitemap": "^3.7.6",
     "@iconify-json/line-md": "^1.2.16",
-    "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.4.0",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^7.4.13",
     "astro-icon": "^1.2.0",
-    "shiki": "^4.5.0",
-    "tailwindcss": "^4.3.3",
+    "shiki": "^4.6.0",
+    "tailwindcss": "^4.3.5",
     "zod": "^4.6.7"
   },
   "devDependencies": {
