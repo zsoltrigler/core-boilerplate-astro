@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v2.1.0...core-boilerplate-v2.2.0) (2026-11-27)
+
+
+### Features
+
+* **build:** warn about the image cache only when images were encoded ([#319](https://github.com/zsoltrigler/core-boilerplate-astro/issues/319)) ([ce4537a](https://github.com/zsoltrigler/core-boilerplate-astro/commit/ce4537a81432249581c2275973b706459c4ba74f))
+
 ## [2.1.0](https://github.com/zsoltrigler/core-boilerplate-astro/compare/core-boilerplate-v2.0.0...core-boilerplate-v2.1.0) (2026-11-27)
 
 
